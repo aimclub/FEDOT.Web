@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+</head>
+<body>
+<p>This is TEST</p>
+<button onclick="ioClient.send('start_compose')">start compose</button>
+<div id="kek">
+
+</div>
+
+<script>
+    ioClient = io();
+    ioClient.on('connect', socket => {
+        ioClient.send('hello world')
+    });
+    ioClient.on('message', msg => {
+        console.log(msg);
+        try {
+            data = JSON.parse(msg)
+            if (data){
+                element = document.getElementById('kek');
+                for (key in data["chains"]) {
+                    nodes = data["chains"][key] + ""
+                    let p = document.createElement('p');
+                    p.innerHTML = nodes;
+                    element.append(p);
+                }
+            }
+        }catch (e) {
+
+        }
+    });
+</script>
+
+</body>
+
+</html>
