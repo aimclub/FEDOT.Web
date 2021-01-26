@@ -1,2 +1,4 @@
 flask==1.1.2
 flask-socketio==5.0.1
+flask-swagger-ui==3.36.0
+fedot==0.2.0

@@ -1,0 +1,149 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is FEDOT web api prototype",
+    "version": "0.0.1",
+    "title": "FEDOT web api"
+  },
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "Models Request",
+      "description": "Example API for requesting and adding models"
+    }
+  ],
+  "paths": {
+    "/models": {
+      "get": {
+        "tags": [
+          "Models Request"
+        ],
+        "summary": "Returns models",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/modelsResponse"
+            }
+          }
+        }
+      }
+    },
+    "/models/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the model",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Models Request"
+        ],
+        "summary": "Get model request with given ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Model Request id",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/modelsByIdResponse"
+            }
+          },
+          "400": {
+            "description": "Failed"
+          }
+        }
+      }
+    },
+    "/add_model": {
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "required": true,
+          "description": "Name of the model",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Models Request"
+        ],
+        "summary": "Add model",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Name of model for add",
+            "schema": {
+              "$ref": "#/definitions/modelRequestPostBody"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "id": {
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "modelsResponse": {
+      "properties": {
+        "result": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "modelsByIdResponse": {
+      "properties": {
+        "result": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "modelRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      }
+  }
+}

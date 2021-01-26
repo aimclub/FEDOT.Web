@@ -1,7 +1,4 @@
 import datetime
-import os
-
-from sklearn.metrics import roc_auc_score as roc_auc
 
 from fedot.core.chains.chain import Chain
 from fedot.core.composer.gp_composer.gp_composer import GPComposerRequirements, GPComposerBuilder
@@ -11,7 +8,7 @@ from fedot.core.data.data import InputData
 from fedot.core.repository.model_types_repository import ModelTypesRepository
 from fedot.core.repository.quality_metrics_repository import ClassificationMetricsEnum, MetricsRepository
 from fedot.core.repository.tasks import Task, TaskTypesEnum
-from fedot.core.utils import project_root
+from sklearn.metrics import roc_auc_score as roc_auc
 
 
 def calculate_validation_metric(chain: Chain, dataset_to_validate: InputData) -> float:
@@ -69,7 +66,7 @@ def run_credit_scoring_problem(train_file_path, test_file_path,
 
     if is_visualise:
         visualiser = ChainVisualiser()
-        visualiser.visualise(chain_evo_composed, params_save_path=r'C:\Users\user\Downloads\params.csv')
+        visualiser.visualise(chain_evo_composed)
 
     # the quality assessment for the obtained composite models
     roc_on_valid_evo_composed = calculate_validation_metric(chain_evo_composed,
@@ -82,10 +79,8 @@ def run_credit_scoring_problem(train_file_path, test_file_path,
 
 def start_compose(custom_callback):
     file_path_train = 'data/scoring/scoring_train.csv'
-    full_path_train = os.path.join(str(project_root()), file_path_train)
 
     # a dataset for a final validation of the composed model
     file_path_test = 'data/scoring/scoring_test.csv'
-    full_path_test = os.path.join(str(project_root()), file_path_test)
 
-    run_credit_scoring_problem(full_path_train, full_path_test, is_visualise=True, custom_callback=custom_callback)
+    run_credit_scoring_problem(file_path_train, file_path_test, is_visualise=True, custom_callback=custom_callback)

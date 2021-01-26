@@ -2,10 +2,11 @@ import json
 import random
 
 import numpy as np
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask import render_template
 from flask_socketio import SocketIO
 from flask_socketio import send
+from flask_swagger_ui import get_swaggerui_blueprint
 
 from fedot_app.basic_functions import start_compose
 
@@ -23,9 +24,25 @@ def custom_callback(pop):
     send(json.dumps(data))
 
 
+SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
+API_URL = '/static/swagger.json'  # Our API url (can of course be a local resource)
+
+# Call factory function to create our blueprint
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
+    API_URL,
+    config={  # Swagger UI config overrides
+        'app_name': "FEDOT web"
+    }
+)
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
+app.register_blueprint(swaggerui_blueprint)
+
 socketio = SocketIO(app, async_mode='threading')
+
+models_list = ['model_1', 'model_2', 'model_3']
 
 @app.route('/')
 def index():
@@ -34,18 +51,19 @@ def index():
 
 @app.route('/models', methods=['GET'])
 def models():
-    return jsonify()
+    return jsonify(models_list)
 
 
 @app.route('/models/<int:id>', methods=['GET'])
 def modelById(id):
-    return jsonify({})
+    return jsonify(models_list[id])
 
 
-@app.route('/model/<string:name>', methods=['POST'])
-def addModelByName(name):
-    # modesList.append(name)
-    return jsonify({'message': 'New model added'})
+@app.route('/add_model', methods=['POST'])
+def addModelByName():
+    data = request.get_json(force=True)
+    models_list.append(data['name'])
+    return jsonify({'result': 'ok'})
 
 
 @socketio.on('message')

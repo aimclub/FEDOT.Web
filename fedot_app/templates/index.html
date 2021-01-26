@@ -8,7 +8,7 @@
 <body>
 <p>This is TEST</p>
 <button onclick="ioClient.send('start_compose')">start compose</button>
-<div id="kek">
+<div id="models_list">
 
 </div>
 
@@ -22,7 +22,7 @@
         try {
             data = JSON.parse(msg)
             if (data){
-                element = document.getElementById('kek');
+                element = document.getElementById('models_list');
                 for (key in data["chains"]) {
                     nodes = data["chains"][key] + ""
                     let p = document.createElement('p');
@@ -34,6 +34,7 @@
 
         }
     });
+
 </script>
 
 </body>
