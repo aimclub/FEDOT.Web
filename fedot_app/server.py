@@ -2,10 +2,8 @@ import json
 import random
 
 import numpy as np
-from flask import Flask, jsonify, request
-from flask import render_template
-from flask_socketio import SocketIO
-from flask_socketio import send
+from flask import Flask, jsonify, render_template, request
+from flask_socketio import SocketIO, send
 from flask_swagger_ui import get_swaggerui_blueprint
 
 from fedot_app.basic_functions import start_compose
@@ -44,6 +42,7 @@ socketio = SocketIO(app, async_mode='threading')
 
 models_list = ['model_1', 'model_2', 'model_3']
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -57,6 +56,14 @@ def models():
 @app.route('/models/<int:id>', methods=['GET'])
 def modelById(id):
     return jsonify(models_list[id])
+
+
+@app.route('/evo/history/<string:dataset_id>', methods=['GET'])
+def evo_history(dataset_id):
+    with open('./data/mocked_jsons/evo_history.json') as f:
+        evo_history = json.load(f)
+        evo_history['dataset_id'] = dataset_id
+    return jsonify(evo_history)
 
 
 @app.route('/add_model', methods=['POST'])
