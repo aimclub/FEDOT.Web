@@ -6,7 +6,7 @@ from flask import Flask, jsonify, render_template, request
 from flask_socketio import SocketIO, send
 from flask_swagger_ui import get_swaggerui_blueprint
 
-from fedot_app.basic_functions import start_compose
+from fedot_app.basic_functions import get_metrics, get_model_types, start_compose, task_type_from_id
 
 random.seed(1)
 np.random.seed(1)
@@ -58,6 +58,27 @@ def modelById(id):
     return jsonify(models_list[id])
 
 
+@app.route('/meta/model_types/<string:task_id>', methods=['GET'])
+def model_type_for_task(task_id):  # TODO add task_id
+    task_type = task_type_from_id(task_id)
+    model_types, _ = get_model_types(task_type)
+    return jsonify(model_types)
+
+
+@app.route('/meta/metrics/<string:task_id>', methods=['GET'])
+def metrics_for_task(task_id):
+    task_type = task_type_from_id(task_id)
+    metrics = get_metrics(task_type)
+    return jsonify(metrics)
+
+
+@app.route('/data/datasets/all', methods=['GET'])
+def datasets():
+    # replace to table
+    datasets = ['scoring']
+    return jsonify(datasets)
+
+
 @app.route('/composer/history/<string:dataset_id>', methods=['GET'])
 def composer_history_for_experiment(dataset_id):  # TODO add task_id, user_key
     with open('./data/mocked_jsons/evo_history.json') as f:
@@ -71,7 +92,7 @@ def chain_by_uid(uid):
     chain_json = None
     with open('./data/mocked_jsons/chain.json') as f:
         chain_json = json.load(f)
-        chain_uid = chain_json['uid']
+        chain_json['uid'] = uid
     if chain_json:
         return jsonify(chain_json)
     else:
