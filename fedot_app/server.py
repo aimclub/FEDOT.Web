@@ -58,12 +58,43 @@ def modelById(id):
     return jsonify(models_list[id])
 
 
-@app.route('/evo/history/<string:dataset_id>', methods=['GET'])
-def evo_history(dataset_id):
+@app.route('/composer/history/<string:dataset_id>', methods=['GET'])
+def composer_history_for_experiment(dataset_id):  # TODO add task_id, user_key
     with open('./data/mocked_jsons/evo_history.json') as f:
         evo_history = json.load(f)
         evo_history['dataset_id'] = dataset_id
     return jsonify(evo_history)
+
+
+@app.route('/chains/<string:uid>', methods=['GET'])
+def chain_by_uid(uid):
+    chain_json = None
+    with open('./data/mocked_jsons/chain.json') as f:
+        chain_json = json.load(f)
+        chain_uid = chain_json['uid']
+    if chain_json:
+        return jsonify(chain_json)
+    else:
+        jsonify({'result': 'Failed'})
+
+
+@app.route('/chains/add/{graph_structure}', methods=['POST'])
+def create_chain_from_graph():
+    graph = request.get_json(force=True)
+
+    # TODO convert graph to Chain
+
+    is_exists = True  # TODO search chain with same structure and data in database
+
+    if is_exists:
+        with open('./data/mocked_jsons/chain.json') as f:
+            model = json.load(f)
+            uid = model['uid']
+    else:
+        raise NotImplementedError('Cannot create new chain')
+        # TODO save chain to database
+
+    return jsonify({'result': 'ok', 'chain_uid': uid})
 
 
 @app.route('/add_model', methods=['POST'])

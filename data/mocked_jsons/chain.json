@@ -1,0 +1,91 @@
+{
+    "uid": "50b86b52-b9f0-42a8-971b-575578879393",
+    "nodes": [
+        {
+            "model_id": 3,
+            "model_type": "xgboost",
+            "params": "default_params",
+            "nodes_from": [],
+            "preprocessor": "scaling"
+        },
+        {
+            "model_id": 4,
+            "model_type": "lda",
+            "params": {
+                "n_components": 1
+            },
+            "nodes_from": [],
+            "preprocessor": "scaling"
+        },
+        {
+            "model_id": 2,
+            "model_type": "logit",
+            "params": "default_params",
+            "nodes_from": [
+                3,
+                4
+            ],
+            "preprocessor": "scaling"
+        },
+        {
+            "model_id": 6,
+            "model_type": "knn",
+            "params": {
+                "n_neighbors": 9
+            },
+            "nodes_from": [],
+            "preprocessor": "scaling"
+        },
+        {
+            "model_id": 5,
+            "model_type": "knn",
+            "params": {
+                "n_neighbors": 5
+            },
+            "nodes_from": [
+                6
+            ],
+            "preprocessor": "scaling"
+        },
+        {
+            "model_id": 7,
+            "model_type": "pca_datamodel",
+            "params": "default_params",
+            "nodes_from": [],
+            "preprocessor": "scaling"
+        },
+        {
+            "model_id": 1,
+            "model_type": "lda",
+            "params": {
+                "n_components": 1
+            },
+            "nodes_from": [
+                2,
+                5
+            ],
+            "preprocessor": "scaling"
+        },
+        {
+            "model_id": 8,
+            "model_type": "xgboost",
+            "params": "default_params",
+            "nodes_from": [
+                7
+            ],
+            "preprocessor": "scaling"
+        },
+        {
+            "model_id": 0,
+            "model_type": "knn",
+            "params": {
+                "n_neighbors": 8
+            },
+            "nodes_from": [
+                1,
+                8
+            ],
+            "preprocessor": "scaling"
+        }
+    ]
+}

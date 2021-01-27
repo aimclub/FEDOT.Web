@@ -50,7 +50,7 @@
 	},
 	"population_2": {
 	  "uid": "P2",
-	  "number": 1,
+	  "number": 2,
 	  "individuals": {
 		"ind_1": {
 		  "uid": "I21",
