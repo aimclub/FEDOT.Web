@@ -15,8 +15,8 @@ api = Namespace("Model", description="Operations with models")
 class ModelResource(Resource):
     """Models"""
 
-    @responds(schema=ModelSchema)
-    def get_all_models(self) -> List[Model]:
+    @responds(schema=ModelSchema, many=True)
+    def get(self) -> List[Model]:
         """Get all models"""
         models = all_models()
         return models
@@ -24,7 +24,7 @@ class ModelResource(Resource):
     @accepts(schema=ModelSchema, api=api)
     @responds(schema=ModelSchema)
     def post(self) -> Model:
-        """Create a Single Widget"""
+        """Create a single Model"""
 
         obtained = request.parsed_obj
         print(obtained)
