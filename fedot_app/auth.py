@@ -1,16 +1,86 @@
-from flask import Blueprint, render_template, request, url_for, redirect, flash
-from flask_login import login_user, logout_user, login_required
+import json
+
+from flask import Blueprint, render_template, request, url_for, redirect, flash, session
+from flask_login import login_user, logout_user, login_required, current_user
+from requests import HTTPError
+from requests_oauthlib import OAuth2Session
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from . import db
+from .config import Auth
 from .models import User
 
 auth = Blueprint('auth', __name__)
 
 
+def get_google_auth(state=None, token=None):
+    if token:
+        return OAuth2Session(Auth.CLIENT_ID, token=token)
+    if state:
+        return OAuth2Session(
+            Auth.CLIENT_ID,
+            state=state,
+            redirect_uri=Auth.REDIRECT_URI)
+    oauth = OAuth2Session(
+        Auth.CLIENT_ID,
+        redirect_uri=Auth.REDIRECT_URI,
+        scope=Auth.SCOPE)
+    return oauth
+
+@auth.route('/login/callback')
+def callback():
+    # Redirect user to home page if already logged in.
+    if current_user is not None and current_user.is_authenticated:
+        return redirect(url_for('index'))
+    if 'error' in request.args:
+        if request.args.get('error') == 'access_denied':
+            return 'You denied access.'
+        return 'Error encountered.'
+    if 'code' not in request.args and 'state' not in request.args:
+        return redirect(url_for('login'))
+    else:
+        # Execution reaches here when user has
+        # successfully authenticated our app.
+        google = get_google_auth(state=session['oauth_state'])
+        print(request.url)
+        try:
+            token = google.fetch_token(
+                Auth.TOKEN_URI,
+                client_secret=Auth.CLIENT_SECRET,
+                authorization_response=request.url)
+        except HTTPError:
+            return 'HTTPError occurred.'
+        google = get_google_auth(token=token)
+        resp = google.get(Auth.USER_INFO)
+        if resp.status_code == 200:
+            user_data = resp.json()
+            print("user_data", user_data)
+            email = user_data['email']
+            user = User.query.filter_by(email=email).first()
+            if user is None:
+                user = User()
+                user.email = email
+            user.name = user_data['name']
+            print(token)
+            user.tokens = json.dumps(token)
+            user.avatar = user_data['picture']
+            db.session.add(user)
+            db.session.commit()
+            login_user(user)
+            return redirect(url_for('main.profile'))
+        return 'Could not fetch your information.'
+
 @auth.route('/login')
 def login():
-    return render_template("login.html")
+    if current_user.is_authenticated:
+        return redirect(url_for('main.profile'))
+    google = get_google_auth()
+    auth_url, state = google.authorization_url(
+        Auth.AUTH_URI, access_type='offline')
+    session['oauth_state'] = state
+    print("state", state)
+    return render_template('login.html', auth_url=auth_url)
+
 
 
 @auth.route('/login', methods=['POST'])
