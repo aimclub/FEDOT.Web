@@ -24,7 +24,7 @@ def custom_callback(pop):
     send(json.dumps(data))
 
 
-SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
+SWAGGER_URL = '/app/docs'  # URL for exposing Swagger UI (without trailing '/')
 API_URL = '/static/swagger.json'  # Our API url (can of course be a local resource)
 
 # Call factory function to create our blueprint
