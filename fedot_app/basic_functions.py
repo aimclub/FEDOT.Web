@@ -2,12 +2,15 @@ import datetime
 from typing import List
 
 from fedot.core.chains.chain import Chain
-from fedot.core.composer.gp_composer.gp_composer import GPComposerBuilder, GPComposerRequirements
-from fedot.core.composer.optimisers.gp_optimiser import GPChainOptimiserParameters, GeneticSchemeTypesEnum
+from fedot.core.composer.gp_composer.gp_composer import GPComposerBuilder, \
+    GPComposerRequirements
+from fedot.core.composer.optimisers.gp_optimiser import GPChainOptimiserParameters, \
+    GeneticSchemeTypesEnum
 from fedot.core.composer.visualisation import ChainVisualiser
 from fedot.core.data.data import InputData
 from fedot.core.repository.model_types_repository import ModelTypesRepository
-from fedot.core.repository.quality_metrics_repository import ClassificationMetricsEnum, ClusteringMetricsEnum, \
+from fedot.core.repository.quality_metrics_repository import ClassificationMetricsEnum, \
+    ClusteringMetricsEnum, \
     MetricsRepository, RegressionMetricsEnum
 from fedot.core.repository.tasks import Task, TaskTypesEnum
 from sklearn.metrics import roc_auc_score as roc_auc
@@ -97,7 +100,10 @@ def start_compose(custom_callback):
     # a dataset for a final validation of the composed model
     file_path_test = 'data/scoring/scoring_test.csv'
 
-    run_credit_scoring_problem(file_path_train, file_path_test, is_visualise=True, custom_callback=custom_callback)
+    run_credit_scoring_problem(file_path_train,
+                               file_path_test,
+                               is_visualise=True,
+                               custom_callback=custom_callback)
 
 
 def get_model_types(task_type: TaskTypesEnum) -> List[str]:
