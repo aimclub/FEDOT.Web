@@ -6,7 +6,7 @@ from flask import Flask, jsonify, render_template, request
 from flask_socketio import SocketIO, send
 from flask_swagger_ui import get_swaggerui_blueprint
 
-from fedot_app.basic_functions import get_metrics, get_model_types, start_compose, task_type_from_id
+from fedot_app.basic_functions import start_compose
 
 random.seed(1)
 np.random.seed(1)

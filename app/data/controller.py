@@ -3,7 +3,7 @@ from typing import List
 from flask_accepts import responds
 from flask_restx import Namespace, Resource
 
-from .entities import Dataset
+from .models import Dataset
 from .schema import DatasetSchema
 from .service import get_datasets
 

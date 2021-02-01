@@ -3,9 +3,9 @@ from typing import List
 from flask_accepts import responds
 from flask_restx import Namespace, Resource
 
-from .entities import ModelName, Task
-from .schema import ModelNameSchema, TaskSchema
-from .service import get_model_names, task_dict, task_type_from_id
+from .models import MetricInfo, ModelInfo, TaskInfo
+from .schema import MetricInfoSchema, ModelInfoSchema, TaskInfoSchema
+from .service import get_metrics_info, get_models_info, get_tasks_info, task_type_from_id
 
 api = Namespace("Meta", description="Operations with metadata")
 
@@ -14,21 +14,34 @@ api = Namespace("Meta", description="Operations with metadata")
 class MetaTaskResource(Resource):
     """Meta for tasks"""
 
-    @responds(schema=TaskSchema, many=True)
-    def get(self) -> List[Task]:
+    @responds(schema=TaskInfoSchema, many=True)
+    def get(self) -> List[TaskInfo]:
         """Get all tasks from metadata"""
-        tasks = [Task(task_name) for task_name in list(task_dict.keys())]
-        return tasks
+        tasks_info = get_tasks_info()
+        return tasks_info
 
 
-@api.route("/models/<string:task_id>")
-@api.param('task_id', 'ID of task that should be supported by models')
+@api.route("/models/<string:task_name>")
+@api.param('task_name', 'ID of task that should be supported by models')
 class MetaModelsResource(Resource):
     """Meta for models"""
 
-    @responds(schema=ModelNameSchema, many=True)
-    def get(self, task_id) -> List[ModelName]:
+    @responds(schema=ModelInfoSchema, many=True)
+    def get(self, task_name) -> List[ModelInfo]:
         """Get all model names from metadata"""
-        task = task_type_from_id(task_id)
-        model_names = [ModelName(_) for _ in get_model_names(task)]
-        return model_names
+        task = task_type_from_id(task_name)
+        models_info = get_models_info(task)
+        return models_info
+
+
+@api.route("/metrics/<string:task_name>")
+@api.param('task_name', 'ID of task that should be supported by metrics')
+class MetaMetricsResource(Resource):
+    """Meta for composing metrics"""
+
+    @responds(schema=MetricInfoSchema, many=True)
+    def get(self, task_name) -> List[MetricInfo]:
+        """Get all model names from metadata"""
+        task = task_type_from_id(task_name)
+        metric_info = get_metrics_info(task)
+        return metric_info

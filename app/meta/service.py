@@ -8,27 +8,35 @@ from fedot.core.repository.quality_metrics_repository import \
     RegressionMetricsEnum
 from fedot.core.repository.tasks import TaskTypesEnum
 
-task_dict = {'regression': TaskTypesEnum.regression,
-             'classification': TaskTypesEnum.classification,
-             'clustering': TaskTypesEnum.clustering,
-             'ts_forecasting': TaskTypesEnum.ts_forecasting
-             }
+from .models import MetricInfo, ModelInfo, TaskInfo
 
-metrics_dict = {TaskTypesEnum.regression: RegressionMetricsEnum,
-                TaskTypesEnum.classification: ClassificationMetricsEnum,
-                TaskTypesEnum.clustering: ClusteringMetricsEnum,
-                TaskTypesEnum.ts_forecasting: RegressionMetricsEnum
-                }
+_task_dict = {'regression': TaskTypesEnum.regression,
+              'classification': TaskTypesEnum.classification,
+              'clustering': TaskTypesEnum.clustering,
+              'ts_forecasting': TaskTypesEnum.ts_forecasting
+              }
+
+_metrics_dict = {TaskTypesEnum.regression: RegressionMetricsEnum,
+                 TaskTypesEnum.classification: ClassificationMetricsEnum,
+                 TaskTypesEnum.clustering: ClusteringMetricsEnum,
+                 TaskTypesEnum.ts_forecasting: RegressionMetricsEnum
+                 }
 
 
-def get_model_names(task_type: TaskTypesEnum) -> List[str]:
+def get_models_info(task_type: TaskTypesEnum) -> List[ModelInfo]:
     model_names, _ = ModelTypesRepository().suitable_model(task_type=task_type)
-    return model_names
+    models = [ModelInfo(name, name) for name in model_names]
+    return models
 
 
-def get_metrics(task_type: TaskTypesEnum) -> List[str]:
-    return [m.value for m in metrics_dict[task_type]]
+def get_metrics_info(task_type: TaskTypesEnum) -> List[MetricInfo]:
+    return [MetricInfo(m.name, m.name) for m in _metrics_dict[task_type]]
 
 
-def task_type_from_id(task_type_id: str):
-    return task_dict[task_type_id]
+def task_type_from_id(task_type_id: str) -> TaskTypesEnum:
+    return _task_dict[task_type_id]
+
+
+def get_tasks_info() -> List[TaskInfo]:
+    tasks = [TaskInfo(task_name, task_name) for task_name in list(_task_dict.keys())]
+    return tasks

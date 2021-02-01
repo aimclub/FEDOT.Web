@@ -1,6 +1,6 @@
 {
-  "dataset_id": "scoring",
-  "task_id": "classification",
+  "dataset_name": "scoring",
+  "task_name": "classification",
   "is_finished": "True",
   "populations": {
 	"population_1": {
