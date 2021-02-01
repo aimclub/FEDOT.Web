@@ -38,5 +38,6 @@ def task_type_from_id(task_type_id: str) -> TaskTypesEnum:
 
 
 def get_tasks_info() -> List[TaskInfo]:
-    tasks = [TaskInfo(task_name, task_name) for task_name in list(_task_dict.keys())]
+    tasks = [TaskInfo(task_name, task_name) for
+             task_name in list(_task_dict.keys())]
     return tasks

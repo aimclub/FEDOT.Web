@@ -9,4 +9,4 @@ Flask-Script==2.0.6
 marshmallow==3.2.0
 Werkzeug==0.16.1
 flask-restx==0.2.0
-tensorflow==2.2.0
+tensorflow>=2.2.0

@@ -5,7 +5,8 @@ from flask_restx import Namespace, Resource
 
 from .models import MetricInfo, ModelInfo, TaskInfo
 from .schema import MetricInfoSchema, ModelInfoSchema, TaskInfoSchema
-from .service import get_metrics_info, get_models_info, get_tasks_info, task_type_from_id
+from .service import (get_metrics_info, get_models_info,
+                      get_tasks_info, task_type_from_id)
 
 api = Namespace("Meta", description="Operations with metadata")
 
