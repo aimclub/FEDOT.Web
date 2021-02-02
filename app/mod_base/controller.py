@@ -6,9 +6,8 @@ from flask import Flask, jsonify, render_template, request
 from flask_socketio import SocketIO, send
 from flask_swagger_ui import get_swaggerui_blueprint
 
-from fedot_app import socketio, login_manager
-from fedot_app.basic_functions import start_compose
-from fedot_app.models import User
+from app import socketio
+from app.mod_base.service import start_compose
 
 random.seed(1)
 np.random.seed(1)
@@ -24,7 +23,7 @@ def custom_callback(pop):
     send(json.dumps(data))
 
 
-main = Blueprint('main', __name__)
+main = Blueprint('main', __name__, url_prefix="/")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -52,8 +51,3 @@ def handle_message(data):
     socketio.send('received message: ' + data)
     if data == 'start_compose':
         start_compose(custom_callback)
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)

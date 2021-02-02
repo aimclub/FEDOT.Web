@@ -1,6 +1,6 @@
 from typing import List
 
-from .model import Model
+from app.mod_api.model import Model
 
 
 def all_models() -> List[Model]:

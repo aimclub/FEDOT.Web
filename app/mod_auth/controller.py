@@ -6,9 +6,9 @@ from requests import HTTPError
 from requests_oauthlib import OAuth2Session
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from . import db
-from .config import Auth
-from .models import User
+from app import db
+from app.mod_auth.config import Auth
+from app.mod_auth.model import User
 
 auth = Blueprint('auth', __name__)
 

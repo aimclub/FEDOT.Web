@@ -4,12 +4,11 @@ from flask import request
 from flask_accepts import responds, accepts
 from flask_restx import Namespace, Resource
 
-from .model import Model
+from app.mod_api.model import Model
 from .schema import ModelSchema
 from .service import all_models
 
 api = Namespace("Model", description="Operations with models")
-
 
 @api.route("/")
 class ModelResource(Resource):
