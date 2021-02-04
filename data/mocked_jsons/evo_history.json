@@ -1,0 +1,123 @@
+{
+  "dataset_name": "scoring",
+  "task_name": "classification",
+  "is_finished": "True",
+  "populations": {
+	"population_1": {
+	  "uid": "P1",
+	  "number": 1,
+	  "individuals": {
+		"ind_1": {
+		  "uid": "I1",
+		  "chain_id": "C1",
+		  "objs": {
+			"roc_auc": 0.85,
+			"fit_time": 6,
+			"structural": 3
+		  },
+		  "from": {
+			"parent_individuals": [],
+			"operator": "init"
+		  }
+		},
+		"ind_2": {
+		  "uid": "I2",
+		  "chain_id": "C2",
+		  "objs": {
+			"roc_auc": 0.85,
+			"fit_time": 6,
+			"structural": 3
+		  },
+		  "from": {
+			"parent_individuals": [],
+			"operator": "init"
+		  }
+		},
+		"ind_3": {
+		  "uid": "I3",
+		  "chain_id": "C3",
+		  "objs": {
+			"roc_auc": 0.85,
+			"fit_time": 6,
+			"structural": 3
+		  },
+		  "from": {
+			"parent_individuals": [],
+			"operator": "init"
+		  }
+		}
+	  }
+	},
+	"population_2": {
+	  "uid": "P2",
+	  "number": 2,
+	  "individuals": {
+		"ind_1": {
+		  "uid": "I21",
+		  "chain_id": "C1",
+		  "objs": {
+			"roc_auc": 0.85,
+			"fit_time": 6,
+			"structural": 3
+		  },
+		  "from": {
+			"parent_individuals": ["I1"],
+			"operator": "none"
+		  }
+		},
+		"ind_2": {
+		  "uid": "I22",
+		  "chain_id": "C4",
+		  "objs": {
+			"roc_auc": 0.86,
+			"fit_time": 6,
+			"structural": 3
+		  },
+		  "from": {
+			"parent_individuals": ["I2"],
+			"operator": "mutation"
+		  }
+		},
+		"ind_3": {
+		  "uid": "I23",
+		  "chain_id": "C5",
+		  "objs": {
+			"roc_auc": 0.855,
+			"fit_time": 6,
+			"structural": 4
+		  },
+		  "from": {
+			"parent_individuals": ["I1", "I2"],
+			"operator": "crossover"
+		  }
+		},
+		"ind_4": {
+		  "uid": "I24",
+		  "chain_id": "C5",
+		  "objs": {
+			"roc_auc": 0.855,
+			"fit_time": 2,
+			"structural": 2
+		  },
+		  "from": {
+			"parent_individuals": ["I3"],
+			"operator": "regular"
+		  }
+		},
+		"ind_5": {
+		  "uid": "I24",
+		  "chain_id": "C5",
+		  "objs": {
+			"roc_auc": 0.855,
+			"fit_time": 1,
+			"structural": 1
+		  },
+		  "from": {
+			"parent_individuals": ["I3"],
+			"operator": "regular"
+		  }
+		}
+	  }
+	}
+  }
+}
