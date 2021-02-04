@@ -25,7 +25,7 @@ class MetaTaskResource(Resource):
 @api.route("/models/<string:task_name>")
 @api.param('task_name', 'ID of task that should be supported by models')
 class MetaModelsResource(Resource):
-    """Meta for models"""
+    """Metadata for models"""
 
     @responds(schema=ModelInfoSchema, many=True)
     def get(self, task_name) -> List[ModelInfo]:
@@ -38,7 +38,7 @@ class MetaModelsResource(Resource):
 @api.route("/metrics/<string:task_name>")
 @api.param('task_name', 'ID of task that should be supported by metrics')
 class MetaMetricsResource(Resource):
-    """Meta for composing metrics"""
+    """Metadata for composing metrics"""
 
     @responds(schema=MetricInfoSchema, many=True)
     def get(self, task_name) -> List[MetricInfo]:

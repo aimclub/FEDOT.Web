@@ -16,7 +16,7 @@ class DataSetsResource(Resource):
 
     @responds(schema=DatasetSchema, many=True)
     def get(self) -> List[Dataset]:
-        """Get chain for specific dataset"""
+        """Get list of all datasets names"""
         dataset_name = get_datasets()
 
         return [Dataset(_) for _ in dataset_name]

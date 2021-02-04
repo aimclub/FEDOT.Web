@@ -11,10 +11,10 @@ api = Namespace("Composer",
 
 @api.route("/<string:dataset_name>")
 class ComposerHistoryResource(Resource):
-    """Chains"""
+    """Composer history"""
 
     @responds(schema=ComposingHistorySchema, many=False)
     def get(self, dataset_name) -> ComposingHistory:
-        """Get chain for specific dataset"""
+        """Get history of the composer for the specific dataset"""
         history = composer_history_for_experiment(dataset_name)
         return history
