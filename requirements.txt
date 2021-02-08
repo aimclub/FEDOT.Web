@@ -10,5 +10,5 @@ marshmallow==3.2.0
 Werkzeug==0.16.1
 flask-restx==0.2.0
 tensorflow>=2.2.0
-pytest==6.2.0
+pytest>=5.2.0
 pytest-flask==1.1.0
