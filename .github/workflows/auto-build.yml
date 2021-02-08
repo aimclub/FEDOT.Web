@@ -27,5 +27,3 @@ jobs:
       - name: Test with pytest
         run: |
           pytest --cov=. -s
-      - name: Codecov-coverage
-        uses: codecov/codecov-action@v1
