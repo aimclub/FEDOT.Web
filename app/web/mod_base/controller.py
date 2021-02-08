@@ -2,12 +2,13 @@ import json
 import random
 
 import numpy as np
-from flask import Flask, jsonify, render_template, request
-from flask_socketio import SocketIO, send
-from flask_swagger_ui import get_swaggerui_blueprint
+from flask import Blueprint
+from flask import render_template
+from flask_login import login_required, current_user
+from flask_socketio import send
 
 from app import socketio
-from app.mod_base.service import start_compose
+from .service import start_compose
 
 random.seed(1)
 np.random.seed(1)
@@ -25,16 +26,8 @@ def custom_callback(pop):
 
 main = Blueprint('main', __name__, url_prefix="/")
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-app.register_blueprint(swaggerui_blueprint)
 
-socketio = SocketIO(app, async_mode='threading')
-
-models_list = ['model_1', 'model_2', 'model_3']
-
-
-@app.route('/')
+@main.route('/')
 def index():
     return render_template('index.html')
 

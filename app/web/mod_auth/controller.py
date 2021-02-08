@@ -7,8 +7,9 @@ from requests_oauthlib import OAuth2Session
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db
-from app.mod_auth.config import Auth
-from app.mod_auth.model import User
+from app.api.auth.service import find_user_by_email
+from app.web.mod_auth.config import Auth
+from app.web.mod_auth.model import User
 
 auth = Blueprint('auth', __name__)
 
@@ -27,11 +28,12 @@ def get_google_auth(state=None, token=None):
         scope=Auth.SCOPE)
     return oauth
 
+
 @auth.route('/login/callback')
 def callback():
     # Redirect user to home page if already logged in.
     if current_user is not None and current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     if 'error' in request.args:
         if request.args.get('error') == 'access_denied':
             return 'You denied access.'
@@ -56,7 +58,7 @@ def callback():
             user_data = resp.json()
             print("user_data", user_data)
             email = user_data['email']
-            user = User.query.filter_by(email=email).first()
+            user = find_user_by_email(email)
             if user is None:
                 user = User()
                 user.email = email
@@ -70,6 +72,7 @@ def callback():
             return redirect(url_for('main.profile'))
         return 'Could not fetch your information.'
 
+
 @auth.route('/login')
 def login():
     if current_user.is_authenticated:
@@ -82,14 +85,13 @@ def login():
     return render_template('login.html', auth_url=auth_url)
 
 
-
 @auth.route('/login', methods=['POST'])
 def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
-    user = User.query.filter_by(email=email).first()
+    user = find_user_by_email(email)
 
     # check if the user actually exists
     # take the user-supplied password, hash it, and compare it to the hashed password in the database
@@ -113,8 +115,7 @@ def signup_post():
     name = request.form.get('name')
     password = request.form.get('password')
 
-    user = User.query.filter_by(
-        email=email).first()  # if this returns a user, then the email already exists in database
+    user = find_user_by_email(email)
 
     if user:  # if a user is found, we want to redirect back to signup page so user can try again
         flash('Email address already exists')

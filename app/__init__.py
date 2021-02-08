@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, jsonify, Blueprint
 from flask_login import LoginManager
 from flask_restx import Api
@@ -14,7 +16,10 @@ login_manager = LoginManager()
 def create_app(env=None):
     from app.config import config_by_name
 
-    app = Flask(__name__)
+    template_dir = os.path.abspath('app/web/templates')
+    static_dir = os.path.abspath('app/web/static')
+
+    app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
     app.config.from_object(config_by_name[env or "test"])
 
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
@@ -31,18 +36,18 @@ def create_app(env=None):
     def health():
         return jsonify("healthy")
 
-    from app.mod_auth.model import User
+    from app.web.mod_auth.model import User
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(user_id)
 
-    from app.mod_auth.controller import auth as auth_blueprint
+    from app.web.mod_auth.controller import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
-    from app.mod_base.controller import main as main_blueprint
+    from app.web.mod_base.controller import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-    from app.mod_api import register_routes
+    from app.api.routes import register_routes
     register_routes(api, app)
     app.register_blueprint(api_blueprint)
 
