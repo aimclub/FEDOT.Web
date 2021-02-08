@@ -1,10 +1,11 @@
 import json
 
 from .models import ComposingHistory
+from utils import project_root
 
 
 def composer_history_for_experiment(dataset_name: str) -> ComposingHistory:
-    with open('./data/mocked_jsons/evo_history.json') as f:
+    with open(f'{project_root()}/data/mocked_jsons/evo_history.json') as f:
         evo_history_json = json.load(f)
 
     history = ComposingHistory(evo_history_json['populations'],
