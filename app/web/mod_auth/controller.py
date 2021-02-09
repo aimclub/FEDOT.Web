@@ -1,15 +1,13 @@
-import json
-
 from flask import Blueprint, render_template, request, url_for, redirect, flash, session
 from flask_login import login_user, logout_user, login_required, current_user
 from requests import HTTPError
 from requests_oauthlib import OAuth2Session
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import db
 from app.api.auth.service import find_user_by_email
 from app.web.mod_auth.config import Auth
 from app.web.mod_auth.model import User
+from app.web.mod_auth.service import get_user, set_user_data, save_changes
 
 auth = Blueprint('auth', __name__)
 
@@ -57,17 +55,9 @@ def callback():
         if resp.status_code == 200:
             user_data = resp.json()
             print("user_data", user_data)
-            email = user_data['email']
-            user = find_user_by_email(email)
-            if user is None:
-                user = User()
-                user.email = email
-            user.name = user_data['name']
-            print(token)
-            user.tokens = json.dumps(token)
-            user.avatar = user_data['picture']
-            db.session.add(user)
-            db.session.commit()
+            user = get_user(user_data)
+            set_user_data(user, user_data, token)
+            save_changes(user)
             login_user(user)
             return redirect(url_for('main.profile'))
         return 'Could not fetch your information.'
@@ -125,8 +115,7 @@ def signup_post():
     new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
 
     # add the new user to the database
-    db.session.add(new_user)
-    db.session.commit()
+    save_changes(new_user)
 
     return redirect(url_for('auth.login'))
 

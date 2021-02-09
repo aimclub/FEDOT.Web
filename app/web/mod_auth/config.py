@@ -1,8 +1,11 @@
+import os
+
+
 class Auth:
-    CLIENT_ID = ('873413267506-f6cnts3qkgg544gknufkrk6iambpgunl.apps.googleusercontent.com')
-    CLIENT_SECRET = '05lRL4aRv8gXOWsdYaz7ns-r'
-    REDIRECT_URI = 'https://localhost:5000/login/callback'
-    AUTH_URI = 'https://accounts.google.com/o/oauth2/auth'
-    TOKEN_URI = 'https://accounts.google.com/o/oauth2/token'
-    USER_INFO = 'https://www.googleapis.com/userinfo/v2/me'
+    CLIENT_ID = os.getenv("CLIENT_ID", "Client ID")
+    CLIENT_SECRET = os.getenv("CLIENT_SECRET", "Client secret")
+    REDIRECT_URI = os.getenv("REDIRECT_URI")
+    AUTH_URI = os.getenv("AUTH_URI")
+    TOKEN_URI = os.getenv("TOKEN_URI")
+    USER_INFO = os.getenv("USER_INFO")
     SCOPE = ['profile', 'email']
