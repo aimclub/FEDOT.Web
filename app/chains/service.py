@@ -1,6 +1,8 @@
 import json
-from utils import project_root
 import warnings
+
+from utils import project_root
+
 
 def chain_by_uid(uid: str) -> dict:
     chain_json = None
