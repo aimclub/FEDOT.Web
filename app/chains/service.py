@@ -1,9 +1,12 @@
 import json
+import warnings
+
+from utils import project_root
 
 
 def chain_by_uid(uid: str) -> dict:
     chain_json = None
-    with open('./data/mocked_jsons/chain.json') as f:
+    with open(f'{project_root()}/data/mocked_jsons/chain.json') as f:
         chain_json = json.load(f)
         chain_json['uid'] = uid
 
@@ -14,16 +17,20 @@ def create_chain_from_graph(graph: dict):
     # TODO convert graph to Chain
 
     # TODO search chain with same structure and data in database
-    is_exists = True
+    is_new = True
 
-    uid = 'new_uid'
+    existing_uid = 'test_chain'
+    if graph['uid'] == existing_uid:
+        is_new = False
 
-    if is_exists:
-        with open('./data/mocked_jsons/chain.json') as f:
-            chain = json.load(f)
-            uid = chain['uid']
+    with open(f'{project_root()}/data/mocked_jsons/chain.json') as f:
+        chain = json.load(f)
+        uid = chain['uid']
+
+    if not is_new:
+        uid = existing_uid
     else:
-        raise NotImplementedError('Cannot create new chain')
         # TODO save chain to database
+        warnings.warn('Cannot create new chain')
 
-    return uid, is_exists
+    return uid, is_new

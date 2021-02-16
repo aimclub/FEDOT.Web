@@ -2,6 +2,6 @@ from marshmallow import Schema, fields
 
 
 class DatasetSchema(Schema):
-    """Composing history schema"""
+    """Dataset info schema"""
 
     dataset_name = fields.String(attribute='dataset_name')
