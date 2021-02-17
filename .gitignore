@@ -73,3 +73,5 @@ dist/
 *.egg-info
 
 venv/
+
+*.sqlite
