@@ -53,6 +53,7 @@ def generate_token(user_id):
     )
 
 
-def save_changes(data):
-    db.session.add(data)
+def save_changes(data=None):
+    if data:
+        db.session.add(data)
     db.session.commit()

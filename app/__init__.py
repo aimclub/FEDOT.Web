@@ -6,13 +6,7 @@ from flask_restx import Api
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 
-from app.ssl.ssl_config import SslConfig
-
 db = SQLAlchemy()
-
-ssl_config = SslConfig()
-ssl_config.get_config("app/ssl/cert")
-
 socketio = SocketIO()
 
 login_manager = LoginManager()
