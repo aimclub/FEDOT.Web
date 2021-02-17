@@ -2,14 +2,19 @@ from flask import Blueprint, render_template, request, url_for, redirect, flash,
 from flask_login import login_user, logout_user, login_required, current_user
 from requests import HTTPError
 from requests_oauthlib import OAuth2Session
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 
-from app.api.auth.service import find_user_by_email
-from app.web.mod_auth.config import Auth
-from app.web.mod_auth.model import User
-from app.web.mod_auth.service import get_user, set_user_data, save_changes
+from app import login_manager
+from app.api.auth.service import find_user_by_email, set_user_data, create_user
+from app.web.auth.config import Auth
+from app.web.auth.model import User
 
 auth = Blueprint('auth', __name__)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
 
 def get_google_auth(state=None, token=None):
@@ -54,10 +59,11 @@ def callback():
         resp = google.get(Auth.USER_INFO)
         if resp.status_code == 200:
             user_data = resp.json()
-            print("user_data", user_data)
-            user = get_user(user_data)
+            email = user_data['email']
+            user = find_user_by_email(email)
+            if user is None:
+                user = create_user(email)
             set_user_data(user, user_data, token)
-            save_changes(user)
             login_user(user)
             return redirect(url_for('main.profile'))
         return 'Could not fetch your information.'
@@ -112,10 +118,7 @@ def signup_post():
         return redirect(url_for('auth.signup'))
 
     # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
-
-    # add the new user to the database
-    save_changes(new_user)
+    create_user(email, name=name, password=password)
 
     return redirect(url_for('auth.login'))
 

@@ -6,7 +6,12 @@ from flask_restx import Api
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 
+from app.ssl.ssl_config import SslConfig
+
 db = SQLAlchemy()
+
+ssl_config = SslConfig()
+ssl_config.get_config("app/ssl/cert")
 
 socketio = SocketIO()
 
@@ -36,12 +41,7 @@ def create_app(env=None):
     def health():
         return jsonify("healthy")
 
-    from app.web.mod_auth.model import User
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(user_id)
-
-    from app.web.mod_auth.controller import auth as auth_blueprint
+    from app.web.auth.controller import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
     from app.web.mod_base.controller import main as main_blueprint

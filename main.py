@@ -1,7 +1,8 @@
 import os
 
-from app import create_app, socketio
+from app import create_app, socketio, ssl_config, db
 
 app = create_app(os.getenv("FLASK_ENV") or "test")
 if __name__ == "__main__":
-    socketio.run(app, ssl_context=('app/ssl.crt', 'app/ssl.key'))
+    db.create_all(app=create_app())
+    socketio.run(app, ssl_context=ssl_config.get_context())
