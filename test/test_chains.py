@@ -3,6 +3,8 @@ def test_get_chain_endpoint(client):
     history_json = client.get(f'api/chains/{uid}').json
     assert history_json['uid'] == uid
     assert len(history_json['nodes']) > 0
+    assert len(history_json['links']) > 0
+    # TODO more detailed test
 
 
 def test_add_chain_endpoint(client):
