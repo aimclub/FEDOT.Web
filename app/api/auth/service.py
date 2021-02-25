@@ -16,7 +16,7 @@ def find_user_by_email(email):
 
 def create_user(email, name=None, password=None):
     password_hash = None
-    if not password is None:
+    if password:
         password_hash = generate_password_hash(password, method='sha256')
     new_user = User(email=email,
                     name=name,

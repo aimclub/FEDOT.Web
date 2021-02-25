@@ -3,7 +3,7 @@ import os.path
 from werkzeug.serving import make_ssl_devcert
 
 
-class SslConfig(object):
+class SslConfig():
 
     def __init__(self):
         self.ssl_cert = None

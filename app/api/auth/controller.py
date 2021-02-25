@@ -17,6 +17,7 @@ class AuthTokenResource(Resource):
 
     @accepts(schema=UserSchema, api=api)
     @responds(schema=TokenSchema)
+    @api.doc(responses={401: 'check login data'})
     def post(self) -> Token:
         """Get token by user login data"""
         obtained = request.parsed_obj
@@ -36,6 +37,8 @@ class RegisterResource(Resource):
     """Registration"""
 
     @accepts(schema=UserSchema, api=api)
+    @api.doc(responses={200: 'registration successful'})
+    @api.doc(responses={400: 'user already exists'})
     def post(self) -> Token:
         """User registration"""
         obtained = request.parsed_obj
