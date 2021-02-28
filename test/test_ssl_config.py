@@ -3,32 +3,21 @@ import os
 from app.ssl.ssl_config import SslConfig
 
 
-def test_create_dummy():
+def test_create_dummy(temp_files, teardown):
     config = SslConfig()
-    name = "test_sert"
-    config.create_dummy(name)
-    cert = name + ".crt"
-    key = name + ".key"
-    assert os.path.exists(cert)
-    assert os.path.exists(key)
+    config.create_dummy(temp_files["name"])
+    assert os.path.exists(temp_files["cert"])
+    assert os.path.exists(temp_files["key"])
 
 
-def test_get_config():
+def test_get_config(temp_files, teardown):
     config = SslConfig()
-    name = "test_sert"
-    config.get_config(name)
-    cert = name + ".crt"
-    key = name + ".key"
-    assert config.ssl_cert == cert
-    assert config.ssl_key == key
+    config.get_config(temp_files["name"])
+    assert config.ssl_cert == temp_files["cert"]
+    assert config.ssl_key == temp_files["key"]
 
 
-def test_get_context():
+def test_get_context(temp_files, teardown):
     config = SslConfig()
-    name = "test_sert"
-    config.get_config(name)
-    cert = name + ".crt"
-    key = name + ".key"
-    assert config.get_context() == (cert, key)
-    os.remove(cert)
-    os.remove(key)
+    config.get_config(temp_files["name"])
+    assert config.get_context() == (temp_files["cert"], temp_files["key"])
