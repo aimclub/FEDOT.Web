@@ -1,9 +1,30 @@
+import os
+
 import pytest
 
-from main import create_app
+from app import create_app, db
 
 
 @pytest.fixture
 def app():
     app = create_app('test')
+    db.create_all(app=app)
     return app
+
+
+@pytest.fixture
+def temp_files():
+    name = "test_sert"
+    config = {
+        "name": name,
+        "cert": f"{name}.crt",
+        "key": f"{name}.key"
+    }
+    return config
+
+
+@pytest.fixture
+def teardown(temp_files):
+    yield
+    os.remove(temp_files["cert"])
+    os.remove(temp_files["key"])

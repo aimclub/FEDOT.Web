@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  {%- if current_user.is_authenticated -%}
+  <p>Welcome, {{ name }}!</p>
+  <img src="{{current_user.avatar}}?sz=20" width="100" height="100">
+  {%- endif -%}
+</h1>
+{% endblock %}

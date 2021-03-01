@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Test</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
 <p>This is TEST</p>
 <button onclick="ioClient.send('start_compose')">start compose</button>
 <div id="models_list">
@@ -36,7 +31,4 @@
     });
 
 </script>
-
-</body>
-
-</html>
+{% endblock %}
