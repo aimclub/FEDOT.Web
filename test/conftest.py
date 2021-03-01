@@ -17,8 +17,8 @@ def temp_files():
     name = "test_sert"
     config = {
         "name": name,
-        "cert": name + ".crt",
-        "key": name + ".key"
+        "cert": f"{name}.crt",
+        "key": f"{name}.key"
     }
     return config
 
