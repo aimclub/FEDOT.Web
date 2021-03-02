@@ -1,11 +1,12 @@
 from marshmallow import Schema, fields
 
 
-class ChainSchema(Schema):
+class ChainGraphSchema(Schema):
     """Chain schema"""
 
     uid = fields.String(attribute='uid')
     nodes = fields.Dict(attribute='nodes')
+    edges = fields.Dict(attribute='edges')
 
 
 class ChainResponseSchema(Schema):
