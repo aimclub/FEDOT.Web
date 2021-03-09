@@ -94,7 +94,6 @@ def _graph_node_to_chain_node(graph_node: dict, existing_graph_nodes: dict, chai
 def _add_to_chain_if_necessary(new_node, chain_nodes):
     chain_nodes_ids = [_.descriptive_id for _ in chain_nodes]
     if new_node.descriptive_id not in chain_nodes_ids:
-        print(new_node, new_node.descriptive_id)
         chain_nodes.append(new_node)
     return chain_nodes
 

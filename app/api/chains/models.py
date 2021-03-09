@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
@@ -16,6 +16,12 @@ class ChainGraph:
 
 
 @dataclass
+class ChainValidationResults:
+    is_valid: bool
+    error_desc: str
+
+
+@dataclass
 class ChainResponse:
-    uid: str
+    uid: Optional[str]
     is_new: bool

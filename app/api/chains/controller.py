@@ -1,11 +1,14 @@
+import json
+
 from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
-from .chain_convert_utils import chain_to_graph
-from .models import ChainGraph, ChainResponse
-from .schema import ChainGraphSchema, ChainResponseSchema
-from .service import chain_by_uid, create_chain_from_graph
+from .chain_convert_utils import chain_to_graph, graph_to_chain
+from .models import ChainGraph, ChainResponse, ChainValidationResults
+from .schema import (ChainGraphSchema, ChainResponseSchema,
+                     ChainValidationResultSchema)
+from .service import chain_by_uid, create_chain, validate_chain
 
 api = Namespace("Chains", description="Operations with chains")
 
@@ -26,6 +29,25 @@ class ChainsIdResource(Resource):
                           edges=chain_graph['edges'])
 
 
+@api.route("/validate/<string:graph>")
+class ChainsValidateResource(Resource):
+    """Chain validation"""
+
+    @responds(schema=ChainValidationResultSchema, many=False)
+    def get(self, graph) -> ChainValidationResults:
+        """Validate chain with specific structure"""
+
+        try:
+            graph_dict = json.loads(graph)
+            chain = graph_to_chain(graph_dict)
+            is_valid, msg = validate_chain(chain)
+        except Exception as _:
+            is_valid = False
+            msg = 'Incorrect chain'
+
+        return ChainValidationResults(is_valid, msg)
+
+
 @api.route("/add")
 class ChainsAddResource(Resource):
     @accepts(schema=ChainGraphSchema, api=api)
@@ -34,5 +56,10 @@ class ChainsAddResource(Resource):
         """Preserve new chain"""
 
         graph = request.parsed_obj
-        uid, is_exists = create_chain_from_graph(graph)
-        return ChainResponse(uid, is_exists)
+        chain = graph_to_chain(graph)
+        is_correct = validate_chain(chain)
+        if is_correct:
+            uid, is_exists = create_chain(graph['uid'], chain)
+            return ChainResponse(uid, is_exists)
+        else:
+            return ChainResponse(None, False)

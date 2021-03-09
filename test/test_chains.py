@@ -1,3 +1,11 @@
+import json
+
+from fedot.core.chains.chain import Chain
+
+from app.api.chains.chain_convert_utils import chain_to_graph
+from utils import project_root
+
+
 def test_get_chain_endpoint(client):
     uid = 'test_chain'
     history_json = client.get(f'api/chains/{uid}').json
@@ -5,6 +13,14 @@ def test_get_chain_endpoint(client):
     assert len(history_json['nodes']) > 0
     assert len(history_json['edges']) > 0
     # TODO more detailed test
+
+
+def test_validate_chain_endpoint(client):
+    initial_chain = Chain()
+    initial_chain.load_chain(f'{project_root()}/data/mocked_jsons/chain.json')
+    graph = chain_to_graph(initial_chain)
+    validation_results = client.get(f'api/chains/validate/{json.dumps(graph)}').json
+    assert validation_results['is_valid'] is True
 
 
 def test_add_chain_endpoint(client):

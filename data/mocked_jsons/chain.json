@@ -49,7 +49,7 @@
         },
         {
             "model_id": 7,
-            "model_type": "pca_datamodel",
+            "model_type": "pca_data_model",
             "params": "default_params",
             "nodes_from": [],
             "preprocessor": "scaling"

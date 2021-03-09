@@ -9,6 +9,13 @@ class ChainGraphSchema(Schema):
     edges = fields.Dict(attribute='edges')
 
 
+class ChainValidationResultSchema(Schema):
+    """Chain validation results schema"""
+
+    is_valid = fields.Boolean(attribute='is_valid')
+    error_desc = fields.String(attribute='error_desc')
+
+
 class ChainResponseSchema(Schema):
     """Chain schema"""
 
