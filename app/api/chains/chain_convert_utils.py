@@ -1,0 +1,106 @@
+from fedot.core.chains.chain import Chain
+from fedot.core.chains.node import PrimaryNode, SecondaryNode
+
+
+def graph_to_chain(graph: dict):
+    graph_nodes = graph['nodes']
+
+    chain_nodes = []
+    for graph_node in graph_nodes:
+        chain_node = _graph_node_to_chain_node(graph_node, graph_nodes, chain_nodes)
+        chain_nodes = _add_to_chain_if_necessary(chain_node, chain_nodes)
+
+    chain = Chain(chain_nodes)
+
+    return chain
+
+
+def chain_to_graph(chain):
+    output_graph = {}
+    nodes = []
+    edges = []
+
+    local_id = 0
+    for chain_node in chain.nodes:
+        node = dict()
+
+        node['id'] = local_id
+        chain_node.tmp_id = local_id
+        node['display_name'] = chain_node.model.model_type
+        node['model_name'] = chain_node.model.model_type
+        node['class'] = 'model'
+        node['params'] = chain_node.custom_params
+        node['chain_node'] = chain_node
+
+        nodes.append(node)
+        local_id += 1
+
+    for node in nodes:
+        node['parents'] = []
+        node['children'] = []
+        if node['chain_node'].nodes_from is not None:
+            for chain_node_parent in node['chain_node'].nodes_from:
+                # fill parents field
+                node['parents'].append(chain_node_parent.tmp_id)
+
+                # create edge
+                edge = dict()
+                edge['source'] = chain_node_parent.tmp_id
+                edge['target'] = node['id']
+                edges.append(edge)
+
+            childs = chain.node_childs(node['chain_node'])
+            if childs is not None:
+                # fill childs field
+                for chain_node_child in childs:
+                    node['children'].append(chain_node_child.tmp_id)
+        else:
+            node['class'] = 'preprocessing'  # TODO remove later
+        del node['chain_node']
+
+    output_graph['nodes'] = nodes
+    output_graph['edges'] = edges
+
+    return output_graph
+
+
+def _graph_node_to_chain_node(graph_node: dict, existing_graph_nodes: dict, chain_nodes):
+    is_primary = len(graph_node['parents']) == 0
+
+    if is_primary:
+        chain_node = PrimaryNode(graph_node['model_name'])
+    else:
+        parent_chain_nodes = []
+        for parent_id in graph_node['parents']:
+            parent_node = existing_graph_nodes[parent_id]
+            parent_chain_node = _graph_node_to_chain_node(parent_node, existing_graph_nodes, chain_nodes)
+
+            # check is parent node already created
+            existing_chain_node = _get_identical_chain_node(parent_chain_node, chain_nodes)
+            if existing_chain_node is not None:
+                parent_chain_node = existing_chain_node
+
+            parent_chain_nodes.append(parent_chain_node)
+            chain_nodes = _add_to_chain_if_necessary(parent_chain_node, chain_nodes)
+
+        chain_node = SecondaryNode(graph_node['model_name'], nodes_from=parent_chain_nodes)
+
+    if graph_node['params'] != 'default_params':
+        chain_node.custom_params = graph_node['params']
+
+    return chain_node
+
+
+def _add_to_chain_if_necessary(new_node, chain_nodes):
+    chain_nodes_ids = [_.descriptive_id for _ in chain_nodes]
+    if new_node.descriptive_id not in chain_nodes_ids:
+        print(new_node, new_node.descriptive_id)
+        chain_nodes.append(new_node)
+    return chain_nodes
+
+
+def _get_identical_chain_node(node, chain_nodes):
+    try:
+        return [_ for _ in chain_nodes if _.descriptive_id == node.descriptive_id][0]
+    except IndexError:
+        return None
