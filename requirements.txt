@@ -1,5 +1,5 @@
 flask-socketio==5.0.1
-fedot==0.2.0
+fedot==0.2.1
 Flask==1.1.1
 flask-accepts==0.10.0
 Flask-RESTful==0.3.7

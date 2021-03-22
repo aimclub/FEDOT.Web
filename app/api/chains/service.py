@@ -9,7 +9,7 @@ from utils import project_root
 
 def chain_by_uid(uid: str) -> Chain:
     chain = Chain()
-    chain.load_chain(f'{project_root()}/data/mocked_jsons/chain.json')
+    chain.load(f'{project_root()}/data/mocked_jsons/chain.json')
     return chain
 
 
