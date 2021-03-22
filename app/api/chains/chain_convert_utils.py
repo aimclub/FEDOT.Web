@@ -1,5 +1,6 @@
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
+from fedot.core.repository.model_types_repository import ModelTypesRepository
 
 
 def graph_to_chain(graph: dict):
@@ -28,9 +29,9 @@ def chain_to_graph(chain):
         chain_node.tmp_id = local_id
         node['display_name'] = chain_node.model.model_type
         node['model_name'] = chain_node.model.model_type
-        node['class'] = 'model'
         node['params'] = chain_node.custom_params
         node['chain_node'] = chain_node
+        node['type'] = _get_node_type_for_model(chain_node.model.model_type)
 
         nodes.append(node)
         local_id += 1
@@ -54,8 +55,6 @@ def chain_to_graph(chain):
                 # fill childs field
                 for chain_node_child in childs:
                     node['children'].append(chain_node_child.tmp_id)
-        else:
-            node['class'] = 'preprocessing'  # TODO remove later
         del node['chain_node']
 
     output_graph['nodes'] = nodes
@@ -103,3 +102,14 @@ def _get_identical_chain_node(node, chain_nodes):
         return [_ for _ in chain_nodes if _.descriptive_id == node.descriptive_id][0]
     except IndexError:
         return None
+
+
+def _get_node_type_for_model(model_type: str):
+    # TODO refactor after new preprocessing release
+
+    data_models, _ = ModelTypesRepository().models_with_tag(tags=['data_model'])
+
+    if model_type in data_models:
+        return 'data_operation'
+    else:
+        return 'model'
