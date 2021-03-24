@@ -1,13 +1,11 @@
-import json
-
 from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
 from .chain_convert_utils import chain_to_graph, graph_to_chain
-from .models import ChainGraph, ChainResponse, ChainValidationResults
+from .models import ChainGraph, ChainResponse, ChainValidationResponse
 from .schema import (ChainGraphSchema, ChainResponseSchema,
-                     ChainValidationResultSchema)
+                     ChainValidationResponseSchema)
 from .service import chain_by_uid, create_chain, validate_chain
 
 api = Namespace("Chains", description="Operations with chains")
@@ -29,23 +27,24 @@ class ChainsIdResource(Resource):
                           edges=chain_graph['edges'])
 
 
-@api.route("/validate/<string:graph>")
+@api.route("/validate")
 class ChainsValidateResource(Resource):
     """Chain validation"""
 
-    @responds(schema=ChainValidationResultSchema, many=False)
-    def get(self, graph) -> ChainValidationResults:
+    @accepts(schema=ChainGraphSchema, api=api)
+    @responds(schema=ChainValidationResponseSchema, many=False)
+    def post(self) -> ChainValidationResponse:
         """Validate chain with specific structure"""
 
         try:
-            graph_dict = json.loads(graph)
+            graph_dict = request.parsed_obj
             chain = graph_to_chain(graph_dict)
             is_valid, msg = validate_chain(chain)
         except Exception as _:
             is_valid = False
             msg = 'Incorrect chain'
 
-        return ChainValidationResults(is_valid, msg)
+        return ChainValidationResponse(is_valid, msg)
 
 
 @api.route("/add")

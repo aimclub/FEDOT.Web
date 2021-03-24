@@ -1,5 +1,3 @@
-import json
-
 from fedot.core.chains.chain import Chain
 
 from app.api.chains.chain_convert_utils import chain_to_graph
@@ -24,7 +22,8 @@ def test_validate_chain_endpoint(client):
     initial_chain = Chain()
     initial_chain.load(f'{project_root()}/data/mocked_jsons/chain.json')
     graph = chain_to_graph(initial_chain)
-    validation_results = client.get(f'api/chains/validate/{json.dumps(graph)}').json
+    graph['uid'] = 'test'
+    validation_results = client.post('api/chains/validate', json=graph).json
     assert validation_results['is_valid'] is True
 
 
@@ -32,16 +31,16 @@ def test_add_chain_endpoint(client):
     non_existing_uid = 'new_chain'
     graph = {
         'uid': non_existing_uid,
-        'nodes': {}
+        'nodes': []
     }
-    response = client.post(f'api/chains/add', json=graph).json
+    response = client.post('api/chains/add', json=graph).json
     assert response['is_new'] is True
     assert response['uid'] != non_existing_uid
 
     existing_uid = 'test_chain'
     graph = {
         'uid': existing_uid,
-        'nodes': {}
+        'nodes': []
     }
     response = client.post(f'api/chains/add', json=graph).json
     assert response['is_new'] is False

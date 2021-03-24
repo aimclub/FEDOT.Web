@@ -16,7 +16,7 @@ class ChainGraph:
 
 
 @dataclass
-class ChainValidationResults:
+class ChainValidationResponse:
     is_valid: bool
     error_desc: str
 

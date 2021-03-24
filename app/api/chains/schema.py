@@ -5,11 +5,13 @@ class ChainGraphSchema(Schema):
     """Chain schema"""
 
     uid = fields.String(attribute='uid')
-    nodes = fields.Dict(attribute='nodes')
-    edges = fields.Dict(attribute='edges')
+    nodes = fields.List(cls_or_instance=fields.Dict,
+                        attribute='nodes')
+    edges = fields.List(cls_or_instance=fields.Dict,
+                        attribute='edges')
 
 
-class ChainValidationResultSchema(Schema):
+class ChainValidationResponseSchema(Schema):
     """Chain validation results schema"""
 
     is_valid = fields.Boolean(attribute='is_valid')
