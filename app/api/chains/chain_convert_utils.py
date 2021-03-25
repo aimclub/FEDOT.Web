@@ -2,6 +2,8 @@ from fedot.core.chains.chain import Chain
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
 from fedot.core.repository.model_types_repository import ModelTypesRepository
 
+from .models import ChainGraph
+
 
 def graph_to_chain(graph: dict):
     graph_nodes = graph['nodes']
@@ -57,8 +59,7 @@ def chain_to_graph(chain):
                     node['children'].append(chain_node_child.tmp_id)
         del node['chain_node']
 
-    output_graph['nodes'] = nodes
-    output_graph['edges'] = edges
+    output_graph = ChainGraph(uid='', nodes=nodes, edges=edges)
 
     return output_graph
 

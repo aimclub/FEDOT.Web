@@ -1,11 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Optional
-
-
-@dataclass
-class Chain:
-    uid: str
-    nodes: List
+from typing import Optional
 
 
 @dataclass

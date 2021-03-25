@@ -19,12 +19,10 @@ class ChainsIdResource(Resource):
     def get(self, uid) -> ChainGraph:
         """Get chain with specific UID"""
         chain = chain_by_uid(uid)
-
         chain_graph = chain_to_graph(chain)
+        chain_graph.uid = uid
 
-        return ChainGraph(uid=uid,
-                          nodes=chain_graph['nodes'],
-                          edges=chain_graph['edges'])
+        return chain_graph
 
 
 @api.route("/validate")

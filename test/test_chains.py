@@ -1,6 +1,5 @@
-from fedot.core.chains.chain import Chain
+import json
 
-from app.api.chains.chain_convert_utils import chain_to_graph
 from utils import project_root
 
 
@@ -19,10 +18,8 @@ def test_get_chain_endpoint(client):
 
 
 def test_validate_chain_endpoint(client):
-    initial_chain = Chain()
-    initial_chain.load(f'{project_root()}/data/mocked_jsons/chain.json')
-    graph = chain_to_graph(initial_chain)
-    graph['uid'] = 'test'
+    with open(f'{project_root()}/test/data/graph_example.json', 'r') as f:
+        graph = json.load(f)
     validation_results = client.post('api/chains/validate', json=graph).json
     assert validation_results['is_valid'] is True
 
