@@ -2,90 +2,81 @@
     "uid": "50b86b52-b9f0-42a8-971b-575578879393",
     "nodes": [
         {
-            "model_id": 3,
-            "model_type": "xgboost",
+            "operation_id": 3,
+            "operation_type": "xgboost",
             "params": "default_params",
-            "nodes_from": [],
-            "preprocessor": "scaling"
+            "nodes_from": []
         },
         {
-            "model_id": 4,
-            "model_type": "lda",
+            "operation_id": 4,
+            "operation_type": "lda",
             "params": {
                 "n_components": 1
             },
-            "nodes_from": [],
-            "preprocessor": "scaling"
+            "nodes_from": []
         },
         {
-            "model_id": 2,
-            "model_type": "logit",
+            "operation_id": 2,
+            "operation_type": "logit",
             "params": "default_params",
             "nodes_from": [
                 3,
                 4
-            ],
-            "preprocessor": "scaling"
+            ]
         },
         {
-            "model_id": 6,
-            "model_type": "knn",
+            "operation_id": 6,
+            "operation_type": "knn",
             "params": {
                 "n_neighbors": 9
             },
-            "nodes_from": [],
-            "preprocessor": "scaling"
+            "nodes_from": []
         },
         {
-            "model_id": 5,
-            "model_type": "knn",
+            "operation_id": 5,
+            "operation_type": "knn",
             "params": {
                 "n_neighbors": 5
             },
             "nodes_from": [
                 6
-            ],
-            "preprocessor": "scaling"
+            ]
         },
         {
-            "model_id": 7,
-            "model_type": "pca_data_model",
+            "operation_id": 7,
+            "operation_type": "pca",
             "params": "default_params",
-            "nodes_from": [],
-            "preprocessor": "scaling"
+            "nodes_from": []
         },
         {
-            "model_id": 1,
-            "model_type": "lda",
+            "operation_id": 1,
+            "operation_type": "lda",
             "params": {
                 "n_components": 1
             },
             "nodes_from": [
                 2,
                 5
-            ],
-            "preprocessor": "scaling"
+            ]
         },
         {
-            "model_id": 8,
-            "model_type": "xgboost",
+            "operation_id": 8,
+            "operation_type": "xgboost",
             "params": "default_params",
             "nodes_from": [
                 7
-            ],
-            "preprocessor": "scaling"
+            ]
         },
         {
-            "model_id": 0,
-            "model_type": "knn",
+            "operation_id": 0,
+            "operation_type": "knn",
             "params": {
                 "n_neighbors": 8
             },
             "nodes_from": [
                 1,
                 8
-            ],
-            "preprocessor": "scaling"
+            ]
         }
     ]
 }

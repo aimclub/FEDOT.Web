@@ -1,6 +1,6 @@
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
-from fedot.core.repository.model_types_repository import ModelTypesRepository
+from fedot.core.repository.operation_types_repository import OperationTypesRepository
 
 from .models import ChainGraph
 
@@ -19,7 +19,6 @@ def graph_to_chain(graph: dict):
 
 
 def chain_to_graph(chain):
-    output_graph = {}
     nodes = []
     edges = []
 
@@ -29,11 +28,11 @@ def chain_to_graph(chain):
 
         node['id'] = local_id
         chain_node.tmp_id = local_id
-        node['display_name'] = chain_node.model.model_type
-        node['model_name'] = chain_node.model.model_type
+        node['display_name'] = chain_node.operation.operation_type
+        node['model_name'] = chain_node.operation.operation_type
         node['params'] = chain_node.custom_params
         node['chain_node'] = chain_node
-        node['type'] = _get_node_type_for_model(chain_node.model.model_type)
+        node['type'] = _get_node_type_for_model(chain_node.operation.operation_type)
 
         nodes.append(node)
         local_id += 1
@@ -108,9 +107,9 @@ def _get_identical_chain_node(node, chain_nodes):
 def _get_node_type_for_model(model_type: str):
     # TODO refactor after new preprocessing release
 
-    data_models, _ = ModelTypesRepository().models_with_tag(tags=['data_model'])
+    data_operations = OperationTypesRepository(repository_name='data_operation_repository.json').operations
 
-    if model_type in data_models:
+    if model_type in [op.id for op in data_operations]:
         return 'data_operation'
     else:
         return 'model'
