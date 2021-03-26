@@ -5,15 +5,15 @@ from utils import project_root
 
 def test_get_chain_endpoint(client):
     uid = 'test_chain'
-    history_json = client.get(f'api/chains/{uid}').json
-    assert history_json['uid'] == uid
-    assert len(history_json['nodes']) > 0
-    assert len(history_json['edges']) > 0
+    chain_json = client.get(f'api/chains/{uid}').json
+    assert chain_json['uid'] == uid
+    assert len(chain_json['nodes']) > 0
+    assert len(chain_json['edges']) > 0
 
-    knn_node = [node for node in history_json['nodes'] if node['model_name'] == 'knn'][0]
+    knn_node = [node for node in chain_json['nodes'] if node['model_name'] == 'knn'][0]
     assert knn_node['type'] == 'model'
 
-    pca_node = [node for node in history_json['nodes'] if node['model_name'] == 'pca_data_model'][0]
+    pca_node = [node for node in chain_json['nodes'] if node['model_name'] == 'pca_data_model'][0]
     assert pca_node['type'] == 'data_operation'
 
 
