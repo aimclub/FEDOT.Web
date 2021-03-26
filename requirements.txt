@@ -1,5 +1,5 @@
 flask-socketio==5.0.1
-fedot==0.2.0
+fedot==0.2.1
 Flask==1.1.1
 flask-accepts==0.10.0
 Flask-RESTful==0.3.7
@@ -12,7 +12,7 @@ tensorflow>=2.2.0
 pytest>=5.2.0
 pytest-flask==1.1.0
 Flask-Login==0.4.1
-Flask-SQLAlchemy==2.4.4
+Flask-SQLAlchemy==2.5
 oauthlib==3.0.1
 pyOpenSSL==19.0.0
 PyJWT==2.0.1

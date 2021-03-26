@@ -1,36 +1,34 @@
-import json
 import warnings
+from typing import Tuple
+
+from fedot.core.chains.chain import Chain
+from fedot.core.chains.chain_validation import validate
 
 from utils import project_root
 
 
-def chain_by_uid(uid: str) -> dict:
-    chain_json = None
-    with open(f'{project_root()}/data/mocked_jsons/chain.json') as f:
-        chain_json = json.load(f)
-        chain_json['uid'] = uid
-
-    return chain_json
+def chain_by_uid(uid: str) -> Chain:
+    chain = Chain()
+    chain.load(f'{project_root()}/data/mocked_jsons/chain.json')
+    return chain
 
 
-def create_chain_from_graph(graph: dict):
-    # TODO convert graph to Chain
+def validate_chain(chain: Chain) -> Tuple[bool, str]:
+    try:
+        validate(chain)
+        return True, 'Correct chain'
+    except ValueError as ex:
+        return False, str(ex)
 
+
+def create_chain(uid: str, chain: Chain):
     # TODO search chain with same structure and data in database
-    is_new = True
-
     existing_uid = 'test_chain'
-    if graph['uid'] == existing_uid:
-        is_new = False
+    is_new = uid != existing_uid
 
-    with open(f'{project_root()}/data/mocked_jsons/chain.json') as f:
-        chain = json.load(f)
-        uid = chain['uid']
-
-    if not is_new:
-        uid = existing_uid
-    else:
+    if is_new:
         # TODO save chain to database
         warnings.warn('Cannot create new chain')
+        uid = 'new_uid'
 
     return uid, is_new

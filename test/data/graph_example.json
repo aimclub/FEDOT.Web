@@ -1,0 +1,158 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "display_name": "knn",
+      "model_name": "knn",
+      "params": {
+        "n_neighbors": 8
+      },
+      "type": "model",
+      "parents": [
+        1,
+        7
+      ],
+      "children": []
+    },
+    {
+      "id": 1,
+      "display_name": "lda",
+      "model_name": "lda",
+      "params": {
+        "n_components": 1
+      },
+      "type": "model",
+      "parents": [
+        2,
+        5
+      ],
+      "children": [
+        0
+      ]
+    },
+    {
+      "id": 2,
+      "display_name": "logit",
+      "model_name": "logit",
+      "params": "default_params",
+      "type": "model",
+      "parents": [
+        3,
+        4
+      ],
+      "children": [
+        1
+      ]
+    },
+    {
+      "id": 3,
+      "display_name": "xgboost",
+      "model_name": "xgboost",
+      "params": "default_params",
+      "type": "model",
+      "parents": [],
+      "children": [
+        2
+      ]
+    },
+    {
+      "id": 4,
+      "display_name": "lda",
+      "model_name": "lda",
+      "params": {
+        "n_components": 1
+      },
+      "type": "model",
+      "parents": [],
+      "children": [
+        2
+      ]
+    },
+    {
+      "id": 5,
+      "display_name": "knn",
+      "model_name": "knn",
+      "params": {
+        "n_neighbors": 5
+      },
+      "type": "model",
+      "parents": [
+        6
+      ],
+      "children": [
+        1
+      ]
+    },
+    {
+      "id": 6,
+      "display_name": "knn",
+      "model_name": "knn",
+      "params": {
+        "n_neighbors": 9
+      },
+      "type": "model",
+      "parents": [],
+      "children": [
+        5
+      ]
+    },
+    {
+      "id": 7,
+      "display_name": "xgboost",
+      "model_name": "xgboost",
+      "params": "default_params",
+      "type": "model",
+      "parents": [
+        8
+      ],
+      "children": [
+        0
+      ]
+    },
+    {
+      "id": 8,
+      "display_name": "pca_data_model",
+      "model_name": "pca_data_model",
+      "params": "default_params",
+      "type": "data_operation",
+      "parents": [],
+      "children": [
+        7
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": 1,
+      "target": 0
+    },
+    {
+      "source": 7,
+      "target": 0
+    },
+    {
+      "source": 2,
+      "target": 1
+    },
+    {
+      "source": 5,
+      "target": 1
+    },
+    {
+      "source": 3,
+      "target": 2
+    },
+    {
+      "source": 4,
+      "target": 2
+    },
+    {
+      "source": 6,
+      "target": 5
+    },
+    {
+      "source": 8,
+      "target": 7
+    }
+  ]
+}
