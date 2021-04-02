@@ -1,0 +1,45 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  /*background-color: #fff;*/
+  position: relative;
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6);*/
+}
+
+
+.container {
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    outline: 1px solid black;
+  }
+
+  [class*="node"] rect {
+    stroke: #999;
+    fill: #fff;
+    stroke-width: 1.5px;
+  }
+  [class*="node"]:hover > rect {
+    fill: #eba;
+  }
+
+  [class*="type-TK"] rect {
+    fill: #00ffd0;
+  }
+
+  [class*="type-NEW"] rect {
+    fill: #eba;
+  }
+
+  text {
+    font-weight: 300;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  [class*="edgePath"] path {
+    stroke: #333;
+    stroke-width: 1.5px;
+  }
+}
