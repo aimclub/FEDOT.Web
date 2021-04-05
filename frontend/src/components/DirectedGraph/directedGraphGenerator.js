@@ -1,15 +1,8 @@
 import * as d3 from "d3";
-import { createContextMenu } from "./utils";
-import styles from "./forceGraph.module.scss";
+import "./directedGraph.module.scss";
 import dagreD3 from "dagre-d3";
 
-export function runForceGraph(
-  container,
-  linksData,
-  nodesData,
-  nodeHoverTooltip,
-  onClick
-) {
+export function runDirectedGraph(container, linksData, nodesData) {
   let links = linksData.map((d) => Object.assign({}, d));
   let nodes = nodesData.map((d) => Object.assign({}, d));
 
@@ -68,7 +61,7 @@ export function runForceGraph(
   // Run the renderer. This is what draws the final graph.
   render(svgGroup, g);
 
-  // Center the graph
+  // // Center the graph
   let xCenterOffset = (svg.attr("width") - g.graph().width) / 2;
   let yCenterOffset = (svg.attr("height") - g.graph().height) / 2;
   svgGroup.attr(
@@ -95,7 +88,9 @@ export function runForceGraph(
   svgGroup.selectAll("g.node").on("click", addNode);
 
   return {
-    destroy: () => {},
+    destroy: () => {
+      return svg.remove();
+    },
     nodes: () => {
       return svg.node();
     },

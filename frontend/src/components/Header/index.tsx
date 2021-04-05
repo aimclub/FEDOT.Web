@@ -1,15 +1,15 @@
-import React, { FC } from "react";
+import React, { ReactChild } from "react";
 
 import style from "./header.module.scss";
 import { Typography } from "@material-ui/core";
 
-export interface IHeader {
+type HeaderProps = {
   title: string;
-  logo: any;
-  subComponent?: any;
-}
+  logo?: ReactChild;
+  subComponent?: ReactChild;
+};
 
-const Header: FC<IHeader> = (props) => {
+const Header = (props: HeaderProps) => {
   return (
     <div className={style.root}>
       <div className={style.logoText}>

@@ -1,4 +1,3 @@
-import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Slider } from "@material-ui/core";
 
@@ -6,9 +5,6 @@ const CustomSlider = withStyles({
   root: {
     width: "558px",
     height: 8,
-    position: "absolute",
-    left: 200,
-    top: 50,
     zIndex: 2,
   },
   thumb: {

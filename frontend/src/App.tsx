@@ -1,27 +1,14 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import "./App.scss";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import SideMenu from "./components/Drawer";
-import { ForceGraph } from "./components/ForceGraph";
-import data from "./data/data.json";
-import { Paper, useMediaQuery } from "@material-ui/core";
+import { useMediaQuery } from "@material-ui/core";
+import Sandbox from "./pages/Sandbox";
+import clsx from "clsx";
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [isDark, setDark] = useState(false);
-
-  const nodeHoverTooltip = React.useCallback((node) => {
-    console.log(`### nodeHoverTooltip: none`, node);
-    return (
-      <div>
-        <p>kek</p>
-      </div>
-    );
-  }, []);
-
-  const onClick = (d: any) => {
-    console.log(`### d`, d);
-  };
 
   const changeTheme = () => {
     setDark(!isDark);
@@ -48,25 +35,9 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SideMenu changeTheme={changeTheme} />
-      <div style={{ display: "flex", flexDirection: "column", marginLeft: 80 }}>
-        <Paper style={{ margin: 8 }} elevation={3}>
-          <div>s</div>
-        </Paper>
-        <Paper elevation={3} style={{ margin: 8 }}>
-          <ForceGraph
-            edgesData={data.edges}
-            nodesData={data.nodes}
-            nodeHoverTooltip={nodeHoverTooltip}
-            onClick={onClick}
-          />
-        </Paper>
-        <Paper elevation={3} style={{ margin: 8 }}>
-          <div>s</div>
-        </Paper>
-        <Paper elevation={3} style={{ margin: 8 }}>
-          <div>s</div>
-        </Paper>
+      <div className={clsx("App", isDark ? "dark" : "")}>
+        <SideMenu changeTheme={changeTheme} />
+        <Sandbox />
       </div>
     </ThemeProvider>
   );

@@ -1,0 +1,10 @@
+.App {
+  min-height: 100vh;
+  text-align: center;
+  background-color: #e5e5e5;
+  &.dark {
+    background-color: #303030;
+
+  }
+}
+
