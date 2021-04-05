@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import styles from "./forceGraph.module.scss";
+import styles from "./directedGraph.module.scss";
 
 export const menuFactory = (x, y, menuItems, data, svgId) => {
   d3.select(`.${styles.contextMenu}`).remove();

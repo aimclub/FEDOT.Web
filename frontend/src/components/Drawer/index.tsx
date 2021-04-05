@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -66,11 +66,11 @@ const useStyles = makeStyles((theme) => ({
   divider: { backgroundColor: "#fff" },
 }));
 
-export interface ISideMenu {
+type SideMenuProps = {
   changeTheme(): void;
-}
+};
 
-const SideMenu: FC<ISideMenu> = ({ changeTheme }) => {
+const SideMenu = ({ changeTheme }: SideMenuProps) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
