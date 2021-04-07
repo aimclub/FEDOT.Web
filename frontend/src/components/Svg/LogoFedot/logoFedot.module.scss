@@ -1,0 +1,35 @@
+@keyframes triangle-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.7)
+  }
+  100% {
+    transform: scale(1)
+
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.root {
+  path {
+    fill: #fff;
+  }
+  .triangleAnimation {
+    animation: triangle-pulse 1s infinite ease;
+  }
+  .nameAnimation {
+    animation: rotate 1s infinite ease;
+  }
+
+}

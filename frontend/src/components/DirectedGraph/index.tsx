@@ -50,7 +50,6 @@ const DirectedGraph = ({ edgesData, nodesData }: DirectedGraphProps) => {
           secondaryColor="#0199E4"
           height={100}
           width={100}
-          timeout={3000}
         />
       )}
     </div>

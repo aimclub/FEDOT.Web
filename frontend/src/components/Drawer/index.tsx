@@ -95,7 +95,7 @@ const SideMenu = ({ changeTheme }: SideMenuProps) => {
       onMouseLeave={handleDrawerToggle}
     >
       <div className={classes.toolbar}>
-        <LogoFedot viewBox="0 0 269 329" style={{ fontSize: 40 }} />
+        <LogoFedot isLoading={false} />
       </div>
       <Divider className={classes.divider} />
       <List>
