@@ -1,9 +1,9 @@
 def test_get_showcase_item_endpoint(client):
-    uid = 'item1'
-    showcase_item_json = client.get(f'api/showcase/items/{uid}').json
+    case_id = 'item1'
+    showcase_item_json = client.get(f'api/showcase/items/{case_id}').json
 
-    assert showcase_item_json['uid'] == uid
-    assert uid in showcase_item_json['description']
+    assert showcase_item_json['case_id'] == case_id
+    assert case_id in showcase_item_json['description']
     assert 'png' in showcase_item_json['icon_path']
 
 

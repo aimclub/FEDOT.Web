@@ -4,11 +4,10 @@ from typing import List
 
 @dataclass
 class ShowcaseItem:
-    uid: str
-    description: str
+    case_id: str
     chain_id: str
+    description: str
     icon_path: str
-
 
 @dataclass
 class Showcase:

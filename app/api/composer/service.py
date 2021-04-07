@@ -1,10 +1,10 @@
 import json
 
-from .models import ComposingHistory
 from utils import project_root
+from .models import ComposingHistory
 
 
-def composer_history_for_experiment(dataset_name: str) -> ComposingHistory:
+def composer_history_for_case(dataset_name: str) -> ComposingHistory:
     with open(f'{project_root()}/data/mocked_jsons/evo_history.json') as f:
         evo_history_json = json.load(f)
 
