@@ -9,7 +9,6 @@ class ShowcaseItem:
     description: str
     icon_path: str
 
-
 @dataclass
 class Showcase:
     items_uids: List[str]
