@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { runDirectedGraph } from "./directedGraphGenerator";
 import styles from "./directedGraph.module.scss";
+import Loader from "react-loader-spinner";
 
 export type EdgeDataType = {
   source: number;
@@ -22,10 +23,12 @@ type DirectedGraphProps = {
 };
 const DirectedGraph = ({ edgesData, nodesData }: DirectedGraphProps) => {
   const containerRef = React.useRef(null);
+  const [showLoader, setShowLoader] = useState(true);
 
   React.useEffect((): any => {
+    if (edgesData.length === 0 || nodesData.length === 0) return;
     let destroyFn;
-
+    setShowLoader(false);
     if (containerRef.current) {
       const { destroy } = runDirectedGraph(
         containerRef.current,
@@ -38,7 +41,20 @@ const DirectedGraph = ({ edgesData, nodesData }: DirectedGraphProps) => {
     return destroyFn;
   }, [nodesData, edgesData]);
 
-  return <div ref={containerRef} className={styles.container} />;
+  return (
+    <div ref={containerRef} className={styles.container}>
+      {showLoader && (
+        <Loader
+          type="MutatingDots"
+          color="#263238"
+          secondaryColor="#0199E4"
+          height={100}
+          width={100}
+          timeout={3000}
+        />
+      )}
+    </div>
+  );
 };
 
 export default DirectedGraph;
