@@ -1,22 +1,40 @@
-import React, { ChangeEvent, useState } from "react";
-import { Paper } from "@material-ui/core";
-import data from "../../data/data.json";
-import DirectedGraph from "../../components/DirectedGraph";
-import style from "./sandbox.module.scss";
-import Header from "../../components/Header";
-import TerrainIcon from "@material-ui/icons/Terrain";
-import CustomSlider from "../../components/Slider";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import clsx from "clsx";
+import { Paper } from "@material-ui/core";
+import TerrainIcon from "@material-ui/icons/Terrain";
+import style from "./sandbox.module.scss";
+
+import DirectedGraph, { NodeDataType } from "../../components/DirectedGraph";
+import Header from "../../components/Header";
+import CustomSlider from "../../components/Slider";
+import { IMainGraph, sandboxAPI } from "../../api/sandbox";
 
 const Sandbox = () => {
-  const [nodes, setNodes] = useState(data.nodes);
+  const [selectedNodes, setSelectedNodes] = useState<NodeDataType[]>([]);
+  const [data, setData] = useState<IMainGraph>({
+    nodes: [],
+    edges: [],
+  });
 
   const handleSliderChange = (e: ChangeEvent<{}>, v: number | number[]) => {
     let filteredNodes = data.nodes.filter((item) => {
       return item.id < v;
     });
-    setNodes(filteredNodes);
+    setSelectedNodes(filteredNodes);
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await sandboxAPI.getMainGraph(54545);
+        setData(res);
+        setSelectedNodes(res.nodes);
+      } catch (e) {
+        console.log(`### e`, e);
+      }
+    };
+    getData();
+  }, []);
 
   return (
     <div className={style.root}>
@@ -24,7 +42,7 @@ const Sandbox = () => {
         <Header title={"Sandbox"} logo={<TerrainIcon />} />
       </Paper>
       <Paper elevation={3} className={clsx(style.paper, style.paperGrow)}>
-        <DirectedGraph edgesData={data.edges} nodesData={nodes} />
+        <DirectedGraph edgesData={data.edges} nodesData={selectedNodes} />
       </Paper>
       <Paper elevation={3} className={style.paper}>
         <div>
@@ -32,7 +50,7 @@ const Sandbox = () => {
             valueLabelDisplay="auto"
             aria-label="Epoha Slider"
             defaultValue={0}
-            value={nodes.length}
+            value={selectedNodes.length}
             color="primary"
             onChange={handleSliderChange}
             min={1}

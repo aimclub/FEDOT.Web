@@ -2,28 +2,25 @@ import React from "react";
 import { runDirectedGraph } from "./directedGraphGenerator";
 import styles from "./directedGraph.module.scss";
 
-type EdgeDataType = {
+export type EdgeDataType = {
   source: number;
   target: number;
-}
-type NodeDataType = {
-  "id": number;
-  "display_name": string;
-  "model_name": string;
-  "class": string;
-  "params": any,
-  "parents": number[],
-  "children": number[]
-}
+};
+export type NodeDataType = {
+  id: number;
+  display_name: string;
+  model_name: string;
+  class: string;
+  params: any;
+  parents: number[];
+  children: number[];
+};
 
 type DirectedGraphProps = {
   edgesData: EdgeDataType[];
   nodesData: NodeDataType[];
-}
-const DirectedGraph = ({
-  edgesData,
-  nodesData,
-}:DirectedGraphProps ) => {
+};
+const DirectedGraph = ({ edgesData, nodesData }: DirectedGraphProps) => {
   const containerRef = React.useRef(null);
 
   React.useEffect((): any => {
@@ -33,7 +30,7 @@ const DirectedGraph = ({
       const { destroy } = runDirectedGraph(
         containerRef.current,
         edgesData,
-        nodesData,
+        nodesData
       );
       destroyFn = destroy;
     }
@@ -41,11 +38,7 @@ const DirectedGraph = ({
     return destroyFn;
   }, [nodesData, edgesData]);
 
-
-  return (
-    <div ref={containerRef} className={styles.container}/>
-
-  );
-}
+  return <div ref={containerRef} className={styles.container} />;
+};
 
 export default DirectedGraph;
