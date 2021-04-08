@@ -10,6 +10,9 @@ export function runDirectedGraph(container, linksData, nodesData) {
   const height = containerRect.height;
   const width = containerRect.width;
 
+  console.log(`### height`, height);
+  console.log(`### width`, width);
+
   const svg = d3
     .select(container)
     .append("svg")
@@ -61,9 +64,12 @@ export function runDirectedGraph(container, linksData, nodesData) {
   // Run the renderer. This is what draws the final graph.
   render(svgGroup, g);
 
-  // // Center the graph
+  // Center the graph
+  console.log(`### g.graph().width`, g.graph().width);
   let xCenterOffset = (svg.attr("width") - g.graph().width) / 2;
   let yCenterOffset = (svg.attr("height") - g.graph().height) / 2;
+  console.log(`### xCenterOffset`, xCenterOffset);
+  console.log(`### yCenterOffset`, yCenterOffset);
   svgGroup.attr(
     "transform",
     "translate(" + xCenterOffset + "," + yCenterOffset + ")"
