@@ -5,6 +5,8 @@ def register_routes(api, app, root="app"):
     from app.api.composer import register_routes as attach_composer
     from app.api.data import register_routes as attach_data
     from app.api.auth import register_routes as attach_token
+    from app.api.showcase import register_routes as attach_showcase
+    from app.api.sandbox import register_routes as attach_sandbox
 
     # Add routes
     attach_model(api, app)
@@ -13,3 +15,5 @@ def register_routes(api, app, root="app"):
     attach_composer(api, app)
     attach_data(api, app)
     attach_token(api, app)
+    attach_showcase(api, app)
+    attach_sandbox(api, app)
