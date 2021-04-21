@@ -32,7 +32,6 @@ def history_to_graph(history):
                 ind = dict()
                 ind['uid'] = node_id
                 ind['type'] = 'individual'
-                ind['operators'] = operators_dict
                 ind['chain_id'] = chain_id
                 ind['objs'] = objs
                 ind['tmp_chain_uid'] = history.chains[gen_id][ind_id].unique_chain_id
