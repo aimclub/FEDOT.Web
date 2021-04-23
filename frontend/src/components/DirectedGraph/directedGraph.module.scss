@@ -1,7 +1,17 @@
+@keyframes bubbleNode {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 .container {
   flex: 1;
   width: 100%;
   min-height: 100%;
+  max-height: 594px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -25,13 +35,21 @@
   [class*="node"]:hover > rect {
     fill: #eba;
   }
-
+  //[class*="type-TOP"] > * {
+  //  animation: bubbleNode 1s ease-in-out;
+  //}
   [class*="type-TK"] rect {
     fill: #00ffd0;
+    //animation: bubbleNode 1s ease-in-out;
   }
+  //[class*="type-TK"] > * {
+  //  animation: bubbleNode 1s ease-in-out;
+  //}
 
   [class*="type-NEW"] rect {
     fill: #eba;
+    //animation: bubbleNode 1s ease-in-out;
+
   }
 
   text {
@@ -42,6 +60,22 @@
 
   [class*="edgePath"] path {
     stroke: #333;
-    stroke-width: 1.5px;
+    stroke-width: 2px;
+    //transition: all 1.2s ease-in-out;
+    cursor: pointer;
   }
+}
+
+.contextMenu {
+  stroke: #00557d;
+  fill: #ffffff;
+}
+
+.menuEntry {
+  cursor: pointer;
+}
+
+.menuEntry text {
+  font-size: 12px;
+  stroke: #00557d;
 }

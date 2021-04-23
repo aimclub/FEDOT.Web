@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { runDirectedGraph } from "./directedGraphGenerator";
 import styles from "./directedGraph.module.scss";
 import Loader from "react-loader-spinner";
+import ContextMenu from "../ContextMenu/ContextMenu";
+import { ClickAwayListener } from "@material-ui/core";
 
 export type EdgeDataType = {
   source: number;
@@ -20,26 +22,61 @@ export type NodeDataType = {
 type DirectedGraphProps = {
   edgesData: EdgeDataType[];
   nodesData: NodeDataType[];
+  onClick(d: any): void;
 };
-const DirectedGraph = ({ edgesData, nodesData }: DirectedGraphProps) => {
+
+type offsetContextMenuType = {
+  x: number;
+  y: number;
+};
+
+export type dataContextType = {
+  data: number;
+  offset: offsetContextMenuType;
+};
+const DirectedGraph = ({
+  edgesData,
+  nodesData,
+  onClick,
+}: DirectedGraphProps) => {
   const containerRef = React.useRef(null);
   const [showLoader, setShowLoader] = useState(true);
+  const [dataContext, setDataContext] = useState<dataContextType | undefined>(
+    undefined
+  );
 
   React.useEffect((): any => {
     if (edgesData.length === 0 || nodesData.length === 0) return;
     let destroyFn;
+
+    const handleContextMenu = (e: any, d: any) => {
+      e.preventDefault();
+      setDataContext({
+        data: d,
+        offset: {
+          x: e.offsetX,
+          y: e.offsetY,
+        },
+      });
+    };
+
     setShowLoader(false);
     if (containerRef.current) {
-      const { destroy } = runDirectedGraph(
+      const { destroy, nodes } = runDirectedGraph(
         containerRef.current,
         edgesData,
-        nodesData
+        nodesData,
+        handleContextMenu
       );
       destroyFn = destroy;
     }
 
     return destroyFn;
   }, [nodesData, edgesData]);
+
+  const handleClickAway = () => {
+    setDataContext(undefined);
+  };
 
   return (
     <div ref={containerRef} className={styles.container}>
@@ -52,6 +89,19 @@ const DirectedGraph = ({ edgesData, nodesData }: DirectedGraphProps) => {
           width={100}
         />
       )}
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <div>
+          {dataContext && (
+            <ContextMenu
+              dataContext={dataContext}
+              addNode={() => {
+                onClick(dataContext.data);
+                setDataContext(undefined);
+              }}
+            />
+          )}
+        </div>
+      </ClickAwayListener>
     </div>
   );
 };

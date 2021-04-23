@@ -4,23 +4,24 @@ import { Paper } from "@material-ui/core";
 import TerrainIcon from "@material-ui/icons/Terrain";
 import style from "./sandbox.module.scss";
 
-import DirectedGraph, { NodeDataType } from "../../components/DirectedGraph";
+import DirectedGraph from "../../components/DirectedGraph/DirectedGraph";
 import Header from "../../components/Header";
 import CustomSlider from "../../components/Slider";
 import { IMainGraph, sandboxAPI } from "../../api/sandbox";
+// import data from "../../data/data.json";
 
 const Sandbox = () => {
-  const [selectedNodes, setSelectedNodes] = useState<NodeDataType[]>([]);
+  const [buildData, setBuildData] = useState<IMainGraph>({
+    nodes: [],
+    edges: [],
+  });
   const [data, setData] = useState<IMainGraph>({
     nodes: [],
     edges: [],
   });
 
   const handleSliderChange = (e: ChangeEvent<{}>, v: number | number[]) => {
-    let filteredNodes = data.nodes.filter((item) => {
-      return item.id < v;
-    });
-    setSelectedNodes(filteredNodes);
+    console.log(`### handleSliderChange`);
   };
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const Sandbox = () => {
       try {
         const res = await sandboxAPI.getMainGraph(54545);
         setData(res);
-        setSelectedNodes(res.nodes);
+        setBuildData(res);
       } catch (e) {
         console.log(`### e`, e);
       }
@@ -36,13 +37,50 @@ const Sandbox = () => {
     getData();
   }, []);
 
+  const handleOnClickGraph = (d: any): any => {
+    console.log(`### d`, d);
+    setData((state) => {
+      const id = state.nodes.length;
+      const newState = {
+        nodes: [
+          ...state.nodes,
+          ...[
+            {
+              id: id,
+              display_name: "NEW",
+              model_name: "NEW",
+              class: "model",
+              params: { n_neighbors: 8 },
+              parents: [1, 7],
+              children: [],
+            },
+          ],
+        ],
+        edges: [
+          ...state.edges,
+          ...[
+            {
+              source: id,
+              target: +d,
+            },
+          ],
+        ],
+      };
+      console.log(`### newState`, newState);
+      return newState;
+    });
+  };
   return (
     <div className={style.root}>
       <Paper className={style.paper} elevation={3}>
         <Header title={"Sandbox"} logo={<TerrainIcon />} />
       </Paper>
       <Paper elevation={3} className={clsx(style.paper, style.paperGrow)}>
-        <DirectedGraph edgesData={data.edges} nodesData={selectedNodes} />
+        <DirectedGraph
+          edgesData={data.edges}
+          nodesData={data.nodes}
+          onClick={handleOnClickGraph}
+        />
       </Paper>
       <Paper elevation={3} className={style.paper}>
         <div>
@@ -50,11 +88,11 @@ const Sandbox = () => {
             valueLabelDisplay="auto"
             aria-label="Epoha Slider"
             defaultValue={0}
-            value={selectedNodes.length}
+            value={data.nodes.length}
             color="primary"
             onChange={handleSliderChange}
             min={1}
-            max={data.nodes.length}
+            max={buildData.nodes.length}
           />
         </div>
       </Paper>

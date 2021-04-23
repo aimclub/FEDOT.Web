@@ -21,7 +21,7 @@ const LogoFedot = (props: LogoFedotProps) => {
         <path d="M193 34.5v-26h26v26h27v26h-27v-26h-26z" />
         <path d="M227 26.5V0h26.5v26.5H227z" />
       </g>
-      <g className={props.isLoading ? style.nameAnimation : ""}>
+      <g>
         <path d="M158 312.5v-35h36v35h-36z" />
         <path d="M0 314.5v-51h34v5H15V286h16.5v5H15v23.5H0z" />
         <path d="M38.5 314.5v-51H72v5H52.5v16H68v5.5H52.5v19.5h22v5h-36z" />
