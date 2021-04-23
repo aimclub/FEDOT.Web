@@ -11,15 +11,6 @@
   }
 }
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 
 .root {
   path {
@@ -28,8 +19,4 @@
   .triangleAnimation {
     animation: triangle-pulse 1s infinite ease;
   }
-  .nameAnimation {
-    animation: rotate 1s infinite ease;
-  }
-
 }

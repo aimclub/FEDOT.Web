@@ -1,5 +1,8 @@
 import { instance } from "./index";
-import { EdgeDataType, NodeDataType } from "../components/DirectedGraph";
+import {
+  EdgeDataType,
+  NodeDataType,
+} from "../components/DirectedGraph/DirectedGraph";
 
 export interface IMainGraph {
   nodes: NodeDataType[];
