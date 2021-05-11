@@ -1,82 +1,337 @@
 {
-    "uid": "50b86b52-b9f0-42a8-971b-575578879393",
-    "nodes": [
-        {
-            "operation_id": 3,
-            "operation_type": "xgboost",
-            "params": "default_params",
-            "nodes_from": []
-        },
-        {
-            "operation_id": 4,
-            "operation_type": "lda",
-            "params": {
-                "n_components": 1
-            },
-            "nodes_from": []
-        },
-        {
-            "operation_id": 2,
-            "operation_type": "logit",
-            "params": "default_params",
-            "nodes_from": [
-                3,
-                4
-            ]
-        },
-        {
-            "operation_id": 6,
-            "operation_type": "knn",
-            "params": {
-                "n_neighbors": 9
-            },
-            "nodes_from": []
-        },
-        {
-            "operation_id": 5,
-            "operation_type": "knn",
-            "params": {
-                "n_neighbors": 5
-            },
-            "nodes_from": [
-                6
-            ]
-        },
-        {
-            "operation_id": 7,
-            "operation_type": "pca",
-            "params": "default_params",
-            "nodes_from": []
-        },
-        {
-            "operation_id": 1,
-            "operation_type": "lda",
-            "params": {
-                "n_components": 1
-            },
-            "nodes_from": [
-                2,
-                5
-            ]
-        },
-        {
-            "operation_id": 8,
-            "operation_type": "xgboost",
-            "params": "default_params",
-            "nodes_from": [
-                7
-            ]
-        },
-        {
-            "operation_id": 0,
-            "operation_type": "knn",
-            "params": {
-                "n_neighbors": 8
-            },
-            "nodes_from": [
-                1,
-                8
-            ]
-        }
+  "total_chain_operations": {
+	"xgboost": 2,
+	"lda": 2,
+	"logit": 1,
+	"knn": 3,
+	"pca": 1
+  },
+  "depth": 4,
+  "nodes": [
+	{
+	  "operation_id": 3,
+	  "operation_type": "xgboost",
+	  "operation_name": "XGBClassifier",
+	  "custom_params": {
+		"objective": "binary:logistic",
+		"base_score": 0.5,
+		"booster": null,
+		"colsample_bylevel": 1,
+		"colsample_bynode": 1,
+		"colsample_bytree": 1,
+		"gamma": 0,
+		"gpu_id": -1,
+		"importance_type": "gain",
+		"interaction_constraints": null,
+		"learning_rate": 0.300000012,
+		"max_delta_step": 0,
+		"max_depth": 6,
+		"min_child_weight": 1,
+		"monotone_constraints": null,
+		"n_estimators": 100,
+		"n_jobs": 0,
+		"num_parallel_tree": 1,
+		"random_state": 0,
+		"reg_alpha": 0,
+		"reg_lambda": 1,
+		"scale_pos_weight": 1,
+		"subsample": 1,
+		"tree_method": null,
+		"validate_parameters": false,
+		"verbosity": null
+	  },
+	  "params": {
+		"objective": "binary:logistic",
+		"base_score": 0.5,
+		"booster": null,
+		"colsample_bylevel": 1,
+		"colsample_bynode": 1,
+		"colsample_bytree": 1,
+		"gamma": 0,
+		"gpu_id": -1,
+		"importance_type": "gain",
+		"interaction_constraints": null,
+		"learning_rate": 0.300000012,
+		"max_delta_step": 0,
+		"max_depth": 6,
+		"min_child_weight": 1,
+		"monotone_constraints": null,
+		"n_estimators": 100,
+		"n_jobs": 0,
+		"num_parallel_tree": 1,
+		"random_state": 0,
+		"reg_alpha": 0,
+		"reg_lambda": 1,
+		"scale_pos_weight": 1,
+		"subsample": 1,
+		"tree_method": null,
+		"validate_parameters": false,
+		"verbosity": null
+	  },
+	  "nodes_from": [],
+	  "fitted_operation_path": "fitted_operations\\operation_3.pkl"
+	}, {
+	  "operation_id": 4,
+	  "operation_type": "lda",
+	  "operation_name": "LDAImplementation",
+	  "custom_params": {
+		"covariance_estimator": null,
+		"n_components": 1,
+		"priors": null,
+		"shrinkage": null,
+		"solver": "svd",
+		"store_covariance": false,
+		"tol": 0.0001
+	  },
+	  "params": {
+		"covariance_estimator": null,
+		"n_components": 1,
+		"priors": null,
+		"shrinkage": null,
+		"solver": "svd",
+		"store_covariance": false,
+		"tol": 0.0001
+	  },
+	  "nodes_from": [],
+	  "fitted_operation_path": "fitted_operations\\operation_4.pkl"
+	}, {
+	  "operation_id": 2,
+	  "operation_type": "logit",
+	  "operation_name": "LogisticRegression",
+	  "custom_params": {
+		"C": 1.0,
+		"class_weight": null,
+		"dual": false,
+		"fit_intercept": true,
+		"intercept_scaling": 1,
+		"l1_ratio": null,
+		"max_iter": 100,
+		"multi_class": "auto",
+		"n_jobs": null,
+		"penalty": "l2",
+		"random_state": null,
+		"solver": "lbfgs",
+		"tol": 0.0001,
+		"verbose": 0,
+		"warm_start": false
+	  },
+	  "params": {
+		"C": 1.0,
+		"class_weight": null,
+		"dual": false,
+		"fit_intercept": true,
+		"intercept_scaling": 1,
+		"l1_ratio": null,
+		"max_iter": 100,
+		"multi_class": "auto",
+		"n_jobs": null,
+		"penalty": "l2",
+		"random_state": null,
+		"solver": "lbfgs",
+		"tol": 0.0001,
+		"verbose": 0,
+		"warm_start": false
+	  },
+	  "nodes_from": [
+		3, 4
+	  ],
+	  "fitted_operation_path": "fitted_operations\\operation_2.pkl"
+	}, {
+	  "operation_id": 6,
+	  "operation_type": "knn",
+	  "operation_name": "CustomKnnClassImplementation",
+	  "custom_params": {
+		"algorithm": "auto",
+		"leaf_size": 30,
+		"metric": "minkowski",
+		"metric_params": null,
+		"n_jobs": null,
+		"n_neighbors": 9,
+		"p": 2,
+		"weights": "uniform"
+	  },
+	  "params": {
+		"algorithm": "auto",
+		"leaf_size": 30,
+		"metric": "minkowski",
+		"metric_params": null,
+		"n_jobs": null,
+		"n_neighbors": 9,
+		"p": 2,
+		"weights": "uniform"
+	  },
+	  "nodes_from": [],
+	  "fitted_operation_path": "fitted_operations\\operation_6.pkl"
+	}, {
+	  "operation_id": 5,
+	  "operation_type": "knn",
+	  "operation_name": "CustomKnnClassImplementation",
+	  "custom_params": {
+		"algorithm": "auto",
+		"leaf_size": 30,
+		"metric": "minkowski",
+		"metric_params": null,
+		"n_jobs": null,
+		"n_neighbors": 5,
+		"p": 2,
+		"weights": "uniform"
+	  },
+	  "params": {
+		"algorithm": "auto",
+		"leaf_size": 30,
+		"metric": "minkowski",
+		"metric_params": null,
+		"n_jobs": null,
+		"n_neighbors": 5,
+		"p": 2,
+		"weights": "uniform"
+	  },
+	  "nodes_from": [
+		6
+	  ],
+	  "fitted_operation_path": "fitted_operations\\operation_5.pkl"
+	}, {
+	  "operation_id": 1,
+	  "operation_type": "lda",
+	  "operation_name": "LDAImplementation",
+	  "custom_params": {
+		"covariance_estimator": null,
+		"n_components": 1,
+		"priors": null,
+		"shrinkage": null,
+		"solver": "svd",
+		"store_covariance": false,
+		"tol": 0.0001
+	  },
+	  "params": {
+		"covariance_estimator": null,
+		"n_components": 1,
+		"priors": null,
+		"shrinkage": null,
+		"solver": "svd",
+		"store_covariance": false,
+		"tol": 0.0001
+	  },
+	  "nodes_from": [
+		2, 5
+	  ],
+	  "fitted_operation_path": "fitted_operations\\operation_1.pkl"
+	}, {
+	  "operation_id": 8,
+	  "operation_type": "pca",
+	  "operation_name": "PCAImplementation",
+	  "custom_params": {
+		"copy": true,
+		"iterated_power": "auto",
+		"n_components": "mle",
+		"random_state": null,
+		"svd_solver": "full",
+		"tol": 0.0,
+		"whiten": false
+	  },
+	  "params": {
+		"copy": true,
+		"iterated_power": "auto",
+		"n_components": "mle",
+		"random_state": null,
+		"svd_solver": "full",
+		"tol": 0.0,
+		"whiten": false
+	  },
+	  "nodes_from": [],
+	  "fitted_operation_path": "fitted_operations\\operation_8.pkl"
+	}, {
+	  "operation_id": 7,
+	  "operation_type": "xgboost",
+	  "operation_name": "XGBClassifier",
+	  "custom_params": {
+		"objective": "binary:logistic",
+		"base_score": 0.5,
+		"booster": null,
+		"colsample_bylevel": 1,
+		"colsample_bynode": 1,
+		"colsample_bytree": 1,
+		"gamma": 0,
+		"gpu_id": -1,
+		"importance_type": "gain",
+		"interaction_constraints": null,
+		"learning_rate": 0.300000012,
+		"max_delta_step": 0,
+		"max_depth": 6,
+		"min_child_weight": 1,
+		"monotone_constraints": null,
+		"n_estimators": 100,
+		"n_jobs": 0,
+		"num_parallel_tree": 1,
+		"random_state": 0,
+		"reg_alpha": 0,
+		"reg_lambda": 1,
+		"scale_pos_weight": 1,
+		"subsample": 1,
+		"tree_method": null,
+		"validate_parameters": false,
+		"verbosity": null
+	  },
+	  "params": {
+		"objective": "binary:logistic",
+		"base_score": 0.5,
+		"booster": null,
+		"colsample_bylevel": 1,
+		"colsample_bynode": 1,
+		"colsample_bytree": 1,
+		"gamma": 0,
+		"gpu_id": -1,
+		"importance_type": "gain",
+		"interaction_constraints": null,
+		"learning_rate": 0.300000012,
+		"max_delta_step": 0,
+		"max_depth": 6,
+		"min_child_weight": 1,
+		"monotone_constraints": null,
+		"n_estimators": 100,
+		"n_jobs": 0,
+		"num_parallel_tree": 1,
+		"random_state": 0,
+		"reg_alpha": 0,
+		"reg_lambda": 1,
+		"scale_pos_weight": 1,
+		"subsample": 1,
+		"tree_method": null,
+		"validate_parameters": false,
+		"verbosity": null
+	  },
+	  "nodes_from": [
+		8
+	  ],
+	  "fitted_operation_path": "fitted_operations\\operation_7.pkl"
+	}, {
+	  "operation_id": 0,
+	  "operation_type": "knn",
+	  "operation_name": "CustomKnnClassImplementation",
+	  "custom_params": {
+		"algorithm": "auto",
+		"leaf_size": 30,
+		"metric": "minkowski",
+		"metric_params": null,
+		"n_jobs": null,
+		"n_neighbors": 8,
+		"p": 2,
+		"weights": "uniform"
+	  },
+	  "params": {
+		"algorithm": "auto",
+		"leaf_size": 30,
+		"metric": "minkowski",
+		"metric_params": null,
+		"n_jobs": null,
+		"n_neighbors": 8,
+		"p": 2,
+		"weights": "uniform"
+	  },
+	  "nodes_from": [
+		1, 7
+	  ],
+	  "fitted_operation_path": "fitted_operations\\operation_0.pkl"
+	}
     ]
 }

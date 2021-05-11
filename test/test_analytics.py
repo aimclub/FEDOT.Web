@@ -8,7 +8,8 @@ def test_quality_endpoint(client):
 
 def test_results_endpoint(client):
     chain_id = 'test_chain'
-    results_plots = client.get(f'api/analytics/quality/{chain_id}').json
+    case_id = 'test_case'
+    results_plots = client.get(f'api/analytics/results/{case_id}/{chain_id}').json
     results_plot = results_plots[0]
 
     assert len(results_plot['x']) > 0
