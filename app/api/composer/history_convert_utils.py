@@ -4,12 +4,10 @@ def history_to_graph(history):
     edges = []
 
     local_id = 0
-    for gen_id in range(len(history.chains)):
-        for ind_id in range(len(history.chains[gen_id])):
+    for gen_id in range(len(history.individuals)):
+        for ind_id in range(len(history.individuals[gen_id])):
             operators = history.parent_operators[gen_id][ind_id]
-            operators_dict = dict()
             for o_id, operator in enumerate(operators):
-                # add evo operators as nodes
                 node = dict()
                 node_id = f'evo_operator_{o_id}_gen{gen_id}'
                 if node_id not in [n['uid'] for n in nodes]:
@@ -34,7 +32,7 @@ def history_to_graph(history):
                 ind['type'] = 'individual'
                 ind['chain_id'] = chain_id
                 ind['objs'] = objs
-                ind['tmp_chain_uid'] = history.chains[gen_id][ind_id].unique_chain_id
+                ind['tmp_chain_uid'] = history.individuals[gen_id][ind_id].chain.unique_chain_id
                 nodes.append(ind)
 
             local_id += 1

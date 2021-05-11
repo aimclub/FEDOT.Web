@@ -51,7 +51,7 @@ def chain_to_graph(chain):
                 edge['target'] = node['id']
                 edges.append(edge)
 
-            childs = chain.node_childs(node['chain_node'])
+            childs = chain.operator.node_children(node['chain_node'])
             if childs is not None:
                 # fill childs field
                 for chain_node_child in childs:
