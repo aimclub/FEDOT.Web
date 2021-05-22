@@ -3,7 +3,6 @@ import pickle
 
 from fedot.api.main import Fedot
 from fedot.core.composer.composing_history import ComposingHistory
-from fedot.core.utils import project_root
 
 from utils import project_root
 
