@@ -1,14 +1,16 @@
 from typing import List
 
 from utils import project_root
-from .models import ShowcaseItem
+from .models import Metadata, ShowcaseItem
 
 
 def showcase_item_by_uid(case_id: str) -> ShowcaseItem:
+    metadata = Metadata(metric_name='roc_auc', task_name='classification', dataset_name='scoring')
     item = ShowcaseItem(case_id=case_id,
                         chain_id='ad39eb8c-6050-4734-9e0a-b9884a125a11',
                         description=f'This is a test description of the showcase item {case_id}',
-                        icon_path=f'{project_root()}/data/mocked_images/showcase.png')
+                        icon_path=f'{project_root()}/data/mocked_images/showcase.png',
+                        metadata=metadata)
     return item
 
 

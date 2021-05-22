@@ -13,7 +13,7 @@ def test_get_chain_endpoint(client):
     knn_node = [node for node in chain_json['nodes'] if node['model_name'] == 'knn'][0]
     assert knn_node['type'] == 'model'
 
-    pca_node = [node for node in chain_json['nodes'] if node['model_name'] == 'pca_data_model'][0]
+    pca_node = [node for node in chain_json['nodes'] if node['model_name'] == 'pca'][0]
     assert pca_node['type'] == 'data_operation'
 
 

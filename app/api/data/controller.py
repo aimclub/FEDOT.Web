@@ -5,7 +5,7 @@ from flask_restx import Namespace, Resource
 
 from .models import Dataset
 from .schema import DatasetSchema
-from .service import get_datasets
+from .service import get_datasets_names
 
 api = Namespace("Data", description="Operations with experiments data")
 
@@ -17,6 +17,6 @@ class DataSetsResource(Resource):
     @responds(schema=DatasetSchema, many=True)
     def get(self) -> List[Dataset]:
         """Get list of all datasets names"""
-        dataset_name = get_datasets()
+        dataset_name = get_datasets_names()
 
         return [Dataset(_) for _ in dataset_name]

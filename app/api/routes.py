@@ -7,6 +7,7 @@ def register_routes(api, app, root="app"):
     from app.api.auth import register_routes as attach_token
     from app.api.showcase import register_routes as attach_showcase
     from app.api.sandbox import register_routes as attach_sandbox
+    from app.api.analytics import register_routes as attach_analytics
 
     # Add routes
     attach_model(api, app)
@@ -17,3 +18,4 @@ def register_routes(api, app, root="app"):
     attach_token(api, app)
     attach_showcase(api, app)
     attach_sandbox(api, app)
+    attach_analytics(api, app)

@@ -8,7 +8,6 @@ from flask_login import login_required, current_user
 from flask_socketio import send
 
 from app import socketio
-from .service import start_compose
 
 random.seed(1)
 np.random.seed(1)
@@ -42,5 +41,5 @@ def profile():
 def handle_message(data):
     print('received message: ' + data)
     socketio.send('received message: ' + data)
-    if data == 'start_compose':
-        start_compose(custom_callback)
+    # if data == 'start_compose':
+    # start_compose(custom_callback)
