@@ -24,6 +24,7 @@ class ChainResponseSchema(Schema):
     uid = fields.String(attribute='uid')
     is_new = fields.Bool(attribute='is_new')
 
+
 class ChainImageSchema(Schema):
     """Chain schema"""
 
