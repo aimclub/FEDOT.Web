@@ -2,7 +2,7 @@ import json
 
 from fedot.core.chains.chain import Chain
 
-from app.api.showcase.service import generate_image, get_image_url
+from app.api.showcase.service import get_image_url
 from utils import project_root
 
 from pathlib import Path
@@ -49,11 +49,12 @@ def test_add_chain_endpoint(client):
     assert response['uid'] == existing_uid
 
 
-def test_chain_image_generating():
+def test_chain_image_endpoint(client):
     uid = 'test_chain'
-
+    response = client.get(f'api/chains/image/{uid}').json
     test_chain = Chain()
     test_chain.load(f'{project_root()}/data/mocked_jsons/chain.json')
-    filename = uid + '.png'
-    generate_image(filename, test_chain)
+    filename = f'{uid}.png'
+    image_url = get_image_url(filename, test_chain)
     assert Path(f'{project_root()}/app/web/static/generated_images/{filename}').exists()
+    assert image_url == response['image_url']

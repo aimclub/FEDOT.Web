@@ -8,7 +8,7 @@ from .schema import (ChainGraphSchema, ChainResponseSchema,
                      ChainValidationResponseSchema, ChainImageSchema)
 from .service import chain_by_uid, create_chain, validate_chain
 
-from app.api.showcase.service import generate_image, get_image_url
+from app.api.showcase.service import get_image_url
 
 api = Namespace("Chains", description="Operations with chains")
 
@@ -69,12 +69,11 @@ class ChainsIdImage(Resource):
     """Chains"""
 
     @responds(schema=ChainImageSchema, many=False)
-    def get(self, uid) -> ChainGraph:
+    def get(self, uid) -> ChainImage:
         """Get image of chain with specific UID"""
 
         chain = chain_by_uid(uid)
-        filename = uid + '.png'
-        generate_image(filename, chain)
-        image_url = get_image_url(filename)
+        filename = f'{uid}.png'
+        image_url = get_image_url(filename, chain)
 
         return ChainImage(uid, image_url)
