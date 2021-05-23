@@ -35,10 +35,10 @@ def all_showcase_items_ids() -> List[str]:
 
 
 def generate_image(filename, chain):
-    image_path = f'app/web/static/generated_images/{filename}'
+    image_path = f'{project_root()}/app/web/static/generated_images/{filename}'
     image = Path(image_path)
     if not image.exists():
-        dir = Path('app/web/static/generated_images/')
+        dir = Path(f'{project_root()}/app/web/static/generated_images/')
         if not dir.exists():
             dir.mkdir()
         chain.show(image_path)
