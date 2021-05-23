@@ -19,3 +19,9 @@ class ChainValidationResponse:
 class ChainResponse:
     uid: Optional[str]
     is_new: bool
+
+
+@dataclass
+class ChainImage:
+    uid: str
+    image_url: str
