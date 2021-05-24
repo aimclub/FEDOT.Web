@@ -58,4 +58,3 @@ def test_chain_image_endpoint(client):
     image_url = get_image_url(filename, test_chain)
     assert Path(f'{project_root()}/app/web/static/generated_images/{filename}').exists()
     assert image_url == response['image_url']
-    
