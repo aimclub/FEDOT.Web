@@ -3,10 +3,12 @@ from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 
 from .chain_convert_utils import chain_to_graph, graph_to_chain
-from .models import ChainGraph, ChainResponse, ChainValidationResponse
+from .models import ChainGraph, ChainResponse, ChainValidationResponse, ChainImage
 from .schema import (ChainGraphSchema, ChainResponseSchema,
-                     ChainValidationResponseSchema)
+                     ChainValidationResponseSchema, ChainImageSchema)
 from .service import chain_by_uid, create_chain, validate_chain
+
+from app.api.showcase.service import get_image_url
 
 api = Namespace("Chains", description="Operations with chains")
 
@@ -60,3 +62,18 @@ class ChainsAddResource(Resource):
             return ChainResponse(uid, is_exists)
         else:
             return ChainResponse(None, False)
+
+
+@api.route("/image/<string:uid>")
+class ChainsIdImage(Resource):
+    """Chains"""
+
+    @responds(schema=ChainImageSchema, many=False)
+    def get(self, uid) -> ChainImage:
+        """Get image of chain with specific UID"""
+
+        chain = chain_by_uid(uid)
+        filename = f'{uid}.png'
+        image_url = get_image_url(filename, chain)
+
+        return ChainImage(uid, image_url)
