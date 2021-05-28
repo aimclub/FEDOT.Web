@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import SideMenu from "./components/Drawer";
+import SideMenu from "../SideMenu/SideMenu";
 import { useMediaQuery } from "@material-ui/core";
-import Sandbox from "./pages/Sandbox";
-import clsx from "clsx";
+import Sandbox from "../../pages/Sandbox/Sandbox";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Showcase from "../../pages/Showcase/Showcase";
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -35,10 +36,19 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className={clsx("App", isDark ? "dark" : "")}>
-        <SideMenu changeTheme={changeTheme} />
-        <Sandbox />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <SideMenu changeTheme={changeTheme} />
+          <Switch>
+            <Route exact path="/">
+              <Showcase />
+            </Route>
+            <Route exact path="/sandbox">
+              <Sandbox />
+            </Route>
+          </Switch>
+        </div>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

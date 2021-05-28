@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -14,12 +14,15 @@ import GradientIcon from "@material-ui/icons/Gradient";
 import TerrainIcon from "@material-ui/icons/Terrain";
 import WidgetsIcon from "@material-ui/icons/Widgets";
 import LogoFedot from "../Svg/LogoFedot";
+import GraphCreationList from "../GraphCreationList/GraphCreationList";
+import ListItemLink from "../ListItemLink/ListItemLink";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 180;
 const MENU_LINK = [
-  { text: "Showcase", icon: <GradientIcon /> },
-  { text: "Sandbox", icon: <TerrainIcon /> },
-  { text: "FEDOT", icon: <WidgetsIcon /> },
+  { text: "Showcase", icon: <GradientIcon />, to: "/" },
+  { text: "Sandbox", icon: <TerrainIcon />, to: "/sandbox" },
+  { text: "FEDOT", icon: <WidgetsIcon />, to: "/fedot" },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -100,14 +103,16 @@ const SideMenu = ({ changeTheme }: SideMenuProps) => {
       <Divider className={classes.divider} />
       <List>
         {MENU_LINK.map((item, index) => (
-          <ListItem button key={item.text}>
-            <ListItemIcon className={classes.listItemIcon}>
-              {item.icon}
-            </ListItemIcon>
-            <ListItemText primary={item.text} />
-          </ListItem>
+          <ListItemLink
+            to={item.to}
+            key={item.text}
+            icon={item.icon}
+            primary={item.text}
+          />
         ))}
       </List>
+      <Divider className={classes.divider} />
+      <GraphCreationList />
       <div style={{ flexGrow: 1 }} />
       <ListItem button onClick={changeTheme}>
         <ListItemIcon className={classes.listItemIcon}>
