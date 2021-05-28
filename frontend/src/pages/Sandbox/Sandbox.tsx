@@ -5,8 +5,8 @@ import TerrainIcon from "@material-ui/icons/Terrain";
 import style from "./sandbox.module.scss";
 
 import DirectedGraph from "../../components/DirectedGraph/DirectedGraph";
-import Header from "../../components/Header";
-import CustomSlider from "../../components/Slider";
+import Header from "../../components/Header/Header";
+import CustomSlider from "../../components/Slider/Slider";
 import { IMainGraph, sandboxAPI } from "../../api/sandbox";
 // import data from "../../data/data.json";
 
@@ -35,6 +35,8 @@ const Sandbox = () => {
       }
     };
     getData();
+
+    return;
   }, []);
 
   const handleOnClickGraph = (d: any): any => {

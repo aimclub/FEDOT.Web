@@ -1,7 +1,7 @@
 import React, { ReactChild } from "react";
 
 import style from "./header.module.scss";
-import { Typography } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 
 type HeaderProps = {
   title: string;
@@ -11,7 +11,7 @@ type HeaderProps = {
 
 const Header = (props: HeaderProps) => {
   return (
-    <div className={style.root}>
+    <Paper elevation={3} className={style.root}>
       <div className={style.logoText}>
         {props.logo}
         <Typography variant="subtitle2" className={style.title}>
@@ -19,7 +19,7 @@ const Header = (props: HeaderProps) => {
         </Typography>
       </div>
       <div>{props.subComponent}</div>
-    </div>
+    </Paper>
   );
 };
 export default Header;
