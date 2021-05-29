@@ -16,6 +16,7 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     TESTING = False
     DATABASE_URI = "sqlite:///{0}/app-dev.sqlite".format(basedir)
+    MONGO_URI = os.getenv("MONGO_CONN_STRING")
 
 
 class TestingConfig(BaseConfig):
@@ -24,6 +25,7 @@ class TestingConfig(BaseConfig):
     DEBUG = True
     TESTING = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///{0}/app-test.sqlite".format(basedir)
+    MONGO_URI = os.getenv("MONGO_CONN_STRING")
 
 
 class ProductionConfig(BaseConfig):

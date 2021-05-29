@@ -5,6 +5,8 @@ from fedot.core.chains.chain import Chain
 from fedot.core.chains.chain_validation import validate
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
 
+from app import mongo
+
 
 def chain_first():
     #    XG
@@ -46,7 +48,9 @@ def chain_mock():
 
 
 def chain_by_uid(uid: str) -> Chain:
-    chain = chain_mock()
+    chain = Chain()
+    resp = mongo.db.chains.find_one({'uid': uid})
+    chain.load(resp)
     return chain
 
 

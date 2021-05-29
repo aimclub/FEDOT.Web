@@ -6,8 +6,12 @@ from flask_login import LoginManager
 from flask_restx import Api
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
+from flask_pymongo import PyMongo
 
 db = SQLAlchemy()
+
+mongo = PyMongo()
+
 socketio = SocketIO()
 
 login_manager = LoginManager()
@@ -31,6 +35,8 @@ def create_app(env=None):
     socketio.init_app(app)
 
     db.init_app(app)
+
+    mongo.init_app(app)
 
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
