@@ -49,8 +49,9 @@ def chain_mock():
 
 def chain_by_uid(uid: str) -> Chain:
     chain = Chain()
-    resp = mongo.db.chains.find_one({'uid': uid})
-    chain.load(resp)
+    chain_dict = mongo.db.chains.find_one({'uid': uid})
+    dict_fitted_operations = mongo.db.dict_fitted_operations.find_one({'uid': uid})
+    chain.load(chain_dict, dict_fitted_operations)
     return chain
 
 
