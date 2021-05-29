@@ -5,7 +5,7 @@ from fedot.core.chains.chain import Chain
 from fedot.core.chains.chain_validation import validate
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
 
-from app import mongo
+from app import storage
 
 
 def chain_first():
@@ -49,8 +49,8 @@ def chain_mock():
 
 def chain_by_uid(uid: str) -> Chain:
     chain = Chain()
-    chain_dict = mongo.db.chains.find_one({'uid': uid})
-    dict_fitted_operations = mongo.db.dict_fitted_operations.find_one({'uid': uid})
+    chain_dict = storage.db.chains.find_one({'uid': uid})
+    dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': uid})
     chain.load(chain_dict, dict_fitted_operations)
     return chain
 

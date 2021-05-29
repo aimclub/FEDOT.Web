@@ -19,7 +19,7 @@ if __name__ == "__main__":
     database_name = 'test_db'
     client = pymongo.MongoClient(os.getenv('MONGO_CONN_STRING'))
     db = client[database_name]
-    db.chains.insert_one(dict_chain) # deprecated, but it allows point in name
+    db.chains.insert_one(dict_chain)  # deprecated, but it allows point in name
     db.dict_fitted_operations.insert(dict_fitted_operations, check_keys=False)
     print(db.chains.find_one())
     print(db.dict_fitted_operations.find_one())

@@ -10,7 +10,7 @@ from flask_pymongo import PyMongo
 
 db = SQLAlchemy()
 
-mongo = PyMongo()
+storage = PyMongo()
 
 socketio = SocketIO()
 
@@ -36,7 +36,7 @@ def create_app(env=None):
 
     db.init_app(app)
 
-    mongo.init_app(app)
+    storage.init_app(app)
 
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
