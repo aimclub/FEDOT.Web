@@ -1,3 +1,5 @@
+import json
+import hashlib
 import warnings
 from typing import Tuple
 
@@ -64,13 +66,23 @@ def validate_chain(chain: Chain) -> Tuple[bool, str]:
 
 
 def create_chain(uid: str, chain: Chain):
-    # TODO search chain with same structure and data in database
-    existing_uid = 'test_chain'
-    is_new = uid != existing_uid
+    is_new = True
+    existing_uid = storage.db.chains.find_one({'uid': uid})
+    if existing_uid:
+        is_new = False
 
-    if is_new:
-        # TODO save chain to database
+    is_duplicate = False
+    dumped_json = chain.save()
+    hash = hashlib.md5(dumped_json.encode('utf-8')).hexdigest()
+    if storage.db.chains.find_one({'hash': hash}):
+        is_duplicate = True
+
+    if is_new and not is_duplicate:
+        dict_chain = json.loads(dumped_json)
+        dict_chain['hash'] = hash
+        dict_chain['uid'] = uid
+        storage.db.chains.insert_one(dict_chain)
+    else:
         warnings.warn('Cannot create new chain')
-        uid = 'new_uid'
 
     return uid, is_new
