@@ -8,69 +8,55 @@ import DirectedGraph from "../../components/DirectedGraph/DirectedGraph";
 import Header from "../../components/Header/Header";
 import CustomSlider from "../../components/Slider/Slider";
 import { IMainGraph, sandboxAPI } from "../../api/sandbox";
+import { useDispatch, useSelector } from "react-redux";
+import { getMainGraph } from "../../services/sandboxSlice";
+import { RootState } from "../../services/store";
 // import data from "../../data/data.json";
 
 const Sandbox = () => {
-  const [buildData, setBuildData] = useState<IMainGraph>({
-    nodes: [],
-    edges: [],
-  });
-  const [data, setData] = useState<IMainGraph>({
-    nodes: [],
-    edges: [],
-  });
+  const dispatch = useDispatch();
+  const { mainGraph } = useSelector((state: RootState) => state.sandbox);
 
   const handleSliderChange = (e: ChangeEvent<{}>, v: number | number[]) => {
     console.log(`### handleSliderChange`);
   };
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const res = await sandboxAPI.getMainGraph(54545);
-        setData(res);
-        setBuildData(res);
-      } catch (e) {
-        console.log(`### e`, e);
-      }
-    };
-    getData();
-
-    return;
+    dispatch(getMainGraph());
   }, []);
 
   const handleOnClickGraph = (d: any): any => {
-    console.log(`### d`, d);
-    setData((state) => {
-      const id = state.nodes.length;
-      const newState = {
-        nodes: [
-          ...state.nodes,
-          ...[
-            {
-              id: id,
-              display_name: "NEW",
-              model_name: "NEW",
-              class: "model",
-              params: { n_neighbors: 8 },
-              parents: [1, 7],
-              children: [],
-            },
-          ],
-        ],
-        edges: [
-          ...state.edges,
-          ...[
-            {
-              source: id,
-              target: +d,
-            },
-          ],
-        ],
-      };
-      console.log(`### newState`, newState);
-      return newState;
-    });
+    console.log(`### handleOnClickGraph d`, d);
+    // setData((state) => {
+    //   const id = state.nodes.length;
+    //   const newState = {
+    //     nodes: [
+    //       ...state.nodes,
+    //       ...[
+    //         {
+    //           id: id,
+    //           display_name: "NEW",
+    //           model_name: "NEW",
+    //           class: "model",
+    //           params: { n_neighbors: 8 },
+    //           parents: [1, 7],
+    //           children: [],
+    //         },
+    //       ],
+    //     ],
+    //     edges: [
+    //       ...state.edges,
+    //       ...[
+    //         {
+    //           source: id,
+    //           target: +d,
+    //         },
+    //       ],
+    //     ],
+    //   };
+    //   console.log(`### newState`, newState);
+    //   return newState;
+    // });
   };
   return (
     <div className={style.root}>
@@ -79,8 +65,8 @@ const Sandbox = () => {
       </Paper>
       <Paper elevation={3} className={clsx(style.paper, style.paperGrow)}>
         <DirectedGraph
-          edgesData={data.edges}
-          nodesData={data.nodes}
+          edgesData={mainGraph.edges}
+          nodesData={mainGraph.nodes}
           onClick={handleOnClickGraph}
         />
       </Paper>
@@ -90,11 +76,11 @@ const Sandbox = () => {
             valueLabelDisplay="auto"
             aria-label="Epoha Slider"
             defaultValue={0}
-            value={data.nodes.length}
+            value={mainGraph.nodes.length}
             color="primary"
             onChange={handleSliderChange}
             min={1}
-            max={buildData.nodes.length}
+            max={mainGraph.nodes.length}
           />
         </div>
       </Paper>
