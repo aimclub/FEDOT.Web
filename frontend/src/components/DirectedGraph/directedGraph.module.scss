@@ -42,9 +42,9 @@
     fill: #00ffd0;
     //animation: bubbleNode 1s ease-in-out;
   }
-  //[class*="type-TK"] > * {
-  //  animation: bubbleNode 1s ease-in-out;
-  //}
+  [class*="type-TOP"] circle {
+    fill: #eba;
+  }
 
   [class*="type-NEW"] rect {
     fill: #eba;
@@ -64,6 +64,16 @@
     //transition: all 1.2s ease-in-out;
     cursor: pointer;
   }
+
+  //[class*="edgePath"] path {
+  //  stroke: #333;
+  //  stroke-width: 2px;
+  //  //transition: all 1.2s ease-in-out;
+  //  cursor: pointer;
+  //  &[class*="edgeONE"] {
+  //    outline: 1px solid red;
+  //  }
+  //}
 }
 
 .contextMenu {

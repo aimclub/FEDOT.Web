@@ -31,7 +31,7 @@ export function runDirectedGraph(
 
   // Create the input graph
   let g = new dagreD3.graphlib.Graph()
-    .setGraph({ rankdir: "LR" })
+    .setGraph({ rankdir: "BT" })
     .setDefaultEdgeLabel(() => ({}));
 
   // Here we're setting nodeclass, which is used by our custom drawNodes function
@@ -41,7 +41,8 @@ export function runDirectedGraph(
 
     g.setNode(item.id, {
       label: label,
-      class: item.id < 9 ? "type-TOP" : "type-TK",
+      class: item.id < 5 ? "type-TOP" : "type-TK",
+      shape: item.id < 5 ? "circle" : "rect",
     });
   });
 
@@ -57,7 +58,18 @@ export function runDirectedGraph(
     const haveSource = g.hasNode(item.source);
     const haveTarget = g.hasNode(item.target);
     if (haveSource && haveTarget) {
-      g.setEdge(item.source, item.target);
+      if (item.source < 8) {
+        g.setEdge(item.source, item.target, {
+          arrowheadStyle: "fill: gold",
+          style: "stroke: #gold; stroke-width: 3px;",
+          // class: item.source < 5 ? "edge-ONE" : "edge-TWO",
+        });
+      } else {
+        g.setEdge(item.source, item.target, {
+          arrowheadStyle: "fill: #f66",
+          style: "stroke: #f66; stroke-width: 3px; stroke-dasharray: 5, 5;",
+        });
+      }
     }
   });
 
