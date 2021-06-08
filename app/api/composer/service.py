@@ -19,21 +19,21 @@ def composer_history_for_case(case_id: str) -> ComposingHistory:
         with open(saved_history, 'rb') as file:
             history = pickle.load(file)
     else:
-        auto_model = Fedot(problem=task, seed=42, learning_time=3,
-                           composer_params={'composer_metric': metric})
-        auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv', target='target')
-        history = auto_model.history
+        history = run_composer(task, metric, dataset_name)
         with open(saved_history, 'wb') as file:
             pickle.dump(history, file)
 
     return history
 
 
-def run_composing(case_id: str):
-    dataset_name = 'scoring'
-    metric = 'roc_aus'
-    task = 'classification'
-
-    auto_model = Fedot(problem=task, seed=42, learning_time=2,
-                       composer_params={'composer_metric': metric})
-    auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv', target='target')
+def run_composer(task, metric, dataset_name):
+    auto_model = Fedot(problem=task, seed=42, preset='light', verbose_level=4, learning_time=5,
+                       composer_params={'composer_metric': metric,
+                                        'pop_size': 10,
+                                        'num_of_generations': 8,
+                                        'max_arity': 3,
+                                        'max_depth': 3})
+    auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
+                   target='target')
+    history = auto_model.history
+    return history
