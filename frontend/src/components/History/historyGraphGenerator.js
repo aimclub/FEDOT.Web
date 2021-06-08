@@ -1,13 +1,8 @@
 import * as d3 from "d3";
-import "./directedGraph.module.scss";
+import "./History.module.scss";
 import dagreD3 from "dagre-d3";
 
-export function runDirectedGraph(
-  container,
-  linksData,
-  nodesData,
-  onContextMenu
-) {
+export function runHistory(container, linksData, nodesData) {
   let links = linksData.map((d) => Object.assign({}, d));
   let nodes = nodesData.map((d) => Object.assign({}, d));
 
@@ -30,25 +25,58 @@ export function runDirectedGraph(
   let svgGroup = svg.append("g");
 
   // Create the input graph
-  let g = new dagreD3.graphlib.Graph()
-    .setGraph({ rankdir: "BT" })
+  let g = new dagreD3.graphlib.Graph({ compound: true, multigraph: true })
+    .setGraph({ rankdir: "TB" })
     .setDefaultEdgeLabel(() => ({}));
 
   // Here we're setting nodeclass, which is used by our custom drawNodes function
   // below.
-  nodes.forEach((item) => {
-    let label = item.display_name;
 
-    g.setNode(item.id, {
-      label: label,
-      class: item.id < 5 ? "type-TOP" : "type-TK",
-      shape: item.id < 5 ? "circle" : "rect",
+  //TODO: Кластеры поколений
+  g.setNode("generationsAll", {
+    label: "generation0",
+    clusterLabelPos: "top",
+    style: "fill: #E6399B",
+  });
+  g.setNode("generation0", {
+    label: "generation0",
+    clusterLabelPos: "top",
+    style: "fill: #d3d7e8",
+  });
+  g.setNode("generation1", {
+    label: "generation1",
+    clusterLabelPos: "top",
+    style: "fill: #ffd47f",
+  });
+  g.setNode("generation2", { label: "generation2", style: "fill: #5f9488" });
+
+  nodes.forEach((item) => {
+    // let label = item.display_name;
+    g.setNode(item.uid, {
+      label: item.uid,
+      class: item.type === "evo_operator" ? "type-TOP" : "type-TK",
+      shape: item.type === "evo_operator" ? "circle" : "rect",
     });
+
+    g.setParent("generation0", "generationsAll");
+    g.setParent("generation1", "generationsAll");
+
+    if (item.uid.includes("_0_")) {
+      console.log(`### item.uid`, item.uid);
+      g.setParent(item.uid, "generation0");
+    }
+    if (item.uid.includes("_1_")) {
+      console.log(`### item.uid`, item.uid);
+      g.setParent(item.uid, "generation1");
+    }
+    if (item.uid.includes("_2_")) {
+      console.log(`### item.uid`, item.uid);
+      g.setParent(item.uid, "generation2");
+    }
   });
 
   g.nodes().forEach(function (v) {
     let node = g.node(v);
-
     // Round the corners of the nodes
     node.rx = node.ry = 5;
   });
@@ -60,15 +88,14 @@ export function runDirectedGraph(
     if (haveSource && haveTarget) {
       if (item.source < 8) {
         g.setEdge(item.source, item.target, {
-          arrowheadStyle: "fill: gold",
-          style: "stroke: #gold; stroke-width: 3px;",
-          curve: d3.curveBasis,
+          // arrowheadStyle: "fill: gold",
+          // style: "stroke: #gold; stroke-width: 3px;",
           // class: item.source < 5 ? "edge-ONE" : "edge-TWO",
         });
       } else {
         g.setEdge(item.source, item.target, {
-          arrowheadStyle: "fill: #f66",
-          style: "stroke: #f66; stroke-width: 3px; stroke-dasharray: 5, 5;",
+          // arrowheadStyle: "fill: #f66",
+          // style: "stroke: #f66; stroke-width: 3px; stroke-dasharray: 5, 5;",
         });
       }
     }
@@ -101,8 +128,6 @@ export function runDirectedGraph(
     "transform",
     "translate(" + xCenterOffset + "," + yCenterOffset + ")"
   );
-
-  svg.selectAll("g.node").on("contextmenu", onContextMenu);
 
   return {
     destroy: () => {

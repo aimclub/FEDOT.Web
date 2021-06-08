@@ -1,0 +1,6834 @@
+{
+  "edges": [
+    {
+      "source": "chain_0_1",
+      "target": "evo_operator_0_gen2"
+    },
+    {
+      "source": "chain_0_7",
+      "target": "evo_operator_0_gen1"
+    },
+    {
+      "source": "chain_0_17",
+      "target": "evo_operator_0_gen1"
+    },
+    {
+      "source": "chain_0_17",
+      "target": "evo_operator_0_gen3"
+    },
+    {
+      "source": "chain_0_18",
+      "target": "evo_operator_0_gen2"
+    },
+    {
+      "source": "chain_0_18",
+      "target": "evo_operator_0_gen5"
+    },
+    {
+      "source": "chain_0_18",
+      "target": "evo_operator_0_gen6"
+    },
+    {
+      "source": "chain_0_18",
+      "target": "evo_operator_0_gen7"
+    },
+    {
+      "source": "chain_0_18",
+      "target": "evo_operator_0_gen8"
+    },
+    {
+      "source": "chain_0_18",
+      "target": "evo_operator_0_gen9"
+    },
+    {
+      "source": "chain_0_18",
+      "target": "evo_operator_0_gen10"
+    },
+    {
+      "source": "chain_0_18",
+      "target": "evo_operator_0_gen11"
+    },
+    {
+      "source": "chain_0_18",
+      "target": "evo_operator_0_gen12"
+    },
+    {
+      "source": "chain_0_19",
+      "target": "evo_operator_0_gen3"
+    },
+    {
+      "source": "chain_1_5",
+      "target": "evo_operator_0_gen1"
+    },
+    {
+      "source": "chain_1_11",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_1_11",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_1_11",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_1_12",
+      "target": "evo_operator_0_gen2"
+    },
+    {
+      "source": "chain_1_12",
+      "target": "evo_operator_0_gen5"
+    },
+    {
+      "source": "chain_1_12",
+      "target": "evo_operator_0_gen6"
+    },
+    {
+      "source": "chain_1_12",
+      "target": "evo_operator_0_gen7"
+    },
+    {
+      "source": "chain_1_12",
+      "target": "evo_operator_0_gen8"
+    },
+    {
+      "source": "chain_1_12",
+      "target": "evo_operator_0_gen9"
+    },
+    {
+      "source": "chain_1_12",
+      "target": "evo_operator_0_gen10"
+    },
+    {
+      "source": "chain_1_12",
+      "target": "evo_operator_0_gen11"
+    },
+    {
+      "source": "chain_1_12",
+      "target": "evo_operator_0_gen12"
+    },
+    {
+      "source": "chain_1_16",
+      "target": "evo_operator_0_gen1"
+    },
+    {
+      "source": "chain_1_16",
+      "target": "evo_operator_0_gen3"
+    },
+    {
+      "source": "chain_1_17",
+      "target": "evo_operator_0_gen2"
+    },
+    {
+      "source": "chain_1_17",
+      "target": "evo_operator_0_gen5"
+    },
+    {
+      "source": "chain_1_17",
+      "target": "evo_operator_0_gen6"
+    },
+    {
+      "source": "chain_1_17",
+      "target": "evo_operator_0_gen7"
+    },
+    {
+      "source": "chain_1_17",
+      "target": "evo_operator_0_gen8"
+    },
+    {
+      "source": "chain_1_17",
+      "target": "evo_operator_0_gen9"
+    },
+    {
+      "source": "chain_1_17",
+      "target": "evo_operator_0_gen10"
+    },
+    {
+      "source": "chain_1_17",
+      "target": "evo_operator_0_gen11"
+    },
+    {
+      "source": "chain_1_17",
+      "target": "evo_operator_0_gen12"
+    },
+    {
+      "source": "chain_1_19",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_1_19",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_1_19",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_1_21",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_1_21",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_1_21",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_1_25",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_1_25",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_1_25",
+      "target": "evo_operator_1_gen4"
+    },
+    {
+      "source": "chain_1_26",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_1_26",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_1_26",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_1_27",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_1_27",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_1_27",
+      "target": "evo_operator_1_gen4"
+    },
+    {
+      "source": "chain_2_1",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_2_1",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_2_1",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_2",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_2_2",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_2_2",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_4",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_2_4",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_2_4",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_10",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_11",
+      "target": "evo_operator_3_gen3"
+    },
+    {
+      "source": "chain_2_12",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_13",
+      "target": "evo_operator_1_gen4"
+    },
+    {
+      "source": "chain_2_14",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_2_14",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_2_14",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_15",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_2_15",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_2_15",
+      "target": "evo_operator_1_gen4"
+    },
+    {
+      "source": "chain_2_17",
+      "target": "evo_operator_0_gen2"
+    },
+    {
+      "source": "chain_2_17",
+      "target": "evo_operator_0_gen5"
+    },
+    {
+      "source": "chain_2_17",
+      "target": "evo_operator_0_gen6"
+    },
+    {
+      "source": "chain_2_17",
+      "target": "evo_operator_0_gen7"
+    },
+    {
+      "source": "chain_2_17",
+      "target": "evo_operator_0_gen8"
+    },
+    {
+      "source": "chain_2_17",
+      "target": "evo_operator_0_gen9"
+    },
+    {
+      "source": "chain_2_17",
+      "target": "evo_operator_0_gen10"
+    },
+    {
+      "source": "chain_2_17",
+      "target": "evo_operator_0_gen11"
+    },
+    {
+      "source": "chain_2_17",
+      "target": "evo_operator_0_gen12"
+    },
+    {
+      "source": "chain_2_18",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_2_18",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_2_18",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_19",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_2_19",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_2_19",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_20",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_2_20",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_2_20",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_21",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_2_21",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_2_21",
+      "target": "evo_operator_1_gen4"
+    },
+    {
+      "source": "chain_2_22",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_23",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_2_23",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_2_23",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_24",
+      "target": "evo_operator_3_gen4"
+    },
+    {
+      "source": "chain_2_24",
+      "target": "evo_operator_3_gen5"
+    },
+    {
+      "source": "chain_2_25",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_26",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_28",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_29",
+      "target": "evo_operator_1_gen4"
+    },
+    {
+      "source": "chain_2_30",
+      "target": "evo_operator_1_gen4"
+    },
+    {
+      "source": "chain_2_32",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_34",
+      "target": "evo_operator_3_gen3"
+    },
+    {
+      "source": "chain_2_38",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_2_43",
+      "target": "evo_operator_3_gen3"
+    },
+    {
+      "source": "chain_2_45",
+      "target": "evo_operator_3_gen4"
+    },
+    {
+      "source": "chain_2_45",
+      "target": "evo_operator_3_gen5"
+    },
+    {
+      "source": "chain_3_0",
+      "target": "evo_operator_3_gen3"
+    },
+    {
+      "source": "chain_3_2",
+      "target": "evo_operator_1_gen4"
+    },
+    {
+      "source": "chain_3_3",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_3_3",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_3_3",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_3_6",
+      "target": "evo_operator_1_gen2"
+    },
+    {
+      "source": "chain_3_6",
+      "target": "evo_operator_1_gen3"
+    },
+    {
+      "source": "chain_3_6",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_3_7",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_3_8",
+      "target": "evo_operator_3_gen4"
+    },
+    {
+      "source": "chain_3_8",
+      "target": "evo_operator_3_gen5"
+    },
+    {
+      "source": "chain_3_10",
+      "target": "evo_operator_3_gen4"
+    },
+    {
+      "source": "chain_3_10",
+      "target": "evo_operator_3_gen5"
+    },
+    {
+      "source": "chain_3_11",
+      "target": "evo_operator_0_gen2"
+    },
+    {
+      "source": "chain_3_11",
+      "target": "evo_operator_0_gen5"
+    },
+    {
+      "source": "chain_3_11",
+      "target": "evo_operator_0_gen6"
+    },
+    {
+      "source": "chain_3_11",
+      "target": "evo_operator_0_gen7"
+    },
+    {
+      "source": "chain_3_11",
+      "target": "evo_operator_0_gen8"
+    },
+    {
+      "source": "chain_3_11",
+      "target": "evo_operator_0_gen9"
+    },
+    {
+      "source": "chain_3_11",
+      "target": "evo_operator_0_gen10"
+    },
+    {
+      "source": "chain_3_11",
+      "target": "evo_operator_0_gen11"
+    },
+    {
+      "source": "chain_3_11",
+      "target": "evo_operator_0_gen12"
+    },
+    {
+      "source": "chain_3_16",
+      "target": "evo_operator_1_gen4"
+    },
+    {
+      "source": "chain_3_17",
+      "target": "evo_operator_3_gen4"
+    },
+    {
+      "source": "chain_3_17",
+      "target": "evo_operator_3_gen5"
+    },
+    {
+      "source": "chain_3_19",
+      "target": "evo_operator_3_gen4"
+    },
+    {
+      "source": "chain_3_19",
+      "target": "evo_operator_3_gen5"
+    },
+    {
+      "source": "chain_3_21",
+      "target": "evo_operator_3_gen3"
+    },
+    {
+      "source": "chain_3_24",
+      "target": "evo_operator_0_gen5"
+    },
+    {
+      "source": "chain_3_24",
+      "target": "evo_operator_0_gen6"
+    },
+    {
+      "source": "chain_3_24",
+      "target": "evo_operator_0_gen7"
+    },
+    {
+      "source": "chain_3_24",
+      "target": "evo_operator_0_gen8"
+    },
+    {
+      "source": "chain_3_24",
+      "target": "evo_operator_0_gen9"
+    },
+    {
+      "source": "chain_3_24",
+      "target": "evo_operator_0_gen10"
+    },
+    {
+      "source": "chain_3_24",
+      "target": "evo_operator_0_gen11"
+    },
+    {
+      "source": "chain_3_24",
+      "target": "evo_operator_0_gen12"
+    },
+    {
+      "source": "chain_3_25",
+      "target": "evo_operator_3_gen4"
+    },
+    {
+      "source": "chain_3_25",
+      "target": "evo_operator_3_gen5"
+    },
+    {
+      "source": "chain_3_26",
+      "target": "evo_operator_3_gen4"
+    },
+    {
+      "source": "chain_3_26",
+      "target": "evo_operator_3_gen5"
+    },
+    {
+      "source": "chain_3_29",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_3_39",
+      "target": "evo_operator_0_gen5"
+    },
+    {
+      "source": "chain_3_39",
+      "target": "evo_operator_0_gen6"
+    },
+    {
+      "source": "chain_3_39",
+      "target": "evo_operator_0_gen7"
+    },
+    {
+      "source": "chain_3_39",
+      "target": "evo_operator_0_gen8"
+    },
+    {
+      "source": "chain_3_39",
+      "target": "evo_operator_0_gen9"
+    },
+    {
+      "source": "chain_3_39",
+      "target": "evo_operator_0_gen10"
+    },
+    {
+      "source": "chain_3_39",
+      "target": "evo_operator_0_gen11"
+    },
+    {
+      "source": "chain_3_39",
+      "target": "evo_operator_0_gen12"
+    },
+    {
+      "source": "chain_3_42",
+      "target": "evo_operator_5_gen5"
+    },
+    {
+      "source": "chain_3_50",
+      "target": "evo_operator_5_gen5"
+    },
+    {
+      "source": "chain_4_1",
+      "target": "evo_operator_5_gen5"
+    },
+    {
+      "source": "chain_4_6",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_4_14",
+      "target": "evo_operator_5_gen5"
+    },
+    {
+      "source": "chain_4_15",
+      "target": "evo_operator_5_gen5"
+    },
+    {
+      "source": "chain_4_16",
+      "target": "evo_operator_0_gen5"
+    },
+    {
+      "source": "chain_4_16",
+      "target": "evo_operator_0_gen6"
+    },
+    {
+      "source": "chain_4_16",
+      "target": "evo_operator_0_gen7"
+    },
+    {
+      "source": "chain_4_16",
+      "target": "evo_operator_0_gen8"
+    },
+    {
+      "source": "chain_4_16",
+      "target": "evo_operator_0_gen9"
+    },
+    {
+      "source": "chain_4_16",
+      "target": "evo_operator_0_gen10"
+    },
+    {
+      "source": "chain_4_16",
+      "target": "evo_operator_0_gen11"
+    },
+    {
+      "source": "chain_4_16",
+      "target": "evo_operator_0_gen12"
+    },
+    {
+      "source": "chain_4_18",
+      "target": "evo_operator_0_gen4"
+    },
+    {
+      "source": "chain_4_27",
+      "target": "evo_operator_1_gen4"
+    },
+    {
+      "source": "chain_4_35",
+      "target": "evo_operator_5_gen5"
+    },
+    {
+      "source": "chain_4_49",
+      "target": "evo_operator_5_gen5"
+    },
+    {
+      "source": "chain_5_8",
+      "target": "evo_operator_3_gen6"
+    },
+    {
+      "source": "chain_5_9",
+      "target": "evo_operator_5_gen5"
+    },
+    {
+      "source": "chain_5_15",
+      "target": "evo_operator_3_gen6"
+    },
+    {
+      "source": "chain_5_33",
+      "target": "evo_operator_3_gen6"
+    },
+    {
+      "source": "chain_5_36",
+      "target": "evo_operator_5_gen5"
+    },
+    {
+      "source": "chain_5_49",
+      "target": "evo_operator_5_gen5"
+    },
+    {
+      "source": "chain_6_1",
+      "target": "evo_operator_3_gen7"
+    },
+    {
+      "source": "chain_6_1",
+      "target": "evo_operator_3_gen8"
+    },
+    {
+      "source": "chain_6_1",
+      "target": "evo_operator_3_gen9"
+    },
+    {
+      "source": "chain_6_1",
+      "target": "evo_operator_3_gen10"
+    },
+    {
+      "source": "chain_6_1",
+      "target": "evo_operator_3_gen11"
+    },
+    {
+      "source": "chain_6_1",
+      "target": "evo_operator_3_gen12"
+    },
+    {
+      "source": "chain_6_9",
+      "target": "evo_operator_5_gen8"
+    },
+    {
+      "source": "chain_6_9",
+      "target": "evo_operator_5_gen9"
+    },
+    {
+      "source": "chain_6_10",
+      "target": "evo_operator_5_gen7"
+    },
+    {
+      "source": "chain_6_18",
+      "target": "evo_operator_5_gen7"
+    },
+    {
+      "source": "chain_6_54",
+      "target": "evo_operator_3_gen7"
+    },
+    {
+      "source": "chain_6_54",
+      "target": "evo_operator_3_gen8"
+    },
+    {
+      "source": "chain_7_1",
+      "target": "evo_operator_5_gen8"
+    },
+    {
+      "source": "chain_7_1",
+      "target": "evo_operator_5_gen9"
+    },
+    {
+      "source": "chain_7_4",
+      "target": "evo_operator_3_gen7"
+    },
+    {
+      "source": "chain_7_4",
+      "target": "evo_operator_3_gen8"
+    },
+    {
+      "source": "chain_7_16",
+      "target": "evo_operator_3_gen7"
+    },
+    {
+      "source": "chain_7_16",
+      "target": "evo_operator_3_gen8"
+    },
+    {
+      "source": "chain_7_16",
+      "target": "evo_operator_3_gen9"
+    },
+    {
+      "source": "chain_7_16",
+      "target": "evo_operator_3_gen10"
+    },
+    {
+      "source": "chain_7_16",
+      "target": "evo_operator_3_gen11"
+    },
+    {
+      "source": "chain_7_16",
+      "target": "evo_operator_3_gen12"
+    },
+    {
+      "source": "chain_7_18",
+      "target": "evo_operator_5_gen8"
+    },
+    {
+      "source": "chain_7_18",
+      "target": "evo_operator_5_gen9"
+    },
+    {
+      "source": "chain_7_54",
+      "target": "evo_operator_3_gen9"
+    },
+    {
+      "source": "chain_7_54",
+      "target": "evo_operator_3_gen10"
+    },
+    {
+      "source": "chain_7_54",
+      "target": "evo_operator_3_gen11"
+    },
+    {
+      "source": "chain_7_54",
+      "target": "evo_operator_3_gen12"
+    },
+    {
+      "source": "chain_8_1",
+      "target": "evo_operator_5_gen8"
+    },
+    {
+      "source": "chain_8_1",
+      "target": "evo_operator_5_gen9"
+    },
+    {
+      "source": "chain_8_2",
+      "target": "evo_operator_7_gen9"
+    },
+    {
+      "source": "chain_8_2",
+      "target": "evo_operator_7_gen10"
+    },
+    {
+      "source": "chain_8_2",
+      "target": "evo_operator_7_gen11"
+    },
+    {
+      "source": "chain_8_4",
+      "target": "evo_operator_3_gen9"
+    },
+    {
+      "source": "chain_8_4",
+      "target": "evo_operator_3_gen10"
+    },
+    {
+      "source": "chain_8_4",
+      "target": "evo_operator_3_gen11"
+    },
+    {
+      "source": "chain_8_4",
+      "target": "evo_operator_3_gen12"
+    },
+    {
+      "source": "chain_8_18",
+      "target": "evo_operator_3_gen7"
+    },
+    {
+      "source": "chain_8_18",
+      "target": "evo_operator_3_gen8"
+    },
+    {
+      "source": "chain_8_18",
+      "target": "evo_operator_3_gen9"
+    },
+    {
+      "source": "chain_8_18",
+      "target": "evo_operator_3_gen10"
+    },
+    {
+      "source": "chain_8_18",
+      "target": "evo_operator_3_gen11"
+    },
+    {
+      "source": "chain_8_18",
+      "target": "evo_operator_3_gen12"
+    },
+    {
+      "source": "chain_8_20",
+      "target": "evo_operator_7_gen9"
+    },
+    {
+      "source": "chain_8_20",
+      "target": "evo_operator_7_gen10"
+    },
+    {
+      "source": "chain_8_20",
+      "target": "evo_operator_7_gen11"
+    },
+    {
+      "source": "chain_8_41",
+      "target": "evo_operator_7_gen9"
+    },
+    {
+      "source": "chain_8_41",
+      "target": "evo_operator_7_gen10"
+    },
+    {
+      "source": "chain_8_41",
+      "target": "evo_operator_7_gen11"
+    },
+    {
+      "source": "chain_9_1",
+      "target": "evo_operator_5_gen8"
+    },
+    {
+      "source": "chain_9_1",
+      "target": "evo_operator_5_gen9"
+    },
+    {
+      "source": "chain_10_15",
+      "target": "evo_operator_6_gen11"
+    },
+    {
+      "source": "chain_10_19",
+      "target": "evo_operator_6_gen11"
+    },
+    {
+      "source": "chain_10_24",
+      "target": "evo_operator_6_gen11"
+    },
+    {
+      "source": "chain_11_6",
+      "target": "evo_operator_6_gen11"
+    },
+    {
+      "source": "chain_12_6",
+      "target": "evo_operator_6_gen11"
+    }
+  ],
+  "nodes": [
+    {
+      "uid": "chain_0_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_0_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen1",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_1_gen1",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.reduce"
+    },
+    {
+      "uid": "chain_1_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.699
+      }
+    },
+    {
+      "uid": "chain_1_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.713
+      }
+    },
+    {
+      "uid": "chain_1_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.642
+      }
+    },
+    {
+      "uid": "chain_1_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.699
+      }
+    },
+    {
+      "uid": "chain_1_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_1_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.547
+      }
+    },
+    {
+      "uid": "chain_1_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.699
+      }
+    },
+    {
+      "uid": "chain_1_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.5
+      }
+    },
+    {
+      "uid": "chain_1_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen2",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "chain_2_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "evo_operator_1_gen2",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "evo_operator_2_gen2",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.reduce"
+    },
+    {
+      "uid": "chain_2_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.699
+      }
+    },
+    {
+      "uid": "chain_2_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.539
+      }
+    },
+    {
+      "uid": "chain_2_34",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_35",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.605
+      }
+    },
+    {
+      "uid": "chain_2_36",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.564
+      }
+    },
+    {
+      "uid": "chain_2_37",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.699
+      }
+    },
+    {
+      "uid": "chain_2_38",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_39",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.699
+      }
+    },
+    {
+      "uid": "chain_2_40",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.699
+      }
+    },
+    {
+      "uid": "chain_2_41",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_42",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.642
+      }
+    },
+    {
+      "uid": "chain_2_43",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_44",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.699
+      }
+    },
+    {
+      "uid": "chain_2_45",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_46",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_2_47",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.699
+      }
+    },
+    {
+      "uid": "chain_2_48",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.5
+      }
+    },
+    {
+      "uid": "chain_2_49",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.713
+      }
+    },
+    {
+      "uid": "chain_2_50",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.547
+      }
+    },
+    {
+      "uid": "chain_2_51",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.534
+      }
+    },
+    {
+      "uid": "chain_2_52",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.551
+      }
+    },
+    {
+      "uid": "chain_2_53",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.5
+      }
+    },
+    {
+      "uid": "chain_2_54",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen3",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "evo_operator_1_gen3",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "evo_operator_2_gen3",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.reduce"
+    },
+    {
+      "uid": "chain_3_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_34",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_35",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_36",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_37",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_38",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_39",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_40",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_41",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "evo_operator_3_gen3",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "evo_operator_4_gen3",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.simple"
+    },
+    {
+      "uid": "chain_3_42",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_43",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_44",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_45",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_46",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_47",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_48",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_49",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_50",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_51",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_52",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_53",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_3_54",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen4",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "chain_4_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "evo_operator_1_gen4",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "evo_operator_2_gen4",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.reduce"
+    },
+    {
+      "uid": "evo_operator_3_gen4",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "chain_4_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.75
+      }
+    },
+    {
+      "uid": "chain_4_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "evo_operator_4_gen4",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.simple"
+    },
+    {
+      "uid": "chain_4_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_34",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_35",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_36",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_37",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_38",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_39",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_40",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_41",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_42",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_43",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_44",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_45",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_46",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_47",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_48",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_49",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_50",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_51",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_52",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_53",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_4_54",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen5",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_1_gen5",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "chain_5_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "evo_operator_2_gen5",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.simple"
+    },
+    {
+      "uid": "chain_5_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_5_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_5_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "evo_operator_3_gen5",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "chain_5_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "evo_operator_4_gen5",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.simple"
+    },
+    {
+      "uid": "evo_operator_5_gen5",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "chain_5_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_34",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_35",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_36",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_37",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_38",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_39",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_40",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_41",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_42",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_43",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_44",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_45",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_46",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_47",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.699
+      }
+    },
+    {
+      "uid": "chain_5_48",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_49",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_50",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_51",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_52",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_53",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_5_54",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.75
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen6",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_1_gen6",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_2_gen6",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_3_gen6",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_4_gen6",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.parameter_change"
+    },
+    {
+      "uid": "chain_6_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_6_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_6_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_6_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_6_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_6_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_6_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_6_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_6_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_6_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_6_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_6_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_6_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_6_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.752
+      }
+    },
+    {
+      "uid": "chain_6_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_6_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_6_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "evo_operator_5_gen6",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.parameter_change"
+    },
+    {
+      "uid": "chain_6_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_34",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_35",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_36",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_37",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_38",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_6_39",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_40",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_41",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_42",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_43",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_44",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_45",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_46",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_6_47",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_48",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_49",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_50",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_51",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_52",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_53",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_6_54",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen7",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_1_gen7",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_2_gen7",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_3_gen7",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "chain_7_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "evo_operator_4_gen7",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.local_growth"
+    },
+    {
+      "uid": "chain_7_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.794
+      }
+    },
+    {
+      "uid": "chain_7_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.772
+      }
+    },
+    {
+      "uid": "chain_7_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "evo_operator_5_gen7",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_6_gen7",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.parameter_change"
+    },
+    {
+      "uid": "chain_7_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.792
+      }
+    },
+    {
+      "uid": "chain_7_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_7_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.748
+      }
+    },
+    {
+      "uid": "chain_7_34",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_35",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_36",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_37",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_38",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_39",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_40",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_41",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_7_42",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_43",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_44",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_45",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_46",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_47",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.752
+      }
+    },
+    {
+      "uid": "chain_7_48",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_49",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_50",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_51",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_52",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_7_53",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.745
+      }
+    },
+    {
+      "uid": "chain_7_54",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen8",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_1_gen8",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_2_gen8",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_3_gen8",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "chain_8_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "evo_operator_4_gen8",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.local_growth"
+    },
+    {
+      "uid": "evo_operator_5_gen8",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_6_gen8",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "chain_8_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.787
+      }
+    },
+    {
+      "uid": "chain_8_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_8_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.772
+      }
+    },
+    {
+      "uid": "chain_8_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.799
+      }
+    },
+    {
+      "uid": "chain_8_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_8_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.784
+      }
+    },
+    {
+      "uid": "chain_8_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.792
+      }
+    },
+    {
+      "uid": "chain_8_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_8_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_34",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_35",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_8_36",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_37",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_8_38",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_39",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_40",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.752
+      }
+    },
+    {
+      "uid": "chain_8_41",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_8_42",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_8_43",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.752
+      }
+    },
+    {
+      "uid": "chain_8_44",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_45",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_8_46",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.765
+      }
+    },
+    {
+      "uid": "chain_8_47",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_8_48",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_8_49",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_8_50",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_8_51",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_8_52",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_8_53",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_8_54",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen9",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_1_gen9",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_2_gen9",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_3_gen9",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_4_gen9",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "chain_9_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_9_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_9_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_9_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "evo_operator_5_gen9",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_6_gen9",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_7_gen9",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "chain_9_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.787
+      }
+    },
+    {
+      "uid": "chain_9_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_9_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_9_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.799
+      }
+    },
+    {
+      "uid": "chain_9_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_9_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.787
+      }
+    },
+    {
+      "uid": "chain_9_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_9_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_9_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.799
+      }
+    },
+    {
+      "uid": "chain_9_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.792
+      }
+    },
+    {
+      "uid": "chain_9_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_9_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_9_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_9_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.784
+      }
+    },
+    {
+      "uid": "chain_9_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_9_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.784
+      }
+    },
+    {
+      "uid": "chain_9_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.772
+      }
+    },
+    {
+      "uid": "chain_9_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_34",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_35",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_36",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_37",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_38",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_39",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_40",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.799
+      }
+    },
+    {
+      "uid": "chain_9_41",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_42",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_9_43",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_44",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_45",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_9_46",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_47",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_48",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_49",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_50",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_9_51",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_9_52",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_9_53",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_9_54",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen10",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_1_gen10",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_2_gen10",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_3_gen10",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_4_gen10",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_5_gen10",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.simple"
+    },
+    {
+      "uid": "chain_10_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_10_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_10_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_10_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_10_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_10_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_10_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_10_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_10_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_10_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.799
+      }
+    },
+    {
+      "uid": "chain_10_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_10_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "evo_operator_6_gen10",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_7_gen10",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "evo_operator_8_gen10",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.parameter_change"
+    },
+    {
+      "uid": "chain_10_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.787
+      }
+    },
+    {
+      "uid": "chain_10_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.787
+      }
+    },
+    {
+      "uid": "chain_10_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.799
+      }
+    },
+    {
+      "uid": "chain_10_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.792
+      }
+    },
+    {
+      "uid": "chain_10_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_10_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_34",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_35",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.787
+      }
+    },
+    {
+      "uid": "chain_10_36",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_37",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_38",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_39",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.784
+      }
+    },
+    {
+      "uid": "chain_10_40",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.799
+      }
+    },
+    {
+      "uid": "chain_10_41",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_42",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_43",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_10_44",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_45",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_46",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_47",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_48",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_49",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_50",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.755
+      }
+    },
+    {
+      "uid": "chain_10_51",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_52",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_53",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_10_54",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen11",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_1_gen11",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_2_gen11",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_3_gen11",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_4_gen11",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_5_gen11",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.reduce"
+    },
+    {
+      "uid": "chain_11_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    },
+    {
+      "uid": "chain_11_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "evo_operator_6_gen11",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "chain_11_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.848
+      }
+    },
+    {
+      "uid": "chain_11_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    },
+    {
+      "uid": "chain_11_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_34",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_35",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_36",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_37",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_38",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_39",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.792
+      }
+    },
+    {
+      "uid": "chain_11_40",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_41",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_42",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.799
+      }
+    },
+    {
+      "uid": "chain_11_43",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_44",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.799
+      }
+    },
+    {
+      "uid": "evo_operator_7_gen11",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.one_point"
+    },
+    {
+      "uid": "chain_11_45",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.787
+      }
+    },
+    {
+      "uid": "chain_11_46",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_47",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_11_48",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_49",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_50",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_11_51",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.767
+      }
+    },
+    {
+      "uid": "chain_11_52",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "evo_operator_8_gen11",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.parameter_change"
+    },
+    {
+      "uid": "chain_11_53",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.787
+      }
+    },
+    {
+      "uid": "chain_11_54",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "evo_operator_0_gen12",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_1_gen12",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_2_gen12",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "evo_operator_3_gen12",
+      "type": "evo_operator",
+      "name": [
+        "crossover"
+      ],
+      "full_name": "CrossoverTypesEnum.subtree"
+    },
+    {
+      "uid": "evo_operator_4_gen12",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.growth"
+    },
+    {
+      "uid": "chain_12_0",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "evo_operator_5_gen12",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.simple"
+    },
+    {
+      "uid": "evo_operator_6_gen12",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.parameter_change"
+    },
+    {
+      "uid": "chain_12_1",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    },
+    {
+      "uid": "chain_12_2",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_3",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    },
+    {
+      "uid": "chain_12_4",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "evo_operator_7_gen12",
+      "type": "evo_operator",
+      "name": [
+        "mutation"
+      ],
+      "full_name": "MutationTypesEnum.reduce"
+    },
+    {
+      "uid": "chain_12_5",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    },
+    {
+      "uid": "chain_12_6",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_7",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_8",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    },
+    {
+      "uid": "chain_12_9",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    },
+    {
+      "uid": "chain_12_10",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    },
+    {
+      "uid": "chain_12_11",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_12",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_13",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    },
+    {
+      "uid": "chain_12_14",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_15",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    },
+    {
+      "uid": "chain_12_16",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_17",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_18",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_19",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_20",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_21",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_22",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_23",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_24",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_25",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_26",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_27",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_28",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_29",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_30",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_31",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    },
+    {
+      "uid": "chain_12_32",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_33",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_34",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_35",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_36",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_37",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_38",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_39",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_40",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_41",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_42",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_43",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_44",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_45",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.877
+      }
+    },
+    {
+      "uid": "chain_12_46",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_12_47",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_12_48",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_49",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_50",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_51",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_52",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.892
+      }
+    },
+    {
+      "uid": "chain_12_53",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.809
+      }
+    },
+    {
+      "uid": "chain_12_54",
+      "type": "individual",
+      "chain_id": "",
+      "objs": {
+        "<bound method QualityMetric.get_value of <class 'fedot.core.composer.metrics.ROCAUC'>>": -0.907
+      }
+    }
+  ]
+}
