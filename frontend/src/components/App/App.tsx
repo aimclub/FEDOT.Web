@@ -6,6 +6,10 @@ import { useMediaQuery } from "@material-ui/core";
 import Sandbox from "../../pages/Sandbox/Sandbox";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Showcase from "../../pages/Showcase/Showcase";
+import History from "../History/History";
+import dataPopulation from "../../data/dataPopulation.json";
+import dataCompose from "../../data/composeData.json";
+import { sandboxAPI } from "../../api/sandbox";
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -45,6 +49,15 @@ function App() {
             </Route>
             <Route exact path="/sandbox">
               <Sandbox />
+            </Route>
+            <Route exact path="/sandbox/history">
+              <History
+                edgesData={dataCompose.edges}
+                nodesData={dataCompose.nodes}
+                onClick={() => {
+                  console.log("handleClick");
+                }}
+              />
             </Route>
           </Switch>
         </div>

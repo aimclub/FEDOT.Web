@@ -1,0 +1,252 @@
+{
+  "edges": [
+    {
+      "source": 6,
+      "target": 0
+    },
+    {
+      "source": 7,
+      "target": 1
+    },
+    {
+      "source": 4,
+      "target": 2
+    },
+    {
+      "source": 5,
+      "target": 3
+    },
+    {
+      "source": 5,
+      "target": 0
+    },
+    {
+      "source": 6,
+      "target": 2
+    },
+    {
+      "source": 4,
+      "target": 8
+    },
+    {
+      "source": 8,
+      "target": 9
+    } ,
+    {
+      "source": 11,
+      "target": 4
+    }
+  ],
+  "uid": "54545",
+  "nodes": [
+    {
+      "id": 0,
+      "display_name": "knn",
+      "model_name": "knn",
+      "params": {
+        "n_neighbors": 8
+      },
+      "type": "model",
+      "parents": [
+        1,
+        7
+      ],
+      "children": []
+    },
+    {
+      "id": 1,
+      "display_name": "lda",
+      "model_name": "lda",
+      "params": {
+        "n_components": 1
+      },
+      "type": "model",
+      "parents": [
+        2,
+        5
+      ],
+      "children": [
+        0
+      ]
+    },
+    {
+      "id": 2,
+      "display_name": "logit",
+      "model_name": "logit",
+      "params": "default_params",
+      "type": "model",
+      "parents": [
+        3,
+        4
+      ],
+      "children": [
+        1
+      ]
+    },
+    {
+      "id": 3,
+      "display_name": "xgboost",
+      "model_name": "xgboost",
+      "params": "default_params",
+      "type": "model",
+      "parents": [],
+      "children": [
+        2
+      ]
+    },
+    {
+      "id": 4,
+      "display_name": "lda",
+      "model_name": "lda",
+      "params": {
+        "n_components": 1
+      },
+      "type": "connect",
+      "parents": [],
+      "children": [
+        2
+      ]
+    },
+    {
+      "id": 5,
+      "display_name": "knn",
+      "model_name": "knn",
+      "params": {
+        "n_neighbors": 5
+      },
+      "type": "connect",
+      "parents": [
+        6
+      ],
+      "children": [
+        1
+      ]
+    },
+    {
+      "id": 6,
+      "display_name": "knn",
+      "model_name": "knn",
+      "params": {
+        "n_neighbors": 9
+      },
+      "type": "connect",
+      "parents": [],
+      "children": [
+        5
+      ]
+    },
+    {
+      "id": 7,
+      "display_name": "xgboost",
+      "model_name": "xgboost",
+      "params": "default_params",
+      "type": "connect",
+      "parents": [
+        8
+      ],
+      "children": [
+        0
+      ]
+    },
+    {
+      "id": 8,
+      "display_name": "pca",
+      "model_name": "pca",
+      "params": "default_params",
+      "type": "model",
+      "parents": [],
+      "children": [
+        7
+      ]
+    },
+    {
+      "id": 9,
+      "display_name": "pca",
+      "model_name": "pca",
+      "params": "default_params",
+      "type": "model",
+      "parents": [],
+      "children": [
+        7
+      ]
+    },
+    {
+      "id": 10,
+      "display_name": "pca",
+      "model_name": "pca",
+      "params": "default_params",
+      "type": "model",
+      "parents": [],
+      "children": [
+        7
+      ]
+    },
+    {
+      "id": 11,
+      "display_name": "pca",
+      "model_name": "pca",
+      "params": "default_params",
+      "type": "model",
+      "parents": [],
+      "children": [
+        7
+      ]
+    },
+    {
+      "id": 12,
+      "display_name": "knn",
+      "model_name": "knn",
+      "params": {
+        "n_neighbors": 8
+      },
+      "type": "model",
+      "parents": [
+        1,
+        7
+      ],
+      "children": []
+    },
+    {
+      "id": 13,
+      "display_name": "knn",
+      "model_name": "knn",
+      "params": {
+        "n_neighbors": 8
+      },
+      "type": "model",
+      "parents": [
+        1,
+        7
+      ],
+      "children": []
+    },
+    {
+      "id": 14,
+      "display_name": "knn",
+      "model_name": "knn",
+      "params": {
+        "n_neighbors": 8
+      },
+      "type": "model",
+      "parents": [
+        1,
+        7
+      ],
+      "children": []
+    },
+    {
+      "id": 15,
+      "display_name": "knn",
+      "model_name": "knn",
+      "params": {
+        "n_neighbors": 8
+      },
+      "type": "model",
+      "parents": [
+        1,
+        7
+      ],
+      "children": []
+    }
+  ]
+}
