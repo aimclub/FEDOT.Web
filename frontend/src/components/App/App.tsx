@@ -9,6 +9,7 @@ import Showcase from "../../pages/Showcase/Showcase";
 import History from "../History/History";
 import dataPopulation from "../../data/dataPopulation.json";
 import dataCompose from "../../data/composeData.json";
+import dataHistory from "../../data/responseHistory.json";
 import { sandboxAPI } from "../../api/sandbox";
 
 function App() {
@@ -52,8 +53,8 @@ function App() {
             </Route>
             <Route exact path="/sandbox/history">
               <History
-                edgesData={dataCompose.edges}
-                nodesData={dataCompose.nodes}
+                edgesData={dataHistory.edges}
+                nodesData={dataHistory.nodes}
                 onClick={() => {
                   console.log("handleClick");
                 }}

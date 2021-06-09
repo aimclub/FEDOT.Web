@@ -6,6 +6,7 @@ export const getMainGraph = createAsyncThunk(
   async () => {
     try {
       const res = await sandboxAPI.getMainGraph(54545);
+      console.log(`### res`, res);
       return res as IMainGraph;
     } catch (err) {
       console.log(`### err.message`, err.message);
@@ -24,7 +25,10 @@ export const sandboxSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getMainGraph.fulfilled, (state, action) => {
-      state.mainGraph = action.payload as IMainGraph;
+      console.log(`### action.payload`, action.payload);
+      if (action.payload) {
+        state.mainGraph = action.payload;
+      }
     });
   },
 });

@@ -5,6 +5,13 @@ import dagreD3 from "dagre-d3";
 export function runHistory(container, linksData, nodesData) {
   let links = linksData.map((d) => Object.assign({}, d));
   let nodes = nodesData.map((d) => Object.assign({}, d));
+  let nodesIndividual = nodes.filter((item) => item.type === "individual");
+  let nodesOperator = nodes.filter((item) => item.type === "evo_operator");
+  let generations = [];
+  nodesIndividual.forEach((item) => generations.push(item.gen_id));
+
+  let uniqGenerations = Array.from(new Set(generations));
+  console.log(`### uniqGenerations`, uniqGenerations);
 
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
@@ -25,7 +32,7 @@ export function runHistory(container, linksData, nodesData) {
   let svgGroup = svg.append("g");
 
   // Create the input graph
-  let g = new dagreD3.graphlib.Graph({ compound: true, multigraph: true })
+  let g = new dagreD3.graphlib.Graph({ compound: true })
     .setGraph({ rankdir: "TB" })
     .setDefaultEdgeLabel(() => ({}));
 
@@ -33,45 +40,38 @@ export function runHistory(container, linksData, nodesData) {
   // below.
 
   //TODO: Кластеры поколений
-  g.setNode("generationsAll", {
-    label: "generation0",
-    clusterLabelPos: "top",
-    style: "fill: #E6399B",
-  });
-  g.setNode("generation0", {
-    label: "generation0",
-    clusterLabelPos: "top",
-    style: "fill: #d3d7e8",
-  });
-  g.setNode("generation1", {
-    label: "generation1",
-    clusterLabelPos: "top",
-    style: "fill: #ffd47f",
-  });
-  g.setNode("generation2", { label: "generation2", style: "fill: #5f9488" });
 
-  nodes.forEach((item) => {
-    // let label = item.display_name;
-    g.setNode(item.uid, {
-      label: item.uid,
-      class: item.type === "evo_operator" ? "type-TOP" : "type-TK",
-      shape: item.type === "evo_operator" ? "circle" : "rect",
+  uniqGenerations.forEach((generation) => {
+    g.setNode(generation, {
+      label: generation,
+      clusterLabelPos: "top",
+      style: "fill: #E6399B",
     });
 
-    g.setParent("generation0", "generationsAll");
-    g.setParent("generation1", "generationsAll");
+    nodesIndividual.forEach((item) => {
+      if (generation < 5 && generation > 1) {
+        if (generation === item.gen_id) {
+          g.setNode(item.uid, {
+            label: item.uid,
+            class: "type-TK",
+            shape: "rect",
+          });
 
-    if (item.uid.includes("_0_")) {
-      console.log(`### item.uid`, item.uid);
-      g.setParent(item.uid, "generation0");
-    }
-    if (item.uid.includes("_1_")) {
-      console.log(`### item.uid`, item.uid);
-      g.setParent(item.uid, "generation1");
-    }
-    if (item.uid.includes("_2_")) {
-      console.log(`### item.uid`, item.uid);
-      g.setParent(item.uid, "generation2");
+          g.setParent(item.uid, generation);
+        }
+      }
+    });
+  });
+
+  nodesOperator.forEach((item) => {
+    if (item.prev_gen_id === 3 || item.next_gen_id === 4) {
+      g.setNode(item.uid, {
+        label: item.uid,
+        class: "type-TOP",
+        shape: "circle",
+      });
+
+      // g.setParent(item.uid, generation);
     }
   });
 
@@ -86,18 +86,11 @@ export function runHistory(container, linksData, nodesData) {
     const haveSource = g.hasNode(item.source);
     const haveTarget = g.hasNode(item.target);
     if (haveSource && haveTarget) {
-      if (item.source < 8) {
-        g.setEdge(item.source, item.target, {
-          // arrowheadStyle: "fill: gold",
-          // style: "stroke: #gold; stroke-width: 3px;",
-          // class: item.source < 5 ? "edge-ONE" : "edge-TWO",
-        });
-      } else {
-        g.setEdge(item.source, item.target, {
-          // arrowheadStyle: "fill: #f66",
-          // style: "stroke: #f66; stroke-width: 3px; stroke-dasharray: 5, 5;",
-        });
-      }
+      // if (item.source.includes("chain_2_")) {
+      //   g.setEdge(item.target, item.source);
+      // } else {
+      g.setEdge(item.source, item.target);
+      // }
     }
   });
 

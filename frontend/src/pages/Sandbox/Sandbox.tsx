@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import clsx from "clsx";
 import { Paper } from "@material-ui/core";
 import TerrainIcon from "@material-ui/icons/Terrain";
@@ -7,11 +7,9 @@ import style from "./sandbox.module.scss";
 import DirectedGraph from "../../components/DirectedGraph/DirectedGraph";
 import Header from "../../components/Header/Header";
 import CustomSlider from "../../components/Slider/Slider";
-import { IMainGraph, sandboxAPI } from "../../api/sandbox";
 import { useDispatch, useSelector } from "react-redux";
 import { getMainGraph } from "../../services/sandboxSlice";
 import { RootState } from "../../services/store";
-// import data from "../../data/data.json";
 
 const Sandbox = () => {
   const dispatch = useDispatch();
@@ -27,48 +25,24 @@ const Sandbox = () => {
 
   const handleOnClickGraph = (d: any): any => {
     console.log(`### handleOnClickGraph d`, d);
-    // setData((state) => {
-    //   const id = state.nodes.length;
-    //   const newState = {
-    //     nodes: [
-    //       ...state.nodes,
-    //       ...[
-    //         {
-    //           id: id,
-    //           display_name: "NEW",
-    //           model_name: "NEW",
-    //           class: "model",
-    //           params: { n_neighbors: 8 },
-    //           parents: [1, 7],
-    //           children: [],
-    //         },
-    //       ],
-    //     ],
-    //     edges: [
-    //       ...state.edges,
-    //       ...[
-    //         {
-    //           source: id,
-    //           target: +d,
-    //         },
-    //       ],
-    //     ],
-    //   };
-    //   console.log(`### newState`, newState);
-    //   return newState;
-    // });
   };
+  useEffect(() => {
+    console.log(`### mainGraph`, mainGraph);
+  }, [mainGraph]);
+
   return (
     <div className={style.root}>
       <Paper className={style.paper} elevation={3}>
         <Header title={"Sandbox"} logo={<TerrainIcon />} />
       </Paper>
       <Paper elevation={3} className={clsx(style.paper, style.paperGrow)}>
-        <DirectedGraph
-          edgesData={mainGraph.edges}
-          nodesData={mainGraph.nodes}
-          onClick={handleOnClickGraph}
-        />
+        {mainGraph && (
+          <DirectedGraph
+            edgesData={mainGraph.edges}
+            nodesData={mainGraph.nodes}
+            onClick={handleOnClickGraph}
+          />
+        )}
       </Paper>
       <Paper elevation={3} className={style.paper}>
         <div>

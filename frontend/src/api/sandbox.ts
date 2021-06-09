@@ -5,7 +5,8 @@ import {
 } from "../components/DirectedGraph/DirectedGraph";
 import {
   HistoryEdgeType,
-  HistoryNodeType,
+  HistoryNodeIndividualType,
+  HistoryNodeOperatorType,
 } from "../components/History/History";
 
 export interface IMainGraph {
@@ -14,7 +15,7 @@ export interface IMainGraph {
 }
 
 export interface IHistoryGraph {
-  nodes: HistoryNodeType[];
+  nodes: (HistoryNodeIndividualType | HistoryNodeOperatorType)[];
   edges: HistoryEdgeType[];
 }
 

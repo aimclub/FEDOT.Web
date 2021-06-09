@@ -3,23 +3,34 @@ import { runHistory } from "./historyGraphGenerator";
 import styles from "./History.module.scss";
 import Loader from "react-loader-spinner";
 import { IHistoryGraph, sandboxAPI } from "../../api/sandbox";
-import { Simulate } from "react-dom/test-utils";
 
 export type HistoryEdgeType = {
   source: string;
   target: string;
 };
-export type HistoryNodeType = {
+export type HistoryNodeIndividualType = {
   uid: string;
   type: string;
   chain_id?: any;
   full_name?: any;
   objs?: any;
+  gen_id?: number;
+  ind_id?: number;
+};
+
+export type HistoryNodeOperatorType = {
+  uid: string;
+  type: string;
+  full_name?: any;
+  prev_gen_id?: number;
+  next_gen_id?: number;
+  operator_id?: number;
+  name: string[];
 };
 
 type DirectedGraphProps = {
   edgesData: HistoryEdgeType[];
-  nodesData: HistoryNodeType[];
+  nodesData: (HistoryNodeIndividualType | HistoryNodeOperatorType)[];
   onClick(d: any): void;
 };
 
