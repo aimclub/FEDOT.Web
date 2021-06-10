@@ -8,7 +8,7 @@ import DirectedGraph from "../../components/DirectedGraph/DirectedGraph";
 import Header from "../../components/Header/Header";
 import CustomSlider from "../../components/Slider/Slider";
 import { useDispatch, useSelector } from "react-redux";
-import { getMainGraph } from "../../store/sandbox-reducer";
+import { actionsSandbox, getMainGraph } from "../../store/sandbox-reducer";
 import { StateType } from "../../store/store";
 
 const Sandbox = () => {
@@ -21,14 +21,16 @@ const Sandbox = () => {
 
   useEffect(() => {
     dispatch(getMainGraph(45454));
-  }, []);
+  }, [dispatch]);
 
-  const handleOnClickGraph = (d: any): any => {
-    console.log(`### handleOnClickGraph d`, d);
+  const handleAddNode = (d: any): any => {
+    console.log(`### handleAddNode d`, d);
   };
-  useEffect(() => {
-    console.log(`### mainGraph`, mainGraph);
-  }, [mainGraph]);
+
+  const handleDeleteNode = (d: any): any => {
+    dispatch(actionsSandbox.deleteNodeMainGraph(d));
+    console.log(`### handleDeleteNode d`, d);
+  };
 
   return (
     <div className={style.root}>
@@ -40,7 +42,8 @@ const Sandbox = () => {
           <DirectedGraph
             edgesData={mainGraph.edges}
             nodesData={mainGraph.nodes}
-            onClick={handleOnClickGraph}
+            onClickAddNode={handleAddNode}
+            onClickDeleteNode={handleDeleteNode}
           />
         )}
       </Paper>

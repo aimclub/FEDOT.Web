@@ -1,12 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import clsx from "clsx";
+import React from "react";
 import { Grid, Paper } from "@material-ui/core";
 
 import Header from "../../components/Header/Header";
 import GradientIcon from "@material-ui/icons/Gradient";
 import ShowcaseCard from "../../components/ShowcaseCard/ShowcaseCard";
 import { makeStyles } from "@material-ui/core/styles";
-// import data from "../../data/data.json";
 
 const useStyles = makeStyles((theme) => ({
   cardList: {

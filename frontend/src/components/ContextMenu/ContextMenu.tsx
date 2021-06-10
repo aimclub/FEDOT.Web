@@ -5,6 +5,7 @@ import { dataContextType } from "../DirectedGraph/DirectedGraph";
 export interface IContextMenu {
   dataContext: dataContextType | undefined;
   addNode(): void;
+  deleteNode(): void;
 }
 
 const ContextMenu: FC<IContextMenu> = (props) => {
@@ -21,7 +22,7 @@ const ContextMenu: FC<IContextMenu> = (props) => {
   return (
     <div className={style.root} style={position}>
       <button onClick={props.addNode}>add node</button>
-      <button>edit</button>
+      <button onClick={props.deleteNode}>delete node</button>
     </div>
   );
 };

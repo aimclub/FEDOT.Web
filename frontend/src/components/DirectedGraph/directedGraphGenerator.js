@@ -31,24 +31,21 @@ export function runDirectedGraph(
 
   // Create the input graph
   let g = new dagreD3.graphlib.Graph()
-    .setGraph({ rankdir: "BT" })
+    .setGraph({ rankdir: "LR" })
     .setDefaultEdgeLabel(() => ({}));
 
   // Here we're setting nodeclass, which is used by our custom drawNodes function
   // below.
   nodes.forEach((item) => {
-    let label = item.display_name;
-
     g.setNode(item.id, {
-      label: label,
-      class: item.id < 5 ? "type-TOP" : "type-TK",
-      shape: item.id < 5 ? "circle" : "rect",
+      label: item.display_name,
+      shape: item.type === "model" ? "circle" : "rect",
+      style: item.type === "model" ? "fill: #00ffd0 " : "fill: #B0BEC5",
     });
   });
 
   g.nodes().forEach(function (v) {
     let node = g.node(v);
-
     // Round the corners of the nodes
     node.rx = node.ry = 5;
   });
@@ -58,19 +55,9 @@ export function runDirectedGraph(
     const haveSource = g.hasNode(item.source);
     const haveTarget = g.hasNode(item.target);
     if (haveSource && haveTarget) {
-      if (item.source < 8) {
-        g.setEdge(item.source, item.target, {
-          arrowheadStyle: "fill: gold",
-          style: "stroke: #gold; stroke-width: 3px;",
-          curve: d3.curveBasis,
-          // class: item.source < 5 ? "edge-ONE" : "edge-TWO",
-        });
-      } else {
-        g.setEdge(item.source, item.target, {
-          arrowheadStyle: "fill: #f66",
-          style: "stroke: #f66; stroke-width: 3px; stroke-dasharray: 5, 5;",
-        });
-      }
+      g.setEdge(item.source, item.target, {
+        arrowheadStyle: "fill: gold",
+      });
     }
   });
 

@@ -22,7 +22,8 @@ export type NodeDataType = {
 type DirectedGraphProps = {
   edgesData: EdgeDataType[];
   nodesData: NodeDataType[];
-  onClick(d: any): void;
+  onClickAddNode(d: number): void;
+  onClickDeleteNode(d: number): void;
 };
 
 type offsetContextMenuType = {
@@ -37,7 +38,8 @@ export type dataContextType = {
 const DirectedGraph = ({
   edgesData,
   nodesData,
-  onClick,
+  onClickAddNode,
+  onClickDeleteNode,
 }: DirectedGraphProps) => {
   const containerRef = React.useRef(null);
   const [showLoader, setShowLoader] = useState(true);
@@ -62,7 +64,7 @@ const DirectedGraph = ({
 
     setShowLoader(false);
     if (containerRef.current) {
-      const { destroy, nodes } = runDirectedGraph(
+      const { destroy } = runDirectedGraph(
         containerRef.current,
         edgesData,
         nodesData,
@@ -95,7 +97,11 @@ const DirectedGraph = ({
             <ContextMenu
               dataContext={dataContext}
               addNode={() => {
-                onClick(dataContext.data);
+                onClickAddNode(dataContext.data);
+                setDataContext(undefined);
+              }}
+              deleteNode={() => {
+                onClickDeleteNode(dataContext.data);
                 setDataContext(undefined);
               }}
             />

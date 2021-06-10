@@ -1,9 +1,12 @@
 import { StateType } from "./store";
 import { ThunkAction } from "redux-thunk";
 import { IHistoryGraph, IMainGraph, sandboxAPI } from "../api/sandbox";
+import { NodeDataType } from "../components/DirectedGraph/DirectedGraph";
 
 const SET_MAIN_GRAPH = "SET_MAIN_GRAPH";
 const SET_HISTORY_GRAPH = "SET_HISTORY_GRAPH";
+const DELETE_NODE_MAIN_GRAPH = "DELETE_NODE_MAIN_GRAPH";
+const ADD_NODE_MAIN_GRAPH = "ADD_NODE_MAIN_GRAPH";
 
 let initialState = {
   mainGraph: { nodes: [], edges: [] } as IMainGraph,
@@ -11,7 +14,11 @@ let initialState = {
 };
 
 export type InitialStateDatasetsType = typeof initialState;
-type AllTypes = SetMainGraphType | SetHistoryGraphType;
+type AllTypes =
+  | SetMainGraphType
+  | SetHistoryGraphType
+  | DeleteNodeMainGraphType
+  | AddNodeMainGraphType;
 
 const sandboxReducer = (
   state = initialState,
@@ -25,6 +32,27 @@ const sandboxReducer = (
         ...state,
         historyGraph: action.data,
       };
+    case DELETE_NODE_MAIN_GRAPH: {
+      return {
+        ...state,
+        mainGraph: {
+          ...state.mainGraph,
+          nodes: [...state.mainGraph.nodes].filter((item) => {
+            return item.id !== +action.data;
+          }),
+        },
+      };
+    }
+    case ADD_NODE_MAIN_GRAPH:
+      return {
+        ...state,
+        mainGraph: {
+          ...state.mainGraph,
+          nodes: [...state.mainGraph.nodes, ...action.data.nodes],
+          edges: [...state.mainGraph.edges, ...action.data.edges],
+        },
+      };
+
     default:
       return state;
   }
@@ -38,6 +66,14 @@ type SetHistoryGraphType = {
   type: typeof SET_HISTORY_GRAPH;
   data: IHistoryGraph;
 };
+type DeleteNodeMainGraphType = {
+  type: typeof DELETE_NODE_MAIN_GRAPH;
+  data: number;
+};
+type AddNodeMainGraphType = {
+  type: typeof ADD_NODE_MAIN_GRAPH;
+  data: IMainGraph;
+};
 
 export const actionsSandbox = {
   setMainGraph: (data: IMainGraph): SetMainGraphType => ({
@@ -46,6 +82,14 @@ export const actionsSandbox = {
   }),
   setHistoryGraph: (data: IHistoryGraph): SetHistoryGraphType => ({
     type: SET_HISTORY_GRAPH,
+    data,
+  }),
+  deleteNodeMainGraph: (data: number): DeleteNodeMainGraphType => ({
+    type: DELETE_NODE_MAIN_GRAPH,
+    data,
+  }),
+  addNodeMainGraph: (data: IMainGraph): AddNodeMainGraphType => ({
+    type: ADD_NODE_MAIN_GRAPH,
     data,
   }),
 };
