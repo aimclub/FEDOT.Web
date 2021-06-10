@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -16,7 +16,6 @@ import WidgetsIcon from "@material-ui/icons/Widgets";
 import LogoFedot from "../Svg/LogoFedot";
 import GraphCreationList from "../GraphCreationList/GraphCreationList";
 import ListItemLink from "../ListItemLink/ListItemLink";
-import { useHistory } from "react-router-dom";
 
 const drawerWidth = 180;
 const MENU_LINK = [

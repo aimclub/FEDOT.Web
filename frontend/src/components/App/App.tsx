@@ -7,9 +7,8 @@ import Sandbox from "../../pages/Sandbox/Sandbox";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Showcase from "../../pages/Showcase/Showcase";
 import History from "../History/History";
-import dataHistory from "../../data/responseHistory.json";
 import { useDispatch, useSelector } from "react-redux";
-import sandboxReducer, { getHistoryGraph } from "../../store/sandbox-reducer";
+import { getHistoryGraph } from "../../store/sandbox-reducer";
 import { StateType } from "../../store/store";
 
 function App() {
@@ -27,7 +26,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getHistoryGraph(45454));
-  }, []);
+  }, [dispatch]);
 
   const theme = React.useMemo(
     () =>

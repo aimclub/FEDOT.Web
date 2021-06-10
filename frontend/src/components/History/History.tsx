@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { runHistory } from "./historyGraphGenerator";
 import styles from "./History.module.scss";
 import Loader from "react-loader-spinner";
-import { IHistoryGraph, sandboxAPI } from "../../api/sandbox";
 
 export type HistoryEdgeType = {
   source: string;
@@ -47,7 +46,7 @@ const History = ({ edgesData, nodesData, onClick }: DirectedGraphProps) => {
 
     setShowLoader(false);
     if (containerRef.current) {
-      const { destroy, nodes } = runHistory(
+      const { destroy } = runHistory(
         containerRef.current,
         edgesData,
         nodesData
