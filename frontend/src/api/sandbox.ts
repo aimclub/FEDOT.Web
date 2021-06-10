@@ -5,7 +5,8 @@ import {
 } from "../components/DirectedGraph/DirectedGraph";
 import {
   HistoryEdgeType,
-  HistoryNodeType,
+  HistoryNodeIndividualType,
+  HistoryNodeOperatorType,
 } from "../components/History/History";
 
 export interface IMainGraph {
@@ -14,7 +15,7 @@ export interface IMainGraph {
 }
 
 export interface IHistoryGraph {
-  nodes: HistoryNodeType[];
+  nodes: (HistoryNodeIndividualType | HistoryNodeOperatorType)[];
   edges: HistoryEdgeType[];
 }
 
@@ -27,9 +28,9 @@ export const sandboxAPI = {
       return Promise.reject(err);
     }
   },
-  async getHistoryGraph() {
+  async getHistoryGraph(uid: number) {
     try {
-      const res = await instance.get<IHistoryGraph>("api/composer/" + "54454");
+      const res = await instance.get<IHistoryGraph>("api/composer/" + uid);
       return res.data;
     } catch (err) {
       return Promise.reject(err);
