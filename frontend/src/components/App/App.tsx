@@ -7,18 +7,27 @@ import Sandbox from "../../pages/Sandbox/Sandbox";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Showcase from "../../pages/Showcase/Showcase";
 import History from "../History/History";
-import dataPopulation from "../../data/dataPopulation.json";
-import dataCompose from "../../data/composeData.json";
 import dataHistory from "../../data/responseHistory.json";
-import { sandboxAPI } from "../../api/sandbox";
+import { useDispatch, useSelector } from "react-redux";
+import sandboxReducer, { getHistoryGraph } from "../../store/sandbox-reducer";
+import { StateType } from "../../store/store";
 
 function App() {
+  const dispatch = useDispatch();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [isDark, setDark] = useState(false);
+
+  const { historyGraph } = useSelector(
+    (state: StateType) => state.sandboxReducer
+  );
 
   const changeTheme = () => {
     setDark(!isDark);
   };
+
+  useEffect(() => {
+    dispatch(getHistoryGraph(45454));
+  }, []);
 
   const theme = React.useMemo(
     () =>
@@ -51,10 +60,10 @@ function App() {
             <Route exact path="/sandbox">
               <Sandbox />
             </Route>
-            <Route exact path="/sandbox/history">
+            <Route exact path="/fedot">
               <History
-                edgesData={dataHistory.edges}
-                nodesData={dataHistory.nodes}
+                edgesData={historyGraph.edges}
+                nodesData={historyGraph.nodes}
                 onClick={() => {
                   console.log("handleClick");
                 }}

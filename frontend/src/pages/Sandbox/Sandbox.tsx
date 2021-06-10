@@ -8,19 +8,19 @@ import DirectedGraph from "../../components/DirectedGraph/DirectedGraph";
 import Header from "../../components/Header/Header";
 import CustomSlider from "../../components/Slider/Slider";
 import { useDispatch, useSelector } from "react-redux";
-import { getMainGraph } from "../../services/sandboxSlice";
-import { RootState } from "../../services/store";
+import { getMainGraph } from "../../store/sandbox-reducer";
+import { StateType } from "../../store/store";
 
 const Sandbox = () => {
   const dispatch = useDispatch();
-  const { mainGraph } = useSelector((state: RootState) => state.sandbox);
+  const { mainGraph } = useSelector((state: StateType) => state.sandboxReducer);
 
   const handleSliderChange = (e: ChangeEvent<{}>, v: number | number[]) => {
     console.log(`### handleSliderChange`);
   };
 
   useEffect(() => {
-    dispatch(getMainGraph());
+    dispatch(getMainGraph(45454));
   }, []);
 
   const handleOnClickGraph = (d: any): any => {

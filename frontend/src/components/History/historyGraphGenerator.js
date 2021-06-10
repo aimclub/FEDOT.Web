@@ -10,6 +10,7 @@ export function runHistory(container, linksData, nodesData) {
   let generations = [];
   nodesIndividual.forEach((item) => generations.push(item.gen_id));
 
+  // оставляем уникальные значения
   let uniqGenerations = Array.from(new Set(generations));
   console.log(`### uniqGenerations`, uniqGenerations);
 
@@ -39,7 +40,7 @@ export function runHistory(container, linksData, nodesData) {
   // Here we're setting nodeclass, which is used by our custom drawNodes function
   // below.
 
-  //TODO: Кластеры поколений
+  //Кластеры поколений
 
   uniqGenerations.forEach((generation) => {
     g.setNode(generation, {
@@ -49,30 +50,28 @@ export function runHistory(container, linksData, nodesData) {
     });
 
     nodesIndividual.forEach((item) => {
-      if (generation < 5 && generation > 1) {
-        if (generation === item.gen_id) {
-          g.setNode(item.uid, {
-            label: item.uid,
-            class: "type-TK",
-            shape: "rect",
-          });
+      // if (item.ind_id < 15) {
+      if (generation === item.gen_id) {
+        g.setNode(item.uid, {
+          label: item.uid,
+          class: "type-TK",
+          shape: "rect",
+        });
 
-          g.setParent(item.uid, generation);
-        }
+        g.setParent(item.uid, generation);
       }
+      // }
     });
   });
 
   nodesOperator.forEach((item) => {
-    if (item.prev_gen_id === 3 || item.next_gen_id === 4) {
-      g.setNode(item.uid, {
-        label: item.uid,
-        class: "type-TOP",
-        shape: "circle",
-      });
-
-      // g.setParent(item.uid, generation);
-    }
+    // if (item.next_gen_id < 15) {
+    g.setNode(item.uid, {
+      label: item.uid,
+      class: "type-TOP",
+      shape: "circle",
+    });
+    // }
   });
 
   g.nodes().forEach(function (v) {
