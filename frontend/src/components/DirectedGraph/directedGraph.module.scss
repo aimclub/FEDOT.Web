@@ -31,25 +31,23 @@
     stroke: #999;
     fill: #fff;
     stroke-width: 1.5px;
+
+  }
+  [class*="node"] rect {
+    animation: bubbleNode 1s ease-in-out;
+
+  }
+  [class*="label"] {
+    animation: bubbleNode 1s ease-in-out;
+  }
+
+  [class*="node"] circle {
+    stroke: #999;
+    fill: #fff;
+    stroke-width: 1.5px;
   }
   [class*="node"]:hover > rect {
     fill: #eba;
-  }
-  //[class*="type-TOP"] > * {
-  //  animation: bubbleNode 1s ease-in-out;
-  //}
-  [class*="type-TK"] rect {
-    fill: #00ffd0;
-    //animation: bubbleNode 1s ease-in-out;
-  }
-  [class*="type-TOP"] circle {
-    fill: #eba;
-  }
-
-  [class*="type-NEW"] rect {
-    fill: #eba;
-    //animation: bubbleNode 1s ease-in-out;
-
   }
 
   text {
@@ -61,19 +59,14 @@
   [class*="edgePath"] path {
     stroke: #333;
     stroke-width: 2px;
-    //transition: all 1.2s ease-in-out;
     cursor: pointer;
   }
 
-  //[class*="edgePath"] path {
-  //  stroke: #333;
-  //  stroke-width: 2px;
-  //  //transition: all 1.2s ease-in-out;
-  //  cursor: pointer;
-  //  &[class*="edgeONE"] {
-  //    outline: 1px solid red;
-  //  }
-  //}
+  [class*="path"]  {
+    transition: all 1.2s ease-in;
+  }
+
+
 }
 
 .contextMenu {
