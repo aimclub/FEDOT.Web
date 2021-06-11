@@ -24,6 +24,15 @@ const Sandbox = () => {
   }, [dispatch]);
 
   const handleAddNode = (d: any): any => {
+    const newNode = { ...mainGraph.nodes[0], id: mainGraph.nodes.length };
+    const newEdge = { source: newNode.id, target: d };
+    console.log(`### newNode`, newNode);
+    dispatch(
+      actionsSandbox.addNodeMainGraph({
+        nodes: [newNode],
+        edges: [newEdge],
+      })
+    );
     console.log(`### handleAddNode d`, d);
   };
 

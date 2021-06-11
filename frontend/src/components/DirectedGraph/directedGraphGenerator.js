@@ -40,7 +40,7 @@ export function runDirectedGraph(
     g.setNode(item.id, {
       label: item.display_name,
       shape: item.type === "model" ? "circle" : "rect",
-      style: item.type === "model" ? "fill: #00ffd0 " : "fill: #B0BEC5",
+      style: item.type === "model" ? "fill: #00ffd0" : "fill: #B0BEC5",
     });
   });
 

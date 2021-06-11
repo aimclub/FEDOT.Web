@@ -33,13 +33,13 @@
     stroke-width: 1.5px;
 
   }
-  [class*="node"] rect {
-    animation: bubbleNode 1s ease-in-out;
-
-  }
-  [class*="label"] {
-    animation: bubbleNode 1s ease-in-out;
-  }
+  //[class*="node"] rect {
+  //  animation: bubbleNode 1s ease-in-out;
+  //
+  //}
+  //[class*="label"] {
+  //  animation: bubbleNode 1s ease-in-out;
+  //}
 
   [class*="node"] circle {
     stroke: #999;
@@ -62,9 +62,9 @@
     cursor: pointer;
   }
 
-  [class*="path"]  {
-    transition: all 1.2s ease-in;
-  }
+  //[class*="path"]  {
+  //  transition: all 1.2s ease-in;
+  //}
 
 
 }
