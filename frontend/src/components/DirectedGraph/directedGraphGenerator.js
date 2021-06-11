@@ -74,6 +74,7 @@ export function runDirectedGraph(
   let yCenterOffset = (svg.attr("height") - gHeight) / 2;
 
   if (height < gHeight || width < gWidth) {
+    console.log(`### height`, height);
     const viewHeight = height < gHeight ? gHeight : height;
     const viewWidth = width < gWidth ? gWidth : width;
 
