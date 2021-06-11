@@ -15,16 +15,22 @@ import { makeStyles } from "@material-ui/core/styles";
 import { TransitionProps } from "@material-ui/core/transitions";
 
 const useStyles = makeStyles((theme) => ({
+  dialog: {
+    position: "absolute",
+    top: "40%",
+    right: "50px",
+    transform: "translate(0, -50%)",
+  },
   root: {
     width: 278,
-    position: "absolute",
-    right: 50,
-    top: "40%",
-    transform: "translate(0, -50%)",
   },
   paperGrow: {
     flexGrow: 1,
     display: "flex",
+  },
+  title: {
+    backgroundColor: "#B0BEC5",
+    padding: "6px 12px",
   },
 }));
 
@@ -58,9 +64,14 @@ const GraphEditorModal: FC<IGraphEditorModal> = (props) => {
       onClose={handleClose}
       aria-labelledby="edit-modal-title"
       aria-describedby="edit-modal-description"
+      classes={{
+        paper: classes.dialog,
+      }}
     >
       <Paper className={classes.root}>
-        <Typography>XGB | ML model</Typography>
+        <Typography className={classes.title} variant={"subtitle1"}>
+          XGB | ML model
+        </Typography>
         <div>
           <Typography>Rating 10/10</Typography>
           <div>
