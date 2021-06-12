@@ -1,7 +1,6 @@
 import pymongo
 import json
 import os
-import hashlib
 
 from utils import project_root
 
@@ -14,7 +13,6 @@ if __name__ == "__main__":
         with open(os.path.join(project_root(), 'data/mocked_jsons/', op['fitted_operation_path']), 'rb') as f:
             op_pickle = f.read()
             dict_fitted_operations[op['fitted_operation_path']] = op_pickle
-    dict_chain['hash'] = hashlib.md5(json.dumps(dict_chain).encode('utf-8')).hexdigest()
     dict_chain['uid'] = 'test'
     dict_fitted_operations['uid'] = 'test'
 

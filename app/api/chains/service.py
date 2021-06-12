@@ -1,5 +1,4 @@
 import json
-import hashlib
 import warnings
 from typing import Tuple
 
@@ -73,13 +72,12 @@ def create_chain(uid: str, chain: Chain):
 
     is_duplicate = False
     dumped_json = chain.save()
-    hash = hashlib.md5(dumped_json.encode('utf-8')).hexdigest()
-    if storage.db.chains.find_one({'hash': hash}):
+
+    if storage.db.chains.find_one({'descriptive_id': chain.root_node.descriptive_id}):
         is_duplicate = True
 
     if is_new and not is_duplicate:
         dict_chain = json.loads(dumped_json)
-        dict_chain['hash'] = hash
         dict_chain['uid'] = uid
         storage.db.chains.insert_one(dict_chain)
     else:
