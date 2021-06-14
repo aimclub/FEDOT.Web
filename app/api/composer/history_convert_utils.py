@@ -81,6 +81,8 @@ def _create_operators_and_nodes(history):
             operators = [operators] if not isinstance(operators, list) else operators
 
             for o_num, operator in enumerate(operators):
+                if isinstance(operator, list) and len(operator) == 0:
+                    continue
                 prev_operator = None
                 if operator.operator_type != 'selection':
                     # connect with previous operator (e.g. crossover -> mutation)
