@@ -10,11 +10,18 @@ import History from "../History/History";
 import { useDispatch, useSelector } from "react-redux";
 import { getHistoryGraph } from "../../store/sandbox-reducer";
 import { StateType } from "../../store/store";
+// import historyGraph from "../../data/responseHistory.json";
 
 function App() {
   const dispatch = useDispatch();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [isDark, setDark] = useState(false);
+
+  const nodeHoverTooltip = React.useCallback((node) => {
+    return `<div>     
+      <p >${node}</p>
+    </div>`;
+  }, []);
 
   const { historyGraph } = useSelector(
     (state: StateType) => state.sandboxReducer
@@ -66,6 +73,7 @@ function App() {
                 onClick={() => {
                   console.log("handleClick");
                 }}
+                nodeHoverTooltip={nodeHoverTooltip}
               />
             </Route>
           </Switch>

@@ -31,12 +31,18 @@ type DirectedGraphProps = {
   edgesData: HistoryEdgeType[];
   nodesData: (HistoryNodeIndividualType | HistoryNodeOperatorType)[];
   onClick(d: any): void;
+  nodeHoverTooltip(d: any): void;
 };
 
 export type dataContextType = {
   data: number;
 };
-const History = ({ edgesData, nodesData, onClick }: DirectedGraphProps) => {
+const History = ({
+  edgesData,
+  nodesData,
+  onClick,
+  nodeHoverTooltip,
+}: DirectedGraphProps) => {
   const containerRef = React.useRef(null);
   const [showLoader, setShowLoader] = useState(true);
 
@@ -49,7 +55,8 @@ const History = ({ edgesData, nodesData, onClick }: DirectedGraphProps) => {
       const { destroy } = runHistory(
         containerRef.current,
         edgesData,
-        nodesData
+        nodesData,
+        nodeHoverTooltip
       );
       destroyFn = destroy;
     }

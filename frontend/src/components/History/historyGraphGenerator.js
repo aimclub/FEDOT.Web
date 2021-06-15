@@ -1,8 +1,9 @@
 import * as d3 from "d3";
 import "./History.module.scss";
 import dagreD3 from "dagre-d3";
+import styles from "./History.module.scss";
 
-export function runHistory(container, linksData, nodesData) {
+export function runHistory(container, linksData, nodesData, nodeHoverTooltip) {
   let links = linksData.map((d) => Object.assign({}, d));
   let nodes = nodesData.map((d) => Object.assign({}, d));
   let nodesIndividual = nodes.filter((item) => item.type === "individual");
@@ -45,33 +46,32 @@ export function runHistory(container, linksData, nodesData) {
   uniqGenerations.forEach((generation) => {
     g.setNode(generation, {
       label: generation,
-      clusterLabelPos: "top",
-      style: "fill: #E6399B",
+      clusterLabelPos: "left",
+      style: "fill: #d3d7e8",
     });
 
     nodesIndividual.forEach((item) => {
-      // if (item.ind_id < 15) {
       if (generation === item.gen_id) {
         g.setNode(item.uid, {
           label: item.uid,
+          labelStyle: "font-size: 36px",
           class: "type-TK",
           shape: "rect",
         });
 
         g.setParent(item.uid, generation);
       }
-      // }
     });
   });
 
   nodesOperator.forEach((item) => {
-    // if (item.next_gen_id < 15) {
+    const label = item.name[0][0].toUpperCase();
     g.setNode(item.uid, {
-      label: item.uid,
-      class: "type-TOP",
+      label: label,
+      labelStyle: "font-size: 40px",
+      class: `operator-${label}`,
       shape: "circle",
     });
-    // }
   });
 
   g.nodes().forEach(function (v) {
@@ -85,11 +85,11 @@ export function runHistory(container, linksData, nodesData) {
     const haveSource = g.hasNode(item.source);
     const haveTarget = g.hasNode(item.target);
     if (haveSource && haveTarget) {
-      // if (item.source.includes("chain_2_")) {
-      //   g.setEdge(item.target, item.source);
-      // } else {
-      g.setEdge(item.source, item.target);
-      // }
+      g.setEdge(item.source, item.target, {
+        style: "stroke: #007DFF; stroke-width: 4px; fill-opacity: 0",
+        arrowheadStyle: "fill: #007DFF",
+        curve: d3.curveBasis,
+      });
     }
   });
 
@@ -120,6 +120,44 @@ export function runHistory(container, linksData, nodesData) {
     "transform",
     "translate(" + xCenterOffset + "," + yCenterOffset + ")"
   );
+
+  /**
+   * Блок добавления и удаления подсказки на Граф
+   */
+  const tooltip = document.querySelector("#graph-tooltip");
+  if (!tooltip) {
+    const tooltipDiv = document.createElement("div");
+    tooltipDiv.classList.add(styles.tooltip);
+    tooltipDiv.style.opacity = "0";
+    tooltipDiv.id = "graph-tooltip";
+    document.body.appendChild(tooltipDiv);
+  }
+  const div = d3.select("#graph-tooltip");
+
+  //показать рядом с нужным Узлом
+  const addTooltip = (hoverTooltip, d, x, y) => {
+    div.transition().duration(200).style("opacity", 0.9);
+    div
+      .html(hoverTooltip(d))
+      .style("left", `${x}px`)
+      .style("top", `${y - 28}px`);
+  };
+  //скрыть
+  const removeTooltip = () => {
+    div.transition().duration(200).style("opacity", 0);
+  };
+  /**
+   * Конец блока добавления и удаления Подсказки
+   */
+
+  svgGroup
+    .selectAll("g.node")
+    .on("mouseover", (event, d) => {
+      addTooltip(nodeHoverTooltip, d, event.pageX, event.pageY);
+    })
+    .on("mouseout", () => {
+      removeTooltip();
+    });
 
   return {
     destroy: () => {

@@ -43,7 +43,6 @@
   }
   [class*="type-NEW"] rect {
     fill: #eba;
-
   }
 
   text {
@@ -57,6 +56,18 @@
     stroke-width: 1px;
     //transition: all 1.2s ease-in-out;
     cursor: pointer;
+  }
+
+  [class*="operator-C"] circle {
+    fill: #4a66c6;
+  }
+  [class*="operator-M"] circle {
+    fill: rgba(229, 92, 222, 0.95);
+  }
+
+  [class*="clusters"] rect {
+    stroke: #263238;
+    stroke-width: 1.5px;
   }
 
   //[class*="edgePath"] path {
@@ -82,4 +93,15 @@
 .menuEntry text {
   font-size: 12px;
   stroke: #00557d;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0;
+  border-radius: 8px;
+  pointer-events: none;
 }
