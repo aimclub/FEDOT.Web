@@ -4,6 +4,7 @@ from app.api.chains.service import chain_by_uid
 from app.api.composer.service import composer_history_for_case
 from app.api.data.service import get_input_data
 from app.api.showcase.service import showcase_item_by_uid
+from utils import project_root
 from .models import PlotData
 
 max_items_in_plot = 50
@@ -45,6 +46,12 @@ def get_quality_analytics(case_id) -> List[PlotData]:
 
 def get_modelling_results(case_id: str, chain_id: str) -> List[PlotData]:
     chain = chain_by_uid(chain_id)
+    from fedot.core.data.data import InputData
+
+    # TODO refactor
+    data = InputData.from_csv(f'{project_root()}/data/scoring/scoring_train.csv')
+    chain.fit(data)
+
     case_info = showcase_item_by_uid(case_id)
     data = get_input_data(dataset_name=case_info.metadata.dataset_name, sample_type='test')
     prediction = chain.predict(data)

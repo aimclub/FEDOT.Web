@@ -1,6 +1,5 @@
-https://github.com/nccr-itmo/FEDOT/archive/master.zip
+https://github.com/nccr-itmo/FEDOT/archive/composer-history-fix.zip
 flask-socketio==5.0.1
-#fedot==0.2.1
 Flask==1.1.1
 flask-accepts==0.10.0
 Flask-RESTful==0.3.7
@@ -17,3 +16,5 @@ Flask-SQLAlchemy==2.5
 oauthlib==3.0.1
 pyOpenSSL==19.0.0
 PyJWT==2.0.1
+pydot==1.4.2
+networkx==2.4

@@ -1,13 +1,11 @@
+from pathlib import Path
 from typing import List
 
-from pathlib import Path
+from flask import url_for
 
+from app.api.chains.service import chain_mock
 from utils import project_root
 from .models import Metadata, ShowcaseItem
-
-from fedot.core.chains.chain import Chain
-
-from flask import url_for
 
 
 def showcase_item_by_uid(case_id: str) -> ShowcaseItem:
@@ -15,8 +13,7 @@ def showcase_item_by_uid(case_id: str) -> ShowcaseItem:
 
     filename = f'{case_id}.png'
 
-    saved_chain = Chain()
-    saved_chain.load('data/mocked_jsons/chain.json')
+    saved_chain = chain_mock()
 
     image_url = get_image_url(filename, chain=saved_chain)
 
