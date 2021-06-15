@@ -7,10 +7,12 @@ const SET_MAIN_GRAPH = "SET_MAIN_GRAPH";
 const SET_HISTORY_GRAPH = "SET_HISTORY_GRAPH";
 const DELETE_NODE_MAIN_GRAPH = "DELETE_NODE_MAIN_GRAPH";
 const ADD_NODE_MAIN_GRAPH = "ADD_NODE_MAIN_GRAPH";
+const TOGGLE_EDIT_MODAL = "TOGGLE_EDIT_MODAL";
 
 let initialState = {
   mainGraph: { nodes: [], edges: [] } as IMainGraph,
   historyGraph: { nodes: [], edges: [] } as IHistoryGraph,
+  isOpenEditModal: false,
 };
 
 export type InitialStateDatasetsType = typeof initialState;
@@ -18,7 +20,8 @@ type AllTypes =
   | SetMainGraphType
   | SetHistoryGraphType
   | DeleteNodeMainGraphType
-  | AddNodeMainGraphType;
+  | AddNodeMainGraphType
+  | ToggleEditModalType;
 
 const sandboxReducer = (
   state = initialState,
@@ -52,6 +55,14 @@ const sandboxReducer = (
           edges: [...state.mainGraph.edges, ...action.data.edges],
         },
       };
+    case TOGGLE_EDIT_MODAL: {
+      console.log(`### state`, state);
+      console.log(`### !state.isOpenEditModal`, !state.isOpenEditModal);
+      return {
+        ...state,
+        isOpenEditModal: !state.isOpenEditModal,
+      };
+    }
 
     default:
       return state;
@@ -74,6 +85,9 @@ type AddNodeMainGraphType = {
   type: typeof ADD_NODE_MAIN_GRAPH;
   data: IMainGraph;
 };
+type ToggleEditModalType = {
+  type: typeof TOGGLE_EDIT_MODAL;
+};
 
 export const actionsSandbox = {
   setMainGraph: (data: IMainGraph): SetMainGraphType => ({
@@ -91,6 +105,9 @@ export const actionsSandbox = {
   addNodeMainGraph: (data: IMainGraph): AddNodeMainGraphType => ({
     type: ADD_NODE_MAIN_GRAPH,
     data,
+  }),
+  toggleEditModal: (): ToggleEditModalType => ({
+    type: TOGGLE_EDIT_MODAL,
   }),
 };
 // для async
