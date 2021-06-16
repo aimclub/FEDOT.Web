@@ -1,7 +1,7 @@
 import { StateType } from "./store";
 import { ThunkAction } from "redux-thunk";
 import { IHistoryGraph, IMainGraph, sandboxAPI } from "../api/sandbox";
-import { NodeDataType } from "../components/DirectedGraph/DirectedGraph";
+import { NodeDataType } from "../components/GraphEditor/GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 
 const SET_MAIN_GRAPH = "SET_MAIN_GRAPH";
 const SET_HISTORY_GRAPH = "SET_HISTORY_GRAPH";

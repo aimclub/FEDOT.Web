@@ -1,9 +1,15 @@
 import * as d3 from "d3";
-import "./History.module.scss";
+import "./HistoryGraph.module.scss";
 import dagreD3 from "dagre-d3";
-import styles from "./History.module.scss";
+import styles from "./HistoryGraph.module.scss";
 
-export function runHistory(container, linksData, nodesData, nodeHoverTooltip) {
+export function runHistory(
+  container,
+  linksData,
+  nodesData,
+  nodeHoverTooltip,
+  onClick
+) {
   let links = linksData.map((d) => Object.assign({}, d));
   let nodes = nodesData.map((d) => Object.assign({}, d));
   let nodesIndividual = nodes.filter((item) => item.type === "individual");
@@ -31,11 +37,21 @@ export function runHistory(container, linksData, nodesData, nodeHoverTooltip) {
     );
 
   // Set up an SVG group so that we can translate the final graph.
-  let svgGroup = svg.append("g");
+  let svgGroup = svg.append("g").on("click", (e, d) => {
+    if (e.target && e.target.textContent.includes("chain")) {
+      onClick(e.target.textContent);
+    }
+  });
 
   // Create the input graph
   let g = new dagreD3.graphlib.Graph({ compound: true })
-    .setGraph({ rankdir: "TB" })
+    .setGraph({
+      rankdir: "TB",
+      ranker: "network-simplex",
+      align: "DL",
+      // nodesep: "10",
+      // acyclicer: "greedy",
+    })
     .setDefaultEdgeLabel(() => ({}));
 
   // Here we're setting nodeclass, which is used by our custom drawNodes function
@@ -44,17 +60,26 @@ export function runHistory(container, linksData, nodesData, nodeHoverTooltip) {
   //Кластеры поколений
 
   uniqGenerations.forEach((generation) => {
+    let nameG = `Generation ${generation}`;
+    let uidParentG = `Parent-generation ${generation}`;
+
     g.setNode(generation, {
       label: generation,
       clusterLabelPos: "left",
       style: "fill: #d3d7e8",
     });
 
+    //узел отображающий поколение
+    g.setNode(nameG, {
+      label: nameG,
+    });
+    g.setParent(nameG, generation);
+
     nodesIndividual.forEach((item) => {
       if (generation === item.gen_id) {
         g.setNode(item.uid, {
           label: item.uid,
-          labelStyle: "font-size: 36px",
+          labelStyle: "font-size: 36px; cursor: pointer",
           class: "type-TK",
           shape: "rect",
         });
@@ -68,7 +93,7 @@ export function runHistory(container, linksData, nodesData, nodeHoverTooltip) {
     const label = item.name[0][0].toUpperCase();
     g.setNode(item.uid, {
       label: label,
-      labelStyle: "font-size: 40px",
+      labelStyle: "font-size: 60px; cursor: pointer",
       class: `operator-${label}`,
       shape: "circle",
     });

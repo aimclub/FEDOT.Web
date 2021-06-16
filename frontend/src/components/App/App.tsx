@@ -6,9 +6,9 @@ import { useMediaQuery } from "@material-ui/core";
 import Sandbox from "../../pages/Sandbox/Sandbox";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Showcase from "../../pages/Showcase/Showcase";
-import History from "../History/History";
 import { useDispatch, useSelector } from "react-redux";
 import { getHistoryGraph } from "../../store/sandbox-reducer";
+import History from "../../pages/History/History";
 import { StateType } from "../../store/store";
 // import historyGraph from "../../data/responseHistory.json";
 
@@ -17,23 +17,9 @@ function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [isDark, setDark] = useState(false);
 
-  const nodeHoverTooltip = React.useCallback((node) => {
-    return `<div>     
-      <p >${node}</p>
-    </div>`;
-  }, []);
-
-  const { historyGraph } = useSelector(
-    (state: StateType) => state.sandboxReducer
-  );
-
   const changeTheme = () => {
     setDark(!isDark);
   };
-
-  useEffect(() => {
-    dispatch(getHistoryGraph(45454));
-  }, [dispatch]);
 
   const theme = React.useMemo(
     () =>
@@ -66,15 +52,11 @@ function App() {
             <Route exact path="/sandbox">
               <Sandbox />
             </Route>
+            <Route exact path="/sandbox/history">
+              <History />
+            </Route>
             <Route exact path="/fedot">
-              <History
-                edgesData={historyGraph.edges}
-                nodesData={historyGraph.nodes}
-                onClick={() => {
-                  console.log("handleClick");
-                }}
-                nodeHoverTooltip={nodeHoverTooltip}
-              />
+              <History />
             </Route>
           </Switch>
         </div>

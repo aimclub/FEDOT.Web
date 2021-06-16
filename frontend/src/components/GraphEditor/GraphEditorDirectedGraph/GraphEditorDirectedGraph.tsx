@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { runDirectedGraph } from "./directedGraphGenerator";
 import styles from "./directedGraph.module.scss";
 import Loader from "react-loader-spinner";
-import ContextMenu from "../ContextMenu/ContextMenu";
+import ContextMenu from "../GraphEditorContextMenu/ContextMenu";
 import { ClickAwayListener } from "@material-ui/core";
 
 export type EdgeDataType = {
@@ -35,7 +35,7 @@ export type dataContextType = {
   data: number;
   offset: offsetContextMenuType;
 };
-const DirectedGraph = ({
+const GraphEditorDirectedGraph = ({
   edgesData,
   nodesData,
   onClickAddNode,
@@ -112,4 +112,4 @@ const DirectedGraph = ({
   );
 };
 
-export default DirectedGraph;
+export default GraphEditorDirectedGraph;
