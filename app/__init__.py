@@ -27,7 +27,7 @@ def create_app(env=None):
     cors = CORS(app)
     app.config['CORS_HEADERS'] = 'Content-Type'
 
-    app.config.from_object(config_by_name[env or "test"])
+    app.config.from_object(config_by_name[env or "dev"])
 
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
     api = Api(api_blueprint, title="Fedot Web API", version="0.0.1")

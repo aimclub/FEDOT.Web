@@ -36,7 +36,7 @@ def test_add_chain_endpoint(client):
     }
     response = client.post('api/chains/add', json=graph).json
     assert response['is_new'] is True
-    assert response['uid'] != non_existing_uid
+    assert response['uid'] == non_existing_uid
 
     existing_uid = 'test_chain'
     graph = {

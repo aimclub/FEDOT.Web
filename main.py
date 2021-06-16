@@ -3,7 +3,7 @@ import os
 from app import create_app, socketio, db
 from app.ssl.ssl_config import SslConfig
 
-app = create_app(os.getenv("FLASK_ENV") or "test")
+app = create_app(os.getenv("FLASK_ENV") or "dev")
 
 ssl_config = SslConfig()
 ssl_config.get_config("app/ssl/cert")
