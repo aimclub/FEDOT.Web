@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 import { Paper } from "@material-ui/core";
-import DirectedGraph from "../DirectedGraph/DirectedGraph";
+import GraphEditorDirectedGraph from "./GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 import { actionsSandbox, getMainGraph } from "../../store/sandbox-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { StateType } from "../../store/store";
@@ -47,7 +47,7 @@ const GraphEditor: FC<IGraphEditor> = (props) => {
   return (
     <Paper elevation={3} className={classes.root}>
       {mainGraph && (
-        <DirectedGraph
+        <GraphEditorDirectedGraph
           edgesData={mainGraph.edges}
           nodesData={mainGraph.nodes}
           onClickAddNode={handleAddNode}

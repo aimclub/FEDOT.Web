@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { runHistory } from "./historyGraphGenerator";
-import styles from "./History.module.scss";
+import styles from "./HistoryGraph.module.scss";
 import Loader from "react-loader-spinner";
 
 export type HistoryEdgeType = {
@@ -37,7 +37,8 @@ type DirectedGraphProps = {
 export type dataContextType = {
   data: number;
 };
-const History = ({
+
+const HistoryGraph = ({
   edgesData,
   nodesData,
   onClick,
@@ -56,7 +57,8 @@ const History = ({
         containerRef.current,
         edgesData,
         nodesData,
-        nodeHoverTooltip
+        nodeHoverTooltip,
+        onClick
       );
       destroyFn = destroy;
     }
@@ -79,4 +81,4 @@ const History = ({
   );
 };
 
-export default History;
+export default HistoryGraph;

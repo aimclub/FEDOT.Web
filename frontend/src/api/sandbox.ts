@@ -2,12 +2,12 @@ import { instance } from "./index";
 import {
   EdgeDataType,
   NodeDataType,
-} from "../components/DirectedGraph/DirectedGraph";
+} from "../components/GraphEditor/GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 import {
   HistoryEdgeType,
   HistoryNodeIndividualType,
   HistoryNodeOperatorType,
-} from "../components/History/History";
+} from "../components/HistoryGraph/HistoryGraph";
 
 export interface IMainGraph {
   nodes: NodeDataType[];

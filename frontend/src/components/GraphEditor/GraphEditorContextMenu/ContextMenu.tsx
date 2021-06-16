@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import style from "./contextMenu.module.scss";
-import { dataContextType } from "../DirectedGraph/DirectedGraph";
+import { dataContextType } from "../GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 
 export interface IContextMenu {
   dataContext: dataContextType | undefined;
