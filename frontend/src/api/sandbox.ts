@@ -36,4 +36,12 @@ export const sandboxAPI = {
       return Promise.reject(err);
     }
   },
+  async getChainsImage(uid: string) {
+    try {
+      const res = await instance.get<IHistoryGraph>("api/chains/image/" + uid);
+      return res.data;
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  },
 };
