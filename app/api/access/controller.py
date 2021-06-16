@@ -1,6 +1,7 @@
 from typing import List
 
 from flask_accepts import responds
+from flask_cors import cross_origin
 from flask_restx import Namespace, Resource
 
 from .models import ChainEpochMapping, SandboxDefaultParams
@@ -11,6 +12,7 @@ from .service import (chains_ids_for_epochs_in_case,
 api = Namespace("Sandbox", description="Data for sandbox")
 
 
+@cross_origin()
 @api.route("/epoch/<string:case_id>")
 class SandBoxItemResource(Resource):
     """Showcase item"""
@@ -22,6 +24,7 @@ class SandBoxItemResource(Resource):
         return item
 
 
+@cross_origin()
 @api.route("/params/<string:case_id>")
 class SandBoxItemResource(Resource):
     """Showcase item"""

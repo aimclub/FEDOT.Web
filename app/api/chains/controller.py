@@ -1,18 +1,19 @@
 from flask import request
 from flask_accepts import accepts, responds
+from flask_cors import cross_origin
 from flask_restx import Namespace, Resource
 
+from app.api.showcase.service import get_image_url
 from .chain_convert_utils import chain_to_graph, graph_to_chain
 from .models import ChainGraph, ChainResponse, ChainValidationResponse, ChainImage
 from .schema import (ChainGraphSchema, ChainResponseSchema,
                      ChainValidationResponseSchema, ChainImageSchema)
 from .service import chain_by_uid, create_chain, validate_chain
 
-from app.api.showcase.service import get_image_url
-
 api = Namespace("Chains", description="Operations with chains")
 
 
+@cross_origin()
 @api.route("/<string:uid>")
 class ChainsIdResource(Resource):
     """Chains"""
@@ -27,6 +28,7 @@ class ChainsIdResource(Resource):
         return chain_graph
 
 
+@cross_origin()
 @api.route("/validate")
 class ChainsValidateResource(Resource):
     """Chain validation"""
@@ -47,6 +49,7 @@ class ChainsValidateResource(Resource):
         return ChainValidationResponse(is_valid, msg)
 
 
+@cross_origin()
 @api.route("/add")
 class ChainsAddResource(Resource):
     @accepts(schema=ChainGraphSchema, api=api)
@@ -64,6 +67,7 @@ class ChainsAddResource(Resource):
             return ChainResponse(None, False)
 
 
+@cross_origin()
 @api.route("/image/<string:uid>")
 class ChainsIdImage(Resource):
     """Chains"""
