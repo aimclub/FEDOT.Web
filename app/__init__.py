@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, jsonify, Blueprint
+from flask_cors import CORS, cross_origin
 from flask_login import LoginManager
 from flask_restx import Api
 from flask_socketio import SocketIO
@@ -19,6 +20,9 @@ def create_app(env=None):
     static_dir = os.path.abspath('app/web/static')
 
     app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+    cors = CORS(app)
+    app.config['CORS_HEADERS'] = 'Content-Type'
+
     app.config.from_object(config_by_name[env or "test"])
 
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
@@ -32,6 +36,7 @@ def create_app(env=None):
     login_manager.init_app(app)
 
     @app.route("/health")
+    @cross_origin()
     def health():
         return jsonify("healthy")
 
