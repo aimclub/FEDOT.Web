@@ -8,7 +8,7 @@ import HistoryModal from "../../components/HistoryGraph/HistoryModal/HistoryModa
 interface IHistory {}
 
 const History: FC<IHistory> = (props) => {
-  const [open, setOpen] = useState(false);
+  const [uid, setUid] = useState("");
   const dispatch = useDispatch();
   const nodeHoverTooltip = React.useCallback((node) => {
     return `<div>     
@@ -30,11 +30,18 @@ const History: FC<IHistory> = (props) => {
         edgesData={historyGraph.edges}
         nodesData={historyGraph.nodes}
         onClick={(v) => {
-          setOpen(true);
+          setUid(v);
         }}
         nodeHoverTooltip={nodeHoverTooltip}
       />
-      <HistoryModal open={open} handleClose={() => setOpen(false)} />
+      {uid && (
+        <HistoryModal
+          uid={uid}
+          handleClose={() => {
+            setUid("");
+          }}
+        />
+      )}
     </>
   );
 };

@@ -68,11 +68,9 @@ const useStyles = makeStyles((theme) => ({
   divider: { backgroundColor: "#fff" },
 }));
 
-type SideMenuProps = {
-  changeTheme(): void;
-};
+type SideMenuProps = {};
 
-const SideMenu = ({ changeTheme }: SideMenuProps) => {
+const SideMenu = (props: SideMenuProps) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -113,7 +111,7 @@ const SideMenu = ({ changeTheme }: SideMenuProps) => {
       <Divider className={classes.divider} />
       <GraphCreationList />
       <div style={{ flexGrow: 1 }} />
-      <ListItem button onClick={changeTheme}>
+      <ListItem button>
         <ListItemIcon className={classes.listItemIcon}>
           <SettingsIcon />
         </ListItemIcon>

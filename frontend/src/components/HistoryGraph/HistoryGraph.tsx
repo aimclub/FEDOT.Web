@@ -51,7 +51,6 @@ const HistoryGraph = ({
     if (edgesData.length === 0 || nodesData.length === 0) return;
     let destroyFn;
 
-    setShowLoader(false);
     if (containerRef.current) {
       const { destroy } = runHistory(
         containerRef.current,
@@ -63,6 +62,7 @@ const HistoryGraph = ({
       destroyFn = destroy;
     }
 
+    setShowLoader(false);
     return destroyFn;
   }, [nodesData, edgesData]);
 

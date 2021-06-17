@@ -49,8 +49,6 @@ export function runHistory(
       rankdir: "TB",
       ranker: "network-simplex",
       align: "DL",
-      // nodesep: "10",
-      // acyclicer: "greedy",
     })
     .setDefaultEdgeLabel(() => ({}));
 
@@ -61,7 +59,6 @@ export function runHistory(
 
   uniqGenerations.forEach((generation) => {
     let nameG = `Generation ${generation}`;
-    let uidParentG = `Parent-generation ${generation}`;
 
     g.setNode(generation, {
       label: generation,

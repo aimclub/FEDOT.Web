@@ -19,6 +19,11 @@ export interface IHistoryGraph {
   edges: HistoryEdgeType[];
 }
 
+export interface IChainImage {
+  image_url: string;
+  uid: string;
+}
+
 export const sandboxAPI = {
   async getMainGraph(uid: number) {
     try {
@@ -38,7 +43,7 @@ export const sandboxAPI = {
   },
   async getChainsImage(uid: string) {
     try {
-      const res = await instance.get<IHistoryGraph>("api/chains/image/" + uid);
+      const res = await instance.get<IChainImage>("api/chains/image/" + uid);
       return res.data;
     } catch (err) {
       return Promise.reject(err);
