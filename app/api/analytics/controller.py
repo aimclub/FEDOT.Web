@@ -21,7 +21,7 @@ class QualityPlotResource(Resource):
         return quality_plots
 
 
-@api.route("/results/<string:chain_id>/<string:case_id>")
+@api.route("/results/<string:case_id>/<string:chain_id>")
 class ResultsPlotResource(Resource):
     """Quality plot data for cases"""
 
