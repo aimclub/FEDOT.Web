@@ -1,0 +1,47 @@
+The purpose of the experiment was to determine in which case the regression will more correctly model oil production -
+sklearn library models or an auto-ml model automatically selected. In order to conduct an experiment using the
+framework, we took 13 models to compare the results obtained by each of the models and the optimal version built by
+utoML. Selected models:
+
+•	linear – SklearnLinReg,
+•	ridge – SklearnRidgeReg,
+•	lasso - SklearnLassoReg,
+•	xgbreg – XGBRegressor,
+•	adareg – AdaBoostRegressor,
+•	gbr – GradientBoostingRegressor,
+•	knnreg – SklearnKNNReg,
+•	dtreg – DecisionTreeRegressor,
+•	treg – ExtraTreesRegressor,
+•	rfr – RandomForestRegressor,
+•	svr - SklearnSVR,
+•	sgdr - SklearnSGD.
+
+First, we process the dataset, delete unnecessary columns, get rid of Nan and zero values, so that the forecast is more
+accurate. For each of the models, we calculate the value of the RMSE, MAE and MAPE metrics in order to compare it with
+the metrics calculated by AutoML. In addition, we will consider two approaches to sample splitting:
+1. Splitting the initial sample into validation and training. In turn, the training set is divided into training and
+test samples to train the model. And the validation one is used to predict production on it.
+2. Splitting the initial sample into training and test samples only. The training room is used for training, and the
+test one for forecasting.
+This will help us understand how best to split the original sample when the data is very heterogeneous. The fedot, fit,
+predict and get_metrics methods are used. We apply it twice - first to predict using sklearn models within the framework
+interface, and then to predict and automatically fit a model using the framework.
+
+Fedot is a method for initializing a framework and selecting a modeling task. Possible input parameters: param problem
+- the modeling problem to be solved (classification, regression, clustering and ts_forecasting); param preset - the name
+of the preset for building the model; param learning_time - time for model development (in minutes); param
+composer_params - optimization parameters (such parameters as maximum chain depth, compilation time, resolution of
+hyperparameters setting, etc.); param task_params - additional parameters; param verbose_level - the verbose level of
+the output. We use a choice of modeling problem and metrics.
+
+Fit is a training method with a given chain structure or the formation of a new chain. Possible input parameters: param
+features - an array of additional features; param target - training sample data array with target values; param
+predefined_model is the name of the model or chain.
+
+Predict is a method for predicting using an already fitted model. Possible input parameters: param features - an array
+of additional features; param save_predictions: if True - save predictions as a csv file in the working directory. We
+return an array with forecast values.
+
+Get_metrics is a method for getting quality indicators for a selected chain. Possible input parameters: param target -
+array with target values of test data; param metric_names - the names of the required metrics. We return the values of
+quality indicators.
