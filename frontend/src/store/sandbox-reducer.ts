@@ -113,7 +113,7 @@ export const actionsSandbox = {
 // для async
 type ThunkTypeAsync = ThunkAction<Promise<void>, StateType, unknown, AllTypes>;
 
-export const getMainGraph = (uid: number): ThunkTypeAsync => {
+export const getMainGraph = (uid: string): ThunkTypeAsync => {
   return async (dispatch) => {
     try {
       let data = await sandboxAPI.getMainGraph(uid);

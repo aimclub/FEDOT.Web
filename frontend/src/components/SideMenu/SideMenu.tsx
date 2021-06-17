@@ -20,8 +20,8 @@ import ListItemLink from "../ListItemLink/ListItemLink";
 const drawerWidth = 180;
 const MENU_LINK = [
   { text: "Showcase", icon: <GradientIcon />, to: "/" },
-  { text: "Sandbox", icon: <TerrainIcon />, to: "/sandbox" },
-  { text: "FEDOT", icon: <WidgetsIcon />, to: "/fedot" },
+  { text: "Sandbox", icon: <TerrainIcon />, to: "/sandbox?uid=45454" },
+  { text: "FEDOT", icon: <WidgetsIcon />, to: "/sandbox/history?uid=45454" },
 ];
 
 const useStyles = makeStyles((theme) => ({

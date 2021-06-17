@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Paper } from "@material-ui/core";
 import GraphEditorDirectedGraph from "./GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 import { actionsSandbox, getMainGraph } from "../../store/sandbox-reducer";
@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { StateType } from "../../store/store";
 import GraphEditorModal from "./GraphEditorModal/GraphEditorModal";
 import { makeStyles } from "@material-ui/core/styles";
+import { useLocation } from "react-router-dom";
+import { deserializeQuery } from "../../utils/query-helpers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,13 +20,17 @@ interface IGraphEditor {}
 
 const GraphEditor: FC<IGraphEditor> = (props) => {
   const classes = useStyles();
+  const { search } = useLocation();
   const dispatch = useDispatch();
 
   const { mainGraph } = useSelector((state: StateType) => state.sandboxReducer);
 
   useEffect(() => {
-    dispatch(getMainGraph(45454));
-  }, [dispatch]);
+    if (search) {
+      const { uid } = deserializeQuery(search);
+      dispatch(getMainGraph(uid));
+    }
+  }, [search]);
 
   const handleAddNode = (d: any): any => {
     const newNode = { ...mainGraph.nodes[0], id: mainGraph.nodes.length };
@@ -44,6 +50,7 @@ const GraphEditor: FC<IGraphEditor> = (props) => {
     // dispatch(actionsSandbox.deleteNodeMainGraph(d));
     console.log(`### handleDeleteNode d`, d);
   };
+
   return (
     <Paper elevation={3} className={classes.root}>
       {mainGraph && (

@@ -25,7 +25,7 @@ export interface IChainImage {
 }
 
 export const sandboxAPI = {
-  async getMainGraph(uid: number) {
+  async getMainGraph(uid: string) {
     try {
       const res = await instance.get<IMainGraph>("api/chains/" + uid);
       return res.data;

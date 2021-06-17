@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { StateType } from "../../store/store";
 import { getHistoryGraph } from "../../store/sandbox-reducer";
 import HistoryModal from "../../components/HistoryGraph/HistoryModal/HistoryModal";
+import { useLocation } from "react-router-dom";
+import { deserializeQuery } from "../../utils/query-helpers";
 
 interface IHistory {}
 
 const History: FC<IHistory> = (props) => {
-  const [uid, setUid] = useState("");
+  const [uidModal, setUidModal] = useState("");
+  const { search } = useLocation();
   const dispatch = useDispatch();
   const nodeHoverTooltip = React.useCallback((node) => {
     return `<div>     
@@ -17,7 +20,10 @@ const History: FC<IHistory> = (props) => {
   }, []);
 
   useEffect(() => {
-    dispatch(getHistoryGraph(45454));
+    if (search) {
+      const { uid } = deserializeQuery(search);
+      dispatch(getHistoryGraph(uid));
+    }
   }, [dispatch]);
 
   const { historyGraph } = useSelector(
@@ -30,15 +36,15 @@ const History: FC<IHistory> = (props) => {
         edgesData={historyGraph.edges}
         nodesData={historyGraph.nodes}
         onClick={(v) => {
-          setUid(v);
+          setUidModal(v);
         }}
         nodeHoverTooltip={nodeHoverTooltip}
       />
-      {uid && (
+      {uidModal && (
         <HistoryModal
-          uid={uid}
+          uid={uidModal}
           handleClose={() => {
-            setUid("");
+            setUidModal("");
           }}
         />
       )}

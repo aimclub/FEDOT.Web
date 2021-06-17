@@ -28,13 +28,10 @@ function App() {
             <Route exact path="/">
               <Showcase />
             </Route>
-            <Route exact path="/sandbox/:uid">
+            <Route exact path="/sandbox">
               <Sandbox />
             </Route>
             <Route exact path="/sandbox/history">
-              <History />
-            </Route>
-            <Route exact path="/fedot">
               <History />
             </Route>
           </Switch>
