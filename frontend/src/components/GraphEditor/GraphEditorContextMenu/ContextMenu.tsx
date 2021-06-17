@@ -22,7 +22,7 @@ const ContextMenu: FC<IContextMenu> = (props) => {
   return (
     <div className={style.root} style={position}>
       <button onClick={props.addNode}>add node</button>
-      <button onClick={props.deleteNode}>delete node</button>
+      <button onClick={props.deleteNode}>edit node</button>
     </div>
   );
 };

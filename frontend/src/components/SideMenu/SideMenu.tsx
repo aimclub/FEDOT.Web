@@ -20,8 +20,8 @@ import ListItemLink from "../ListItemLink/ListItemLink";
 const drawerWidth = 180;
 const MENU_LINK = [
   { text: "Showcase", icon: <GradientIcon />, to: "/" },
-  { text: "Sandbox", icon: <TerrainIcon />, to: "/sandbox" },
-  { text: "FEDOT", icon: <WidgetsIcon />, to: "/fedot" },
+  { text: "Sandbox", icon: <TerrainIcon />, to: "/sandbox?uid=45454" },
+  { text: "FEDOT", icon: <WidgetsIcon />, to: "/sandbox/history?uid=45454" },
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -68,11 +68,9 @@ const useStyles = makeStyles((theme) => ({
   divider: { backgroundColor: "#fff" },
 }));
 
-type SideMenuProps = {
-  changeTheme(): void;
-};
+type SideMenuProps = {};
 
-const SideMenu = ({ changeTheme }: SideMenuProps) => {
+const SideMenu = (props: SideMenuProps) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -113,7 +111,7 @@ const SideMenu = ({ changeTheme }: SideMenuProps) => {
       <Divider className={classes.divider} />
       <GraphCreationList />
       <div style={{ flexGrow: 1 }} />
-      <ListItem button onClick={changeTheme}>
+      <ListItem button>
         <ListItemIcon className={classes.listItemIcon}>
           <SettingsIcon />
         </ListItemIcon>

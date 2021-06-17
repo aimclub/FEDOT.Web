@@ -1,8 +1,6 @@
 import { StateType } from "./store";
 import { ThunkAction } from "redux-thunk";
 import { IHistoryGraph, IMainGraph, sandboxAPI } from "../api/sandbox";
-import { NodeDataType } from "../components/GraphEditor/GraphEditorDirectedGraph/GraphEditorDirectedGraph";
-
 const SET_MAIN_GRAPH = "SET_MAIN_GRAPH";
 const SET_HISTORY_GRAPH = "SET_HISTORY_GRAPH";
 const DELETE_NODE_MAIN_GRAPH = "DELETE_NODE_MAIN_GRAPH";
@@ -56,8 +54,6 @@ const sandboxReducer = (
         },
       };
     case TOGGLE_EDIT_MODAL: {
-      console.log(`### state`, state);
-      console.log(`### !state.isOpenEditModal`, !state.isOpenEditModal);
       return {
         ...state,
         isOpenEditModal: !state.isOpenEditModal,
@@ -113,7 +109,7 @@ export const actionsSandbox = {
 // для async
 type ThunkTypeAsync = ThunkAction<Promise<void>, StateType, unknown, AllTypes>;
 
-export const getMainGraph = (uid: number): ThunkTypeAsync => {
+export const getMainGraph = (uid: string): ThunkTypeAsync => {
   return async (dispatch) => {
     try {
       let data = await sandboxAPI.getMainGraph(uid);

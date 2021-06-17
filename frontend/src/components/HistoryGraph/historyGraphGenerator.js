@@ -19,7 +19,6 @@ export function runHistory(
 
   // оставляем уникальные значения
   let uniqGenerations = Array.from(new Set(generations));
-  console.log(`### uniqGenerations`, uniqGenerations);
 
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;
@@ -49,8 +48,6 @@ export function runHistory(
       rankdir: "TB",
       ranker: "network-simplex",
       align: "DL",
-      // nodesep: "10",
-      // acyclicer: "greedy",
     })
     .setDefaultEdgeLabel(() => ({}));
 
@@ -61,7 +58,6 @@ export function runHistory(
 
   uniqGenerations.forEach((generation) => {
     let nameG = `Generation ${generation}`;
-    let uidParentG = `Parent-generation ${generation}`;
 
     g.setNode(generation, {
       label: generation,
