@@ -1,5 +1,7 @@
 from typing import List
 
+from fedot.core.data.data import InputData
+
 from app.api.chains.service import chain_by_uid
 from app.api.composer.service import composer_history_for_case
 from app.api.data.service import get_input_data
@@ -46,7 +48,6 @@ def get_quality_analytics(case_id) -> List[PlotData]:
 
 def get_modelling_results(case_id: str, chain_id: str) -> List[PlotData]:
     chain = chain_by_uid(chain_id)
-    from fedot.core.data.data import InputData
 
     # TODO refactor
     data = InputData.from_csv(f'{project_root()}/data/scoring/scoring_train.csv')

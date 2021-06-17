@@ -2,12 +2,12 @@ import os
 
 import pytest
 
-from app import create_app, db
-
+from app import create_app, db, storage
 
 @pytest.fixture
-def app():
+def app(mongodb):
     app = create_app('test')
+    storage.db = mongodb
     db.create_all(app=app)
     return app
 

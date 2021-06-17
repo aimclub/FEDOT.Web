@@ -6,8 +6,12 @@ from flask_login import LoginManager
 from flask_restx import Api
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
+from flask_pymongo import PyMongo
 
 db = SQLAlchemy()
+
+storage = PyMongo()
+
 socketio = SocketIO()
 
 login_manager = LoginManager()
@@ -23,7 +27,7 @@ def create_app(env=None):
     cors = CORS(app)
     app.config['CORS_HEADERS'] = 'Content-Type'
 
-    app.config.from_object(config_by_name[env or "test"])
+    app.config.from_object(config_by_name[env or "dev"])
 
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
     api = Api(api_blueprint, title="Fedot Web API", version="0.0.1")
@@ -31,6 +35,8 @@ def create_app(env=None):
     socketio.init_app(app)
 
     db.init_app(app)
+
+    storage.init_app(app)
 
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)

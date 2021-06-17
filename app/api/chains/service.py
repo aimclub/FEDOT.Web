@@ -1,9 +1,12 @@
+import json
 import warnings
 from typing import Tuple
 
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.chain_validation import validate
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
+
+from app import storage
 
 
 def chain_first():
@@ -46,7 +49,10 @@ def chain_mock():
 
 
 def chain_by_uid(uid: str) -> Chain:
-    chain = chain_mock()
+    chain = Chain()
+    chain_dict = storage.db.chains.find_one({'uid': uid})
+    dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': uid})
+    chain.load(chain_dict, dict_fitted_operations)
     return chain
 
 
@@ -59,13 +65,23 @@ def validate_chain(chain: Chain) -> Tuple[bool, str]:
 
 
 def create_chain(uid: str, chain: Chain):
-    # TODO search chain with same structure and data in database
-    existing_uid = 'test_chain'
-    is_new = uid != existing_uid
+    is_new = True
+    existing_uid = storage.db.chains.find_one({'uid': uid})
+    if existing_uid:
+        is_new = False
 
-    if is_new:
-        # TODO save chain to database
+    is_duplicate = False
+    dumped_json = chain.save()
+
+    if len(chain.nodes) > 0 and \
+            storage.db.chains.find_one({'descriptive_id': chain.root_node.descriptive_id}):
+        is_duplicate = True
+
+    if is_new and not is_duplicate:
+        dict_chain = json.loads(dumped_json)
+        dict_chain['uid'] = uid
+        storage.db.chains.insert_one(dict_chain)
+    else:
         warnings.warn('Cannot create new chain')
-        uid = 'new_uid'
 
     return uid, is_new
