@@ -24,7 +24,7 @@ const History: FC<IHistory> = (props) => {
       const { uid } = deserializeQuery(search);
       dispatch(getHistoryGraph(uid));
     }
-  }, [dispatch]);
+  }, [dispatch, search]);
 
   const { historyGraph } = useSelector(
     (state: StateType) => state.sandboxReducer

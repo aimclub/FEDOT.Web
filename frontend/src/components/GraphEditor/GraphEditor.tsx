@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { Paper } from "@material-ui/core";
 import GraphEditorDirectedGraph from "./GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 import { actionsSandbox, getMainGraph } from "../../store/sandbox-reducer";
@@ -30,25 +30,22 @@ const GraphEditor: FC<IGraphEditor> = (props) => {
       const { uid } = deserializeQuery(search);
       dispatch(getMainGraph(uid));
     }
-  }, [search]);
+  }, [dispatch, search]);
 
   const handleAddNode = (d: any): any => {
     const newNode = { ...mainGraph.nodes[0], id: mainGraph.nodes.length };
     const newEdge = { source: newNode.id, target: d };
-    console.log(`### newNode`, newNode);
     dispatch(
       actionsSandbox.addNodeMainGraph({
         nodes: [newNode],
         edges: [newEdge],
       })
     );
-    console.log(`### handleAddNode d`, d);
   };
 
   const handleDeleteNode = (d: any): any => {
     dispatch(actionsSandbox.toggleEditModal());
     // dispatch(actionsSandbox.deleteNodeMainGraph(d));
-    console.log(`### handleDeleteNode d`, d);
   };
 
   return (

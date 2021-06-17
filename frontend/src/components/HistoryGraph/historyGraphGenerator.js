@@ -19,7 +19,6 @@ export function runHistory(
 
   // оставляем уникальные значения
   let uniqGenerations = Array.from(new Set(generations));
-  console.log(`### uniqGenerations`, uniqGenerations);
 
   const containerRect = container.getBoundingClientRect();
   const height = containerRect.height;

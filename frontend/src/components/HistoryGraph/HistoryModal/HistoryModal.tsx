@@ -98,11 +98,7 @@ const HistoryModal: FC<IHistoryModal> = ({ handleClose, uid }) => {
       }
     };
     getChainsImage();
-  }, []);
-
-  useEffect(() => {
-    console.log(`### value`, value);
-  }, [value]);
+  }, [uid]);
 
   return (
     <Dialog

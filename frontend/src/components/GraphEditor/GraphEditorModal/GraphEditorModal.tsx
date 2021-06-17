@@ -1,20 +1,11 @@
-import React, { FC, useEffect, useState } from "react";
-import {
-  Button,
-  Dialog,
-  Input,
-  Modal,
-  Paper,
-  Slide,
-  Typography,
-} from "@material-ui/core";
+import React, { FC, useEffect } from "react";
+import { Button, Dialog, Slide, Typography } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { StateType } from "../../../store/store";
 import { actionsSandbox } from "../../../store/sandbox-reducer";
 import {
   createStyles,
   makeStyles,
-  Theme,
   WithStyles,
   withStyles,
 } from "@material-ui/core/styles";
@@ -24,7 +15,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import StarRateIcon from "@material-ui/icons/StarRate";
 
-const styles = (theme: Theme) =>
+const styles = () =>
   createStyles({
     root: {
       background: "#B0BEC5",
@@ -96,9 +87,6 @@ const GraphEditorModal: FC<IGraphEditorModal> = (props) => {
   const handleClose = () => {
     dispatch(actionsSandbox.toggleEditModal());
   };
-  useEffect(() => {
-    console.log(`### isOpenEditModal`, isOpenEditModal);
-  }, [isOpenEditModal]);
 
   return (
     <Dialog

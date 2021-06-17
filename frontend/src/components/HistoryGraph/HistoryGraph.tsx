@@ -64,7 +64,7 @@ const HistoryGraph = ({
 
     setShowLoader(false);
     return destroyFn;
-  }, [nodesData, edgesData]);
+  }, [nodesData, edgesData, onClick, nodeHoverTooltip]);
 
   return (
     <div ref={containerRef} className={styles.container}>
