@@ -145,7 +145,9 @@ const GraphEditorModal: FC<IGraphEditorModal> = (props) => {
           marginBottom: 20,
         }}
       >
-        <Button size={"small"}>cancel</Button>
+        <Button onClick={handleClose} size={"small"}>
+          cancel
+        </Button>
         <Button size={"small"} variant={"contained"}>
           delete
         </Button>

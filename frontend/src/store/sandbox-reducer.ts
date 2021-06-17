@@ -1,7 +1,6 @@
 import { StateType } from "./store";
 import { ThunkAction } from "redux-thunk";
 import { IHistoryGraph, IMainGraph, sandboxAPI } from "../api/sandbox";
-
 const SET_MAIN_GRAPH = "SET_MAIN_GRAPH";
 const SET_HISTORY_GRAPH = "SET_HISTORY_GRAPH";
 const DELETE_NODE_MAIN_GRAPH = "DELETE_NODE_MAIN_GRAPH";
