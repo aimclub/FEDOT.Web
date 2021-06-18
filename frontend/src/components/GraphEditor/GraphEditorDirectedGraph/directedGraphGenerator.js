@@ -6,7 +6,8 @@ export function runDirectedGraph(
   container,
   linksData,
   nodesData,
-  onContextMenu
+  onContextMenuNode,
+  onContextMenuEdge
 ) {
   let links = linksData.map((d) => Object.assign({}, d));
   let nodes = nodesData.map((d) => Object.assign({}, d));
@@ -90,7 +91,8 @@ export function runDirectedGraph(
     "translate(" + xCenterOffset + "," + yCenterOffset + ")"
   );
 
-  svg.selectAll("g.node").on("contextmenu", onContextMenu);
+  svg.selectAll("g.node").on("contextmenu", onContextMenuNode);
+  svg.selectAll("g.edgePath").on("contextmenu", onContextMenuEdge);
 
   return {
     destroy: () => {

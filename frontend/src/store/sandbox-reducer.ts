@@ -1,11 +1,13 @@
 import { StateType } from "./store";
 import { ThunkAction } from "redux-thunk";
 import { IHistoryGraph, IMainGraph, sandboxAPI } from "../api/sandbox";
+import { edgeValueType } from "../components/GraphEditor/GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 const SET_MAIN_GRAPH = "SET_MAIN_GRAPH";
 const SET_HISTORY_GRAPH = "SET_HISTORY_GRAPH";
 const DELETE_NODE_MAIN_GRAPH = "DELETE_NODE_MAIN_GRAPH";
 const ADD_NODE_MAIN_GRAPH = "ADD_NODE_MAIN_GRAPH";
 const TOGGLE_EDIT_MODAL = "TOGGLE_EDIT_MODAL";
+const DELETE_EDGE_MAIN_GRAPH = "DELETE_EDGE_MAIN_GRAPH";
 
 let initialState = {
   mainGraph: { nodes: [], edges: [] } as IMainGraph,
@@ -19,7 +21,8 @@ type AllTypes =
   | SetHistoryGraphType
   | DeleteNodeMainGraphType
   | AddNodeMainGraphType
-  | ToggleEditModalType;
+  | ToggleEditModalType
+  | DeleteEdgeMainGraphType;
 
 const sandboxReducer = (
   state = initialState,
@@ -41,10 +44,14 @@ const sandboxReducer = (
           nodes: [...state.mainGraph.nodes].filter((item) => {
             return item.id !== +action.data;
           }),
+          edges: [...state.mainGraph.edges].filter((item) => {
+            return item.source !== +action.data && item.target !== +action.data;
+          }),
         },
       };
     }
-    case ADD_NODE_MAIN_GRAPH:
+    case ADD_NODE_MAIN_GRAPH: {
+      console.log(`### action.data`, action.data);
       return {
         ...state,
         mainGraph: {
@@ -53,13 +60,40 @@ const sandboxReducer = (
           edges: [...state.mainGraph.edges, ...action.data.edges],
         },
       };
+    }
     case TOGGLE_EDIT_MODAL: {
       return {
         ...state,
         isOpenEditModal: !state.isOpenEditModal,
       };
     }
-
+    case DELETE_EDGE_MAIN_GRAPH: {
+      return {
+        ...state,
+        mainGraph: {
+          ...state.mainGraph,
+          edges: [...state.mainGraph.edges].filter((item) => {
+            console.log(
+              `### item.source, action.data.v`,
+              String(item.source) !== action.data.v
+            );
+            console.log(
+              `### item.target, action.data.w`,
+              String(item.target) !== action.data.w
+            );
+            console.log(
+              `return`,
+              String(item.source) !== action.data.v ||
+                String(item.target) !== action.data.w
+            );
+            return (
+              String(item.source) !== action.data.v ||
+              String(item.target) !== action.data.w
+            );
+          }),
+        },
+      };
+    }
     default:
       return state;
   }
@@ -84,6 +118,10 @@ type AddNodeMainGraphType = {
 type ToggleEditModalType = {
   type: typeof TOGGLE_EDIT_MODAL;
 };
+type DeleteEdgeMainGraphType = {
+  type: typeof DELETE_EDGE_MAIN_GRAPH;
+  data: edgeValueType;
+};
 
 export const actionsSandbox = {
   setMainGraph: (data: IMainGraph): SetMainGraphType => ({
@@ -104,6 +142,10 @@ export const actionsSandbox = {
   }),
   toggleEditModal: (): ToggleEditModalType => ({
     type: TOGGLE_EDIT_MODAL,
+  }),
+  deleteEdgeMainGraph: (data: edgeValueType): DeleteEdgeMainGraphType => ({
+    type: DELETE_EDGE_MAIN_GRAPH,
+    data,
   }),
 };
 // для async

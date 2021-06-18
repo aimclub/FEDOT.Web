@@ -1,28 +1,36 @@
 import React, { FC } from "react";
 import style from "./contextMenu.module.scss";
-import { dataContextType } from "../GraphEditorDirectedGraph/GraphEditorDirectedGraph";
+import {
+  dataContextType,
+  edgeContextType,
+  offsetContextMenuType,
+} from "../GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 
 export interface IContextMenu {
-  dataContext: dataContextType | undefined;
-  addNode(): void;
-  deleteNode(): void;
+  firstName: string;
+  secondName?: string;
+  offset: offsetContextMenuType | undefined;
+  firstAction(): void;
+  secondAction?: () => void;
 }
 
 const ContextMenu: FC<IContextMenu> = (props) => {
   let position: any;
 
-  if (props.dataContext) {
+  if (props.offset) {
     position = {
       position: "absolute",
-      top: `${props.dataContext.offset.y}px`,
-      left: `${props.dataContext.offset.x}px`,
+      top: `${props.offset.y}px`,
+      left: `${props.offset.x}px`,
     };
   }
 
   return (
     <div className={style.root} style={position}>
-      <button onClick={props.addNode}>add node</button>
-      <button onClick={props.deleteNode}>edit node</button>
+      <button onClick={props.firstAction}>{props.firstName}</button>
+      {props.secondName && (
+        <button onClick={props.secondAction}>{props.secondName}</button>
+      )}
     </div>
   );
 };
