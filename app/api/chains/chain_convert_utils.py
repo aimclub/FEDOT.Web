@@ -29,7 +29,7 @@ def chain_to_graph(chain):
         node['id'] = local_id
         chain_node.tmp_id = local_id
         node['display_name'] = chain_node.operation.operation_type
-        node['model_name'] = chain_node.operation.operation_type
+        node['model_name'] = str(chain_node.operation)
         node['params'] = chain_node.custom_params
         node['chain_node'] = chain_node
         node['type'] = _get_node_type_for_model(chain_node.operation.operation_type)

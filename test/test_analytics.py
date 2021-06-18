@@ -8,7 +8,7 @@ def test_quality_endpoint(client):
 
 def test_results_endpoint(client):
     chain_id = 'test_chain'
-    case_id = 'test_case'
+    case_id = 'scoring'
     results_plots = client.get(f'api/analytics/results/{case_id}/{chain_id}').json
     results_plot = results_plots[0]
 
