@@ -135,6 +135,7 @@ const GraphEditorDirectedGraph = ({
   const handleDeleteEdge = () => {
     console.log(`### handleDelete`);
     dispatch(actionsSandbox.deleteEdgeMainGraph(edgeContext.data));
+    setEdgeContext(undefined);
   };
 
   useEffect(() => {
