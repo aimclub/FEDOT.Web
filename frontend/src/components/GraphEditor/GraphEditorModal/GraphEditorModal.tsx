@@ -14,6 +14,7 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import StarRateIcon from "@material-ui/icons/StarRate";
+import { dataContextType } from "../GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 
 const styles = () =>
   createStyles({
@@ -76,9 +77,11 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="left" ref={ref} {...props} />;
 });
 
-interface IGraphEditorModal {}
+interface IGraphEditorModal {
+  dataContext: dataContextType | undefined;
+}
 
-const GraphEditorModal: FC<IGraphEditorModal> = (props) => {
+const GraphEditorModal: FC<IGraphEditorModal> = ({ dataContext }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { isOpenEditModal } = useSelector(
@@ -148,7 +151,16 @@ const GraphEditorModal: FC<IGraphEditorModal> = (props) => {
         <Button onClick={handleClose} size={"small"}>
           cancel
         </Button>
-        <Button size={"small"} variant={"contained"}>
+        <Button
+          onClick={() => {
+            console.log(`### dataContext`, dataContext);
+            if (dataContext) {
+              dispatch(actionsSandbox.deleteNodeMainGraph(dataContext.data));
+            }
+          }}
+          size={"small"}
+          variant={"contained"}
+        >
           delete
         </Button>
       </div>

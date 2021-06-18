@@ -32,21 +32,9 @@ const GraphEditor: FC<IGraphEditor> = (props) => {
     }
   }, [dispatch, search]);
 
-  const handleAddNode = (d: any): any => {
-    const newNode = { ...mainGraph.nodes[0], id: mainGraph.nodes.length };
-    const newEdge = { source: newNode.id, target: d };
-    dispatch(
-      actionsSandbox.addNodeMainGraph({
-        nodes: [newNode],
-        edges: [newEdge],
-      })
-    );
-  };
-
-  const handleDeleteNode = (d: any): any => {
-    dispatch(actionsSandbox.toggleEditModal());
-    // dispatch(actionsSandbox.deleteNodeMainGraph(d));
-  };
+  useEffect(() => {
+    console.log(`### mainGraph`, mainGraph);
+  }, [mainGraph]);
 
   return (
     <Paper elevation={3} className={classes.root}>
@@ -54,11 +42,8 @@ const GraphEditor: FC<IGraphEditor> = (props) => {
         <GraphEditorDirectedGraph
           edgesData={mainGraph.edges}
           nodesData={mainGraph.nodes}
-          onClickAddNode={handleAddNode}
-          onClickDeleteNode={handleDeleteNode}
         />
       )}
-      <GraphEditorModal />
     </Paper>
   );
 };
