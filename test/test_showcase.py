@@ -1,5 +1,5 @@
 def test_get_showcase_item_endpoint(client):
-    case_id = 'item1'
+    case_id = 'scoring'
     showcase_item_json = client.get(f'api/showcase/items/{case_id}').json
 
     assert showcase_item_json['case_id'] == case_id
@@ -10,5 +10,5 @@ def test_get_showcase_item_endpoint(client):
 def test_get_showcase_endpoint(client):
     showcase_json = client.get(f'api/showcase/').json
 
-    assert 'item1' in showcase_json['items_uids']
-    assert 'item3' in showcase_json['items_uids']
+    assert 'scoring' in showcase_json['items_uids']
+    assert 'metocean' in showcase_json['items_uids']

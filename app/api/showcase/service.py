@@ -1,33 +1,28 @@
+import pickle
 from pathlib import Path
 from typing import List
 
 from flask import url_for
 
-from app.api.chains.service import chain_mock
+from app import storage
 from utils import project_root
-from .models import Metadata, ShowcaseItem
+from .models import ShowcaseItem
 
 
 def showcase_item_by_uid(case_id: str) -> ShowcaseItem:
-    metadata = Metadata(metric_name='roc_auc', task_name='classification', dataset_name='scoring')
-
-    filename = f'{case_id}.png'
-
-    saved_chain = chain_mock()
-
-    image_url = get_image_url(filename, chain=saved_chain)
-
-    item = ShowcaseItem(case_id=case_id,
-                        chain_id='ad39eb8c-6050-4734-9e0a-b9884a125a11',
-                        description=f'This is a test description of the showcase item {case_id}',
-                        icon_path=image_url,
-                        metadata=metadata)
+    dumped_item = storage.db.cases.find_one({'case_id': case_id})
+    item = ShowcaseItem(case_id=dumped_item['case_id'],
+                        icon_path=dumped_item['icon_path'],
+                        description=dumped_item['description'],
+                        chain_id=dumped_item['chain_id'],
+                        metadata=pickle.loads(dumped_item['metadata']))
     return item
 
 
 def all_showcase_items_ids() -> List[str]:
-    items = ['item1', 'item2', 'item3', 'item4', 'item5']
-    return items
+    items = storage.db.cases.find()
+    ids = [item['case_id'] for item in items]
+    return ids
 
 
 def get_image_url(filename, chain):

@@ -3,10 +3,12 @@ import os
 from flask import Flask, jsonify, Blueprint
 from flask_cors import CORS, cross_origin
 from flask_login import LoginManager
+from flask_pymongo import PyMongo
 from flask_restx import Api
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
-from flask_pymongo import PyMongo
+
+from init.init_cases import create_default_cases
 
 db = SQLAlchemy()
 
@@ -17,7 +19,7 @@ socketio = SocketIO()
 login_manager = LoginManager()
 
 
-def create_app(env=None):
+def create_app(env=None, init_db=True):
     from app.config import config_by_name
 
     template_dir = os.path.abspath('app/web/templates')
@@ -30,13 +32,15 @@ def create_app(env=None):
     app.config.from_object(config_by_name[env or "dev"])
 
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
-    api = Api(api_blueprint, title="Fedot Web API", version="0.0.1")
+    api = Api(api_blueprint, title="Fedot Web API", version="0.1.0")
 
     socketio.init_app(app)
 
     db.init_app(app)
 
     storage.init_app(app)
+    if init_db:
+        create_default_cases(storage)
 
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
