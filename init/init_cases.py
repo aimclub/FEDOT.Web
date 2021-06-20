@@ -8,7 +8,7 @@ from app.api.showcase.models import ShowcaseItem
 
 
 def create_default_cases(storage):
-    _create_collection(storage, 'cases')
+    _create_collection(storage, 'cases', 'case_id')
 
     scoring_case = ShowcaseItem(
         case_id='scoring',
@@ -55,9 +55,10 @@ def create_default_cases(storage):
     return
 
 
-def _create_collection(storage, name: str):
+def _create_collection(storage, name: str, id_name: str):
     try:
         storage.db.create_collection(name)
+        storage.db.cases.create_index([(id_name, pymongo.TEXT)], unique=True)
     except CollectionInvalid:
         print('Cases collection already exists')
 
@@ -76,5 +77,4 @@ def _add_case_to_db(storage, case):
 
 def _add_to_db(storage, id_name, id_value, obj_to_add):
     storage.db.cases.remove({id_name: id_value})
-    storage.db.cases.create_index([(id_name, pymongo.TEXT)], unique=True)
     storage.db.cases.insert_one(obj_to_add)
