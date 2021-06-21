@@ -1,3 +1,4 @@
+import json
 import os
 
 import pymongo
@@ -14,7 +15,8 @@ def create_default_chains(storage):
     _create_collection(storage, 'chains', 'uid')
 
     data = get_input_data(dataset_name='scoring', sample_type='train')
-    chain = chain_mock().fit(data)
+    chain = chain_mock()
+    chain.fit(data)
     dict_fitted_operations = _extract_fitted_operations(chain)
     scoring_case_chain = chain_to_graph(chain)
 
@@ -26,7 +28,7 @@ def create_default_chains(storage):
 
 def _extract_fitted_operations(chain):
     dict_fitted_operations = {}
-    chain_json = chain.save()
+    chain_json = json.loads(chain.save())
     for op in chain_json['nodes']:
         with open(os.path.join(project_root(), 'data/mocked_jsons/', op['fitted_operation_path']), 'rb') as f:
             op_pickle = f.read()
