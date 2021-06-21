@@ -1,5 +1,5 @@
 from app.api.chains.chain_convert_utils import chain_to_graph, graph_to_chain
-from app.api.chains.service import chain_mock
+from init.init_chains import chain_mock
 
 
 def test_get_chain_conversion():

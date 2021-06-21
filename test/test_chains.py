@@ -1,8 +1,8 @@
 from pathlib import Path
 
 from app.api.chains.chain_convert_utils import chain_to_graph
-from app.api.chains.service import chain_mock
 from app.api.showcase.service import get_image_url
+from init.init_chains import chain_mock
 from utils import project_root
 
 

@@ -16,8 +16,8 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     TESTING = True
     DATABASE_URI = "sqlite:///{0}/app-dev.sqlite".format(basedir)
-    MONGO_URI = os.getenv("MONGO_CONN_STRING")
-
+    MONGO_URI = os.getenv(
+        "MONGO_CONN_STRING")
 
 class TestingConfig(BaseConfig):
     CONFIG_NAME = "test"
