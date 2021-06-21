@@ -3,7 +3,7 @@ import os
 
 import pymongo
 from fedot.core.chains.chain import Chain
-from fedot.core.chains.node import SecondaryNode, PrimaryNode
+from fedot.core.chains.node import PrimaryNode, SecondaryNode
 from pymongo.errors import CollectionInvalid
 
 from app.api.chains.chain_convert_utils import chain_to_graph
@@ -14,25 +14,27 @@ from utils import project_root
 def create_default_chains(storage):
     _create_collection(storage, 'chains', 'uid')
 
+    uid = 'best_scoring_chain'
     data = get_input_data(dataset_name='scoring', sample_type='train')
     chain = chain_mock()
     chain.fit(data)
-    dict_fitted_operations = _extract_fitted_operations(chain)
+    dict_fitted_operations = _extract_fitted_operations(chain, uid)
     scoring_case_chain = chain_to_graph(chain)
 
-    scoring_case_chain.uid = 'best_scoring_chain'
+    scoring_case_chain.uid = uid
     _add_chain_to_db(storage, scoring_case_chain, dict_fitted_operations)
 
     return
 
 
-def _extract_fitted_operations(chain):
+def _extract_fitted_operations(chain, uid):
     dict_fitted_operations = {}
-    chain_json = json.loads(chain.save())
+    chain_json = json.loads(chain.save(path='tmp'))
     for op in chain_json['nodes']:
         with open(os.path.join(project_root(), 'data/mocked_jsons/', op['fitted_operation_path']), 'rb') as f:
             op_pickle = f.read()
             dict_fitted_operations[op['fitted_operation_path']] = op_pickle
+    dict_fitted_operations['uid'] = uid
     return dict_fitted_operations
 
 
@@ -52,6 +54,8 @@ def _add_chain_to_db(storage, chain, dict_fitted_operations):
     }
 
     _add_to_db(storage, 'uid', chain.uid, chain_dict)
+    # storage.db.chains.remove(dict_fitted_operations)
+    storage.db.dict_fitted_operations.remove(dict_fitted_operations)
     storage.db.dict_fitted_operations.insert(dict_fitted_operations, check_keys=False)
 
 
