@@ -1,13 +1,17 @@
 import { StateType } from "./store";
 import { ThunkAction } from "redux-thunk";
 import { IHistoryGraph, IMainGraph, sandboxAPI } from "../api/sandbox";
-import { edgeValueType } from "../components/GraphEditor/GraphEditorDirectedGraph/GraphEditorDirectedGraph";
+import {
+  EdgeDataType,
+  edgeValueType,
+} from "../components/GraphEditor/GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 const SET_MAIN_GRAPH = "SET_MAIN_GRAPH";
 const SET_HISTORY_GRAPH = "SET_HISTORY_GRAPH";
 const DELETE_NODE_MAIN_GRAPH = "DELETE_NODE_MAIN_GRAPH";
 const ADD_NODE_MAIN_GRAPH = "ADD_NODE_MAIN_GRAPH";
 const TOGGLE_EDIT_MODAL = "TOGGLE_EDIT_MODAL";
 const DELETE_EDGE_MAIN_GRAPH = "DELETE_EDGE_MAIN_GRAPH";
+const ADD_EDGE_MAIN_GRAPH = "ADD_EDGE_MAIN_GRAPH";
 
 let initialState = {
   mainGraph: { nodes: [], edges: [] } as IMainGraph,
@@ -22,7 +26,8 @@ type AllTypes =
   | DeleteNodeMainGraphType
   | AddNodeMainGraphType
   | ToggleEditModalType
-  | DeleteEdgeMainGraphType;
+  | DeleteEdgeMainGraphType
+  | AddEdgeMainGraphType;
 
 const sandboxReducer = (
   state = initialState,
@@ -94,6 +99,24 @@ const sandboxReducer = (
         },
       };
     }
+    case ADD_EDGE_MAIN_GRAPH: {
+      const hadEdge = state.mainGraph.edges.find(
+        (item) =>
+          item.source === action.data.source &&
+          item.target === action.data.target
+      );
+      if (hadEdge) {
+        return { ...state };
+      }
+
+      return {
+        ...state,
+        mainGraph: {
+          ...state.mainGraph,
+          edges: [...state.mainGraph.edges, action.data],
+        },
+      };
+    }
     default:
       return state;
   }
@@ -122,6 +145,10 @@ type DeleteEdgeMainGraphType = {
   type: typeof DELETE_EDGE_MAIN_GRAPH;
   data: edgeValueType;
 };
+type AddEdgeMainGraphType = {
+  type: typeof ADD_EDGE_MAIN_GRAPH;
+  data: EdgeDataType;
+};
 
 export const actionsSandbox = {
   setMainGraph: (data: IMainGraph): SetMainGraphType => ({
@@ -145,6 +172,10 @@ export const actionsSandbox = {
   }),
   deleteEdgeMainGraph: (data: edgeValueType): DeleteEdgeMainGraphType => ({
     type: DELETE_EDGE_MAIN_GRAPH,
+    data,
+  }),
+  addEdgeMainGraph: (data: EdgeDataType): AddEdgeMainGraphType => ({
+    type: ADD_EDGE_MAIN_GRAPH,
     data,
   }),
 };

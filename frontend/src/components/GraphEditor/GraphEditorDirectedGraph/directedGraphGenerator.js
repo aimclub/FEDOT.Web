@@ -7,7 +7,10 @@ export function runDirectedGraph(
   linksData,
   nodesData,
   onContextMenuNode,
-  onContextMenuEdge
+  onContextMenuEdge,
+  onMouseDownNode,
+  onMouseUpNode,
+  onMouseUpSvg
 ) {
   let links = linksData.map((d) => Object.assign({}, d));
   let nodes = nodesData.map((d) => Object.assign({}, d));
@@ -20,12 +23,12 @@ export function runDirectedGraph(
     .select(container)
     .append("svg")
     .attr("id", "graphSvg")
-    .attr("viewBox", [-width / 2, -height / 2, width, height])
-    .call(
-      d3.zoom().on("zoom", function (event) {
-        svgGroup.attr("transform", event.transform);
-      })
-    );
+    .attr("viewBox", [-width / 2, -height / 2, width, height]);
+  // .call(
+  //   d3.zoom().on("zoom", function (event) {
+  //     svgGroup.attr("transform", event.transform);
+  //   })
+  // );
 
   // Set up an SVG group so that we can translate the final graph.
   let svgGroup = svg.append("g");
@@ -75,10 +78,8 @@ export function runDirectedGraph(
   let yCenterOffset = (svg.attr("height") - gHeight) / 2;
 
   if (height < gHeight || width < gWidth) {
-    console.log(`### height`, height);
     const viewHeight = height < gHeight ? gHeight : height;
     const viewWidth = width < gWidth ? gWidth : width;
-
     svg.attr("viewBox", [
       -viewWidth / 2,
       -viewHeight / 2,
@@ -91,7 +92,37 @@ export function runDirectedGraph(
     "translate(" + xCenterOffset + "," + yCenterOffset + ")"
   );
 
-  svg.selectAll("g.node").on("contextmenu", onContextMenuNode);
+  svg
+    .selectAll("g.node")
+    .on("contextmenu", onContextMenuNode)
+    .on("mousedown", (e, d) => {
+      if (e.shiftKey) {
+        onMouseDownNode({
+          data: d,
+          offset: {
+            x: e.offsetX,
+            y: e.offsetY,
+          },
+        });
+      }
+    })
+    .on("mouseup", (e, d) => {
+      console.log(`### mouseupNODE`);
+      if (e.shiftKey) {
+        onMouseUpNode({
+          data: d,
+          offset: {
+            x: e.offsetX,
+            y: e.offsetY,
+          },
+        });
+      }
+    });
+
+  svg.on("mouseup", (e, d) => {
+    onMouseUpSvg(e, d);
+  });
+
   svg.selectAll("g.edgePath").on("contextmenu", onContextMenuEdge);
 
   return {

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionsSandbox } from "../../../store/sandbox-reducer";
 import { StateType } from "../../../store/store";
 import GraphEditorModal from "../GraphEditorModal/GraphEditorModal";
+import useMousePosition from "../../../hooks/useMousePosition";
 
 export type EdgeDataType = {
   source: number;
@@ -51,16 +52,19 @@ const GraphEditorDirectedGraph = ({
 }: DirectedGraphProps) => {
   const dispatch = useDispatch();
   const containerRef = React.useRef(null);
+  const position = useMousePosition();
   const [showLoader, setShowLoader] = useState(true);
   const [dataContext, setDataContext] = useState<dataContextType | undefined>(
     undefined
   );
   const [edgeContext, setEdgeContext] = useState<any>();
+  const [linePath, setLinePath] = useState<dataContextType | null>(null);
   const { mainGraph } = useSelector((state: StateType) => state.sandboxReducer);
 
   React.useEffect((): any => {
     if (edgesData.length === 0 || nodesData.length === 0) return;
     let destroyFn;
+    let savedData: dataContextType | null;
 
     const handleContextMenuNode = (e: any, d: any) => {
       e.preventDefault();
@@ -82,8 +86,28 @@ const GraphEditorDirectedGraph = ({
           y: e.offsetY,
         },
       });
-      console.log(`### d`, d);
-      console.log(`### handleContextMenuEdge`);
+    };
+
+    const handleMouseDownNode = (d: dataContextType) => {
+      setLinePath(d);
+      savedData = d;
+    };
+    const handleMouseUpNode = (d: dataContextType) => {
+      if (d && savedData) {
+        dispatch(
+          actionsSandbox.addEdgeMainGraph({
+            source: savedData.data,
+            target: d.data,
+          })
+        );
+      }
+      savedData = null;
+      setLinePath(null);
+    };
+
+    const handleMouseUpSvg = (e: any, d: any) => {
+      savedData = null;
+      setLinePath(null);
     };
 
     setShowLoader(false);
@@ -93,7 +117,10 @@ const GraphEditorDirectedGraph = ({
         edgesData,
         nodesData,
         handleContextMenuNode,
-        handleContextMenuEdge
+        handleContextMenuEdge,
+        handleMouseDownNode,
+        handleMouseUpNode,
+        handleMouseUpSvg
       );
       destroyFn = destroy;
     }
@@ -116,8 +143,6 @@ const GraphEditorDirectedGraph = ({
         id: 1000 + mainGraph.nodes.length,
       };
       const newEdge = { source: newNode.id, target: Number(dataContext.data) };
-      console.log(`### newNode`, newNode);
-      console.log(`### newEdge`, newEdge);
       dispatch(
         actionsSandbox.addNodeMainGraph({
           nodes: [newNode],
@@ -133,18 +158,13 @@ const GraphEditorDirectedGraph = ({
   };
 
   const handleDeleteEdge = () => {
-    console.log(`### handleDelete`);
     dispatch(actionsSandbox.deleteEdgeMainGraph(edgeContext.data));
     setEdgeContext(undefined);
   };
 
   useEffect(() => {
-    console.log(`### dataContext`, dataContext);
-  }, [dataContext]);
-
-  useEffect(() => {
-    console.log(`### edgeContext`, edgeContext);
-  }, [edgeContext]);
+    console.log(`### linePath`, linePath);
+  }, [linePath]);
 
   return (
     <div ref={containerRef} className={styles.container}>
@@ -182,6 +202,35 @@ const GraphEditorDirectedGraph = ({
         </div>
       </ClickAwayListener>
       <GraphEditorModal dataContext={dataContext} />
+      {linePath && position.x && position.y && (
+        <svg
+          width={"100%"}
+          height={"100%"}
+          style={{ position: "absolute", zIndex: 1 }}
+        >
+          <line
+            x1={linePath.offset.x}
+            y1={linePath.offset.y}
+            x2={position.x}
+            y2={position.y}
+            stroke="#2F80ED"
+            strokeWidth={3}
+            markerEnd="url(#arrowhead)"
+          />
+          <defs>
+            <marker
+              id="arrowhead"
+              markerWidth="10"
+              markerHeight="7"
+              refX="0"
+              refY="3.5"
+              orient="auto"
+            >
+              <polygon fill="#2F80ED" points="0 0, 10 3.5, 0 7" />
+            </marker>
+          </defs>
+        </svg>
+      )}
     </div>
   );
 };

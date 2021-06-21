@@ -22,6 +22,7 @@ const ContextMenu: FC<IContextMenu> = (props) => {
       position: "absolute",
       top: `${props.offset.y}px`,
       left: `${props.offset.x}px`,
+      zIndex: 3,
     };
   }
 

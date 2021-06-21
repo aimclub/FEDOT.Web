@@ -22,6 +22,7 @@
 .container {
   [id="graphSvg"] {
     display: flex;
+    z-index: 2;
     //display: block;
     //width: 100%;
     //height: 100%;
@@ -73,6 +74,7 @@
 .contextMenu {
   stroke: #00557d;
   fill: #ffffff;
+  z-index: 3;
 }
 
 .menuEntry {
