@@ -4,6 +4,7 @@ import os
 import pymongo
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
+from fedot.core.repository.tasks import TaskTypesEnum
 from pymongo.errors import CollectionInvalid
 
 from app.api.data.service import get_input_data
@@ -83,7 +84,7 @@ def _chain_first():
     return chain
 
 
-def chain_mock(task):
+def chain_mock(task=TaskTypesEnum.classification):
     if task == 'regr':
         new_node = SecondaryNode('ridge')
         for model_type in ('scaling', 'xgbreg'):
