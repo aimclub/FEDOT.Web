@@ -1,9 +1,8 @@
 import os
 from typing import List, Optional
 
-import numpy as np
 from fedot.core.data.data import InputData, DataTypesEnum
-from fedot.core.repository.tasks import Task, TaskTypesEnum
+from fedot.core.repository.tasks import Task, TaskTypesEnum, TsForecastingParams
 
 from utils import project_root
 
@@ -15,10 +14,10 @@ default_datasets = {
         'data_type': DataTypesEnum.table
     },
     'metocean': {
-        'train': 'oil/oil_train.csv',
-        'test': 'oil/oil_test.csv',
-        'task_type': Task(TaskTypesEnum.regression),  # Task(task_type=TaskTypesEnum.ts_forecasting,
-        #     task_params=TsForecastingParams(forecast_length=30)),
+        'train': 'metocean/metocean_train.csv',
+        'test': 'metocean/metocean_test.csv',
+        'task_type': Task(task_type=TaskTypesEnum.ts_forecasting,
+                          task_params=TsForecastingParams(forecast_length=30)),
         'data_type': DataTypesEnum.table
     },
     'oil': {

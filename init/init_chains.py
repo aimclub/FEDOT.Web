@@ -4,7 +4,6 @@ import os
 import pymongo
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
-from fedot.core.repository.tasks import TaskTypesEnum
 from pymongo.errors import CollectionInvalid
 
 from app.api.data.service import get_input_data
@@ -15,7 +14,7 @@ def create_default_chains(storage):
     _create_collection(storage, 'chains', 'uid')
 
     _create_default_chain_for_case(storage, 'best_scoring_chain', 'scoring', chain_mock('class'))
-    _create_default_chain_for_case(storage, 'best_metocean_chain', 'metocean', chain_mock('regr'))
+    _create_default_chain_for_case(storage, 'best_metocean_chain', 'metocean', chain_mock('ts'))
     _create_default_chain_for_case(storage, 'best_oil_chain', 'oil', chain_mock('regr'))
 
     return
@@ -84,7 +83,7 @@ def _chain_first():
     return chain
 
 
-def chain_mock(task=TaskTypesEnum.classification):
+def chain_mock(task: str = 'class'):
     if task == 'regr':
         new_node = SecondaryNode('ridge')
         for model_type in ('scaling', 'xgbreg'):
