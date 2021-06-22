@@ -13,15 +13,20 @@ from utils import project_root
 def create_default_chains(storage):
     _create_collection(storage, 'chains', 'uid')
 
-    uid = 'best_scoring_chain'
-    data = get_input_data(dataset_name='scoring', sample_type='train')
-    chain = chain_mock()
+    _create_default_chain_for_case(storage, 'best_scoring_chain', 'scoring', chain_mock('class'))
+    _create_default_chain_for_case(storage, 'best_metocean_chain', 'metocean', chain_mock('regr'))
+    _create_default_chain_for_case(storage, 'best_oil_chain', 'oil', chain_mock('regr'))
+
+    return
+
+
+def _create_default_chain_for_case(storage, chain_id, case_id, chain):
+    uid = chain_id
+    data = get_input_data(dataset_name=case_id, sample_type='train')
     chain.fit(data)
     scoring_case_chain, dict_fitted_operations = _extract_chain_with_fitted_operations(chain, uid)
     scoring_case_chain['uid'] = uid
     _add_chain_to_db(storage, uid, scoring_case_chain, dict_fitted_operations)
-
-    return
 
 
 def _extract_chain_with_fitted_operations(chain, uid):
@@ -78,17 +83,27 @@ def _chain_first():
     return chain
 
 
-def chain_mock():
-    #      XG
-    #   |      \
-    #  XG      KNN
-    #  | \      |  \
-    # LR XG   LR   LDA
-    #    |  \
-    #   KNN  LDA
-    new_node = SecondaryNode('xgboost')
-    for model_type in ('knn', 'pca'):
-        new_node.nodes_from.append(PrimaryNode(model_type))
-    chain = _chain_first()
-    chain.update_subtree(chain.root_node.nodes_from[0].nodes_from[1], new_node)
+def chain_mock(task):
+    if task == 'regr':
+        new_node = SecondaryNode('ridge')
+        for model_type in ('scaling', 'xgbreg'):
+            new_node.nodes_from.append(PrimaryNode(model_type))
+        chain = Chain(new_node)
+    elif task == 'ts':
+        new_node = SecondaryNode('lagged')
+        new_node.nodes_from.append(PrimaryNode('ridge'))
+        chain = Chain(new_node)
+    else:
+        #      XG
+        #   |      \
+        #  XG      KNN
+        #  | \      |  \
+        # LR XG   LR   LDA
+        #    |  \
+        #   KNN  LDA
+        new_node = SecondaryNode('xgboost')
+        for model_type in ('knn', 'pca'):
+            new_node.nodes_from.append(PrimaryNode(model_type))
+        chain = _chain_first()
+        chain.update_subtree(chain.root_node.nodes_from[0].nodes_from[1], new_node)
     return chain
