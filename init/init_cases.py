@@ -12,7 +12,8 @@ def create_default_cases(storage):
 
     scoring_case = ShowcaseItem(
         case_id='scoring',
-        icon_path='./data/scoring/icon.png',
+        title='Credit scoring case',
+        icon_path=_get_icon_url('scoring_icon.png'),
         description=('The purpose of credit scoring is to assess and '
                      'possibly reduce the risk of a bank associated with lending clients. '
                      'Risk minimization happens due to dividing potential borrowers into creditworthy '
@@ -25,7 +26,8 @@ def create_default_cases(storage):
 
     metocean_case = ShowcaseItem(
         case_id='metocean',
-        icon_path='./data/metocean/icon.png',
+        title='Metocean forecasting case',
+        icon_path=_get_icon_url('metocean_icon.png'),
         description=('Time series processing is widely used in engineering and scientific tasks. '
                      'One of the most common cases with time series is forecasting, '
                      'when we try to predict values in the future based on historical data. '
@@ -38,7 +40,8 @@ def create_default_cases(storage):
 
     oil_case = ShowcaseItem(
         case_id='oil',
-        icon_path='./data/oil/icon.png',
+        title='Oil production prediction',
+        icon_path=_get_icon_url('oil_icon.png'),
         description=('The purpose of the experiment was to determine in which case the regression will more '
                      'correctly model oil production -'
                      'sklearn library models or an auto-ml model automatically selected. '
@@ -66,6 +69,7 @@ def _create_collection(storage, name: str, id_name: str):
 def _add_case_to_db(storage, case):
     case_dict = {
         'case_id': case.case_id,
+        'title': case.title,
         'icon_path': case.icon_path,
         'description': case.description,
         'chain_id': case.chain_id,
@@ -78,3 +82,8 @@ def _add_case_to_db(storage, case):
 def _add_to_db(storage, id_name, id_value, obj_to_add):
     storage.db.cases.remove({id_name: id_value})
     storage.db.cases.insert_one(obj_to_add)
+
+
+def _get_icon_url(filename):
+    image_path = filename
+    return image_path

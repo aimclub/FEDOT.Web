@@ -21,6 +21,7 @@ login_manager = LoginManager()
 
 
 def create_app(env=None, init_db=True):
+    print('Create app')
     from app.config import config_by_name
 
     template_dir = os.path.abspath('app/web/templates')

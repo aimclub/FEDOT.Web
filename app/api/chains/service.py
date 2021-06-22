@@ -1,16 +1,22 @@
 import json
 import warnings
-from typing import Tuple
+from pathlib import Path
+from typing import Tuple, Optional
 
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.chain_validation import validate
+from flask import url_for
 
 from app import storage
+from utils import project_root
 
 
-def chain_by_uid(uid: str) -> Chain:
+def chain_by_uid(uid: str) -> Optional[Chain]:
     chain = Chain()
     chain_dict = storage.db.chains.find_one({'uid': uid})
+    if chain_dict is None:
+        return None
+
     dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': uid})
     chain.load(chain_dict, dict_fitted_operations)
     return chain
@@ -45,3 +51,14 @@ def create_chain(uid: str, chain: Chain):
         warnings.warn('Cannot create new chain')
 
     return uid, is_new
+
+
+def get_image_url(filename, chain):
+    image_path = f'{project_root()}/app/web/static/generated_images/{filename}'
+    image = Path(image_path)
+    if not image.exists():
+        dir = Path(f'{project_root()}/app/web/static/generated_images/')
+        if not dir.exists():
+            dir.mkdir()
+        chain.show(image_path)
+    return url_for('static', filename=f'generated_images/{filename}', _external=True)

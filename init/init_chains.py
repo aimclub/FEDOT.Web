@@ -6,7 +6,6 @@ from fedot.core.chains.chain import Chain
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
 from pymongo.errors import CollectionInvalid
 
-from app.api.chains.chain_convert_utils import chain_to_graph
 from app.api.data.service import get_input_data
 from utils import project_root
 
@@ -18,16 +17,14 @@ def create_default_chains(storage):
     data = get_input_data(dataset_name='scoring', sample_type='train')
     chain = chain_mock()
     chain.fit(data)
-    dict_fitted_operations = _extract_fitted_operations(chain, uid)
-    scoring_case_chain = chain_to_graph(chain)
-
-    scoring_case_chain.uid = uid
-    _add_chain_to_db(storage, scoring_case_chain, dict_fitted_operations)
+    scoring_case_chain, dict_fitted_operations = _extract_chain_with_fitted_operations(chain, uid)
+    scoring_case_chain['uid'] = uid
+    _add_chain_to_db(storage, uid, scoring_case_chain, dict_fitted_operations)
 
     return
 
 
-def _extract_fitted_operations(chain, uid):
+def _extract_chain_with_fitted_operations(chain, uid):
     dict_fitted_operations = {}
     chain_json = json.loads(chain.save(path='tmp'))
     for op in chain_json['nodes']:
@@ -35,7 +32,7 @@ def _extract_fitted_operations(chain, uid):
             op_pickle = f.read()
             dict_fitted_operations[op['fitted_operation_path']] = op_pickle
     dict_fitted_operations['uid'] = uid
-    return dict_fitted_operations
+    return chain_json, dict_fitted_operations
 
 
 def _create_collection(storage, name: str, id_name: str):
@@ -46,14 +43,8 @@ def _create_collection(storage, name: str, id_name: str):
         print('Chains collection already exists')
 
 
-def _add_chain_to_db(storage, chain, dict_fitted_operations):
-    chain_dict = {
-        'uid': chain.uid,
-        'nodes': chain.nodes,
-        'edges': chain.edges,
-    }
-
-    _add_to_db(storage, 'uid', chain.uid, chain_dict)
+def _add_chain_to_db(storage, uid, chain_dict, dict_fitted_operations):
+    _add_to_db(storage, 'uid', uid, chain_dict)
     # storage.db.chains.remove(dict_fitted_operations)
     storage.db.dict_fitted_operations.remove(dict_fitted_operations)
     storage.db.dict_fitted_operations.insert(dict_fitted_operations, check_keys=False)

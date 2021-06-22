@@ -12,6 +12,7 @@ class Metadata:
 @dataclass
 class ShowcaseItem:
     case_id: str
+    title: str
     chain_id: str
     description: str
     icon_path: str
