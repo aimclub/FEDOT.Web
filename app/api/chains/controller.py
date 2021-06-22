@@ -1,14 +1,15 @@
+from typing import Optional
+
 from flask import request
 from flask_accepts import accepts, responds
 from flask_cors import cross_origin
 from flask_restx import Namespace, Resource
 
-from app.api.showcase.service import get_image_url
 from .chain_convert_utils import chain_to_graph, graph_to_chain
 from .models import ChainGraph, ChainResponse, ChainValidationResponse, ChainImage
 from .schema import (ChainGraphSchema, ChainResponseSchema,
                      ChainValidationResponseSchema, ChainImageSchema)
-from .service import chain_by_uid, create_chain, validate_chain
+from .service import chain_by_uid, create_chain, validate_chain, get_image_url
 
 api = Namespace("Chains", description="Operations with chains")
 
@@ -19,9 +20,11 @@ class ChainsIdResource(Resource):
     """Chains"""
 
     @responds(schema=ChainGraphSchema, many=False)
-    def get(self, uid) -> ChainGraph:
+    def get(self, uid) -> Optional[ChainGraph]:
         """Get chain with specific UID"""
         chain = chain_by_uid(uid)
+        if chain is None:
+            return None
         chain_graph = chain_to_graph(chain)
         chain_graph.uid = uid
 

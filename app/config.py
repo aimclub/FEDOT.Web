@@ -18,7 +18,6 @@ class DevelopmentConfig(BaseConfig):
     DATABASE_URI = "sqlite:///{0}/app-dev.sqlite".format(basedir)
     MONGO_URI = os.getenv("MONGO_CONN_STRING")
 
-
 class TestingConfig(BaseConfig):
     CONFIG_NAME = "test"
     SECRET_KEY = os.getenv("TEST_SECRET_KEY", "Test")

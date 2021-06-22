@@ -9,6 +9,7 @@ from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 
 from init.init_cases import create_default_cases
+from init.init_chains import create_default_chains
 
 db = SQLAlchemy()
 
@@ -20,6 +21,7 @@ login_manager = LoginManager()
 
 
 def create_app(env=None, init_db=True):
+    print('Create app')
     from app.config import config_by_name
 
     template_dir = os.path.abspath('app/web/templates')
@@ -41,6 +43,7 @@ def create_app(env=None, init_db=True):
     storage.init_app(app)
     if init_db:
         create_default_cases(storage)
+        create_default_chains(storage)
 
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)

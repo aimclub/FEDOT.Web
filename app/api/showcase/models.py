@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import List
 
 
 @dataclass
@@ -12,6 +11,7 @@ class Metadata:
 @dataclass
 class ShowcaseItem:
     case_id: str
+    title: str
     chain_id: str
     description: str
     icon_path: str
@@ -19,5 +19,16 @@ class ShowcaseItem:
 
 
 @dataclass
-class Showcase:
-    items_uids: List[str]
+class ShowcaseItemFull:
+    case_id: str
+    title: str
+    chain_id: str
+    description: str
+    icon_path: str
+    metadata: Metadata
+    metric_name: str
+    metric_value: float
+    nmodels: int
+    nlevels: int
+    nfeatures: int
+    n_rows: int

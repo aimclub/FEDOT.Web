@@ -1,56 +1,22 @@
 import json
 import warnings
-from typing import Tuple
+from pathlib import Path
+from typing import Tuple, Optional
 
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.chain_validation import validate
-from fedot.core.chains.node import PrimaryNode, SecondaryNode
+from flask import url_for
 
 from app import storage
+from utils import project_root
 
 
-def chain_first():
-    #    XG
-    #  |     \
-    # XG     KNN
-    # |  \    |  \
-    # LR LDA LR  LDA
-    chain = Chain()
-
-    root_of_tree, root_child_first, root_child_second = \
-        [SecondaryNode(model) for model in ('xgboost', 'xgboost', 'knn')]
-
-    for root_node_child in (root_child_first, root_child_second):
-        for requirement_model in ('logit', 'lda'):
-            new_node = PrimaryNode(requirement_model)
-            root_node_child.nodes_from.append(new_node)
-            chain.add_node(new_node)
-        chain.add_node(root_node_child)
-        root_of_tree.nodes_from.append(root_node_child)
-
-    chain.add_node(root_of_tree)
-    return chain
-
-
-def chain_mock():
-    #      XG
-    #   |      \
-    #  XG      KNN
-    #  | \      |  \
-    # LR XG   LR   LDA
-    #    |  \
-    #   KNN  LDA
-    new_node = SecondaryNode('xgboost')
-    for model_type in ('knn', 'pca'):
-        new_node.nodes_from.append(PrimaryNode(model_type))
-    chain = chain_first()
-    chain.update_subtree(chain.root_node.nodes_from[0].nodes_from[1], new_node)
-    return chain
-
-
-def chain_by_uid(uid: str) -> Chain:
+def chain_by_uid(uid: str) -> Optional[Chain]:
     chain = Chain()
     chain_dict = storage.db.chains.find_one({'uid': uid})
+    if chain_dict is None:
+        return None
+
     dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': uid})
     chain.load(chain_dict, dict_fitted_operations)
     return chain
@@ -85,3 +51,14 @@ def create_chain(uid: str, chain: Chain):
         warnings.warn('Cannot create new chain')
 
     return uid, is_new
+
+
+def get_image_url(filename, chain):
+    image_path = f'{project_root()}/app/web/static/generated_images/{filename}'
+    image = Path(image_path)
+    if not image.exists():
+        dir = Path(f'{project_root()}/app/web/static/generated_images/')
+        if not dir.exists():
+            dir.mkdir()
+        chain.show(image_path)
+    return url_for('static', filename=f'generated_images/{filename}', _external=True)
