@@ -42,7 +42,6 @@ def get_input_data(dataset_name: str, sample_type: str = 'test') -> Optional[Inp
         if dataset['task_type'].task_type == TaskTypesEnum.ts_forecasting:
             data = InputData.from_csv_time_series(file_path=os.path.join(project_root(), 'data', data_path),
                                                   task=dataset['task_type'], target_column='target')
-            data.features = np.expand_dims(data.features, 1)
         else:
             data = InputData.from_csv(file_path=os.path.join(project_root(), 'data', data_path),
                                       task=dataset['task_type'],

@@ -91,8 +91,8 @@ def chain_mock(task=TaskTypesEnum.classification):
             new_node.nodes_from.append(PrimaryNode(model_type))
         chain = Chain(new_node)
     elif task == 'ts':
-        new_node = SecondaryNode('lagged')
-        new_node.nodes_from.append(PrimaryNode('ridge'))
+        new_node = SecondaryNode('ridge')
+        new_node.nodes_from.append(PrimaryNode('lagged'))
         chain = Chain(new_node)
     else:
         #      XG
