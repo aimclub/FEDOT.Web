@@ -34,12 +34,13 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItemFull]:
                             description=dumped_item['description'],
                             chain_id=dumped_item['chain_id'],
                             metadata=pickle.loads(dumped_item['metadata']),
-                            details={'metric_name': 'roc_auc',
-                                     'metric_value': 0.85,
-                                     'n_models': 5,
-                                     'n_levels': 3,
-                                     'n_features': 10,
-                                     'n_rows': 10000})
+                            details={
+                                'roc_auc': 0.85,
+                                'f1': 0.7,
+                                'n_models': 5,
+                                'n_levels': 3,
+                                'n_features': 10,
+                                'n_rows': 10000})
     return item
 
 
