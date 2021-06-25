@@ -26,9 +26,4 @@ class ShowcaseItemFull:
     description: str
     icon_path: str
     metadata: Metadata
-    metric_name: str
-    metric_value: float
-    nmodels: int
-    nlevels: int
-    nfeatures: int
-    n_rows: int
+    details: dict

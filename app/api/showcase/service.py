@@ -1,5 +1,6 @@
 import pickle
 from typing import List
+from typing import Optional
 
 from flask import url_for
 
@@ -20,7 +21,7 @@ def showcase_item_by_uid(case_id: str) -> ShowcaseItem:
     return item
 
 
-def showcase_full_item_by_uid(case_id: str) -> ShowcaseItemFull:
+def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItemFull]:
     dumped_item = storage.db.cases.find_one({'case_id': case_id})
     if dumped_item is None:
         return None
@@ -33,12 +34,12 @@ def showcase_full_item_by_uid(case_id: str) -> ShowcaseItemFull:
                             description=dumped_item['description'],
                             chain_id=dumped_item['chain_id'],
                             metadata=pickle.loads(dumped_item['metadata']),
-                            metric_name='roc_auc',
-                            metric_value=0.85,
-                            nmodels=5,
-                            nlevels=3,
-                            nfeatures=10,
-                            n_rows=10000)
+                            details={'metric_name': 'roc_auc',
+                                     'metric_value': 0.85,
+                                     'n_models': 5,
+                                     'n_levels': 3,
+                                     'n_features': 10,
+                                     'n_rows': 10000})
     return item
 
 
