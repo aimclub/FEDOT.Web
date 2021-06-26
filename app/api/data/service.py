@@ -1,7 +1,7 @@
 import os
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
-from fedot.core.data.data import InputData, DataTypesEnum
+from fedot.core.data.data import DataTypesEnum, InputData
 from fedot.core.repository.tasks import Task, TaskTypesEnum, TsForecastingParams
 
 from utils import project_root
@@ -33,7 +33,13 @@ def get_datasets_names() -> List[str]:
     return list(default_datasets.keys())
 
 
-def get_input_data(dataset_name: str, sample_type: str = 'test') -> Optional[InputData]:
+def get_dataset_metadata(dataset_name, sample_type: str) -> Tuple[int, int]:
+    data = get_input_data(dataset_name, sample_type)
+    n_features, n_rows = data.features.shape[1], data.features.shape[0]
+    return n_features, n_rows
+
+
+def get_input_data(dataset_name: str, sample_type: str) -> Optional[InputData]:
     try:
         dataset = default_datasets[dataset_name]
         data_path = dataset[sample_type]
