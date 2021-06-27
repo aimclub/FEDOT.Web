@@ -35,7 +35,10 @@ def get_datasets_names() -> List[str]:
 
 def get_dataset_metadata(dataset_name, sample_type: str) -> Tuple[int, int]:
     data = get_input_data(dataset_name, sample_type)
-    n_features, n_rows = data.features.shape[1], data.features.shape[0]
+    if len(data.features.shape) > 1:
+        n_features, n_rows = data.features.shape[1], data.features.shape[0]
+    else:
+        n_features, n_rows = 1, len(data.features)
     return n_features, n_rows
 
 

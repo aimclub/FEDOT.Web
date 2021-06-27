@@ -31,5 +31,5 @@ class ResultsPlotResource(Resource):
     def get(self, case_id: str, chain_id: str) -> List[PlotData]:
         """Get all lines for results plot"""
         chain, case = chain_by_uid(chain_id), showcase_item_by_uid(case_id)
-        results_plots = get_modelling_results(case_id, chain_id)
+        results_plots = get_modelling_results(case, chain)
         return results_plots

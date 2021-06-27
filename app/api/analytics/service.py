@@ -1,6 +1,6 @@
 from typing import List
 
-from fedot.core.composer.metrics import ROCAUC
+from fedot.core.composer.metrics import MAE, MAPE, RMSE, ROCAUC
 
 from app.api.composer.service import composer_history_for_case
 from app.api.data.service import get_input_data
@@ -40,18 +40,22 @@ def get_quality_analytics(case_id) -> List[PlotData]:
 
 
 def get_metrics_for_chain(case, chain) -> dict:
-    input, output = _test_prediction_for_chain(case, chain)
+    input_data, output_data = _test_prediction_for_chain(case, chain)
 
     metrics = {}
     if case.metadata.task_name == 'classification':
-        input.target = input.target.astype('int')
-        metrics['ROCAUC'] = abs(ROCAUC().metric(input, output))
-        # metrics['F1'] = abs(F1().metric(input, output))
-
+        input_data.target = input_data.target.astype('int')
+        metrics['ROCAUC'] = round(abs(ROCAUC().metric(input_data, output_data)), 3)
     elif case.metadata.task_name == 'regression':
-        pass
+        metrics['RMSE'] = round(abs(RMSE().metric(input_data, output_data)), 3)
+        metrics['MAE'] = round(abs(MAE().metric(input_data, output_data)), 3)
     elif case.metadata.task_name == 'ts_forecasting':
-        pass
+        output_data.predict = output_data.predict[0, :len(input_data.target)]
+        input_data.target = input_data.target[:len(output_data.predict)]
+
+        metrics['RMSE'] = round(abs(RMSE().metric(input_data, output_data)), 3)
+        metrics['MAPE'] = round(abs(MAPE().metric(input_data, output_data)), 3)
+
     else:
         raise NotImplementedError(f'Task {case.metadata.task_name} not supported')
 
@@ -69,7 +73,7 @@ def _test_prediction_for_chain(case, chain):
     return test_data, prediction
 
 
-def get_modelling_results(case: str, chain: str) -> List[PlotData]:
+def get_modelling_results(case, chain) -> List[PlotData]:
     _, prediction = _test_prediction_for_chain(case, chain)
 
     meta = dict()
@@ -88,10 +92,12 @@ def get_modelling_results(case: str, chain: str) -> List[PlotData]:
 
     if case.metadata.task_name == 'ts_forecasting':
         meta['plot_type'] = 'line'
+        y = list(prediction.predict[0, :])
+
     else:
         meta['plot_type'] = 'scatter'
+        y = prediction.predict
 
-    y = prediction.predict
     x = list(range(len(prediction.predict)))
 
     return [PlotData(meta=meta, x=x[:max_items_in_plot], y=y[:max_items_in_plot])]
