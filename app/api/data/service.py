@@ -1,9 +1,8 @@
 import os
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
-import numpy as np
-from fedot.core.data.data import InputData, DataTypesEnum
-from fedot.core.repository.tasks import Task, TaskTypesEnum
+from fedot.core.data.data import DataTypesEnum, InputData
+from fedot.core.repository.tasks import Task, TaskTypesEnum, TsForecastingParams
 
 from utils import project_root
 
@@ -15,10 +14,10 @@ default_datasets = {
         'data_type': DataTypesEnum.table
     },
     'metocean': {
-        'train': 'oil/oil_train.csv',
-        'test': 'oil/oil_test.csv',
-        'task_type': Task(TaskTypesEnum.regression),  # Task(task_type=TaskTypesEnum.ts_forecasting,
-        #     task_params=TsForecastingParams(forecast_length=30)),
+        'train': 'metocean/metocean_train.csv',
+        'test': 'metocean/metocean_test.csv',
+        'task_type': Task(task_type=TaskTypesEnum.ts_forecasting,
+                          task_params=TsForecastingParams(forecast_length=30)),
         'data_type': DataTypesEnum.table
     },
     'oil': {
@@ -34,7 +33,16 @@ def get_datasets_names() -> List[str]:
     return list(default_datasets.keys())
 
 
-def get_input_data(dataset_name: str, sample_type: str = 'test') -> Optional[InputData]:
+def get_dataset_metadata(dataset_name, sample_type: str) -> Tuple[int, int]:
+    data = get_input_data(dataset_name, sample_type)
+    if len(data.features.shape) > 1:
+        n_features, n_rows = data.features.shape[1], data.features.shape[0]
+    else:
+        n_features, n_rows = 1, len(data.features)
+    return n_features, n_rows
+
+
+def get_input_data(dataset_name: str, sample_type: str) -> Optional[InputData]:
     try:
         dataset = default_datasets[dataset_name]
         data_path = dataset[sample_type]

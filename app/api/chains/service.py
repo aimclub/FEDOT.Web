@@ -1,7 +1,7 @@
 import json
 import warnings
 from pathlib import Path
-from typing import Tuple, Optional
+from typing import Optional, Tuple
 
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.chain_validation import validate
@@ -37,7 +37,7 @@ def create_chain(uid: str, chain: Chain):
         is_new = False
 
     is_duplicate = False
-    dumped_json = chain.save()
+    dumped_json = chain.save('tumped_tmp')
 
     if len(chain.nodes) > 0 and \
             storage.db.chains.find_one({'descriptive_id': chain.root_node.descriptive_id}):
@@ -57,8 +57,15 @@ def get_image_url(filename, chain):
     image_path = f'{project_root()}/app/web/static/generated_images/{filename}'
     image = Path(image_path)
     if not image.exists():
-        dir = Path(f'{project_root()}/app/web/static/generated_images/')
-        if not dir.exists():
-            dir.mkdir()
+        dir_path = Path(f'{project_root()}/app/web/static/generated_images/')
+        if not dir_path.exists():
+            dir_path.mkdir()
         chain.show(image_path)
     return url_for('static', filename=f'generated_images/{filename}', _external=True)
+
+
+def get_chain_metadata(chain_id) -> Tuple[int, int]:
+    chain = chain_by_uid(chain_id)
+    if not chain:
+        return -1, -1
+    return chain.length, chain.depth

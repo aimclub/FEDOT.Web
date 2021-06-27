@@ -3,6 +3,8 @@ from typing import List
 from flask_accepts import responds
 from flask_restx import Namespace, Resource
 
+from app.api.chains.service import chain_by_uid
+from app.api.showcase.service import showcase_item_by_uid
 from .models import PlotData
 from .schema import PlotDataSchema
 from .service import (get_modelling_results, get_quality_analytics)
@@ -28,5 +30,6 @@ class ResultsPlotResource(Resource):
     @responds(schema=PlotDataSchema, many=True)
     def get(self, case_id: str, chain_id: str) -> List[PlotData]:
         """Get all lines for results plot"""
-        results_plots = get_modelling_results(case_id, chain_id)
+        chain, case = chain_by_uid(chain_id), showcase_item_by_uid(case_id)
+        results_plots = get_modelling_results(case, chain)
         return results_plots
