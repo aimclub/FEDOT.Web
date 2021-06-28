@@ -9,6 +9,7 @@ import {
 import {
   EdgeDataType,
   edgeValueType,
+  NodeDataType,
 } from "../components/GraphEditor/GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 const SET_MAIN_GRAPH = "SET_MAIN_GRAPH";
 const SET_HISTORY_GRAPH = "SET_HISTORY_GRAPH";
@@ -18,12 +19,14 @@ const TOGGLE_EDIT_MODAL = "TOGGLE_EDIT_MODAL";
 const DELETE_EDGE_MAIN_GRAPH = "DELETE_EDGE_MAIN_GRAPH";
 const ADD_EDGE_MAIN_GRAPH = "ADD_EDGE_MAIN_GRAPH";
 const SET_EPOCH = "SET_EPOCH";
+const SET_SELECTED_NODE = "SET_SELECTED_NODE";
 
 let initialState = {
   mainGraph: { nodes: [], edges: [] } as IMainGraph,
   historyGraph: { nodes: [], edges: [] } as IHistoryGraph,
   isOpenEditModal: false,
   epochList: [] as IEpochItem[],
+  selectedNode: {} as NodeDataType,
 };
 
 export type InitialStateDatasetsType = typeof initialState;
@@ -35,7 +38,8 @@ type AllTypes =
   | ToggleEditModalType
   | DeleteEdgeMainGraphType
   | AddEdgeMainGraphType
-  | SetEpochType;
+  | SetEpochType
+  | SetSelectedNodeType;
 
 const sandboxReducer = (
   state = initialState,
@@ -131,6 +135,12 @@ const sandboxReducer = (
         epochList: action.data,
       };
     }
+    case SET_SELECTED_NODE: {
+      return {
+        ...state,
+        selectedNode: action.data,
+      };
+    }
     default:
       return state;
   }
@@ -167,6 +177,10 @@ type SetEpochType = {
   type: typeof SET_EPOCH;
   data: IEpochItem[];
 };
+type SetSelectedNodeType = {
+  type: typeof SET_SELECTED_NODE;
+  data: NodeDataType;
+};
 
 export const actionsSandbox = {
   setMainGraph: (data: IMainGraph): SetMainGraphType => ({
@@ -198,6 +212,10 @@ export const actionsSandbox = {
   }),
   setEpoch: (data: IEpochItem[]): SetEpochType => ({
     type: SET_EPOCH,
+    data,
+  }),
+  setSelectedNode: (data: NodeDataType): SetSelectedNodeType => ({
+    type: SET_SELECTED_NODE,
     data,
   }),
 };

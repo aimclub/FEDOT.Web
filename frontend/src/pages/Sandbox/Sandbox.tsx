@@ -73,10 +73,6 @@ const Sandbox = () => {
         <div>s</div>
         <div>s</div>
         <div>s</div>
-        <div>s</div>
-        <div>s</div>
-        <div>s</div>
-        <div>s</div>
       </Paper>
     </div>
   );

@@ -22,6 +22,7 @@ export type NodeDataType = {
   params: any;
   parents: number[];
   children: number[];
+  type: string;
 };
 
 type DirectedGraphProps = {
@@ -164,6 +165,7 @@ const GraphEditorDirectedGraph = ({
 
   const handleEditNode = () => {
     dispatch(actionsSandbox.toggleEditModal());
+    setDataContext(undefined);
   };
 
   const handleDeleteEdge = () => {
