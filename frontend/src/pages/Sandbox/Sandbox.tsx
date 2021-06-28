@@ -31,20 +31,23 @@ const Sandbox = () => {
         <Header title={"Sandbox"} logo={<TerrainIcon />} />
       </Paper>
       <GraphEditor />
-      <Paper elevation={3}>
-        <div>
-          <CustomSlider
-            valueLabelDisplay="auto"
-            aria-label="Epoha Slider"
-            defaultValue={0}
-            value={mainGraph.nodes.length}
-            color="primary"
-            onChange={handleSliderChange}
-            min={1}
-            max={mainGraph.nodes.length}
-          />
-        </div>
-      </Paper>
+      {mainGraph.nodes && (
+        <Paper elevation={3}>
+          <div>
+            <CustomSlider
+              valueLabelDisplay="auto"
+              aria-label="Epoha Slider"
+              defaultValue={0}
+              value={mainGraph.nodes.length}
+              color="primary"
+              onChange={handleSliderChange}
+              min={1}
+              max={mainGraph.nodes.length}
+            />
+          </div>
+        </Paper>
+      )}
+
       <Paper elevation={3}>
         <div>s</div>
         <div>s</div>

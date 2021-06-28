@@ -62,70 +62,74 @@ const GraphEditorDirectedGraph = ({
   const { mainGraph } = useSelector((state: StateType) => state.sandboxReducer);
 
   React.useEffect((): any => {
-    if (edgesData.length === 0 || nodesData.length === 0) return;
-    let destroyFn;
-    let savedData: dataContextType | null;
+    if (edgesData && nodesData) {
+      if (edgesData.length === 0 || nodesData.length === 0) return;
+      let destroyFn;
+      let savedData: dataContextType | null;
 
-    const handleContextMenuNode = (e: any, d: any) => {
-      e.preventDefault();
-      setDataContext({
-        data: d,
-        offset: {
-          x: e.offsetX,
-          y: e.offsetY,
-        },
-      });
-    };
+      const handleContextMenuNode = (e: any, d: any) => {
+        e.preventDefault();
+        setDataContext({
+          data: d,
+          offset: {
+            x: e.offsetX,
+            y: e.offsetY,
+          },
+        });
+      };
 
-    const handleContextMenuEdge = (e: any, d: any) => {
-      e.preventDefault();
-      setEdgeContext({
-        data: d,
-        offset: {
-          x: e.offsetX,
-          y: e.offsetY,
-        },
-      });
-    };
+      const handleContextMenuEdge = (e: any, d: any) => {
+        e.preventDefault();
+        setEdgeContext({
+          data: d,
+          offset: {
+            x: e.offsetX,
+            y: e.offsetY,
+          },
+        });
+      };
 
-    const handleMouseDownNode = (d: dataContextType) => {
-      setLinePath(d);
-      savedData = d;
-    };
-    const handleMouseUpNode = (d: dataContextType) => {
-      if (d && savedData) {
-        dispatch(
-          actionsSandbox.addEdgeMainGraph({
-            source: savedData.data,
-            target: d.data,
-          })
+      const handleMouseDownNode = (d: dataContextType) => {
+        setLinePath(d);
+        savedData = d;
+      };
+      const handleMouseUpNode = (d: dataContextType) => {
+        if (d && savedData) {
+          dispatch(
+            actionsSandbox.addEdgeMainGraph({
+              source: savedData.data,
+              target: d.data,
+            })
+          );
+        }
+        savedData = null;
+        setLinePath(null);
+      };
+
+      const handleMouseUpSvg = (e: any, d: any) => {
+        savedData = null;
+        setLinePath(null);
+      };
+
+      setShowLoader(false);
+
+      // отрисовка графа
+      if (containerRef.current) {
+        const { destroy } = runDirectedGraph(
+          containerRef.current,
+          edgesData,
+          nodesData,
+          handleContextMenuNode,
+          handleContextMenuEdge,
+          handleMouseDownNode,
+          handleMouseUpNode,
+          handleMouseUpSvg
         );
+        destroyFn = destroy;
       }
-      savedData = null;
-      setLinePath(null);
-    };
 
-    const handleMouseUpSvg = (e: any, d: any) => {
-      savedData = null;
-      setLinePath(null);
-    };
-
-    setShowLoader(false);
-    if (containerRef.current) {
-      const { destroy } = runDirectedGraph(
-        containerRef.current,
-        edgesData,
-        nodesData,
-        handleContextMenuNode,
-        handleContextMenuEdge,
-        handleMouseDownNode,
-        handleMouseUpNode,
-        handleMouseUpSvg
-      );
-      destroyFn = destroy;
+      return destroyFn;
     }
-
-    return destroyFn;
   }, [nodesData, edgesData]);
 
   const handleClickAwayNodeContext = () => {

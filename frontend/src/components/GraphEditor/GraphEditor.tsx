@@ -8,6 +8,7 @@ import GraphEditorModal from "./GraphEditorModal/GraphEditorModal";
 import { makeStyles } from "@material-ui/core/styles";
 import { useLocation } from "react-router-dom";
 import { deserializeQuery } from "../../utils/query-helpers";
+// import mainGraph from "../../data/data.json";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +29,7 @@ const GraphEditor: FC<IGraphEditor> = (props) => {
   useEffect(() => {
     if (search) {
       const { uid } = deserializeQuery(search);
+      //TODO:uid нужен реальный
       dispatch(getMainGraph(uid));
     }
   }, [dispatch, search]);

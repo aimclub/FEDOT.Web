@@ -107,7 +107,6 @@ export function runDirectedGraph(
       }
     })
     .on("mouseup", (e, d) => {
-      console.log(`### mouseupNODE`);
       if (e.shiftKey) {
         onMouseUpNode({
           data: d,

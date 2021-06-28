@@ -16,12 +16,21 @@ import WidgetsIcon from "@material-ui/icons/Widgets";
 import LogoFedot from "../Svg/LogoFedot";
 import GraphCreationList from "../GraphCreationList/GraphCreationList";
 import ListItemLink from "../ListItemLink/ListItemLink";
+import { EnumHardcode } from "../../utils/enumHardcode";
 
 const drawerWidth = 180;
 const MENU_LINK = [
   { text: "Showcase", icon: <GradientIcon />, to: "/" },
-  { text: "Sandbox", icon: <TerrainIcon />, to: "/sandbox?uid=45454" },
-  { text: "FEDOT", icon: <WidgetsIcon />, to: "/sandbox/history?uid=45454" },
+  {
+    text: "Sandbox",
+    icon: <TerrainIcon />,
+    to: "/sandbox?uid=" + EnumHardcode.uid,
+  },
+  {
+    text: "FEDOT",
+    icon: <WidgetsIcon />,
+    to: "/sandbox/history?uid=" + EnumHardcode.uid,
+  },
 ];
 
 const useStyles = makeStyles((theme) => ({
