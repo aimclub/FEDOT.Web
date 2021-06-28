@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { runDirectedGraph } from "./directedGraphGenerator";
 import styles from "./directedGraph.module.scss";
 import Loader from "react-loader-spinner";
@@ -95,6 +95,7 @@ const GraphEditorDirectedGraph = ({
       };
       const handleMouseUpNode = (d: dataContextType) => {
         if (d && savedData) {
+          if (d.data === savedData.data) return;
           dispatch(
             actionsSandbox.addEdgeMainGraph({
               source: savedData.data,
@@ -130,7 +131,7 @@ const GraphEditorDirectedGraph = ({
 
       return destroyFn;
     }
-  }, [nodesData, edgesData]);
+  }, [nodesData, edgesData, dispatch]);
 
   const handleClickAwayNodeContext = () => {
     setDataContext(undefined);
@@ -139,14 +140,18 @@ const GraphEditorDirectedGraph = ({
     setEdgeContext(undefined);
   };
 
-  const handleAddNode = (): void => {
+  const handleAddChildNode = (
+    source: number,
+    target: number,
+    id: number
+  ): void => {
     if (dataContext) {
       //TODO: необходимо создавать уникальный id
       const newNode = {
         ...mainGraph.nodes[0],
-        id: 1000 + mainGraph.nodes.length,
+        id: id,
       };
-      const newEdge = { source: newNode.id, target: Number(dataContext.data) };
+      const newEdge = { source: source, target: target };
       dispatch(
         actionsSandbox.addNodeMainGraph({
           nodes: [newNode],
@@ -157,7 +162,7 @@ const GraphEditorDirectedGraph = ({
     }
   };
 
-  const handleSecondActionNode = () => {
+  const handleEditNode = () => {
     dispatch(actionsSandbox.toggleEditModal());
   };
 
@@ -166,9 +171,14 @@ const GraphEditorDirectedGraph = ({
     setEdgeContext(undefined);
   };
 
-  useEffect(() => {
-    console.log(`### linePath`, linePath);
-  }, [linePath]);
+  const newNodeId = 1000 + mainGraph.nodes.length;
+
+  const handleDeleteNode = () => {
+    if (dataContext) {
+      return dispatch(actionsSandbox.deleteNodeMainGraph(dataContext.data));
+    }
+    setDataContext(undefined);
+  };
 
   return (
     <div ref={containerRef} className={styles.container}>
@@ -185,11 +195,27 @@ const GraphEditorDirectedGraph = ({
         <div>
           {dataContext && (
             <ContextMenu
-              firstName={"add node"}
-              secondName={"edit"}
+              firstName={"add parent"}
+              secondName={"add child"}
+              thirdName={"delete"}
+              fourthName={"edit"}
               offset={dataContext?.offset}
-              firstAction={handleAddNode}
-              secondAction={handleSecondActionNode}
+              firstAction={() =>
+                handleAddChildNode(
+                  Number(dataContext.data),
+                  newNodeId,
+                  newNodeId
+                )
+              }
+              secondAction={() =>
+                handleAddChildNode(
+                  newNodeId,
+                  Number(dataContext.data),
+                  newNodeId
+                )
+              }
+              thirdAction={handleDeleteNode}
+              fourthAction={handleEditNode}
             />
           )}
         </div>

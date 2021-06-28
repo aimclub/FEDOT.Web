@@ -24,6 +24,11 @@ export interface IChainImage {
   uid: string;
 }
 
+export interface IEpochItem {
+  chain_id: string;
+  epoch_num: number;
+}
+
 export const sandboxAPI = {
   async getMainGraph(uid: string) {
     try {
@@ -44,6 +49,16 @@ export const sandboxAPI = {
   async getChainsImage(uid: string) {
     try {
       const res = await instance.get<IChainImage>("api/chains/image/" + uid);
+      return res.data;
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  },
+  async getEpoch(caseId: string) {
+    try {
+      const res = await instance.get<IEpochItem[]>(
+        "api/sandbox/epoch/" + caseId
+      );
       return res.data;
     } catch (err) {
       return Promise.reject(err);

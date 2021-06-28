@@ -1,17 +1,17 @@
 import React, { FC } from "react";
 import style from "./contextMenu.module.scss";
-import {
-  dataContextType,
-  edgeContextType,
-  offsetContextMenuType,
-} from "../GraphEditorDirectedGraph/GraphEditorDirectedGraph";
+import { offsetContextMenuType } from "../GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 
 export interface IContextMenu {
   firstName: string;
   secondName?: string;
+  thirdName?: string;
+  fourthName?: string;
   offset: offsetContextMenuType | undefined;
   firstAction(): void;
   secondAction?: () => void;
+  thirdAction?: () => void;
+  fourthAction?: () => void;
 }
 
 const ContextMenu: FC<IContextMenu> = (props) => {
@@ -31,6 +31,12 @@ const ContextMenu: FC<IContextMenu> = (props) => {
       <button onClick={props.firstAction}>{props.firstName}</button>
       {props.secondName && (
         <button onClick={props.secondAction}>{props.secondName}</button>
+      )}
+      {props.thirdName && (
+        <button onClick={props.thirdAction}>{props.thirdName}</button>
+      )}
+      {props.fourthName && (
+        <button onClick={props.fourthAction}>{props.fourthName}</button>
       )}
     </div>
   );

@@ -24,11 +24,17 @@ const CustomSlider = withStyles({
   },
   track: {
     height: 8,
-    borderRadius: 4,
   },
   rail: {
     height: 8,
-    borderRadius: 4,
+  },
+  mark: {
+    backgroundColor: "#fff",
+    border: "1px solid #000",
+    borderRadius: "50%",
+    height: 8,
+    width: 8,
+    marginTop: -1,
   },
 })(Slider);
 

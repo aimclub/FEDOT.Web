@@ -1,6 +1,11 @@
 import { StateType } from "./store";
 import { ThunkAction } from "redux-thunk";
-import { IHistoryGraph, IMainGraph, sandboxAPI } from "../api/sandbox";
+import {
+  IEpochItem,
+  IHistoryGraph,
+  IMainGraph,
+  sandboxAPI,
+} from "../api/sandbox";
 import {
   EdgeDataType,
   edgeValueType,
@@ -12,11 +17,13 @@ const ADD_NODE_MAIN_GRAPH = "ADD_NODE_MAIN_GRAPH";
 const TOGGLE_EDIT_MODAL = "TOGGLE_EDIT_MODAL";
 const DELETE_EDGE_MAIN_GRAPH = "DELETE_EDGE_MAIN_GRAPH";
 const ADD_EDGE_MAIN_GRAPH = "ADD_EDGE_MAIN_GRAPH";
+const SET_EPOCH = "SET_EPOCH";
 
 let initialState = {
   mainGraph: { nodes: [], edges: [] } as IMainGraph,
   historyGraph: { nodes: [], edges: [] } as IHistoryGraph,
   isOpenEditModal: false,
+  epochList: [] as IEpochItem[],
 };
 
 export type InitialStateDatasetsType = typeof initialState;
@@ -27,7 +34,8 @@ type AllTypes =
   | AddNodeMainGraphType
   | ToggleEditModalType
   | DeleteEdgeMainGraphType
-  | AddEdgeMainGraphType;
+  | AddEdgeMainGraphType
+  | SetEpochType;
 
 const sandboxReducer = (
   state = initialState,
@@ -117,6 +125,12 @@ const sandboxReducer = (
         },
       };
     }
+    case SET_EPOCH: {
+      return {
+        ...state,
+        epochList: action.data,
+      };
+    }
     default:
       return state;
   }
@@ -149,6 +163,10 @@ type AddEdgeMainGraphType = {
   type: typeof ADD_EDGE_MAIN_GRAPH;
   data: EdgeDataType;
 };
+type SetEpochType = {
+  type: typeof SET_EPOCH;
+  data: IEpochItem[];
+};
 
 export const actionsSandbox = {
   setMainGraph: (data: IMainGraph): SetMainGraphType => ({
@@ -178,6 +196,10 @@ export const actionsSandbox = {
     type: ADD_EDGE_MAIN_GRAPH,
     data,
   }),
+  setEpoch: (data: IEpochItem[]): SetEpochType => ({
+    type: SET_EPOCH,
+    data,
+  }),
 };
 // для async
 type ThunkTypeAsync = ThunkAction<Promise<void>, StateType, unknown, AllTypes>;
@@ -198,6 +220,17 @@ export const getHistoryGraph = (uid: number): ThunkTypeAsync => {
     try {
       let data = await sandboxAPI.getHistoryGraph(uid);
       dispatch(actionsSandbox.setHistoryGraph(data));
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  };
+};
+
+export const getEpoch = (caseId: string): ThunkTypeAsync => {
+  return async (dispatch) => {
+    try {
+      let data = await sandboxAPI.getEpoch(caseId);
+      dispatch(actionsSandbox.setEpoch(data));
     } catch (err) {
       return Promise.reject(err);
     }

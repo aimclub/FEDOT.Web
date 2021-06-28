@@ -1,14 +1,12 @@
 import React, { FC, useEffect } from "react";
 import { Paper } from "@material-ui/core";
 import GraphEditorDirectedGraph from "./GraphEditorDirectedGraph/GraphEditorDirectedGraph";
-import { actionsSandbox, getMainGraph } from "../../store/sandbox-reducer";
+import { getMainGraph } from "../../store/sandbox-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { StateType } from "../../store/store";
-import GraphEditorModal from "./GraphEditorModal/GraphEditorModal";
 import { makeStyles } from "@material-ui/core/styles";
 import { useLocation } from "react-router-dom";
 import { deserializeQuery } from "../../utils/query-helpers";
-// import mainGraph from "../../data/data.json";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,10 +31,6 @@ const GraphEditor: FC<IGraphEditor> = (props) => {
       dispatch(getMainGraph(uid));
     }
   }, [dispatch, search]);
-
-  useEffect(() => {
-    console.log(`### mainGraph`, mainGraph);
-  }, [mainGraph]);
 
   return (
     <Paper elevation={3} className={classes.root}>

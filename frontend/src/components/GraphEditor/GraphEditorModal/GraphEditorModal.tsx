@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { Button, Dialog, Slide, Typography } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { StateType } from "../../../store/store";
