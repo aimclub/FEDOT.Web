@@ -19,7 +19,10 @@ def chain_by_uid(uid: str) -> Optional[Chain]:
         chain_dict = storage.db.chains.find_one({'uid': 'best_scoring_chain'})
 
     dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': uid})
-    chain.load(chain_dict, None)
+    if dict_fitted_operations:
+        replace_symbols_in_dct_keys(dict_fitted_operations, "-", ".")
+        replace_symbols_in_dct_keys(dict_fitted_operations, r"\ ".rstrip(), "/")
+    chain.load(chain_dict, dict_fitted_operations)
     return chain
 
 
@@ -70,3 +73,10 @@ def get_chain_metadata(chain_id) -> Tuple[int, int]:
     if not chain:
         return -1, -1
     return chain.length, chain.depth
+
+
+def replace_symbols_in_dct_keys(dct, old, new_symb):
+    for key in dct:
+        new_key = key.replace(old, new_symb)
+        dct[new_key] = dct.pop(key)
+    return dct

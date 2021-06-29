@@ -122,7 +122,7 @@
             "custom_params": "default_params",
             "params": {},
             "nodes_from": [],
-            "fitted_operation_path": null
+            "fitted_operation_path": "fitted_operations/operation_2.pkl"
         }, {
             "operation_id": 4,
             "operation_type": "knn",
@@ -130,7 +130,7 @@
             "custom_params": "default_params",
             "params": {},
             "nodes_from": [],
-            "fitted_operation_path": null
+            "fitted_operation_path": "fitted_operations/operation_4.pkl"
         }, {
             "operation_id": 5,
             "operation_type": "pca",
@@ -138,7 +138,7 @@
             "custom_params": "default_params",
             "params": {},
             "nodes_from": [],
-            "fitted_operation_path": null
+            "fitted_operation_path": "fitted_operations/operation_5.pkl"
         }, {
             "operation_id": 3,
             "operation_type": "xgboost",
@@ -148,7 +148,7 @@
             "nodes_from": [
                 4, 5
             ],
-            "fitted_operation_path": null
+            "fitted_operation_path": "fitted_operations/operation_3.pkl"
         }, {
             "operation_id": 1,
             "operation_type": "xgboost",
@@ -158,7 +158,7 @@
             "nodes_from": [
                 2, 3
             ],
-            "fitted_operation_path": null
+            "fitted_operation_path": "fitted_operations/operation_1.pkl"
         }, {
             "operation_id": 7,
             "operation_type": "logit",
@@ -166,7 +166,7 @@
             "custom_params": "default_params",
             "params": {},
             "nodes_from": [],
-            "fitted_operation_path": null
+            "fitted_operation_path": "fitted_operations/operation_7.pkl"
         }, {
             "operation_id": 8,
             "operation_type": "lda",
@@ -174,7 +174,7 @@
             "custom_params": "default_params",
             "params": {},
             "nodes_from": [],
-            "fitted_operation_path": null
+            "fitted_operation_path": "fitted_operations/operation_8.pkl"
         }, {
             "operation_id": 6,
             "operation_type": "knn",
@@ -184,7 +184,7 @@
             "nodes_from": [
                 7, 8
             ],
-            "fitted_operation_path": null
+            "fitted_operation_path": "fitted_operations/operation_6.pkl"
         }, {
             "operation_id": 0,
             "operation_type": "xgboost",
@@ -194,7 +194,7 @@
             "nodes_from": [
                 1, 6
             ],
-            "fitted_operation_path": null
+            "fitted_operation_path": "fitted_operations/operation_0.pkl"
         }
     ],
     "descriptive_id": "(((/n_knn_default_params;;/n_pca_default_params;)/n_xgboost_default_params;;/n_logit_default_params;)/n_xgboost_default_params;;(/n_lda_default_params;;/n_logit_default_params;)/n_knn_default_params;)/n_xgboost_default_params"

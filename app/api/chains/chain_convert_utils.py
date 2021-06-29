@@ -31,6 +31,7 @@ def chain_to_graph(chain):
         node['display_name'] = chain_node.operation.operation_type
         node['model_name'] = str(chain_node.operation)
         node['params'] = chain_node.custom_params
+        node = _convert_inf_to_null(node)
         node['chain_node'] = chain_node
         node['type'] = _get_node_type_for_model(chain_node.operation.operation_type)
 
@@ -61,6 +62,13 @@ def chain_to_graph(chain):
     output_graph = ChainGraph(uid='', nodes=nodes, edges=edges)
 
     return output_graph
+
+
+def _convert_inf_to_null(graph_node: dict):
+    for param in graph_node['params']:
+        if graph_node['params'][param] == float("inf"):
+            graph_node['params'][param] = None
+    return graph_node
 
 
 def _graph_node_to_chain_node(graph_node: dict, existing_graph_nodes: dict, chain_nodes):
