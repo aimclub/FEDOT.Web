@@ -14,6 +14,17 @@ def create_default_chains(storage):
     _create_collection(storage, 'chains', 'uid')
 
     _create_default_chain_for_case(storage, 'best_scoring_chain', 'scoring', chain_mock('class'))
+    chain_1 = Chain(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
+                                                                     nodes_from=[PrimaryNode('scaling')]),
+                                                       PrimaryNode('knn')]))
+    _create_default_chain_for_case(storage, 'scoring_chain_1', 'scoring', chain_1)
+
+    chain_2 = Chain(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
+                                                                     nodes_from=[PrimaryNode('scaling')]),
+                                                       SecondaryNode('knn',
+                                                                     nodes_from=[PrimaryNode('scaling')])]))
+    _create_default_chain_for_case(storage, 'scoring_chain_2', 'scoring', chain_2)
+
     _create_default_chain_for_case(storage, 'best_metocean_chain', 'metocean', chain_mock('ts'))
     _create_default_chain_for_case(storage, 'best_oil_chain', 'oil', chain_mock('regr'))
 

@@ -27,6 +27,8 @@ class ChainsIdResource(Resource):
             return None
         chain_graph = chain_to_graph(chain)
         chain_graph.uid = uid
+        for node in chain_graph.nodes:
+            del node['params']
 
         return chain_graph
 
