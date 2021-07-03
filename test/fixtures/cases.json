@@ -4,6 +4,13 @@
     "icon_path": "./data/scoring/icon.png",
     "description": "The purpose of credit scoring is to assess and possibly reduce the risk of a bank associated with lending clients. Risk minimization happens due to dividing potential borrowers into creditworthy and non-creditworthy borrowers.  Behavioural scoring involves an assessment of creditworthiness based on information about the borrower, characterizing his behaviour and habits and obtained from various sources.",
     "chain_id": "best_scoring_chain",
+    "details": {
+      "n_models": 3,
+      "n_levels": 2,
+      "n_features": 10,
+      "n_rows": 2344,
+      "ROC_AUC": 0.832
+    },
     "title": "scoring",
     "metadata": {
       "$binary": {
@@ -11,31 +18,37 @@
         "subType": "00"
       }
     }
+  }, {
+  "case_id": "metocean",
+  "title": "metocean",
+  "icon_path": "./data/metocean/icon.png",
+  "description": "Time series processing is widely used in engineering and scientific tasks. One of the most common cases with time series is forecasting, when we try to predict values in the future based on historical data. In this application example, we will demonstrate the capabilities of the FEDOT framework in time series forecasting",
+  "chain_id": "best_metocean_chain",
+  "details": {
+    "n_models": 3,
+    "n_levels": 2,
+    "n_features": 10,
+    "n_rows": 2344,
+    "RMSE": 832.165,
+    "MAE": 629.603
   },
-  {
-    "case_id": "metocean",
-    "title": "metocean",
-    "icon_path": "./data/metocean/icon.png",
-    "description": "Time series processing is widely used in engineering and scientific tasks. One of the most common cases with time series is forecasting, when we try to predict values in the future based on historical data. In this application example, we will demonstrate the capabilities of the FEDOT framework in time series forecasting",
-    "chain_id": "best_metocean_chain",
-    "metadata": {
-      "$binary": {
-        "base64": "gASVfAAAAAAAAACMF2FwcC5hcGkuc2hvd2Nhc2UubW9kZWxzlIwITWV0YWRhdGGUk5QpgZR9lCiMCXRhc2tfbmFtZZSMDnRzX2ZvcmVjYXN0aW5nlIwLbWV0cmljX25hbWWUjARybXNllIwMZGF0YXNldF9uYW1llIwIbWV0b2NlYW6UdWIu",
-        "subType": "00"
-      }
-    }
-  },
-  {
-    "case_id": "oil",
-    "title": "oil",
-    "icon_path": "./data/oil/icon.png",
-    "description": "The purpose of the experiment was to determine in which case the regression will more correctly model oil production -sklearn library models or an auto-ml model automatically selected. In order to conduct an experiment using theframework, we took 13 models to compare the results obtained by each of the models and the optimal version built by AutoML.",
-    "chain_id": "best_oil_chain",
-    "metadata": {
-      "$binary": {
-        "base64": "gASVcwAAAAAAAACMF2FwcC5hcGkuc2hvd2Nhc2UubW9kZWxzlIwITWV0YWRhdGGUk5QpgZR9lCiMCXRhc2tfbmFtZZSMCnJlZ3Jlc3Npb26UjAttZXRyaWNfbmFtZZSMBHJtc2WUjAxkYXRhc2V0X25hbWWUjANvaWyUdWIu",
-        "subType": "00"
-      }
+  "metadata": {
+    "$binary": {
+      "base64": "gASVfAAAAAAAAACMF2FwcC5hcGkuc2hvd2Nhc2UubW9kZWxzlIwITWV0YWRhdGGUk5QpgZR9lCiMCXRhc2tfbmFtZZSMDnRzX2ZvcmVjYXN0aW5nlIwLbWV0cmljX25hbWWUjARybXNllIwMZGF0YXNldF9uYW1llIwIbWV0b2NlYW6UdWIu",
+      "subType": "00"
     }
   }
+}, {
+  "case_id": "oil",
+  "title": "oil",
+  "icon_path": "./data/oil/icon.png",
+  "description": "The purpose of the experiment was to determine in which case the regression will more correctly model oil production -sklearn library models or an auto-ml model automatically selected. In order to conduct an experiment using theframework, we took 13 models to compare the results obtained by each of the models and the optimal version built by AutoML.",
+  "chain_id": "best_oil_chain",
+  "metadata": {
+    "$binary": {
+      "base64": "gASVcwAAAAAAAACMF2FwcC5hcGkuc2hvd2Nhc2UubW9kZWxzlIwITWV0YWRhdGGUk5QpgZR9lCiMCXRhc2tfbmFtZZSMCnJlZ3Jlc3Npb26UjAttZXRyaWNfbmFtZZSMBHJtc2WUjAxkYXRhc2V0X25hbWWUjANvaWyUdWIu",
+      "subType": "00"
+    }
+  }
+}
 ]
