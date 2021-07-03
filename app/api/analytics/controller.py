@@ -16,7 +16,7 @@ api = Namespace("Analytics", description="Operations with analytics data")
 class QualityPlotResource(Resource):
     """Quality plot data for cases"""
 
-    @responds(schema=PlotDataSchema, many=True)
+    @responds(schema=PlotDataSchema, many=False)
     def get(self, case_id) -> List[PlotData]:
         """Get all lines for quality plot"""
         quality_plots = get_quality_analytics(case_id)
@@ -27,9 +27,10 @@ class QualityPlotResource(Resource):
 class ResultsPlotResource(Resource):
     """Quality plot data for cases"""
 
-    @responds(schema=PlotDataSchema, many=True)
-    def get(self, case_id: str, chain_id: str) -> List[PlotData]:
+    @responds(schema=PlotDataSchema, many=False)
+    def get(self, case_id: str, chain_id: str) -> PlotData:
         """Get all lines for results plot"""
         chain, case = chain_by_uid(chain_id), showcase_item_by_uid(case_id)
-        results_plots = get_modelling_results(case, chain)
+        baseline = chain_by_uid(f'{case_id}_baseline')
+        results_plots = get_modelling_results(case, chain, baseline)
         return results_plots

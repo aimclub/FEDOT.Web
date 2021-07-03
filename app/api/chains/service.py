@@ -19,7 +19,7 @@ def chain_by_uid(uid: str) -> Optional[Chain]:
         chain_dict = storage.db.chains.find_one({'uid': 'best_scoring_chain'})
 
     dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': uid})
-    chain.load(chain_dict, dict_fitted_operations)
+    chain.load(chain_dict, None)
     return chain
 
 
