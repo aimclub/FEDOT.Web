@@ -1,5 +1,3 @@
-from typing import List
-
 from flask_accepts import responds
 from flask_restx import Namespace, Resource
 
@@ -17,7 +15,7 @@ class QualityPlotResource(Resource):
     """Quality plot data for cases"""
 
     @responds(schema=PlotDataSchema, many=False)
-    def get(self, case_id) -> List[PlotData]:
+    def get(self, case_id) -> PlotData:
         """Get all lines for quality plot"""
         quality_plots = get_quality_analytics(case_id)
         return quality_plots

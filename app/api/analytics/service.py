@@ -9,10 +9,15 @@ max_items_in_plot = 50
 
 def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
     series = []
+
     for i in range(len(ys)):
+        if plot_type == 'line':
+            data = round(ys[i], 3)
+        else:
+            data = [[x[j], round(ys[i][j], 3)] for j in range(len(ys[i]))]
         series.append({
             'name': names[i],
-            'data': ys[i]
+            'data': data
         })
     if not y_bnd:
         min_y = min([min(y) for y in ys]) * 0.95
@@ -44,7 +49,7 @@ def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
 def get_quality_analytics(case_id) -> PlotData:
     history = composer_history_for_case(case_id)
 
-    y = [abs(min([i.fitness for i in gen])) for gen in history.individuals]
+    y = [round(abs(min([i.fitness for i in gen])), 3) for gen in history.individuals]
     x = list(range(len(history.individuals)))
 
     series, options = _make_chart_dicts(x=x, ys=[y], names=['Test sample'],
