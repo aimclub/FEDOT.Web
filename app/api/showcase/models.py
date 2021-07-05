@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
@@ -16,14 +16,4 @@ class ShowcaseItem:
     description: str
     icon_path: str
     metadata: Metadata
-
-
-@dataclass
-class ShowcaseItemFull:
-    case_id: str
-    title: str
-    chain_id: str
-    description: str
-    icon_path: str
-    metadata: Metadata
-    details: dict
+    details: dict = field(default_factory=lambda: {})

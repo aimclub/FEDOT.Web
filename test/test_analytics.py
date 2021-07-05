@@ -1,16 +1,15 @@
 def test_quality_endpoint(client):
-    case_id = 'case1'
-    quality_plots = client.get(f'api/analytics/quality/{case_id}').json
-    quality_plot = quality_plots[0]
-    assert len(quality_plot['x']) > 0
-    assert len(quality_plot['x']) == len(quality_plot['y'])
+    case_id = 'scoring'
+    quality_plot = client.get(f'api/analytics/quality/{case_id}').json
+    assert 'series' in quality_plot
+    assert 'options' in quality_plot
 
 
 def test_results_endpoint(client):
-    chain_id = 'test_chain'
+    chain_id = 'best_scoring_chain'
     case_id = 'scoring'
-    results_plots = client.get(f'api/analytics/results/{case_id}/{chain_id}').json
-    results_plot = results_plots[0]
+    results_plot = client.get(f'api/analytics/results/{case_id}/{chain_id}').json
 
-    assert len(results_plot['x']) > 0
-    assert len(results_plot['x']) == len(results_plot['y'])
+    assert 'series' in results_plot
+    assert len(results_plot['series']) == 2
+    assert 'options' in results_plot

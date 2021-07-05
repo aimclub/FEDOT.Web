@@ -3,8 +3,7 @@ import pickle
 import pymongo
 from pymongo.errors import CollectionInvalid
 
-from app.api.showcase.models import Metadata
-from app.api.showcase.models import ShowcaseItem
+from app.api.showcase.models import Metadata, ShowcaseItem
 
 
 def create_default_cases(storage):
@@ -22,7 +21,7 @@ def create_default_cases(storage):
                      'about the borrower, characterizing his behaviour and habits and '
                      'obtained from various sources.'),
         chain_id='best_scoring_chain',
-        metadata=Metadata(metric_name='roc_auc', task_name='classification', dataset_name='scoring'))
+        metadata=Metadata(metric_name='roc_auc', task_name='classification', dataset_name='scoring'), )
 
     metocean_case = ShowcaseItem(
         case_id='metocean',
@@ -51,9 +50,9 @@ def create_default_cases(storage):
         chain_id='best_oil_chain',
         metadata=Metadata(metric_name='rmse', task_name='regression', dataset_name='oil'))
 
-    _add_case_to_db(storage, scoring_case)
-    _add_case_to_db(storage, metocean_case)
-    _add_case_to_db(storage, oil_case)
+    add_case_to_db(storage, scoring_case)
+    add_case_to_db(storage, metocean_case)
+    add_case_to_db(storage, oil_case)
 
     return
 
@@ -66,14 +65,15 @@ def _create_collection(storage, name: str, id_name: str):
         print('Cases collection already exists')
 
 
-def _add_case_to_db(storage, case):
+def add_case_to_db(storage, case):
     case_dict = {
         'case_id': case.case_id,
         'title': case.title,
         'icon_path': case.icon_path,
         'description': case.description,
         'chain_id': case.chain_id,
-        'metadata': pickle.dumps(case.metadata)
+        'metadata': pickle.dumps(case.metadata),
+        'details': case.details
     }
 
     _add_to_db(storage, 'case_id', case.case_id, case_dict)

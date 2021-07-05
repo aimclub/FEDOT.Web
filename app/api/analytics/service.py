@@ -1,5 +1,3 @@
-from typing import List
-
 from fedot.core.composer.metrics import MAE, MAPE, RMSE, ROCAUC
 
 from app.api.composer.service import composer_history_for_case
@@ -9,33 +7,51 @@ from .models import PlotData
 max_items_in_plot = 50
 
 
-def get_quality_analytics(case_id) -> List[PlotData]:
+def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
+    series = []
+    for i in range(len(ys)):
+        series.append({
+            'name': names[i],
+            'data': ys[i]
+        })
+    if not y_bnd:
+        min_y = min([min(y) for y in ys]) * 0.95
+        max_y = max([max(y) for y in ys]) * 1.05
+    else:
+        min_y, max_y = y_bnd
+
+    options = {
+        'chart': {
+            'type': plot_type
+        },
+        'xaxis': {
+            'categories': x,
+            'title': {
+                'text': x_title
+            }
+        },
+        'yaxis': {
+            'title': {
+                'text': y_title
+            },
+            'min': min_y,
+            'max': max_y
+        }
+    }
+    return series, options
+
+
+def get_quality_analytics(case_id) -> PlotData:
     history = composer_history_for_case(case_id)
 
-    output = []
-
-    meta = dict()
-
-    meta['y_title'] = 'Fitness'
-    meta['x_title'] = 'Epochs'
-    meta['name'] = 'Test'
-    meta['plot_type'] = 'line'
-
-    y = [min([i.fitness for i in gen]) for gen in history.individuals]
+    y = [abs(min([i.fitness for i in gen])) for gen in history.individuals]
     x = list(range(len(history.individuals)))
 
-    output.append(PlotData(meta=meta, x=x, y=y))
+    series, options = _make_chart_dicts(x=x, ys=[y], names=['Test sample'],
+                                        x_title='Epochs', y_title='Fitness',
+                                        plot_type='line')
 
-    if case_id == 'test':
-        meta['y_title'] = 'ROC AUC'
-        meta['x_title'] = 'Epochs'
-        meta['name'] = 'Train'
-        meta['plot_type'] = 'line'
-        y = [0.6, 0.7, 0.75, 0.75, 0.9]
-        x = [1, 2, 3, 4, 5]
-
-        output.append(PlotData(meta=meta, x=x[:max_items_in_plot], y=y[:max_items_in_plot]))
-
+    output = PlotData(series=series, options=options)
     return output
 
 
@@ -73,31 +89,46 @@ def _test_prediction_for_chain(case, chain):
     return test_data, prediction
 
 
-def get_modelling_results(case, chain) -> List[PlotData]:
+def get_modelling_results(case, chain, baseline_chain=None) -> PlotData:
     _, prediction = _test_prediction_for_chain(case, chain)
-
-    meta = dict()
-
+    baseline_prediction = None
+    if baseline_chain:
+        _, baseline_prediction = _test_prediction_for_chain(case, baseline_chain)
+    y_bnd = None
     if case.metadata.task_name == 'classification':
-        meta['y_title'] = 'Probability'
-        meta['x_title'] = 'Item'
+        y_title = 'Probability'
+        x_title = 'Item'
+        y_bnd = (0, 1)
     elif case.metadata.task_name == 'regression':
-        meta['y_title'] = 'Value'
-        meta['x_title'] = 'Item'
+        y_title = 'Value'
+        x_title = 'Item'
     elif case.metadata.task_name == 'ts_forecasting':
-        meta['y_title'] = 'Value'
-        meta['x_title'] = 'Time step'
+        y_title = 'Value'
+        x_title = 'Time step'
     else:
         raise NotImplementedError(f'Task {case.metadata.task_name} not supported')
 
     if case.metadata.task_name == 'ts_forecasting':
-        meta['plot_type'] = 'line'
+        plot_type = 'line'
         y = list(prediction.predict[0, :])
+        y_baseline = list(baseline_prediction.predict[0, :]) if baseline_prediction else None
 
     else:
-        meta['plot_type'] = 'scatter'
-        y = prediction.predict
+        plot_type = 'scatter'
+        y = prediction.predict.tolist()
+        y_baseline = baseline_prediction.predict.tolist() if baseline_prediction else None
 
     x = list(range(len(prediction.predict)))
+    x = x[:max_items_in_plot]
+    y = y[:max_items_in_plot]
+    ys = [y]
+    names = ['Candidate']
+    if baseline_prediction:
+        y_baseline = y_baseline[:max_items_in_plot]
+        ys.append(y_baseline)
+        names.append('Baseline')
+    series, options = _make_chart_dicts(x=x, ys=ys, names=names,
+                                        x_title=x_title, y_title=y_title,
+                                        plot_type=plot_type, y_bnd=y_bnd)
 
-    return [PlotData(meta=meta, x=x[:max_items_in_plot], y=y[:max_items_in_plot])]
+    return PlotData(series, options)

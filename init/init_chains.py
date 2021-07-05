@@ -13,31 +13,37 @@ from utils import project_root
 def create_default_chains(storage):
     _create_collection(storage, 'chains', 'uid')
 
-    _create_default_chain_for_case(storage, 'best_scoring_chain', 'scoring', chain_mock('class'))
+    _create_custom_chain(storage, 'best_scoring_chain', 'scoring', chain_mock('class'))
     chain_1 = Chain(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
                                                                      nodes_from=[PrimaryNode('scaling')]),
                                                        PrimaryNode('knn')]))
-    _create_default_chain_for_case(storage, 'scoring_chain_1', 'scoring', chain_1)
+    _create_custom_chain(storage, 'scoring_chain_1', 'scoring', chain_1)
 
     chain_2 = Chain(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
                                                                      nodes_from=[PrimaryNode('scaling')]),
                                                        SecondaryNode('knn',
                                                                      nodes_from=[PrimaryNode('scaling')])]))
-    _create_default_chain_for_case(storage, 'scoring_chain_2', 'scoring', chain_2)
+    _create_custom_chain(storage, 'scoring_chain_2', 'scoring', chain_2)
+    _create_custom_chain(storage, 'scoring_baseline', 'scoring', get_baseline('class'))
 
-    _create_default_chain_for_case(storage, 'best_metocean_chain', 'metocean', chain_mock('ts'))
-    _create_default_chain_for_case(storage, 'best_oil_chain', 'oil', chain_mock('regr'))
+    ######
 
-    return
+    _create_custom_chain(storage, 'best_metocean_chain', 'metocean', chain_mock('ts'))
+    _create_custom_chain(storage, 'metocean_baseline', 'metocean', get_baseline('ts'))
+
+    #######
+
+    _create_custom_chain(storage, 'best_oil_chain', 'oil', chain_mock('regr'))
+    _create_custom_chain(storage, 'oil_baseline', 'oil', get_baseline('regr'))
 
 
-def _create_default_chain_for_case(storage, chain_id, case_id, chain):
+def _create_custom_chain(storage, chain_id, case_id, chain):
     uid = chain_id
     data = get_input_data(dataset_name=case_id, sample_type='train')
     chain.fit(data)
-    scoring_case_chain, dict_fitted_operations = _extract_chain_with_fitted_operations(chain, uid)
-    scoring_case_chain['uid'] = uid
-    _add_chain_to_db(storage, uid, scoring_case_chain, dict_fitted_operations)
+    chain_dict, dict_fitted_operations = _extract_chain_with_fitted_operations(chain, uid)
+    chain_dict['uid'] = uid
+    _add_chain_to_db(storage, uid, chain_dict, dict_fitted_operations)
 
 
 def _extract_chain_with_fitted_operations(chain, uid):
@@ -117,4 +123,15 @@ def chain_mock(task: str = 'class'):
             new_node.nodes_from.append(PrimaryNode(model_type))
         chain = _chain_first()
         chain.update_subtree(chain.root_node.nodes_from[0].nodes_from[1], new_node)
+    return chain
+
+
+def get_baseline(task: str = 'class'):
+    if task == 'regr':
+        chain = Chain(PrimaryNode('ridge'))
+    elif task == 'ts':
+        new_node = SecondaryNode('linear', nodes_from=[PrimaryNode('lagged')])
+        chain = Chain(new_node)
+    else:
+        chain = Chain(PrimaryNode('logit'))
     return chain
