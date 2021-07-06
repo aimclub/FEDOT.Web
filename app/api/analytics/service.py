@@ -48,10 +48,10 @@ def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
         else:
             data = [[x[j], round(ys[i][j], 3)] for j in range(len(ys[i]))]
 
-            series.append({
-                'name': names[i],
-                'data': data
-            })
+        series.append({
+            'name': names[i],
+            'data': data
+        })
 
     if not y_bnd:
         min_y = min([min(y) for y in ys]) * 0.95
