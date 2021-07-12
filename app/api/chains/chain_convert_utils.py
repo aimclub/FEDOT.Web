@@ -1,3 +1,5 @@
+import math
+
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
 from fedot.core.repository.operation_types_repository import OperationTypesRepository
@@ -31,6 +33,7 @@ def chain_to_graph(chain):
         node['display_name'] = chain_node.operation.operation_type
         node['model_name'] = str(chain_node.operation)
         node['params'] = chain_node.custom_params
+        node = _convert_inf_to_null(node)
         node['chain_node'] = chain_node
         node['type'] = _get_node_type_for_model(chain_node.operation.operation_type)
 
@@ -61,6 +64,18 @@ def chain_to_graph(chain):
     output_graph = ChainGraph(uid='', nodes=nodes, edges=edges)
 
     return output_graph
+
+
+def _convert_inf_to_null(graph_node: dict):
+    if graph_node['params'] != 'default_params':
+        for param in graph_node['params']:
+            value = graph_node['params'][param]
+            if value == float('inf'):
+                graph_node['params'][param] = None
+            if type(value) != str and value is not None:
+                if math.isnan(value):
+                    graph_node['params'][param] = None
+    return graph_node
 
 
 def _graph_node_to_chain_node(graph_node: dict, existing_graph_nodes: dict, chain_nodes):

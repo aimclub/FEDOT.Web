@@ -7,7 +7,7 @@ from utils import project_root
 
 
 def test_get_chain_endpoint(client):
-    uid = 'test_chain'
+    uid = 'best_scoring_chain'
     chain_json = client.get(f'api/chains/{uid}').json
     assert chain_json['uid'] == uid
     assert len(chain_json['nodes']) > 0
@@ -38,7 +38,7 @@ def test_add_chain_endpoint(client):
     assert response['is_new'] is True
     assert response['uid'] == non_existing_uid
 
-    existing_uid = 'test_chain'
+    existing_uid = 'new_chain'
     graph = {
         'uid': existing_uid,
         'nodes': []
@@ -49,7 +49,7 @@ def test_add_chain_endpoint(client):
 
 
 def test_chain_image_endpoint(client):
-    uid = 'test_chain'
+    uid = 'best_scoring_chain'
     response = client.get(f'api/chains/image/{uid}').json
     test_chain = chain_mock()
     filename = f'{uid}.png'
