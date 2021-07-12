@@ -1,5 +1,6 @@
 import json
 import warnings
+from io import BytesIO
 from pathlib import Path
 from typing import Optional, Tuple
 
@@ -21,7 +22,11 @@ def chain_by_uid(uid: str) -> Optional[Chain]:
     dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': uid})
     if dict_fitted_operations:
         replace_symbols_in_dct_keys(dict_fitted_operations, "-", ".")
-        replace_symbols_in_dct_keys(dict_fitted_operations, r"\ ".rstrip(), "/")
+        for key in dict_fitted_operations:
+            if key.find("fitted") != -1:
+                bytes_container = BytesIO()
+                bytes_container.write(dict_fitted_operations[key])
+                dict_fitted_operations[key] = bytes_container
     chain.load(chain_dict, dict_fitted_operations)
     return chain
 

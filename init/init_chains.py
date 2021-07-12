@@ -1,6 +1,7 @@
 import json
 import os
 
+import bson
 import pymongo
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
@@ -47,14 +48,14 @@ def _create_custom_chain(storage, chain_id, case_id, chain):
 
 
 def _extract_chain_with_fitted_operations(chain, uid):
-    dict_fitted_operations = {}
-    chain_json = json.loads(chain.save(path='tmp'))
-    for op in chain_json['nodes']:
-        with open(os.path.join(project_root(), 'data/mocked_jsons/', op['fitted_operation_path']), 'rb') as f:
-            op_pickle = f.read()
-            dict_fitted_operations[op['fitted_operation_path']] = op_pickle
-    dict_fitted_operations['uid'] = uid
-    return chain_json, dict_fitted_operations
+    chain_json, dict_fitted_operations = chain.save()
+    chain_json = json.loads(chain_json)
+    new_dct = {}
+    for i in dict_fitted_operations:
+        data = dict_fitted_operations[i].getvalue()
+        new_dct[i.replace(".", "-")] = bson.Binary(data)
+    new_dct['uid'] = uid
+    return chain_json, new_dct
 
 
 def _create_collection(storage, name: str, id_name: str):

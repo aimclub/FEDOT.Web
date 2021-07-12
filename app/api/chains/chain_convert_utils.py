@@ -1,3 +1,5 @@
+import math
+
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.node import PrimaryNode, SecondaryNode
 from fedot.core.repository.operation_types_repository import OperationTypesRepository
@@ -66,8 +68,12 @@ def chain_to_graph(chain):
 
 def _convert_inf_to_null(graph_node: dict):
     for param in graph_node['params']:
-        if graph_node['params'][param] == float("inf"):
+        value = graph_node['params'][param]
+        if value == float("inf"):
             graph_node['params'][param] = None
+        if type(value) != str and value is not None:
+            if math.isnan(value):
+                graph_node['params'][param] = None
     return graph_node
 
 
