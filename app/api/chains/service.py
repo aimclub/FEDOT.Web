@@ -46,7 +46,7 @@ def create_chain(uid: str, chain: Chain):
         is_new = False
 
     is_duplicate = False
-    dumped_json = chain.save('tumped_tmp')
+    dumped_json, dict_fitted_operations = chain.save('tumped_tmp')
 
     if len(chain.nodes) > 0 and \
             storage.db.chains.find_one({'descriptive_id': chain.root_node.descriptive_id}):

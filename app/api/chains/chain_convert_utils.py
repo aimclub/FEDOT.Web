@@ -67,13 +67,14 @@ def chain_to_graph(chain):
 
 
 def _convert_inf_to_null(graph_node: dict):
-    for param in graph_node['params']:
-        value = graph_node['params'][param]
-        if value == float("inf"):
-            graph_node['params'][param] = None
-        if type(value) != str and value is not None:
-            if math.isnan(value):
+    if graph_node['params'] != 'default_params':
+        for param in graph_node['params']:
+            value = graph_node['params'][param]
+            if value == float('inf'):
                 graph_node['params'][param] = None
+            if type(value) != str and value is not None:
+                if math.isnan(value):
+                    graph_node['params'][param] = None
     return graph_node
 
 
