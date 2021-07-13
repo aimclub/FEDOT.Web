@@ -11,40 +11,40 @@ from app.api.data.service import get_input_data
 from utils import project_root
 
 
-def create_default_chains(storage):
-    _create_collection(storage, 'chains', 'uid')
+def create_default_chains(db):
+    _create_collection(db, 'chains', 'uid')
 
-    _create_custom_chain(storage, 'best_scoring_chain', 'scoring', chain_mock('class'))
+    _create_custom_chain(db, 'best_scoring_chain', 'scoring', chain_mock('class'))
     chain_1 = Chain(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
                                                                      nodes_from=[PrimaryNode('scaling')]),
                                                        PrimaryNode('knn')]))
-    _create_custom_chain(storage, 'scoring_chain_1', 'scoring', chain_1)
+    _create_custom_chain(db, 'scoring_chain_1', 'scoring', chain_1)
 
     chain_2 = Chain(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
                                                                      nodes_from=[PrimaryNode('scaling')]),
                                                        SecondaryNode('knn',
                                                                      nodes_from=[PrimaryNode('scaling')])]))
-    _create_custom_chain(storage, 'scoring_chain_2', 'scoring', chain_2)
-    _create_custom_chain(storage, 'scoring_baseline', 'scoring', get_baseline('class'))
+    _create_custom_chain(db, 'scoring_chain_2', 'scoring', chain_2)
+    _create_custom_chain(db, 'scoring_baseline', 'scoring', get_baseline('class'))
 
     ######
 
-    _create_custom_chain(storage, 'best_metocean_chain', 'metocean', chain_mock('ts'))
-    _create_custom_chain(storage, 'metocean_baseline', 'metocean', get_baseline('ts'))
+    _create_custom_chain(db, 'best_metocean_chain', 'metocean', chain_mock('ts'))
+    _create_custom_chain(db, 'metocean_baseline', 'metocean', get_baseline('ts'))
 
     #######
 
-    _create_custom_chain(storage, 'best_oil_chain', 'oil', chain_mock('regr'))
-    _create_custom_chain(storage, 'oil_baseline', 'oil', get_baseline('regr'))
+    _create_custom_chain(db, 'best_oil_chain', 'oil', chain_mock('regr'))
+    _create_custom_chain(db, 'oil_baseline', 'oil', get_baseline('regr'))
 
 
-def _create_custom_chain(storage, chain_id, case_id, chain):
+def _create_custom_chain(db, chain_id, case_id, chain):
     uid = chain_id
     data = get_input_data(dataset_name=case_id, sample_type='train')
     chain.fit(data)
     chain_dict, dict_fitted_operations = _extract_chain_with_fitted_operations(chain, uid)
     chain_dict['uid'] = uid
-    _add_chain_to_db(storage, uid, chain_dict, dict_fitted_operations)
+    _add_chain_to_db(db, uid, chain_dict, dict_fitted_operations)
 
 
 def _extract_chain_with_fitted_operations(chain, uid):
@@ -58,24 +58,24 @@ def _extract_chain_with_fitted_operations(chain, uid):
     return chain_json, new_dct
 
 
-def _create_collection(storage, name: str, id_name: str):
+def _create_collection(db, name: str, id_name: str):
     try:
-        storage.db.create_collection(name)
-        storage.db.chains.create_index([(id_name, pymongo.TEXT)], unique=True)
+        db.create_collection(name)
+        db.chains.create_index([(id_name, pymongo.TEXT)], unique=True)
     except CollectionInvalid:
         print('Chains collection already exists')
 
 
-def _add_chain_to_db(storage, uid, chain_dict, dict_fitted_operations):
-    _add_to_db(storage, 'uid', uid, chain_dict)
+def _add_chain_to_db(db, uid, chain_dict, dict_fitted_operations):
+    _add_to_db(db, 'uid', uid, chain_dict)
     # storage.db.chains.remove(dict_fitted_operations)
-    storage.db.dict_fitted_operations.remove(dict_fitted_operations)
-    storage.db.dict_fitted_operations.insert(dict_fitted_operations, check_keys=False)
+    db.dict_fitted_operations.remove(dict_fitted_operations)
+    db.dict_fitted_operations.insert(dict_fitted_operations, check_keys=False)
 
 
-def _add_to_db(storage, id_name, id_value, obj_to_add):
-    storage.db.chains.remove({id_name: id_value})
-    storage.db.chains.insert_one(obj_to_add)
+def _add_to_db(db, id_name, id_value, obj_to_add):
+    db.chains.remove({id_name: id_value})
+    db.chains.insert_one(obj_to_add)
 
 
 def _chain_first():
