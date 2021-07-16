@@ -1,3 +1,4 @@
+import numpy as np
 from fedot.core.composer.metrics import MAE, MAPE, RMSE, ROCAUC
 
 from app.api.composer.service import composer_history_for_case
@@ -7,13 +8,51 @@ from .models import PlotData
 max_items_in_plot = 50
 
 
+def _make_chart_dicts_for_boxplot(x, ys, x_title, y_title):
+    series = []
+
+    for i in range(len(ys)):
+        y = [round(_, 3) for _ in ys[i]]
+        series.append({
+            'data': {
+                'x': x[i],
+                'y': y
+            }
+        })
+
+    options = {
+        'chart': {
+            'type': 'boxPlot'
+        },
+        'xaxis': {
+            'categories': x,
+            'title': {
+                'text': x_title
+            }
+        },
+        'yaxis': {
+            'title': {
+                'text': y_title
+            }
+        }
+    }
+    return series, options
+
+
 def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
     series = []
+
     for i in range(len(ys)):
+        if plot_type == 'line':
+            data = [round(_, 3) for _ in ys[i]]
+        else:
+            data = [[x[j], round(ys[i][j], 3)] for j in range(len(ys[i]))]
+
         series.append({
             'name': names[i],
-            'data': ys[i]
+            'data': data
         })
+
     if not y_bnd:
         min_y = min([min(y) for y in ys]) * 0.95
         max_y = max([max(y) for y in ys]) * 1.05
@@ -44,12 +83,29 @@ def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
 def get_quality_analytics(case_id) -> PlotData:
     history = composer_history_for_case(case_id)
 
-    y = [abs(min([i.fitness for i in gen])) for gen in history.individuals]
+    y = [round(abs(min([i.fitness for i in gen])), 3) for gen in history.individuals]
     x = list(range(len(history.individuals)))
 
     series, options = _make_chart_dicts(x=x, ys=[y], names=['Test sample'],
                                         x_title='Epochs', y_title='Fitness',
                                         plot_type='line')
+
+    output = PlotData(series=series, options=options)
+    return output
+
+
+def get_population_analytics(case_id) -> PlotData:
+    history = composer_history_for_case(case_id)
+
+    y_gen = [[abs(i.fitness) for i in gen] for gen in history.individuals]
+    x = list(range(len(history.individuals)))
+
+    y_quant = []
+    for y in y_gen:
+        y_quant.append([min(y), np.quantile(y, 0.25), np.quantile(y, 0.5), np.quantile(y, 0.75), max(y)])
+
+    series, options = _make_chart_dicts_for_boxplot(x=x, ys=y_quant,
+                                                    x_title='Epochs', y_title='Fitness')
 
     output = PlotData(series=series, options=options)
     return output
@@ -81,8 +137,8 @@ def get_metrics_for_chain(case, chain) -> dict:
 def _test_prediction_for_chain(case, chain):
     train_data = get_input_data(dataset_name=case.metadata.dataset_name, sample_type='train')
 
-    # if not chain.is_fitted: #TODO something wrong with pre-fitted chains
-    chain.fit(train_data)
+    if not chain.is_fitted:
+        chain.fit(train_data)
 
     test_data = get_input_data(dataset_name=case.metadata.dataset_name, sample_type='test')
     prediction = chain.predict(test_data)
