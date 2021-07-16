@@ -6,8 +6,8 @@ from pymongo.errors import CollectionInvalid
 from app.api.showcase.models import Metadata, ShowcaseItem
 
 
-def create_default_cases(storage):
-    _create_collection(storage, 'cases', 'case_id')
+def create_default_cases(db):
+    _create_collection(db, 'cases', 'case_id')
 
     scoring_case = ShowcaseItem(
         case_id='scoring',
@@ -50,22 +50,22 @@ def create_default_cases(storage):
         chain_id='best_oil_chain',
         metadata=Metadata(metric_name='rmse', task_name='regression', dataset_name='oil'))
 
-    add_case_to_db(storage, scoring_case)
-    add_case_to_db(storage, metocean_case)
-    add_case_to_db(storage, oil_case)
+    add_case_to_db(db, scoring_case)
+    add_case_to_db(db, metocean_case)
+    add_case_to_db(db, oil_case)
 
     return
 
 
-def _create_collection(storage, name: str, id_name: str):
+def _create_collection(db, name: str, id_name: str):
     try:
-        storage.db.create_collection(name)
-        storage.db.cases.create_index([(id_name, pymongo.TEXT)], unique=True)
+        db.create_collection(name)
+        db.cases.create_index([(id_name, pymongo.TEXT)], unique=True)
     except CollectionInvalid:
         print('Cases collection already exists')
 
 
-def add_case_to_db(storage, case):
+def add_case_to_db(db, case):
     case_dict = {
         'case_id': case.case_id,
         'title': case.title,
@@ -76,12 +76,12 @@ def add_case_to_db(storage, case):
         'details': case.details
     }
 
-    _add_to_db(storage, 'case_id', case.case_id, case_dict)
+    _add_to_db(db, 'case_id', case.case_id, case_dict)
 
 
-def _add_to_db(storage, id_name, id_value, obj_to_add):
-    storage.db.cases.remove({id_name: id_value})
-    storage.db.cases.insert_one(obj_to_add)
+def _add_to_db(db, id_name, id_value, obj_to_add):
+    db.cases.remove({id_name: id_value})
+    db.cases.insert_one(obj_to_add)
 
 
 def _get_icon_url(filename):

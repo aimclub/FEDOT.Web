@@ -7,7 +7,7 @@ from app import create_app, db, storage
 
 @pytest.fixture
 def app(mongodb):
-    app = create_app('test', init_db=False)
+    app = create_app('test')
     storage.db = mongodb
     db.create_all(app=app)
     return app
