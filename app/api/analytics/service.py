@@ -1,3 +1,4 @@
+import numpy as np
 from fedot.core.composer.metrics import MAE, MAPE, RMSE, ROCAUC
 
 from app.api.composer.service import composer_history_for_case
@@ -5,7 +6,6 @@ from app.api.data.service import get_input_data
 from .models import PlotData
 
 max_items_in_plot = 50
-import numpy as np
 
 
 def _make_chart_dicts_for_boxplot(x, ys, x_title, y_title):
