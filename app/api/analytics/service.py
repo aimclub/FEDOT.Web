@@ -137,8 +137,8 @@ def get_metrics_for_chain(case, chain) -> dict:
 def _test_prediction_for_chain(case, chain):
     train_data = get_input_data(dataset_name=case.metadata.dataset_name, sample_type='train')
 
-    # if not chain.is_fitted: #TODO something wrong with pre-fitted chains
-    chain.fit(train_data)
+    if not chain.is_fitted:
+        chain.fit(train_data)
 
     test_data = get_input_data(dataset_name=case.metadata.dataset_name, sample_type='test')
     prediction = chain.predict(test_data)
