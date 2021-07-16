@@ -60,7 +60,7 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
                         metadata=case_metadata,
                         details=details)
     if is_updated:
-        add_case_to_db(storage=storage, case=item)
+        add_case_to_db(db=storage.db, case=item)
     return item
 
 
