@@ -3,8 +3,8 @@ from flask_restx import Namespace, Resource
 
 from app.api.chains.service import chain_by_uid
 from app.api.showcase.service import showcase_item_by_uid
-from .models import PlotData
-from .schema import PlotDataSchema
+from .models import PlotData, BoxPlotData
+from .schema import PlotDataSchema, BoxPlotDataSchema
 from .service import (get_modelling_results, get_quality_analytics, get_population_analytics)
 
 api = Namespace("Analytics", description="Operations with analytics data")
@@ -21,14 +21,14 @@ class QualityPlotResource(Resource):
         return quality_plot
 
 
-@api.route("/generations/<string:case_id>")
+@api.route("/generations/<string:case_id>/<string:analytic_type>")
 class GenerationsPlotResource(Resource):
     """Quality plot data for cases"""
 
-    @responds(schema=PlotDataSchema, many=False)
-    def get(self, case_id) -> PlotData:
+    @responds(schema=BoxPlotDataSchema, many=False)
+    def get(self, case_id, analytic_type) -> BoxPlotData:
         """Get all lines for quality plot"""
-        generation_plot = get_population_analytics(case_id)
+        generation_plot = get_population_analytics(case_id, analytic_type=analytic_type)
         return generation_plot
 
 

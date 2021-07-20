@@ -13,3 +13,16 @@ def test_results_endpoint(client):
     assert 'series' in results_plot
     assert len(results_plot['series']) == 2
     assert 'options' in results_plot
+
+
+def test_population_endpoint(client):
+    case_id = 'scoring'
+    results_plot = client.get(f'api/analytics/generations/{case_id}/geno').json
+
+    assert 'series' in results_plot
+    assert 'options' in results_plot
+
+    results_plot = client.get(f'api/analytics/generations/{case_id}/pheno').json
+
+    assert 'series' in results_plot
+    assert 'options' in results_plot

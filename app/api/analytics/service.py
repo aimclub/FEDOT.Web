@@ -1,9 +1,8 @@
-import numpy as np
 from fedot.core.composer.metrics import MAE, MAPE, RMSE, ROCAUC
 
 from app.api.composer.service import composer_history_for_case
 from app.api.data.service import get_input_data
-from .models import PlotData
+from .models import PlotData, BoxPlotData
 
 max_items_in_plot = 50
 
@@ -14,29 +13,13 @@ def _make_chart_dicts_for_boxplot(x, ys, x_title, y_title):
     for i in range(len(ys)):
         y = [round(_, 3) for _ in ys[i]]
         series.append({
-            'data': {
-                'x': x[i],
-                'y': y
-            }
+            'y': x[i],
+            'x': y,
+            'type': 'box',
+            'name': i
         })
 
-    options = {
-        'chart': {
-            'type': 'boxPlot'
-        },
-        'xaxis': {
-            'categories': x,
-            'title': {
-                'text': x_title
-            }
-        },
-        'yaxis': {
-            'title': {
-                'text': y_title
-            }
-        }
-    }
-    return series, options
+    return series
 
 
 def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
@@ -94,20 +77,22 @@ def get_quality_analytics(case_id) -> PlotData:
     return output
 
 
-def get_population_analytics(case_id) -> PlotData:
+def get_population_analytics(case_id, analytic_type: str) -> BoxPlotData:
     history = composer_history_for_case(case_id)
 
-    y_gen = [[abs(i.fitness) for i in gen] for gen in history.individuals]
+    if analytic_type == 'pheno':
+        y_gen = [[abs(i.fitness) for i in gen] for gen in history.individuals]
+    elif analytic_type == 'geno':
+        y_gen = [[abs(i.chain.depth) for i in gen] for gen in history.individuals]
+    else:
+        raise ValueError(f'Analytic type {analytic_type} not recognized')
+
     x = list(range(len(history.individuals)))
 
-    y_quant = []
-    for y in y_gen:
-        y_quant.append([min(y), np.quantile(y, 0.25), np.quantile(y, 0.5), np.quantile(y, 0.75), max(y)])
+    series = _make_chart_dicts_for_boxplot(x=x, ys=y_gen,
+                                           x_title='Epochs', y_title='Fitness')
 
-    series, options = _make_chart_dicts_for_boxplot(x=x, ys=y_quant,
-                                                    x_title='Epochs', y_title='Fitness')
-
-    output = PlotData(series=series, options=options)
+    output = BoxPlotData(series=series)
     return output
 
 
