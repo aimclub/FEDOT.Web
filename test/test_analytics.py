@@ -20,9 +20,7 @@ def test_population_endpoint(client):
     results_plot = client.get(f'api/analytics/generations/{case_id}/geno').json
 
     assert 'series' in results_plot
-    assert 'options' in results_plot
 
     results_plot = client.get(f'api/analytics/generations/{case_id}/pheno').json
 
     assert 'series' in results_plot
-    assert 'options' in results_plot
