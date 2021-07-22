@@ -13,7 +13,7 @@ def _make_chart_dicts_for_boxplot(x, ys, x_title, y_title):
     for i in range(len(ys)):
         y = [round(_, 3) for _ in ys[i]]
         series.append({
-            'y': x[i],
+            'y': f'Gen {x[i]}',
             'x': y,
             'type': 'box',
             'name': i
