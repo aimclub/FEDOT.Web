@@ -28,4 +28,3 @@ def test_replace_deprecated_values():
 
         assert dumped_graph.find('Infinity') == -1
         assert dumped_graph.find('NaN') == -1
-
