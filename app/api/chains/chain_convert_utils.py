@@ -1,3 +1,4 @@
+import json
 import math
 
 from fedot.core.chains.chain import Chain
@@ -33,7 +34,7 @@ def chain_to_graph(chain):
         node['display_name'] = chain_node.operation.operation_type
         node['model_name'] = str(chain_node.operation)
         node['params'] = chain_node.custom_params
-        node = _convert_inf_to_null(node)
+        node = replace_deprecated_values(node)
         node['chain_node'] = chain_node
         node['type'] = _get_node_type_for_model(chain_node.operation.operation_type)
 
@@ -66,15 +67,11 @@ def chain_to_graph(chain):
     return output_graph
 
 
-def _convert_inf_to_null(graph_node: dict):
-    if graph_node['params'] != 'default_params':
-        for param in graph_node['params']:
-            value = graph_node['params'][param]
-            if value == float('inf'):
-                graph_node['params'][param] = None
-            if type(value) != str and value is not None:
-                if math.isnan(value):
-                    graph_node['params'][param] = None
+def replace_deprecated_values(graph_node: dict, depr_values: list = ['Infinity', 'NaN']):
+    txt = json.dumps(graph_node)
+    for val in depr_values:
+        txt = txt.replace(val, 'null')
+    graph_node = json.loads(txt)
     return graph_node
 
 
