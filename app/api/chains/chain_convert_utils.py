@@ -67,10 +67,9 @@ def chain_to_graph(chain):
     return output_graph
 
 
-def replace_deprecated_values(graph_node: dict):
+def replace_deprecated_values(graph_node: dict, depr_values: list = ['Infinity', 'NaN']):
     txt = json.dumps(graph_node)
-    lst = ['inf', 'NaN']
-    for val in lst:
+    for val in depr_values:
         txt = txt.replace(val, 'null')
     graph_node = json.loads(txt)
     return graph_node
