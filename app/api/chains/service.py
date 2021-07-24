@@ -81,7 +81,7 @@ def get_chain_metadata(chain_id) -> Tuple[int, int]:
 
 
 def replace_symbols_in_dct_keys(dct, old, new_symb):
-    for key in dct:
+    for key in list(dct.keys()):
         new_key = key.replace(old, new_symb)
         dct[new_key] = dct.pop(key)
     return dct

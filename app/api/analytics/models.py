@@ -6,3 +6,8 @@ from typing import List
 class PlotData:
     series: List[dict]
     options: dict
+
+
+@dataclass
+class BoxPlotData:
+    series: List[dict]
