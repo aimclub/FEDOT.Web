@@ -1,8 +1,8 @@
-import pymongo
-from bson import json_util
 import os
 
-from app.api.chains.service import replace_symbols_in_dct_keys
+import pymongo
+from bson import json_util
+
 from utils import project_root
 
 if __name__ == "__main__":

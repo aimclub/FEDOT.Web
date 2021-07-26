@@ -21,7 +21,7 @@ def chain_by_uid(uid: str) -> Optional[Chain]:
 
     dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': uid})
     if dict_fitted_operations:
-        replace_symbols_in_dct_keys(dict_fitted_operations, "-", ".")
+        _replace_symbols_in_dct_keys(dict_fitted_operations, "-", ".")
         for key in dict_fitted_operations:
             if key.find("fitted") != -1:
                 bytes_container = BytesIO()
@@ -80,7 +80,7 @@ def get_chain_metadata(chain_id) -> Tuple[int, int]:
     return chain.length, chain.depth
 
 
-def replace_symbols_in_dct_keys(dct, old, new_symb):
+def _replace_symbols_in_dct_keys(dct, old, new_symb):
     for key in list(dct.keys()):
         new_key = key.replace(old, new_symb)
         dct[new_key] = dct.pop(key)
