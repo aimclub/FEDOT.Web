@@ -1,10 +1,12 @@
 import pickle
 
 from fedot.api.main import Fedot
+from fedot.core.chains.chain import Chain
 from fedot.core.composer.composing_history import ComposingHistory
 
 from app import storage
 # from app.api.showcase.showcase_utils import showcase_item_from_db
+from app.api.chains.service import create_chain, is_chain_exists
 from app.api.showcase.models import ShowcaseItem
 from app.api.showcase.showcase_utils import _prepare_icon_path
 from utils import project_root
@@ -35,6 +37,14 @@ def composer_history_for_case(case_id: str) -> ComposingHistory:
         _save_to_db(storage.db, case_id, history)
     else:
         history = pickle.loads(saved_history['history_pkl'])
+
+    for i, chain_template in enumerate(history.historical_chains):
+        existing_chain = is_chain_exists(storage.db, chain_template.unique_chain_id)
+        if not existing_chain:
+            print(i)
+            chain = Chain()
+            chain_template.convert_to_chain(chain)
+            create_chain(storage.db, chain_template.unique_chain_id, chain)
 
     return history
 

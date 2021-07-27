@@ -1,8 +1,10 @@
 import pickle
 
 import pymongo
+from fedot.core.chains.chain import Chain
 from pymongo.errors import CollectionInvalid
 
+from app.api.chains.service import is_chain_exists, create_chain
 from app.api.composer.service import run_composer
 
 
@@ -36,6 +38,14 @@ def _init_composer_history_for_case(db, history_id, task, metric, dataset_name):
         'history_pkl': pickle.dumps(history)
     }
     add_to_db(db, 'history_id', history_id, history_obj)
+
+    for i, chain_template in enumerate(history.historical_chains):
+        existing_chain = is_chain_exists(db, chain_template.unique_chain_id)
+        if not existing_chain:
+            print(i)
+            chain = Chain()
+            chain_template.convert_to_chain(chain)
+            create_chain(db, chain_template.unique_chain_id, chain)
 
 
 def add_to_db(db, id_name, id_value, obj_to_add):
