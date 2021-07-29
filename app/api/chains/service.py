@@ -7,6 +7,7 @@ from typing import Optional, Tuple
 from fedot.core.chains.chain import Chain
 from fedot.core.chains.chain_validation import validate
 from flask import url_for
+from pymongo.errors import DuplicateKeyError
 
 from app import storage
 from utils import project_root
@@ -59,7 +60,10 @@ def create_chain(db, uid: str, chain: Chain):
     if is_new:
         dict_chain = json.loads(dumped_json)
         dict_chain['uid'] = str(uid)
-        db.chains.insert_one(dict_chain)
+        try:
+            db.chains.insert_one(dict_chain)
+        except DuplicateKeyError:
+            print(f'Chain {str(uid)} already exists')
     else:
         warnings.warn('Cannot create new chain')
 
