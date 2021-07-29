@@ -13,17 +13,17 @@ from utils import project_root
 
 
 def is_chain_exists(db, uid: str) -> Optional[Chain]:
-    chain_dict = db.chains.find_one({'uid': uid})
+    chain_dict = db.chains.find_one({'uid': str(uid)})
     return chain_dict is not None
 
 
 def chain_by_uid(uid: str) -> Optional[Chain]:
     chain = Chain()
-    chain_dict = storage.db.chains.find_one({'uid': uid})
+    chain_dict = storage.db.chains.find_one({'uid': str(uid)})
     if chain_dict is None:
         return None
 
-    dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': uid})
+    dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': str(uid)})
     if dict_fitted_operations:
         _replace_symbols_in_dct_keys(dict_fitted_operations, "-", ".")
         for key in dict_fitted_operations:
@@ -45,7 +45,7 @@ def validate_chain(chain: Chain) -> Tuple[bool, str]:
 
 def create_chain(db, uid: str, chain: Chain):
     is_new = True
-    existing_uid = db.chains.find_one({'uid': uid})
+    existing_uid = db.chains.find_one({'uid': str(uid)})
     if existing_uid:
         is_new = False
 
@@ -58,7 +58,7 @@ def create_chain(db, uid: str, chain: Chain):
 
     if is_new:
         dict_chain = json.loads(dumped_json)
-        dict_chain['uid'] = uid
+        dict_chain['uid'] = str(uid)
         db.chains.insert_one(dict_chain)
     else:
         warnings.warn('Cannot create new chain')

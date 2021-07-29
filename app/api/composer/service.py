@@ -39,12 +39,13 @@ def composer_history_for_case(case_id: str) -> ComposingHistory:
         history = pickle.loads(saved_history['history_pkl'])
 
     for i, chain_template in enumerate(history.historical_chains):
-        existing_chain = is_chain_exists(storage.db, chain_template.unique_chain_id)
+        struct_id = chain_template.unique_chain_id
+        existing_chain = is_chain_exists(storage.db, struct_id)
         if not existing_chain:
             print(i)
             chain = Chain()
             chain_template.convert_to_chain(chain)
-            create_chain(storage.db, chain_template.unique_chain_id, chain)
+            create_chain(storage.db, struct_id, chain)
 
     return history
 
