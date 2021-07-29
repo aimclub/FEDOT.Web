@@ -1,29 +1,61 @@
-import os
 import pickle
 
 from fedot.api.main import Fedot
+from fedot.core.chains.chain import Chain
 from fedot.core.composer.composing_history import ComposingHistory
 
+from app import storage
+# from app.api.showcase.showcase_utils import showcase_item_from_db
+from app.api.chains.service import create_chain, is_chain_exists
+from app.api.showcase.models import ShowcaseItem
+from app.api.showcase.showcase_utils import _prepare_icon_path
 from utils import project_root
 
 
-def composer_history_for_case(case_id: str) -> ComposingHistory:
-    # TODO meta with case
-    dataset_name = 'scoring'
-    metric = 'roc_auc'
-    task = 'classification'
+def showcase_item_from_db(case_id: str) -> ShowcaseItem:
+    dumped_item = storage.db.cases.find_one({'case_id': case_id})
+    icon_path = _prepare_icon_path(dumped_item)
+    item = ShowcaseItem(case_id=dumped_item['case_id'],
+                        title=dumped_item['title'],
+                        icon_path=icon_path,
+                        description=dumped_item['description'],
+                        chain_id=dumped_item['chain_id'],
+                        metadata=pickle.loads(dumped_item['metadata']))
+    return item
 
-    # change to DB request
-    saved_history = f'{project_root()}/data/history.pickle'
-    if os.path.exists(saved_history):
-        with open(saved_history, 'rb') as file:
-            history = pickle.load(file)
-    else:
+
+def composer_history_for_case(case_id: str) -> ComposingHistory:
+    case = showcase_item_from_db(case_id)
+    task = case.metadata.task_name
+    metric = case.metadata.metric_name
+    dataset_name = case.metadata.dataset_name
+
+    saved_history = storage.db.history.find_one({'history_id': case_id})
+
+    if not saved_history:
         history = run_composer(task, metric, dataset_name)
-        with open(saved_history, 'wb') as file:
-            pickle.dump(history, file)
+        _save_to_db(storage.db, case_id, history)
+    else:
+        history = pickle.loads(saved_history['history_pkl'])
+
+    for i, chain_template in enumerate(history.historical_chains):
+        struct_id = chain_template.unique_chain_id
+        existing_chain = is_chain_exists(storage.db, struct_id)
+        if not existing_chain:
+            print(i)
+            chain = Chain()
+            chain_template.convert_to_chain(chain)
+            create_chain(storage.db, struct_id, chain)
 
     return history
+
+
+def _save_to_db(db, history_id, history):
+    history_obj = {
+        'history_id': history_id,
+        'history_pkl': pickle.dumps(history)
+    }
+    _add_to_db(db, 'history_id', history_id, history_obj)
 
 
 def run_composer(task, metric, dataset_name):
@@ -46,3 +78,8 @@ def run_composer(task, metric, dataset_name):
                    target='target')
     history = auto_model.history
     return history
+
+
+def _add_to_db(db, id_name, id_value, obj_to_add):
+    db.history.remove({id_name: id_value})
+    db.history.insert_one(obj_to_add)

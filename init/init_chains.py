@@ -1,5 +1,4 @@
 import json
-import os
 
 import bson
 import pymongo
@@ -8,7 +7,6 @@ from fedot.core.chains.node import PrimaryNode, SecondaryNode
 from pymongo.errors import CollectionInvalid
 
 from app.api.data.service import get_input_data
-from utils import project_root
 
 
 def create_default_chains(db):
@@ -68,7 +66,6 @@ def _create_collection(db, name: str, id_name: str):
 
 def _add_chain_to_db(db, uid, chain_dict, dict_fitted_operations):
     _add_to_db(db, 'uid', uid, chain_dict)
-    # storage.db.chains.remove(dict_fitted_operations)
     db.dict_fitted_operations.remove(dict_fitted_operations)
     db.dict_fitted_operations.insert(dict_fitted_operations, check_keys=False)
 

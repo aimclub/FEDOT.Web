@@ -7,7 +7,7 @@ np.random.seed(1)
 
 
 def test_composer_endpoint(client):
-    case_id = 'test'
+    case_id = 'scoring'
     history_json = client.get(f'api/composer/{case_id}').json
     nodes = history_json['nodes']
     nodes_ids = [n['uid'] for n in nodes]

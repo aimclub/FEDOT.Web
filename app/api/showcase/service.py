@@ -1,25 +1,17 @@
 import pickle
 from typing import List, Optional
 
-from flask import url_for
-
 from app import storage
-from app.api.analytics.service import get_metrics_for_chain
 from app.api.chains.service import chain_by_uid, get_chain_metadata
 from app.api.data.service import get_dataset_metadata
 from init.init_cases import add_case_to_db
 from .models import ShowcaseItem
+from .showcase_utils import _prepare_icon_path, showcase_item_from_db
+from ..analytics.chain_analytics import get_metrics_for_chain
 
 
 def showcase_item_by_uid(case_id: str) -> ShowcaseItem:
-    dumped_item = storage.db.cases.find_one({'case_id': case_id})
-    icon_path = _prepare_icon_path(dumped_item)
-    item = ShowcaseItem(case_id=dumped_item['case_id'],
-                        title=dumped_item['title'],
-                        icon_path=icon_path,
-                        description=dumped_item['description'],
-                        chain_id=dumped_item['chain_id'],
-                        metadata=pickle.loads(dumped_item['metadata']))
+    item = showcase_item_from_db(case_id)
     return item
 
 
@@ -68,12 +60,3 @@ def all_showcase_items_ids() -> List[str]:
     items = storage.db.cases.find()
     ids = [item['case_id'] for item in items if 'case_id' in item]
     return ids
-
-
-def _prepare_icon_path(dumped_item):
-    if 'cases_icons' not in dumped_item["icon_path"]:
-        icon_path = url_for('static', filename=f'cases_icons/{dumped_item["icon_path"]}',
-                            _external=True)
-    else:
-        icon_path = dumped_item["icon_path"]
-    return icon_path

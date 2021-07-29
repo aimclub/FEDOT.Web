@@ -5,6 +5,7 @@ from flask_accepts import accepts, responds
 from flask_cors import cross_origin
 from flask_restx import Namespace, Resource
 
+from app import storage
 from .chain_convert_utils import chain_to_graph, graph_to_chain
 from .models import ChainGraph, ChainResponse, ChainValidationResponse, ChainImage
 from .schema import (ChainGraphSchema, ChainResponseSchema,
@@ -64,7 +65,7 @@ class ChainsAddResource(Resource):
         chain = graph_to_chain(graph)
         is_correct = validate_chain(chain)
         if is_correct:
-            uid, is_exists = create_chain(graph['uid'], chain)
+            uid, is_exists = create_chain(storage.db, graph['uid'], chain)
             return ChainResponse(uid, is_exists)
         else:
             return ChainResponse(None, False)
