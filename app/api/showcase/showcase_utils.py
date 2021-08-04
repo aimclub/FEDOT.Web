@@ -13,7 +13,7 @@ def showcase_item_from_db(case_id: str) -> ShowcaseItem:
                         title=dumped_item['title'],
                         icon_path=icon_path,
                         description=dumped_item['description'],
-                        chain_id=dumped_item['chain_id'],
+                        pipeline_id=dumped_item['pipeline_id'],
                         metadata=pickle.loads(dumped_item['metadata']))
     return item
 

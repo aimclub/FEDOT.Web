@@ -81,7 +81,7 @@ def get_population_analytics(case_id, analytic_type: str) -> BoxPlotData:
     if analytic_type == 'pheno':
         y_gen = [[abs(i.fitness) for i in gen] for gen in history.individuals]
     elif analytic_type == 'geno':
-        y_gen = [[abs(i.chain.depth) for i in gen] for gen in history.individuals]
+        y_gen = [[abs(i.graph.depth) for i in gen] for gen in history.individuals]
     else:
         raise ValueError(f'Analytic type {analytic_type} not recognized')
 
@@ -94,22 +94,22 @@ def get_population_analytics(case_id, analytic_type: str) -> BoxPlotData:
     return output
 
 
-def _test_prediction_for_chain(case, chain):
+def _test_prediction_for_pipeline(case, pipeline):
     train_data = get_input_data(dataset_name=case.metadata.dataset_name, sample_type='train')
 
-    if not chain.is_fitted:
-        chain.fit(train_data)
+    if not pipeline.is_fitted:
+        pipeline.fit(train_data)
 
     test_data = get_input_data(dataset_name=case.metadata.dataset_name, sample_type='test')
-    prediction = chain.predict(test_data)
+    prediction = pipeline.predict(test_data)
     return test_data, prediction
 
 
-def get_modelling_results(case, chain, baseline_chain=None) -> PlotData:
-    _, prediction = _test_prediction_for_chain(case, chain)
+def get_modelling_results(case, pipeline, baseline_pipeline=None) -> PlotData:
+    _, prediction = _test_prediction_for_pipeline(case, pipeline)
     baseline_prediction = None
-    if baseline_chain:
-        _, baseline_prediction = _test_prediction_for_chain(case, baseline_chain)
+    if baseline_pipeline:
+        _, baseline_prediction = _test_prediction_for_pipeline(case, baseline_pipeline)
     y_bnd = None
     if case.metadata.task_name == 'classification':
         y_title = 'Probability'

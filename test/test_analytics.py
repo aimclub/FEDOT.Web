@@ -6,9 +6,9 @@ def test_quality_endpoint(client):
 
 
 def test_results_endpoint(client):
-    chain_id = 'best_scoring_chain'
+    pipeline_id = 'best_scoring_pipeline'
     case_id = 'scoring'
-    results_plot = client.get(f'api/analytics/results/{case_id}/{chain_id}').json
+    results_plot = client.get(f'api/analytics/results/{case_id}/{pipeline_id}').json
 
     assert 'series' in results_plot
     assert 1 <= len(results_plot['series']) <= 2

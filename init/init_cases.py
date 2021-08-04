@@ -20,7 +20,7 @@ def create_default_cases(db):
                      ' Behavioural scoring involves an assessment of creditworthiness based on information '
                      'about the borrower, characterizing his behaviour and habits and '
                      'obtained from various sources.'),
-        chain_id='best_scoring_chain',
+        pipeline_id='best_scoring_pipeline',
         metadata=Metadata(metric_name='roc_auc', task_name='classification', dataset_name='scoring'), )
 
     metocean_case = ShowcaseItem(
@@ -33,7 +33,7 @@ def create_default_cases(db):
                      'In this application example, we will demonstrate the capabilities of '
                      'the FEDOT framework '
                      'in time series forecasting'),
-        chain_id='best_metocean_chain',
+        pipeline_id='best_metocean_pipeline',
         metadata=Metadata(metric_name='rmse', task_name='ts_forecasting', dataset_name='metocean')
     )
 
@@ -47,7 +47,7 @@ def create_default_cases(db):
                      'In order to conduct an experiment using the'
                      'framework, we took 13 models to compare the results obtained by each of the '
                      'models and the optimal version built by AutoML.'),
-        chain_id='best_oil_chain',
+        pipeline_id='best_oil_pipeline',
         metadata=Metadata(metric_name='rmse', task_name='regression', dataset_name='oil'))
 
     add_case_to_db(db, scoring_case)
@@ -71,7 +71,7 @@ def add_case_to_db(db, case):
         'title': case.title,
         'icon_path': case.icon_path,
         'description': case.description,
-        'chain_id': case.chain_id,
+        'pipeline_id': case.pipeline_id,
         'metadata': pickle.dumps(case.metadata),
         'details': case.details
     }

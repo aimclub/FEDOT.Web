@@ -10,10 +10,10 @@ if __name__ == '__main__':
     client = pymongo.MongoClient(os.getenv('MONGO_CONN_STRING'))
     db = client[database_name]
 
-    chains = db.chains.find()
-    with open(os.path.join(project_root(), 'test/fixtures/chains.json'), 'w') as f:
-        f.write(json_util.dumps(chains))
-        print('chains are mocked')
+    pipelines = db.pipelines.find()
+    with open(os.path.join(project_root(), 'test/fixtures/pipelines.json'), 'w') as f:
+        f.write(json_util.dumps(pipelines))
+        print('pipelines are mocked')
 
     dicts_fitted_operations = db.dict_fitted_operations.find()
     with open(os.path.join(project_root(), 'test/fixtures/dict_fitted_operations.json'), 'w') as f:

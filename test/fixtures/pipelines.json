@@ -1,0 +1,7461 @@
+[
+  {
+    "_id": {
+      "$oid": "610afe6ed3f0320663a22e2f"
+    },
+    "total_pipeline_operations": [
+      "logit",
+      "knn",
+      "pca",
+      "xgboost",
+      "lda"
+    ],
+    "depth": 4,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "logit",
+        "operation_name": "LogisticRegression",
+        "custom_params": "default_params",
+        "params": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 100,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": null,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "knn",
+        "operation_name": "CustomKnnClassImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "algorithm": "auto",
+          "leaf_size": 30,
+          "metric": "minkowski",
+          "metric_params": null,
+          "n_jobs": null,
+          "n_neighbors": 5,
+          "p": 2,
+          "weights": "uniform"
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_4.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "pca",
+        "operation_name": "PCAImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "iterated_power": "auto",
+          "n_components": "mle",
+          "random_state": null,
+          "svd_solver": "full",
+          "tol": 0.0,
+          "whiten": false
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          4,
+          5
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_3.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2,
+          3
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 7,
+        "operation_type": "logit",
+        "operation_name": "LogisticRegression",
+        "custom_params": "default_params",
+        "params": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 100,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": null,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_7.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 8,
+        "operation_type": "lda",
+        "operation_name": "LDAImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "covariance_estimator": null,
+          "n_components": null,
+          "priors": null,
+          "shrinkage": null,
+          "solver": "svd",
+          "store_covariance": false,
+          "tol": 0.0001
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_8.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 6,
+        "operation_type": "knn",
+        "operation_name": "CustomKnnClassImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "algorithm": "auto",
+          "leaf_size": 30,
+          "metric": "minkowski",
+          "metric_params": null,
+          "n_jobs": null,
+          "n_neighbors": 5,
+          "p": 2,
+          "weights": "uniform"
+        },
+        "nodes_from": [
+          7,
+          8
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_6.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          1,
+          6
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(((/n_knn_default_params;;/n_pca_default_params;)/n_xgboost_default_params;;/n_logit_default_params;)/n_xgboost_default_params;;(/n_lda_default_params;;/n_logit_default_params;)/n_knn_default_params;)/n_xgboost_default_params",
+    "uid": "best_scoring_pipeline"
+  },
+  {
+    "_id": {
+      "$oid": "610afe70d3f0320663a22e31"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "logit",
+      "knn"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "logit",
+        "operation_name": "LogisticRegression",
+        "custom_params": "default_params",
+        "params": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 100,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": null,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "knn",
+        "operation_name": "CustomKnnClassImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "algorithm": "auto",
+          "leaf_size": 30,
+          "metric": "minkowski",
+          "metric_params": null,
+          "n_jobs": null,
+          "n_neighbors": 5,
+          "p": 2,
+          "weights": "uniform"
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_3.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "logit",
+        "operation_name": "LogisticRegression",
+        "custom_params": "default_params",
+        "params": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 100,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": null,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_logit_default_params;;/n_knn_default_params;)/n_logit_default_params",
+    "uid": "scoring_pipeline_1"
+  },
+  {
+    "_id": {
+      "$oid": "610afe71d3f0320663a22e33"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "logit",
+      "knn"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "logit",
+        "operation_name": "LogisticRegression",
+        "custom_params": "default_params",
+        "params": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 100,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": null,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_4.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "knn",
+        "operation_name": "CustomKnnClassImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "algorithm": "auto",
+          "leaf_size": 30,
+          "metric": "minkowski",
+          "metric_params": null,
+          "n_jobs": null,
+          "n_neighbors": 5,
+          "p": 2,
+          "weights": "uniform"
+        },
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_3.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "logit",
+        "operation_name": "LogisticRegression",
+        "custom_params": "default_params",
+        "params": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 100,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": null,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_knn_default_params;;(/n_scaling_default_params;)/n_logit_default_params;)/n_logit_default_params",
+    "uid": "scoring_pipeline_2"
+  },
+  {
+    "_id": {
+      "$oid": "610afe72d3f0320663a22e35"
+    },
+    "total_pipeline_operations": [
+      "logit"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "logit",
+        "operation_name": "LogisticRegression",
+        "custom_params": "default_params",
+        "params": {
+          "C": 1.0,
+          "class_weight": null,
+          "dual": false,
+          "fit_intercept": true,
+          "intercept_scaling": 1,
+          "l1_ratio": null,
+          "max_iter": 100,
+          "multi_class": "auto",
+          "n_jobs": null,
+          "penalty": "l2",
+          "random_state": null,
+          "solver": "lbfgs",
+          "tol": 0.0001,
+          "verbose": 0,
+          "warm_start": false
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_logit_default_params",
+    "uid": "scoring_baseline"
+  },
+  {
+    "_id": {
+      "$oid": "610afe73d3f0320663a22e37"
+    },
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_default_params;)/n_ridge_default_params",
+    "uid": "best_metocean_pipeline"
+  },
+  {
+    "_id": {
+      "$oid": "610afe73d3f0320663a22e39"
+    },
+    "total_pipeline_operations": [
+      "lagged",
+      "linear"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "linear",
+        "operation_name": "LinearRegression",
+        "custom_params": "default_params",
+        "params": {
+          "copy_X": true,
+          "fit_intercept": true,
+          "n_jobs": null,
+          "normalize": false,
+          "positive": false
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_default_params;)/n_linear_default_params",
+    "uid": "metocean_baseline"
+  },
+  {
+    "_id": {
+      "$oid": "610afe74d3f0320663a22e3b"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 2,
+        "operation_type": "xgbreg",
+        "operation_name": "MultiOutputRegressor",
+        "custom_params": "default_params",
+        "params": {
+          "estimator__objective": "reg:squarederror",
+          "estimator__base_score": null,
+          "estimator__booster": null,
+          "estimator__colsample_bylevel": null,
+          "estimator__colsample_bynode": null,
+          "estimator__colsample_bytree": null,
+          "estimator__gamma": null,
+          "estimator__gpu_id": null,
+          "estimator__importance_type": "gain",
+          "estimator__interaction_constraints": null,
+          "estimator__learning_rate": null,
+          "estimator__max_delta_step": null,
+          "estimator__max_depth": null,
+          "estimator__min_child_weight": null,
+          "estimator__missing": NaN,
+          "estimator__monotone_constraints": null,
+          "estimator__n_estimators": 100,
+          "estimator__n_jobs": null,
+          "estimator__num_parallel_tree": null,
+          "estimator__random_state": null,
+          "estimator__reg_alpha": null,
+          "estimator__reg_lambda": null,
+          "estimator__scale_pos_weight": null,
+          "estimator__subsample": null,
+          "estimator__tree_method": null,
+          "estimator__validate_parameters": false,
+          "estimator__verbosity": null,
+          "n_jobs": null
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1,
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;;/n_xgbreg_default_params;)/n_ridge_default_params",
+    "uid": "best_oil_pipeline"
+  },
+  {
+    "_id": {
+      "$oid": "610afe75d3f0320663a22e3d"
+    },
+    "total_pipeline_operations": [
+      "ridge"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_ridge_default_params",
+    "uid": "oil_baseline"
+  },
+  {
+    "_id": {
+      "$oid": "610aff06d3f0320663a22e40"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost",
+      "class_decompose",
+      "linear",
+      "qda"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "class_decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "qda",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_qda_default_params",
+    "uid": "a7e60903-d87f-418b-b383-d8bc83f5f63f"
+  },
+  {
+    "_id": {
+      "$oid": "610aff06d3f0320663a22e41"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "normalization",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "normalization",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_normalization_default_params;)/n_xgboost_default_params",
+    "uid": "f5d90431-da4b-4fc3-bffb-92b0e46b8735"
+  },
+  {
+    "_id": {
+      "$oid": "610aff06d3f0320663a22e42"
+    },
+    "total_pipeline_operations": [
+      "xgboost"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgboost_default_params",
+    "uid": "e35a77c6-b496-44f3-ac7f-2ee03292328a"
+  },
+  {
+    "_id": {
+      "$oid": "610aff07d3f0320663a22e43"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "9f09ce34-4674-4547-bc8d-5ac9ca6c3cf0"
+  },
+  {
+    "_id": {
+      "$oid": "610aff07d3f0320663a22e44"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "logit",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "logit",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_logit_default_params;)/n_xgboost_default_params",
+    "uid": "ad175cca-f7d6-4c70-abb4-44369849de71"
+  },
+  {
+    "_id": {
+      "$oid": "610aff07d3f0320663a22e45"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost",
+      "class_decompose",
+      "linear",
+      "knn"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "class_decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "knn",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_knn_default_params",
+    "uid": "c9dad285-20f4-46c7-ad8c-5898aac6178b"
+  },
+  {
+    "_id": {
+      "$oid": "610aff08d3f0320663a22e46"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "qda",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "qda",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_qda_default_params;)/n_xgboost_default_params",
+    "uid": "f126bb10-f361-4cda-a9f1-9ca4b2655b8a"
+  },
+  {
+    "_id": {
+      "$oid": "610aff08d3f0320663a22e47"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "8853efb5-49d9-47a0-a8a3-34efddc82fa3"
+  },
+  {
+    "_id": {
+      "$oid": "610aff08d3f0320663a22e48"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "pca",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "pca",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_pca_default_params;)/n_xgboost_default_params",
+    "uid": "c6c18e80-183c-452c-abb1-6721e221474e"
+  },
+  {
+    "_id": {
+      "$oid": "610aff09d3f0320663a22e49"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "8c9bb264-a18a-41c7-8525-141f50c8ae13"
+  },
+  {
+    "_id": {
+      "$oid": "610aff09d3f0320663a22e4a"
+    },
+    "total_pipeline_operations": [
+      "xgboost"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgboost_default_params",
+    "uid": "937d2bb1-c570-4646-ac59-fdc4165aafd2"
+  },
+  {
+    "_id": {
+      "$oid": "610aff09d3f0320663a22e4b"
+    },
+    "total_pipeline_operations": [
+      "one_hot_encoding",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "one_hot_encoding",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_one_hot_encoding_default_params;)/n_xgboost_default_params",
+    "uid": "fadca06a-c177-4b84-876f-f3b37e6703ef"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0ad3f0320663a22e4c"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "9d8e6d98-61e7-4ceb-a91f-ee8818de6a6f"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0ad3f0320663a22e4d"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "450d694e-1f11-48e9-9b71-d1e4c2e2ebea"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0bd3f0320663a22e4e"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "one_hot_encoding",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "one_hot_encoding",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_one_hot_encoding_default_params;)/n_xgboost_default_params",
+    "uid": "dea172d6-deef-44a4-9dce-c4ad18be3cce"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0bd3f0320663a22e4f"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "1bf6efd7-02ea-45b3-9aec-46fff75637ca"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0bd3f0320663a22e50"
+    },
+    "total_pipeline_operations": [
+      "xgboost"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgboost_default_params",
+    "uid": "db4182c8-5532-43f1-bdc6-c63b76619320"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0cd3f0320663a22e51"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "7353b57c-642b-4a6b-88e6-36850b80272e"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0dd3f0320663a22e52"
+    },
+    "total_pipeline_operations": [
+      "xgboost"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgboost_default_params",
+    "uid": "76bce347-b4b3-4e1b-95d8-aae67c6d3fab"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0dd3f0320663a22e53"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "379fbf15-ea05-467b-937b-0b09c1cc6dc7"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0ed3f0320663a22e54"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost",
+      "class_decompose",
+      "linear",
+      "lgbm"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "class_decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lgbm",
+        "operation_name": null,
+        "custom_params": {
+          "num_leaves": 32,
+          "colsample_bytree": 0.8,
+          "subsample": 0.8,
+          "subsample_freq": 10,
+          "learning_rate": 0.03,
+          "n_estimators": 3000,
+          "verbose": -1
+        },
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_lgbm_{'num_leaves': 32, 'colsample_bytree': 0.8, 'subsample': 0.8, 'subsample_freq': 10, 'learning_rate': 0.03, 'n_estimators': 3000, 'verbose': -1}",
+    "uid": "4fd4c760-9da1-4181-92ff-bf4bc2526091"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0ed3f0320663a22e55"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "d018fc4f-a4a5-462e-b9b9-6924b2fa3cbf"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0fd3f0320663a22e56"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "245c869b-3627-41ce-9eb0-a31af4a16003"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0fd3f0320663a22e57"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "931dc1b0-b627-4f56-8ab6-4ac7e286e78e"
+  },
+  {
+    "_id": {
+      "$oid": "610aff0fd3f0320663a22e58"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost",
+      "class_decompose",
+      "linear",
+      "logit"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "class_decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "logit",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_logit_default_params",
+    "uid": "d7690a05-5d35-414c-aa8c-ab74795d297b"
+  },
+  {
+    "_id": {
+      "$oid": "610aff10d3f0320663a22e59"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "07a33fa7-227f-4d3a-b6a3-2a851e5c4109"
+  },
+  {
+    "_id": {
+      "$oid": "610aff10d3f0320663a22e5a"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "qda"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "qda",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_qda_default_params",
+    "uid": "56651b01-badb-4b88-945d-2a7c3aba6bbe"
+  },
+  {
+    "_id": {
+      "$oid": "610aff11d3f0320663a22e5b"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "normalization",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "normalization",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_normalization_default_params;)/n_xgboost_default_params",
+    "uid": "d453946c-4f86-42e5-8186-3a33b9bf52cb"
+  },
+  {
+    "_id": {
+      "$oid": "610aff12d3f0320663a22e5c"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "normalization",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "normalization",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_normalization_default_params;)/n_xgboost_default_params",
+    "uid": "780f933a-39b4-442e-964f-f5efbec5b4c1"
+  },
+  {
+    "_id": {
+      "$oid": "610aff12d3f0320663a22e5d"
+    },
+    "total_pipeline_operations": [
+      "xgboost"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgboost_default_params",
+    "uid": "eb68d043-8bd5-4a48-8b92-40c6e9739c19"
+  },
+  {
+    "_id": {
+      "$oid": "610aff12d3f0320663a22e5e"
+    },
+    "total_pipeline_operations": [
+      "xgboost"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgboost_default_params",
+    "uid": "c11df75c-b3e8-4f45-9e66-b14572bc0bdf"
+  },
+  {
+    "_id": {
+      "$oid": "610aff13d3f0320663a22e5f"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "1d98206d-3249-4ba5-9dfd-7a65729ca261"
+  },
+  {
+    "_id": {
+      "$oid": "610aff13d3f0320663a22e60"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "6e1fca4a-71ee-4e5a-a2e6-a99ff6e92372"
+  },
+  {
+    "_id": {
+      "$oid": "610aff14d3f0320663a22e61"
+    },
+    "total_pipeline_operations": [
+      "xgboost"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgboost_default_params",
+    "uid": "8999628e-b9e1-4f58-82ae-87b43cf4b599"
+  },
+  {
+    "_id": {
+      "$oid": "610aff15d3f0320663a22e63"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost",
+      "class_decompose",
+      "linear",
+      "lda"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "class_decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lda",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_lda_default_params",
+    "uid": "0f38f378-7c2f-4032-8864-ed265216bf38"
+  },
+  {
+    "_id": {
+      "$oid": "610aff16d3f0320663a22e64"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "bb76f6d5-692f-484d-90d3-216b70bb668a"
+  },
+  {
+    "_id": {
+      "$oid": "610aff16d3f0320663a22e65"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "b63e5557-d593-4e2a-aae5-11ceaf1fdc30"
+  },
+  {
+    "_id": {
+      "$oid": "610aff17d3f0320663a22e66"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "9913d99b-6adb-4075-b900-9abf54dca669"
+  },
+  {
+    "_id": {
+      "$oid": "610aff18d3f0320663a22e67"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "9c182e13-2a7b-410c-b18a-44002a44bcda"
+  },
+  {
+    "_id": {
+      "$oid": "610aff18d3f0320663a22e68"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "a5aa0a82-c138-43f3-99ed-e523b416f697"
+  },
+  {
+    "_id": {
+      "$oid": "610aff19d3f0320663a22e69"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "8430b59a-26e9-4da5-b641-233f98ecc1dd"
+  },
+  {
+    "_id": {
+      "$oid": "610aff19d3f0320663a22e6a"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "7f6f934e-fff7-4451-a46e-912db2c25ea1"
+  },
+  {
+    "_id": {
+      "$oid": "610aff19d3f0320663a22e6b"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "4e5119b2-ccf7-4c44-bb33-856456d42d43"
+  },
+  {
+    "_id": {
+      "$oid": "610aff1ad3f0320663a22e6c"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "a9f1c499-6c2c-4dbd-bbf1-c28a7ed9396b"
+  },
+  {
+    "_id": {
+      "$oid": "610aff1ad3f0320663a22e6d"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "1f139036-49c3-4f9d-9110-7a8bea93c71b"
+  },
+  {
+    "_id": {
+      "$oid": "610aff1bd3f0320663a22e6e"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "3ddcf6aa-83ae-467f-af18-f9ede83c4771"
+  },
+  {
+    "_id": {
+      "$oid": "610aff1bd3f0320663a22e6f"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "49004f61-bc92-4255-b14f-82351c0269b3"
+  },
+  {
+    "_id": {
+      "$oid": "610aff1cd3f0320663a22e70"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "397590ac-6930-486c-8ee8-cf0012236674"
+  },
+  {
+    "_id": {
+      "$oid": "610aff1cd3f0320663a22e71"
+    },
+    "total_pipeline_operations": [
+      "pca",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "pca",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_pca_default_params;)/n_xgboost_default_params",
+    "uid": "5fb1133b-2052-458e-a6e5-efe8aabf229a"
+  },
+  {
+    "_id": {
+      "$oid": "610aff1dd3f0320663a22e72"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "bea492f4-fd1e-4782-a72c-1fc5810cdfa6"
+  },
+  {
+    "_id": {
+      "$oid": "610aff1dd3f0320663a22e73"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "4c8c347d-20b3-4789-bb11-f7f6b17cede3"
+  },
+  {
+    "_id": {
+      "$oid": "610aff1ed3f0320663a22e74"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "9190cb60-cc43-4bc0-aa98-107436afb3f2"
+  },
+  {
+    "_id": {
+      "$oid": "610aff1ed3f0320663a22e75"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "52e1e3aa-bf72-42ca-b6b0-6694ba7be19d"
+  },
+  {
+    "_id": {
+      "$oid": "610aff1fd3f0320663a22e77"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_xgboost_default_params;)/n_xgboost_default_params",
+    "uid": "f7d1e596-7e19-43b9-8126-52446e651ef1"
+  },
+  {
+    "_id": {
+      "$oid": "610aff20d3f0320663a22e78"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "784021c9-3b14-43b2-9c98-77b6862735db"
+  },
+  {
+    "_id": {
+      "$oid": "610aff20d3f0320663a22e79"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_xgboost_default_params;)/n_xgboost_default_params",
+    "uid": "e8ad9c07-2feb-48cc-877f-d116a6f86071"
+  },
+  {
+    "_id": {
+      "$oid": "610aff21d3f0320663a22e7a"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_xgboost_default_params;)/n_xgboost_default_params",
+    "uid": "cafd9936-f445-4ddb-bae1-7a0b57e34fe2"
+  },
+  {
+    "_id": {
+      "$oid": "610aff21d3f0320663a22e7b"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_xgboost_default_params;)/n_xgboost_default_params",
+    "uid": "746d7faa-2fbf-45cd-a043-5e2dad4d46c3"
+  },
+  {
+    "_id": {
+      "$oid": "610aff21d3f0320663a22e7c"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "7dc62e0c-7d68-486d-869d-e9f6e03b5a2f"
+  },
+  {
+    "_id": {
+      "$oid": "610aff22d3f0320663a22e7d"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "catboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "catboost",
+        "operation_name": null,
+        "custom_params": {
+          "allow_writing_files": false,
+          "verbose": false
+        },
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_catboost_{'allow_writing_files': False, 'verbose': False}",
+    "uid": "a8db0e1a-33c7-4323-8fd6-53377570fc7c"
+  },
+  {
+    "_id": {
+      "$oid": "610aff23d3f0320663a22e7e"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "a92225e6-ecb6-4329-ad4b-6d24bb6f76a6"
+  },
+  {
+    "_id": {
+      "$oid": "610aff25d3f0320663a22e7f"
+    },
+    "total_pipeline_operations": [
+      "rfe_non_lin_class",
+      "rfe_lin_class",
+      "normalization",
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "rfe_non_lin_class",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "rfe_lin_class",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "normalization",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2,
+          3,
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_normalization_default_params;;/n_rfe_lin_class_default_params;;/n_rfe_non_lin_class_default_params;)/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "72e770a0-94b4-4d98-a2f6-4f5f5e3e736c"
+  },
+  {
+    "_id": {
+      "$oid": "610aff25d3f0320663a22e80"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost",
+      "class_decompose",
+      "linear",
+      "logit"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "class_decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "logit",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_logit_default_params",
+    "uid": "110d0709-94c6-4c9d-b63f-72e09bca50a7"
+  },
+  {
+    "_id": {
+      "$oid": "610aff26d3f0320663a22e81"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost",
+      "class_decompose",
+      "linear",
+      "logit"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "class_decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "logit",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_logit_default_params",
+    "uid": "9a7362f0-bc95-4799-8b07-0c8f0cec8973"
+  },
+  {
+    "_id": {
+      "$oid": "610aff27d3f0320663a22e82"
+    },
+    "total_pipeline_operations": [
+      "xgboost"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgboost_default_params",
+    "uid": "5066c0ef-0373-44d5-ad96-7f838ba5bfef"
+  },
+  {
+    "_id": {
+      "$oid": "610aff28d3f0320663a22e83"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "normalization",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "normalization",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_normalization_default_params;)/n_xgboost_default_params",
+    "uid": "1efab476-d95b-4671-ac03-e3bcf1411baa"
+  },
+  {
+    "_id": {
+      "$oid": "610aff28d3f0320663a22e84"
+    },
+    "total_pipeline_operations": [
+      "xgboost"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgboost_default_params",
+    "uid": "582ef8ab-5fa9-439b-a32f-7b254186548c"
+  },
+  {
+    "_id": {
+      "$oid": "610aff29d3f0320663a22e85"
+    },
+    "total_pipeline_operations": [
+      "rfe_lin_class",
+      "rfe_non_lin_class",
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "rfe_lin_class",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "rfe_non_lin_class",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_rfe_lin_class_default_params;;/n_rfe_non_lin_class_default_params;)/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "683bfaa0-75dc-4d02-9057-9d5e0a10bfc9"
+  },
+  {
+    "_id": {
+      "$oid": "610aff29d3f0320663a22e86"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost",
+      "class_decompose",
+      "linear",
+      "lda"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "class_decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lda",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_lda_default_params",
+    "uid": "92ebb180-7066-456d-a2c0-10bac3b4500c"
+  },
+  {
+    "_id": {
+      "$oid": "610aff2ad3f0320663a22e87"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost",
+      "class_decompose",
+      "linear",
+      "catboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "class_decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "catboost",
+        "operation_name": null,
+        "custom_params": {
+          "allow_writing_files": false,
+          "verbose": false
+        },
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_catboost_{'allow_writing_files': False, 'verbose': False}",
+    "uid": "ddb23922-f762-46a7-ba71-2268d5efa9f8"
+  },
+  {
+    "_id": {
+      "$oid": "610aff2ad3f0320663a22e88"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": "185c0ade-500c-4ee8-9fb5-ad94f9d165ad"
+  },
+  {
+    "_id": {
+      "$oid": "610affb2d3f0320663a22e8a"
+    },
+    "total_pipeline_operations": [
+      "lagged",
+      "lgbmreg",
+      "ridge"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "lagged",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "lgbmreg",
+        "operation_name": null,
+        "custom_params": {
+          "num_leaves": 32,
+          "colsample_bytree": 0.8,
+          "subsample": 0.8,
+          "subsample_freq": 10,
+          "learning_rate": 0.03,
+          "n_estimators": 3000,
+          "verbose": -1
+        },
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_lagged_default_params;)/n_lgbmreg_{'num_leaves': 32, 'colsample_bytree': 0.8, 'subsample': 0.8, 'subsample_freq': 10, 'learning_rate': 0.03, 'n_estimators': 3000, 'verbose': -1};)/n_ridge_default_params",
+    "uid": "67b68d33-cd72-4356-b0fb-5a10cfd02d35"
+  },
+  {
+    "_id": {
+      "$oid": "610affb2d3f0320663a22e8b"
+    },
+    "total_pipeline_operations": [
+      "lagged",
+      "linear",
+      "ridge"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "lagged",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_lagged_default_params;)/n_linear_default_params;)/n_ridge_default_params",
+    "uid": "d07ddad4-45d6-46af-a3ff-5cd08f659f12"
+  },
+  {
+    "_id": {
+      "$oid": "610affb3d3f0320663a22e8c"
+    },
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_default_params;)/n_ridge_default_params",
+    "uid": "e84fe97e-fd11-447f-8cbf-26d0f0562803"
+  },
+  {
+    "_id": {
+      "$oid": "610affb3d3f0320663a22e8d"
+    },
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge",
+      "xgbreg"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "lagged",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "ridge",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_lagged_default_params;)/n_ridge_default_params;)/n_xgbreg_default_params",
+    "uid": "ad128b7d-097a-4f0a-a202-e4f156237f75"
+  },
+  {
+    "_id": {
+      "$oid": "610affb3d3f0320663a22e8e"
+    },
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_default_params;)/n_ridge_default_params",
+    "uid": "312c9e1a-dd99-4763-b1fe-ca652b2ee664"
+  },
+  {
+    "_id": {
+      "$oid": "610affb4d3f0320663a22e8f"
+    },
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_default_params;)/n_ridge_default_params",
+    "uid": "a24dc607-7957-4eaa-8cd1-159444dc7255"
+  },
+  {
+    "_id": {
+      "$oid": "610affb4d3f0320663a22e90"
+    },
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_default_params;)/n_ridge_default_params",
+    "uid": "4a45f727-cd73-429a-8dcc-23ae183a22f8"
+  },
+  {
+    "_id": {
+      "$oid": "610affb4d3f0320663a22e91"
+    },
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_default_params;)/n_ridge_default_params",
+    "uid": "9286abd2-9a87-454a-a931-2742c4712892"
+  },
+  {
+    "_id": {
+      "$oid": "610affb5d3f0320663a22e92"
+    },
+    "total_pipeline_operations": [
+      "lagged",
+      "svr",
+      "ridge"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "lagged",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "svr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_lagged_default_params;)/n_svr_default_params;)/n_ridge_default_params",
+    "uid": "25560757-6412-449d-9db0-e575cfaab446"
+  },
+  {
+    "_id": {
+      "$oid": "610b0037d3f0320663a22e94"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_linear_default_params",
+    "uid": "50a53125-8899-4e03-96ca-b6eec270a753"
+  },
+  {
+    "_id": {
+      "$oid": "610b0037d3f0320663a22e95"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "poly_features",
+      "xgbreg"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "poly_features",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_poly_features_default_params;)/n_xgbreg_default_params",
+    "uid": "9fd314c5-69ae-445e-a909-f430ef3c347f"
+  },
+  {
+    "_id": {
+      "$oid": "610b0037d3f0320663a22e96"
+    },
+    "total_pipeline_operations": [
+      "xgbreg"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgbreg_default_params",
+    "uid": "96a16637-6b63-4061-9365-76c8985f2462"
+  },
+  {
+    "_id": {
+      "$oid": "610b0038d3f0320663a22e97"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgbreg_default_params",
+    "uid": "21047a9b-1952-470a-acfa-c4141044d473"
+  },
+  {
+    "_id": {
+      "$oid": "610b0038d3f0320663a22e98"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "lgbmreg",
+      "xgbreg"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "lgbmreg",
+        "operation_name": null,
+        "custom_params": {
+          "num_leaves": 32,
+          "colsample_bytree": 0.8,
+          "subsample": 0.8,
+          "subsample_freq": 10,
+          "learning_rate": 0.03,
+          "n_estimators": 3000,
+          "verbose": -1
+        },
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_lgbmreg_{'num_leaves': 32, 'colsample_bytree': 0.8, 'subsample': 0.8, 'subsample_freq': 10, 'learning_rate': 0.03, 'n_estimators': 3000, 'verbose': -1};)/n_xgbreg_default_params",
+    "uid": "abda504b-2a2e-4d29-8ff5-8ac846e648a3"
+  },
+  {
+    "_id": {
+      "$oid": "610b0038d3f0320663a22e99"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear",
+      "gbr"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "73f1f2e6-8c75-4692-b385-8311522497d3"
+  },
+  {
+    "_id": {
+      "$oid": "610b0039d3f0320663a22e9a"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params",
+    "uid": "a21a7414-785c-4e29-9892-6e5b2028c82b"
+  },
+  {
+    "_id": {
+      "$oid": "610b0039d3f0320663a22e9b"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgbreg_default_params",
+    "uid": "96f9e807-427b-4bac-82ad-ccccf130f88b"
+  },
+  {
+    "_id": {
+      "$oid": "610b0039d3f0320663a22e9c"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "rfe_non_lin_reg",
+      "xgbreg"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "rfe_non_lin_reg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_rfe_non_lin_reg_default_params;)/n_xgbreg_default_params",
+    "uid": "f16fa34a-9b6a-450a-9125-2db6d0f45024"
+  },
+  {
+    "_id": {
+      "$oid": "610b003ad3f0320663a22e9d"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgbreg_default_params",
+    "uid": "2bcdfce9-4733-4344-956d-2e1c45cc1631"
+  },
+  {
+    "_id": {
+      "$oid": "610b003ad3f0320663a22e9e"
+    },
+    "total_pipeline_operations": [
+      "xgbreg"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgbreg_default_params",
+    "uid": "e4b75ac6-babf-4f42-abc0-baf9b7ceab26"
+  },
+  {
+    "_id": {
+      "$oid": "610b003ad3f0320663a22e9f"
+    },
+    "total_pipeline_operations": [
+      "pca",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "pca",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_pca_default_params;)/n_xgbreg_default_params",
+    "uid": "103b5256-ece3-42be-ab64-e363eb8fd749"
+  },
+  {
+    "_id": {
+      "$oid": "610b003bd3f0320663a22ea0"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgbreg_default_params",
+    "uid": "fe48a151-f71b-47de-b3b0-1345722d3413"
+  },
+  {
+    "_id": {
+      "$oid": "610b003bd3f0320663a22ea1"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgbreg_default_params",
+    "uid": "94b4687a-005e-4676-b27a-61b043bc6011"
+  },
+  {
+    "_id": {
+      "$oid": "610b003cd3f0320663a22ea2"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear",
+      "gbr"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "68e8dacb-9275-424c-8779-d37140bb2da1"
+  },
+  {
+    "_id": {
+      "$oid": "610b003cd3f0320663a22ea3"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgbreg_default_params",
+    "uid": "813802bb-cdd7-49bd-a585-0fe9e4ab3c32"
+  },
+  {
+    "_id": {
+      "$oid": "610b003dd3f0320663a22ea4"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params",
+    "uid": "b53d9505-5ee6-4bf7-939f-97cdb9cd27ec"
+  },
+  {
+    "_id": {
+      "$oid": "610b003dd3f0320663a22ea5"
+    },
+    "total_pipeline_operations": [
+      "xgbreg"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgbreg_default_params",
+    "uid": "a20da7c1-6db7-4add-b9d5-46fa10bcbe05"
+  },
+  {
+    "_id": {
+      "$oid": "610b003ed3f0320663a22ea6"
+    },
+    "total_pipeline_operations": [
+      "xgbreg"
+    ],
+    "depth": 1,
+    "nodes": [
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "/n_xgbreg_default_params",
+    "uid": "1e18d932-ffb4-425c-93be-d2af39c3666e"
+  },
+  {
+    "_id": {
+      "$oid": "610b003ed3f0320663a22ea7"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear",
+      "lasso"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lasso",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_lasso_default_params",
+    "uid": "74cfc23e-8468-46e0-be53-085ee448d59b"
+  },
+  {
+    "_id": {
+      "$oid": "610b003fd3f0320663a22ea8"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "pca",
+      "xgbreg"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "pca",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_pca_default_params;)/n_xgbreg_default_params",
+    "uid": "193fc113-2a4d-4665-a47f-0774b3da169f"
+  },
+  {
+    "_id": {
+      "$oid": "610b003fd3f0320663a22ea9"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params",
+    "uid": "f7b03069-b54a-4280-8531-4884c7ef7852"
+  },
+  {
+    "_id": {
+      "$oid": "610b0040d3f0320663a22eaa"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear",
+      "gbr"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "5757bcff-680e-46f0-bb71-d90e657ae174"
+  },
+  {
+    "_id": {
+      "$oid": "610b0040d3f0320663a22eab"
+    },
+    "total_pipeline_operations": [
+      "rfe_non_lin_reg",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "rfe_non_lin_reg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_rfe_non_lin_reg_default_params;)/n_xgbreg_default_params",
+    "uid": "6fe16013-aa09-4f66-803e-7bb50770f08b"
+  },
+  {
+    "_id": {
+      "$oid": "610b0041d3f0320663a22ead"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgbreg_default_params",
+    "uid": "960d2206-defe-475a-ac2b-ed032bfb356a"
+  },
+  {
+    "_id": {
+      "$oid": "610b0041d3f0320663a22eae"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_linear_default_params",
+    "uid": "78aacc2b-3dae-43c4-ac45-bc18e4683670"
+  },
+  {
+    "_id": {
+      "$oid": "610b0042d3f0320663a22eaf"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgbreg_default_params",
+    "uid": "777b63eb-9d87-4ce1-aff0-41d64d76ea59"
+  },
+  {
+    "_id": {
+      "$oid": "610b0042d3f0320663a22eb0"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear",
+      "gbr"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "e171f18b-b660-4468-ae39-e9aadf9c48d0"
+  },
+  {
+    "_id": {
+      "$oid": "610b0043d3f0320663a22eb1"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgbreg_default_params",
+    "uid": "09217816-6924-4a6e-b99a-a8a8714e47fb"
+  },
+  {
+    "_id": {
+      "$oid": "610b0044d3f0320663a22eb2"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgbreg_default_params",
+    "uid": "2294e555-6431-4f51-96ed-8cba5c61d453"
+  },
+  {
+    "_id": {
+      "$oid": "610b0044d3f0320663a22eb3"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params",
+    "uid": "8e6425b9-7072-4d1b-8941-b5ad053e7d5b"
+  },
+  {
+    "_id": {
+      "$oid": "610b0044d3f0320663a22eb4"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear",
+      "gbr"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "bf10c510-cb8a-4dad-99d6-d5e0d8c1361e"
+  },
+  {
+    "_id": {
+      "$oid": "610b0045d3f0320663a22eb5"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear",
+      "lgbmreg"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lgbmreg",
+        "operation_name": null,
+        "custom_params": {
+          "num_leaves": 32,
+          "colsample_bytree": 0.8,
+          "subsample": 0.8,
+          "subsample_freq": 10,
+          "learning_rate": 0.03,
+          "n_estimators": 3000,
+          "verbose": -1
+        },
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_lgbmreg_{'num_leaves': 32, 'colsample_bytree': 0.8, 'subsample': 0.8, 'subsample_freq': 10, 'learning_rate': 0.03, 'n_estimators': 3000, 'verbose': -1}",
+    "uid": "4307ce62-63d0-4ebe-97c4-f0b68a8d613b"
+  },
+  {
+    "_id": {
+      "$oid": "610b0045d3f0320663a22eb6"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg",
+      "decompose",
+      "lgbmreg"
+    ],
+    "depth": 6,
+    "nodes": [
+      {
+        "operation_id": 3,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 2,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 6,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          6
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lgbmreg",
+        "operation_name": null,
+        "custom_params": {
+          "num_leaves": 32,
+          "colsample_bytree": 0.8,
+          "subsample": 0.8,
+          "subsample_freq": 10,
+          "learning_rate": 0.03,
+          "n_estimators": 3000,
+          "verbose": -1
+        },
+        "params": {},
+        "nodes_from": [
+          1,
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(((((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;)/n_lgbmreg_{'num_leaves': 32, 'colsample_bytree': 0.8, 'subsample': 0.8, 'subsample_freq': 10, 'learning_rate': 0.03, 'n_estimators': 3000, 'verbose': -1}",
+    "uid": "d49419e7-2fd5-4e65-8521-dbec02c58ae2"
+  },
+  {
+    "_id": {
+      "$oid": "610b0046d3f0320663a22eb7"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear",
+      "gbr"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "cd580f74-1467-4cd6-bf8a-01691e4a5a0b"
+  },
+  {
+    "_id": {
+      "$oid": "610b0046d3f0320663a22eb9"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear",
+      "gbr"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "5cc0e483-9016-4ebb-80d1-881e1f3cf6e7"
+  },
+  {
+    "_id": {
+      "$oid": "610b0047d3f0320663a22eba"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear",
+      "lasso"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lasso",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_lasso_default_params",
+    "uid": "0835e59b-849d-498c-a3ae-72bc42bf85b5"
+  },
+  {
+    "_id": {
+      "$oid": "610b0048d3f0320663a22ebc"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg",
+      "gbr"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "31c643de-125c-45b2-aea6-0e9c03bdc62c"
+  },
+  {
+    "_id": {
+      "$oid": "610b0049d3f0320663a22ebd"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "linear",
+      "gbr"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "68d265cd-063a-4f8e-bd0c-d4eaa5115606"
+  },
+  {
+    "_id": {
+      "$oid": "610b0049d3f0320663a22ebe"
+    },
+    "total_pipeline_operations": [
+      "xgbreg",
+      "scaling",
+      "decompose",
+      "linear",
+      "gbr"
+    ],
+    "depth": 4,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 2,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(((/n_scaling_default_params;;/n_xgbreg_default_params;)/n_decompose_default_params;)/n_linear_default_params;;/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "54c55070-7f4a-4d32-8452-d8ae6c2061cf"
+  },
+  {
+    "_id": {
+      "$oid": "610b004ad3f0320663a22ebf"
+    },
+    "total_pipeline_operations": [
+      "xgbreg",
+      "scaling",
+      "decompose",
+      "linear",
+      "gbr"
+    ],
+    "depth": 4,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 2,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(((/n_scaling_default_params;;/n_xgbreg_default_params;)/n_decompose_default_params;)/n_linear_default_params;;/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "213b538c-21b6-4fbf-9f60-1ae2919c3317"
+  },
+  {
+    "_id": {
+      "$oid": "610b004bd3f0320663a22ec1"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg",
+      "decompose",
+      "lasso"
+    ],
+    "depth": 4,
+    "nodes": [
+      {
+        "operation_id": 3,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 2,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2,
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 6,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          6
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lasso",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_lasso_default_params",
+    "uid": "ada45b69-d957-467c-9e11-fb13fffeab7b"
+  },
+  {
+    "_id": {
+      "$oid": "610b004bd3f0320663a22ec2"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg",
+      "decompose",
+      "lgbmreg"
+    ],
+    "depth": 6,
+    "nodes": [
+      {
+        "operation_id": 3,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 2,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 6,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          6
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lgbmreg",
+        "operation_name": null,
+        "custom_params": {
+          "num_leaves": 32,
+          "colsample_bytree": 0.8,
+          "subsample": 0.8,
+          "subsample_freq": 10,
+          "learning_rate": 0.03,
+          "n_estimators": 3000,
+          "verbose": -1
+        },
+        "params": {},
+        "nodes_from": [
+          1,
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(((((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;)/n_lgbmreg_{'num_leaves': 32, 'colsample_bytree': 0.8, 'subsample': 0.8, 'subsample_freq': 10, 'learning_rate': 0.03, 'n_estimators': 3000, 'verbose': -1}",
+    "uid": "7ebf8663-57c8-4062-8690-ae87cea472d7"
+  },
+  {
+    "_id": {
+      "$oid": "610b004cd3f0320663a22ec3"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg",
+      "decompose",
+      "lgbmreg"
+    ],
+    "depth": 6,
+    "nodes": [
+      {
+        "operation_id": 3,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 2,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 6,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          6
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lgbmreg",
+        "operation_name": null,
+        "custom_params": {
+          "num_leaves": 32,
+          "colsample_bytree": 0.8,
+          "subsample": 0.8,
+          "subsample_freq": 10,
+          "learning_rate": 0.03,
+          "n_estimators": 3000,
+          "verbose": -1
+        },
+        "params": {},
+        "nodes_from": [
+          1,
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(((((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;)/n_lgbmreg_{'num_leaves': 32, 'colsample_bytree': 0.8, 'subsample': 0.8, 'subsample_freq': 10, 'learning_rate': 0.03, 'n_estimators': 3000, 'verbose': -1}",
+    "uid": "2e71bfbb-97b7-413c-830b-6cbf1700baac"
+  },
+  {
+    "_id": {
+      "$oid": "610b004cd3f0320663a22ec4"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg",
+      "decompose",
+      "lgbmreg"
+    ],
+    "depth": 6,
+    "nodes": [
+      {
+        "operation_id": 3,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 2,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 6,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          6
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lgbmreg",
+        "operation_name": null,
+        "custom_params": {
+          "num_leaves": 32,
+          "colsample_bytree": 0.8,
+          "subsample": 0.8,
+          "subsample_freq": 10,
+          "learning_rate": 0.03,
+          "n_estimators": 3000,
+          "verbose": -1
+        },
+        "params": {},
+        "nodes_from": [
+          1,
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(((((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;)/n_lgbmreg_{'num_leaves': 32, 'colsample_bytree': 0.8, 'subsample': 0.8, 'subsample_freq': 10, 'learning_rate': 0.03, 'n_estimators': 3000, 'verbose': -1}",
+    "uid": "ab93ee09-6c7e-4a57-a309-d7bbadd9f3a1"
+  },
+  {
+    "_id": {
+      "$oid": "610b004dd3f0320663a22ec5"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg",
+      "decompose",
+      "lgbmreg"
+    ],
+    "depth": 6,
+    "nodes": [
+      {
+        "operation_id": 3,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 2,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 6,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          6
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lgbmreg",
+        "operation_name": null,
+        "custom_params": {
+          "num_leaves": 32,
+          "colsample_bytree": 0.8,
+          "subsample": 0.8,
+          "subsample_freq": 10,
+          "learning_rate": 0.03,
+          "n_estimators": 3000,
+          "verbose": -1
+        },
+        "params": {},
+        "nodes_from": [
+          1,
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(((((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;)/n_lgbmreg_{'num_leaves': 32, 'colsample_bytree': 0.8, 'subsample': 0.8, 'subsample_freq': 10, 'learning_rate': 0.03, 'n_estimators': 3000, 'verbose': -1}",
+    "uid": "ec5a881c-2ac7-40ca-a70f-44dc2b08bd9a"
+  },
+  {
+    "_id": {
+      "$oid": "610b004dd3f0320663a22ec6"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg",
+      "decompose",
+      "lgbmreg"
+    ],
+    "depth": 6,
+    "nodes": [
+      {
+        "operation_id": 3,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 2,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 6,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          6
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lgbmreg",
+        "operation_name": null,
+        "custom_params": {
+          "num_leaves": 32,
+          "colsample_bytree": 0.8,
+          "subsample": 0.8,
+          "subsample_freq": 10,
+          "learning_rate": 0.03,
+          "n_estimators": 3000,
+          "verbose": -1
+        },
+        "params": {},
+        "nodes_from": [
+          1,
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(((((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;)/n_lgbmreg_{'num_leaves': 32, 'colsample_bytree': 0.8, 'subsample': 0.8, 'subsample_freq': 10, 'learning_rate': 0.03, 'n_estimators': 3000, 'verbose': -1}",
+    "uid": "0a02e667-2ce3-4779-91ad-37cda3227f94"
+  },
+  {
+    "_id": {
+      "$oid": "610b004fd3f0320663a22ec9"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg",
+      "gbr"
+    ],
+    "depth": 3,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 3,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "gbr",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((/n_scaling_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_gbr_default_params",
+    "uid": "ad71b45a-498e-48ec-96fd-cdf6326b8e39"
+  },
+  {
+    "_id": {
+      "$oid": "610b0054d3f0320663a22ecc"
+    },
+    "total_pipeline_operations": [
+      "scaling",
+      "linear",
+      "xgbreg",
+      "decompose",
+      "lgbmreg"
+    ],
+    "depth": 6,
+    "nodes": [
+      {
+        "operation_id": 3,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 2,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          3
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 6,
+        "operation_type": "scaling",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "decompose",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          1,
+          6
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 4,
+        "operation_type": "linear",
+        "operation_name": null,
+        "custom_params": "default_params",
+        "params": {},
+        "nodes_from": [
+          5
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "lgbmreg",
+        "operation_name": null,
+        "custom_params": {
+          "num_leaves": 32,
+          "colsample_bytree": 0.8,
+          "subsample": 0.8,
+          "subsample_freq": 10,
+          "learning_rate": 0.03,
+          "n_estimators": 3000,
+          "verbose": -1
+        },
+        "params": {},
+        "nodes_from": [
+          1,
+          4
+        ],
+        "fitted_operation_path": null,
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(((((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;((/n_scaling_default_params;)/n_linear_default_params;)/n_xgbreg_default_params;)/n_lgbmreg_{'num_leaves': 32, 'colsample_bytree': 0.8, 'subsample': 0.8, 'subsample_freq': 10, 'learning_rate': 0.03, 'n_estimators': 3000, 'verbose': -1}",
+    "uid": "d4eb2b74-638b-4815-a354-e5434f0f5725"
+  }
+]

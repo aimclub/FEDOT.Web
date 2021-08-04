@@ -14,11 +14,11 @@ np.random.seed(1)
 
 
 def custom_callback(pop):
-    data = {'chains': []}
-    for chain in pop:
-        data['chains'].append([])
-        for node in chain.nodes:
-            data['chains'][-1].append(node.descriptive_id)
+    data = {'pipelines': []}
+    for pipeline in pop:
+        data['pipelines'].append([])
+        for node in pipeline.nodes:
+            data['pipelines'][-1].append(node.descriptive_id)
     print('json', json.dumps(data))
     send(json.dumps(data))
 

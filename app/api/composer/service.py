@@ -1,12 +1,12 @@
 import pickle
 
 from fedot.api.main import Fedot
-from fedot.core.chains.chain import Chain
-from fedot.core.composer.composing_history import ComposingHistory
+from fedot.core.optimisers.opt_history import OptHistory
+from fedot.core.pipelines.pipeline import Pipeline
 
 from app import storage
 # from app.api.showcase.showcase_utils import showcase_item_from_db
-from app.api.chains.service import create_chain, is_chain_exists
+from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.api.showcase.models import ShowcaseItem
 from app.api.showcase.showcase_utils import _prepare_icon_path
 from utils import project_root
@@ -19,12 +19,12 @@ def showcase_item_from_db(case_id: str) -> ShowcaseItem:
                         title=dumped_item['title'],
                         icon_path=icon_path,
                         description=dumped_item['description'],
-                        chain_id=dumped_item['chain_id'],
+                        pipeline_id=dumped_item['pipeline_id'],
                         metadata=pickle.loads(dumped_item['metadata']))
     return item
 
 
-def composer_history_for_case(case_id: str) -> ComposingHistory:
+def composer_history_for_case(case_id: str) -> OptHistory:
     case = showcase_item_from_db(case_id)
     task = case.metadata.task_name
     metric = case.metadata.metric_name
@@ -38,14 +38,14 @@ def composer_history_for_case(case_id: str) -> ComposingHistory:
     else:
         history = pickle.loads(saved_history['history_pkl'])
 
-    for i, chain_template in enumerate(history.historical_chains):
-        struct_id = chain_template.unique_chain_id
-        existing_chain = is_chain_exists(storage.db, struct_id)
-        if not existing_chain:
+    for i, pipeline_template in enumerate(history.historical_pipelines):
+        struct_id = pipeline_template.unique_pipeline_id
+        existing_pipeline = is_pipeline_exists(storage.db, struct_id)
+        if not existing_pipeline:
             print(i)
-            chain = Chain()
-            chain_template.convert_to_chain(chain)
-            create_chain(storage.db, struct_id, chain)
+            pipeline = Pipeline()
+            pipeline_template.convert_to_pipeline(pipeline)
+            create_pipeline(storage.db, struct_id, pipeline)
 
     return history
 
@@ -68,7 +68,8 @@ def run_composer(task, metric, dataset_name):
         num_of_generations = 3
         learning_time = 1
 
-    auto_model = Fedot(problem=task, seed=42, preset='light', verbose_level=4, learning_time=learning_time,
+    auto_model = Fedot(problem=task, seed=42, preset='light', verbose_level=4,
+                       timeout=learning_time,
                        composer_params={'composer_metric': metric,
                                         'pop_size': pop_size,
                                         'num_of_generations': num_of_generations,

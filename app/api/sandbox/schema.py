@@ -1,11 +1,11 @@
 from marshmallow import Schema, fields
 
 
-class ChainEpochMappingSchema(Schema):
-    """Chain-epoch mapping schema"""
+class PipelineEpochMappingSchema(Schema):
+    """Pipeline-epoch mapping schema"""
 
     epoch_num = fields.Int(attribute='epoch_num')
-    chain_id = fields.String(attribute='chain_id')
+    pipeline_id = fields.String(attribute='pipeline_id')
 
 
 class SandboxDefaultParamsSchema(Schema):

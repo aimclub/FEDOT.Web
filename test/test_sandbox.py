@@ -3,7 +3,7 @@ def test_epochs_mapping(client):
     epochs_mapping_json = client.get(f'api/sandbox/epoch/{case_id}').json
 
     assert epochs_mapping_json[0]['epoch_num'] == 1
-    assert epochs_mapping_json[1]['chain_id'] is not None
+    assert epochs_mapping_json[1]['pipeline_id'] is not None
     assert epochs_mapping_json[1]['epoch_num'] == 2
 
 

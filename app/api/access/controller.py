@@ -4,9 +4,9 @@ from flask_accepts import responds
 from flask_cors import cross_origin
 from flask_restx import Namespace, Resource
 
-from .models import ChainEpochMapping, SandboxDefaultParams
-from .schema import ChainEpochMappingSchema, SandboxDefaultParamsSchema
-from .service import (chains_ids_for_epochs_in_case,
+from .models import PipelineEpochMapping, SandboxDefaultParams
+from .schema import PipelineEpochMappingSchema, SandboxDefaultParamsSchema
+from .service import (pipelines_ids_for_epochs_in_case,
                       default_params_for_case)
 
 api = Namespace("Sandbox", description="Data for sandbox")
@@ -17,10 +17,10 @@ api = Namespace("Sandbox", description="Data for sandbox")
 class SandBoxItemResource(Resource):
     """Showcase item"""
 
-    @responds(schema=ChainEpochMappingSchema, many=True)
-    def get(self, case_id: str) -> List[ChainEpochMapping]:
+    @responds(schema=PipelineEpochMappingSchema, many=True)
+    def get(self, case_id: str) -> List[PipelineEpochMapping]:
         """Get showcase item with specific case_id"""
-        item = chains_ids_for_epochs_in_case(case_id)
+        item = pipelines_ids_for_epochs_in_case(case_id)
         return item
 
 
