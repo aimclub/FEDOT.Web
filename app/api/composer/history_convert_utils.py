@@ -54,11 +54,12 @@ def _create_all_pipeline_nodes_for_pop(history, all_nodes, gen_id, local_id):
         individual = history.individuals[gen_id][ind_id]
 
         # add pipelines as node
-        pipeline_id = f'pipeline_{gen_id}_{ind_id}'
+        pipeline_id = str(individual.graph.unique_pipeline_id)
+        uid = f'pipeline_{gen_id}_{ind_id}'
         objs = {}
         for metric in history.metrics:
             objs[str(metric)] = history.all_historical_fitness[local_id]
-        pipeline_node = _init_pipeline_dict(individual, objs, pipeline_id, gen_id, ind_id)
+        pipeline_node = _init_pipeline_dict(individual, objs, uid, pipeline_id, gen_id, ind_id)
         all_nodes.append(pipeline_node)
         local_id += 1
 
@@ -167,9 +168,9 @@ def _init_operator_dict(ind, operator, o_id, gen_id):
     return operator_node
 
 
-def _init_pipeline_dict(ind, objs, pipeline_id, gen_id, ind_id):
+def _init_pipeline_dict(ind, objs, uid, pipeline_id, gen_id, ind_id):
     pipeline = dict()
-    pipeline['uid'] = pipeline_id
+    pipeline['uid'] = uid
     pipeline['gen_id'] = gen_id
     pipeline['ind_id'] = ind_id
     pipeline['type'] = 'individual'
@@ -189,6 +190,8 @@ def _clear_tmp_fields(all_nodes):
             del node['tmp_next_pipeline']
         if 'source_pipeline' in node:
             del node['source_pipeline']
+        if 'tmp_operator_uid' in node:
+            del node['tmp_operator_uid']
     return all_nodes
 
 

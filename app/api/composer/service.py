@@ -5,16 +5,15 @@ from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
 
 from app import storage
-# from app.api.showcase.showcase_utils import showcase_item_from_db
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.api.showcase.models import ShowcaseItem
-from app.api.showcase.showcase_utils import _prepare_icon_path
+from app.api.showcase.showcase_utils import prepare_icon_path
 from utils import project_root
 
 
 def showcase_item_from_db(case_id: str) -> ShowcaseItem:
     dumped_item = storage.db.cases.find_one({'case_id': case_id})
-    icon_path = _prepare_icon_path(dumped_item)
+    icon_path = prepare_icon_path(dumped_item)
     item = ShowcaseItem(case_id=dumped_item['case_id'],
                         title=dumped_item['title'],
                         icon_path=icon_path,

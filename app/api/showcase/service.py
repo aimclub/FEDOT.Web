@@ -6,7 +6,7 @@ from app.api.data.service import get_dataset_metadata
 from app.api.pipelines.service import pipeline_by_uid, get_pipeline_metadata
 from init.init_cases import add_case_to_db
 from .models import ShowcaseItem
-from .showcase_utils import _prepare_icon_path, showcase_item_from_db
+from .showcase_utils import prepare_icon_path, showcase_item_from_db
 from ..analytics.pipeline_analytics import get_metrics_for_pipeline
 
 
@@ -20,7 +20,7 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
     if dumped_item is None:
         return None
 
-    icon_path = _prepare_icon_path(dumped_item)
+    icon_path = prepare_icon_path(dumped_item)
 
     case_metadata = pickle.loads(dumped_item['metadata'])
     pipeline_id = dumped_item['pipeline_id']
