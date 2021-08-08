@@ -35,31 +35,32 @@ def _process_operator(all_nodes, operator, individual, o_id, gen_id, prev_operat
     if prev_operator:
         # parent is operator, not individual
         operator_node['parent_operator'] = prev_operator.uid
-        operator_node['tmp_parent_chains'] = []
+        operator_node['tmp_parent_pipelines'] = []
 
     if skip_next:
-        operator_node['tmp_next_chain'] = []
+        operator_node['tmp_next_pipeline'] = []
     if operator.uid \
             not in [n['tmp_operator_uid'] for n in all_nodes if n['type'] == 'evo_operator']:
         all_nodes.append(operator_node)
     else:
         node_to_update = \
             [n for n in all_nodes if n['type'] == 'evo_operator' and n['tmp_operator_uid'] == operator.uid][0]
-        node_to_update['tmp_parent_chains'].extend(operator_node['tmp_parent_chains'])
+        node_to_update['tmp_parent_pipelines'].extend(operator_node['tmp_parent_pipelines'])
     return all_nodes
 
 
-def _create_all_chain_nodes_for_pop(history, all_nodes, gen_id, local_id):
+def _create_all_pipeline_nodes_for_pop(history, all_nodes, gen_id, local_id):
     for ind_id in range(len(history.individuals[gen_id])):
         individual = history.individuals[gen_id][ind_id]
 
-        # add chains as node
-        chain_id = f'chain_{gen_id}_{ind_id}'
+        # add pipelines as node
+        pipeline_id = str(individual.graph.unique_pipeline_id)
+        uid = f'pipeline_{gen_id}_{ind_id}'
         objs = {}
         for metric in history.metrics:
             objs[str(metric)] = history.all_historical_fitness[local_id]
-        chain_node = _init_chain_dict(individual, objs, chain_id, gen_id, ind_id)
-        all_nodes.append(chain_node)
+        pipeline_node = _init_pipeline_dict(individual, objs, uid, pipeline_id, gen_id, ind_id)
+        all_nodes.append(pipeline_node)
         local_id += 1
 
     return all_nodes, local_id
@@ -70,7 +71,7 @@ def _create_operators_and_nodes(history):
     local_id = 0
     for gen_id in range(len(history.archive_history)):
         o_id = 0
-        all_nodes, local_id = _create_all_chain_nodes_for_pop(history, all_nodes, gen_id, local_id)
+        all_nodes, local_id = _create_all_pipeline_nodes_for_pop(history, all_nodes, gen_id, local_id)
         if gen_id == 0:
             continue
         for ind_id in range(len(history.archive_history[gen_id])):
@@ -108,34 +109,34 @@ def _create_edges(all_nodes):
             if node['gen_id'] > 0:
                 # same inds from prev generation
                 parent_ind = [n for n in all_nodes if n['type'] == 'individual'
-                              and n['tmp_chain_uid'] == node['tmp_chain_uid'] and
+                              and n['tmp_pipeline_uid'] == node['tmp_pipeline_uid'] and
                               n['gen_id'] == node['gen_id'] - 1]
 
                 if len(parent_ind) > 0:
                     edges = _add_edge(edges, parent_ind[0]['uid'], node['uid'])
 
         elif node['type'] == 'evo_operator':
-            # from chain to operator
+            # from pipeline to operator
             operator_node = node
-            prev_chains = [n for n in all_nodes if n['type'] == 'individual'
-                           and n['tmp_chain_uid'] in operator_node['tmp_parent_chains']
-                           and n['gen_id'] == operator_node['prev_gen_id']]
-            if len(prev_chains) > 0:
-                for prev_chain in prev_chains:
-                    edges = _add_edge(edges, prev_chain['uid'], operator_node['uid'])
+            prev_pipelines = [n for n in all_nodes if n['type'] == 'individual'
+                              and n['tmp_pipeline_uid'] in operator_node['tmp_parent_pipelines']
+                              and n['gen_id'] == operator_node['prev_gen_id']]
+            if len(prev_pipelines) > 0:
+                for prev_pipeline in prev_pipelines:
+                    edges = _add_edge(edges, prev_pipeline['uid'], operator_node['uid'])
 
             if 'parent_operator' in operator_node:
                 parent_operator = [n for n in all_nodes if n['type'] == 'evo_operator'
                                    and n['tmp_operator_uid'] == operator_node['parent_operator']][0]
                 edges = _add_edge(edges, parent_operator['uid'], operator_node['uid'])
 
-            # from operator to chain
-            next_chains = [n for n in all_nodes if n['type'] == 'individual'
-                           and n['tmp_chain_uid'] == operator_node['tmp_next_chain']
-                           and (n['gen_id'] == operator_node['next_gen_id'])]
+            # from operator to pipeline
+            next_pipelines = [n for n in all_nodes if n['type'] == 'individual'
+                              and n['tmp_pipeline_uid'] == operator_node['tmp_next_pipeline']
+                              and (n['gen_id'] == operator_node['next_gen_id'])]
 
-            if len(next_chains) > 0:
-                edges = _add_edge(edges, operator_node['uid'], next_chains[0]['uid'])
+            if len(next_pipelines) > 0:
+                edges = _add_edge(edges, operator_node['uid'], next_pipelines[0]['uid'])
 
     return all_nodes, edges
 
@@ -162,39 +163,41 @@ def _init_operator_dict(ind, operator, o_id, gen_id):
     operator_node['full_name'] = operator.operator_name
 
     # temporary fields
-    operator_node['tmp_parent_chains'] = [c.struct_id for c in operator.parent_chains]
-    operator_node['tmp_next_chain'] = ind.chain.struct_id
+    operator_node['tmp_parent_pipelines'] = [c.struct_id for c in operator.parent_objects]
+    operator_node['tmp_next_pipeline'] = ind.graph.struct_id
     return operator_node
 
 
-def _init_chain_dict(ind, objs, chain_id, gen_id, ind_id):
-    chain = dict()
-    chain['uid'] = chain_id
-    chain['gen_id'] = gen_id
-    chain['ind_id'] = ind_id
-    chain['type'] = 'individual'
-    chain['chain_id'] = chain_id
-    chain['objs'] = objs
-    chain['tmp_chain_uid'] = ind.chain.struct_id
-    return chain
+def _init_pipeline_dict(ind, objs, uid, pipeline_id, gen_id, ind_id):
+    pipeline = dict()
+    pipeline['uid'] = uid
+    pipeline['gen_id'] = gen_id
+    pipeline['ind_id'] = ind_id
+    pipeline['type'] = 'individual'
+    pipeline['pipeline_id'] = pipeline_id
+    pipeline['objs'] = objs
+    pipeline['tmp_pipeline_uid'] = ind.graph.struct_id
+    return pipeline
 
 
 def _clear_tmp_fields(all_nodes):
     for node in all_nodes:
-        if 'tmp_chain_uid' in node:
-            del node['tmp_chain_uid']
-        if 'tmp_parent_chains' in node:
-            del node['tmp_parent_chains']
-        if 'tmp_next_chain' in node:
-            del node['tmp_next_chain']
-        if 'source_chain' in node:
-            del node['source_chain']
+        if 'tmp_pipeline_uid' in node:
+            del node['tmp_pipeline_uid']
+        if 'tmp_parent_pipelines' in node:
+            del node['tmp_parent_pipelines']
+        if 'tmp_next_pipeline' in node:
+            del node['tmp_next_pipeline']
+        if 'source_pipeline' in node:
+            del node['source_pipeline']
+        if 'tmp_operator_uid' in node:
+            del node['tmp_operator_uid']
     return all_nodes
 
 
-def _move_chain_to_next_gen(chain, nodes, operator_node, generation_field_to_check):
-    if chain['gen_id'] < operator_node[generation_field_to_check]:
-        chain_copy = deepcopy(chain)
+def _move_pipeline_to_next_gen(pipeline, nodes, operator_node, generation_field_to_check):
+    if pipeline['gen_id'] < operator_node[generation_field_to_check]:
+        pipeline_copy = deepcopy(pipeline)
         gen_id = operator_node[generation_field_to_check]
         # increment index of individual in population
         try:
@@ -203,10 +206,10 @@ def _move_chain_to_next_gen(chain, nodes, operator_node, generation_field_to_che
         except ValueError:
             new_ind_id = 0
 
-        chain_copy['gen_id'] = gen_id
-        chain_copy['ind_id'] = new_ind_id
-        chain_copy['uid'] = f'chain_{gen_id}_{new_ind_id}'
-        return chain_copy
+        pipeline_copy['gen_id'] = gen_id
+        pipeline_copy['ind_id'] = new_ind_id
+        pipeline_copy['uid'] = f'pipeline_{gen_id}_{new_ind_id}'
+        return pipeline_copy
     return None
 
 

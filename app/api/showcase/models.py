@@ -12,7 +12,7 @@ class Metadata:
 class ShowcaseItem:
     case_id: str
     title: str
-    chain_id: str
+    pipeline_id: str
     description: str
     icon_path: str
     metadata: Metadata

@@ -2,9 +2,9 @@ from dataclasses import dataclass
 
 
 @dataclass
-class ChainEpochMapping:
+class PipelineEpochMapping:
     epoch_num: int
-    chain_id: str
+    pipeline_id: str
 
 
 @dataclass

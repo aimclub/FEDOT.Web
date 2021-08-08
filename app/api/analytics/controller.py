@@ -1,7 +1,7 @@
 from flask_accepts import responds
 from flask_restx import Namespace, Resource
 
-from app.api.chains.service import chain_by_uid
+from app.api.pipelines.service import pipeline_by_uid
 from app.api.showcase.service import showcase_item_by_uid
 from .models import PlotData, BoxPlotData
 from .schema import PlotDataSchema, BoxPlotDataSchema
@@ -32,14 +32,14 @@ class GenerationsPlotResource(Resource):
         return generation_plot
 
 
-@api.route("/results/<string:case_id>/<string:chain_id>")
+@api.route("/results/<string:case_id>/<string:pipeline_id>")
 class ResultsPlotResource(Resource):
     """Quality plot data for cases"""
 
     @responds(schema=PlotDataSchema, many=False)
-    def get(self, case_id: str, chain_id: str) -> PlotData:
+    def get(self, case_id: str, pipeline_id: str) -> PlotData:
         """Get all lines for results plot"""
-        chain, case = chain_by_uid(chain_id), showcase_item_by_uid(case_id)
-        baseline = chain_by_uid(f'{case_id}_baseline')
-        results_plot = get_modelling_results(case, chain, baseline)
+        pipeline, case = pipeline_by_uid(pipeline_id), showcase_item_by_uid(case_id)
+        baseline = pipeline_by_uid(f'{case_id}_baseline')
+        results_plot = get_modelling_results(case, pipeline, baseline)
         return results_plot
