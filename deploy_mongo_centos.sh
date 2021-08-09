@@ -1,5 +1,5 @@
 #!/bin/bash
-printf '[mongodb-org-5.0]
+sudo printf '[mongodb-org-5.0]
 name=MongoDB Repository
 baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/5.0/x86_64/
 gpgcheck=1
