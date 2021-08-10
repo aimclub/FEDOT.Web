@@ -7,4 +7,5 @@ else
 	sudo service mongod start
 	sudo service mongod status
 fi
+sudo printf 'MONGO_CONN_STRING=mongodb://127.0.0.1:27017/test_db?compressors=disabled&gssapiServiceName=mongodb' > mongo_conn_string.env
 mongo test_db
