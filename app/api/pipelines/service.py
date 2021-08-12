@@ -51,7 +51,7 @@ def create_pipeline(db, uid: str, pipeline: Pipeline):
         is_new = False
 
     is_duplicate = False
-    dumped_json, dict_fitted_operations = pipeline.save('dumped_tmp')
+    dumped_json, dict_fitted_operations = pipeline.save()
 
     # if len(pipeline.nodes) > 0 and \
     #        storage.db.pipelines.find_one({'descriptive_id': pipeline.root_node.descriptive_id}):

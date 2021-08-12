@@ -5,10 +5,12 @@ from dotenv import load_dotenv
 from app import create_app, db, socketio
 from app.ssl.ssl_config import SslConfig
 
-
 if __name__ == "__main__":
     load_dotenv("oauth.env")
     load_dotenv("mongo_conn_string.env")
+
+    env = os.getenv('MONGO_CONN_STRING')
+    print(env)
 
     app = create_app(os.getenv("FLASK_ENV") or "dev")
 
