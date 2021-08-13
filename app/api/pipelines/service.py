@@ -26,9 +26,8 @@ def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
 
     dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': str(uid)})
     if dict_fitted_operations:
-        _replace_symbols_in_dct_keys(dict_fitted_operations, "-", ".")
         for key in dict_fitted_operations:
-            if key.find("fitted") != -1:
+            if key.find("operation") != -1:
                 bytes_container = BytesIO()
                 bytes_container.write(dict_fitted_operations[key])
                 dict_fitted_operations[key] = bytes_container
@@ -51,7 +50,7 @@ def create_pipeline(db, uid: str, pipeline: Pipeline):
         is_new = False
 
     is_duplicate = False
-    dumped_json, dict_fitted_operations = pipeline.save('dumped_tmp')
+    dumped_json, dict_fitted_operations = pipeline.save()
 
     # if len(pipeline.nodes) > 0 and \
     #        storage.db.pipelines.find_one({'descriptive_id': pipeline.root_node.descriptive_id}):
