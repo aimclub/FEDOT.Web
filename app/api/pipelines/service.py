@@ -56,7 +56,7 @@ def create_pipeline(db, uid: str, pipeline: Pipeline):
                 dict_fitted_operations[key].seek(0)
                 saved_operation = dict_fitted_operations[key].read()
                 dict_fitted_operations[key] = saved_operation
-        dict_fitted_operations['uid'] = str(pipeline.uid)
+        dict_fitted_operations['uid'] = str(uid)
 
     if is_new:
         dict_pipeline = json.loads(dumped_json)
@@ -65,10 +65,12 @@ def create_pipeline(db, uid: str, pipeline: Pipeline):
             db.pipelines.insert_one(dict_pipeline)
         except DuplicateKeyError:
             print(f'Pipeline {str(uid)} already exists')
-        try:
-            db.dict_fitted_operations.insert_one(dict_fitted_operations)
-        except DuplicateKeyError:
-            print(f'Fitted operations dict {str(uid)} already exists')
+
+        if dict_fitted_operations is not None:
+            try:
+                db.dict_fitted_operations.insert_one(dict_fitted_operations)
+            except DuplicateKeyError:
+                print(f'Fitted operations dict {str(uid)} already exists')
 
     else:
         warnings.warn('Cannot create new pipeline')

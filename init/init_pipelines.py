@@ -32,8 +32,8 @@ def create_default_pipelines(db):
 
     #######
 
-    # _create_custom_pipeline(db, 'best_oil_pipeline', 'oil', pipeline_mock('regr'))
-    # _create_custom_pipeline(db, 'oil_baseline', 'oil', get_baseline('regr'))
+    _create_custom_pipeline(db, 'best_oil_pipeline', 'oil', pipeline_mock('regr'))
+    _create_custom_pipeline(db, 'oil_baseline', 'oil', get_baseline('regr'))
 
 
 def _create_custom_pipeline(db, pipeline_id, case_id, pipeline):

@@ -33,7 +33,7 @@ def composer_history_for_case(case_id: str) -> OptHistory:
     saved_history = storage.db.history.find_one({'history_id': case_id})
 
     if not saved_history:
-        history = run_composer(task, metric, dataset_name)
+        history = run_composer(task, metric, dataset_name, time=1)
         _save_to_db(storage.db, case_id, history)
     else:
         history = pickle.loads(saved_history['history_pkl'])
@@ -60,23 +60,23 @@ def _save_to_db(db, history_id, history):
     _add_to_db(db, 'history_id', history_id, history_obj)
 
 
-def run_composer(task, metric, dataset_name):
+def run_composer(task, metric, dataset_name, time):
     pop_size = 6
     num_of_generations = 5
-    learning_time = 0.15
+    learning_time = time
 
     if dataset_name == 'test':
         pop_size = 6
         num_of_generations = 3
-        learning_time = 0.15
+        learning_time = 0.05
 
     auto_model = Fedot(problem=task, seed=42, preset='light_steady_state', verbose_level=4,
                        timeout=learning_time,
                        composer_params={'composer_metric': metric,
                                         'pop_size': pop_size,
                                         'num_of_generations': num_of_generations,
-                                        'max_arity': 3,
-                                        'max_depth': 3})
+                                        'max_arity': 2,
+                                        'max_depth': 2})
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history = auto_model.history

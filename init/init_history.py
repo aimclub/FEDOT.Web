@@ -13,17 +13,15 @@ def create_default_history(db):
     _create_collection(db, 'history', 'history_id')
     _init_composer_history_for_case(db=db, history_id='scoring', dataset_name='scoring',
                                     metric='roc_auc',
-                                    task='classification')
+                                    task='classification', time=1.5)
 
     _init_composer_history_for_case(db=db, history_id='metocean', dataset_name='metocean',
                                     metric='rmse',
-                                    task='ts_forecasting')
+                                    task='ts_forecasting', time=0.01)
 
-    # _init_composer_history_for_case(db=db, history_id='oil', dataset_name='oil',
-    #                                metric='rmse',
-
-
-#                                 task='regression')
+    _init_composer_history_for_case(db=db, history_id='oil', dataset_name='oil',
+                                    metric='rmse',
+                                    task='regression', time=0.7)
 
 
 def _create_collection(db, name: str, id_name: str):
@@ -34,8 +32,8 @@ def _create_collection(db, name: str, id_name: str):
         print('History collection already exists')
 
 
-def _init_composer_history_for_case(db, history_id, task, metric, dataset_name):
-    history = run_composer(task, metric, dataset_name)
+def _init_composer_history_for_case(db, history_id, task, metric, dataset_name, time):
+    history = run_composer(task, metric, dataset_name, time)
     history_obj = {
         'history_id': history_id,
         'history_pkl': pickle.dumps(history)
