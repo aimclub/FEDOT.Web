@@ -5,6 +5,7 @@ from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
 
 from app import storage
+from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.api.showcase.models import ShowcaseItem
 from app.api.showcase.showcase_utils import prepare_icon_path
@@ -37,6 +38,7 @@ def composer_history_for_case(case_id: str) -> OptHistory:
     else:
         history = pickle.loads(saved_history['history_pkl'])
 
+    data = get_input_data(dataset_name=dataset_name, sample_type='train')
     for i, pipeline_template in enumerate(history.historical_pipelines):
         struct_id = pipeline_template.unique_pipeline_id
         existing_pipeline = is_pipeline_exists(storage.db, struct_id)
@@ -44,6 +46,7 @@ def composer_history_for_case(case_id: str) -> OptHistory:
             print(i)
             pipeline = Pipeline()
             pipeline_template.convert_to_pipeline(pipeline)
+            pipeline.fit(data)
             create_pipeline(storage.db, struct_id, pipeline)
 
     return history
@@ -60,12 +63,12 @@ def _save_to_db(db, history_id, history):
 def run_composer(task, metric, dataset_name):
     pop_size = 6
     num_of_generations = 5
-    learning_time = 2
+    learning_time = 0.15
 
     if dataset_name == 'test':
         pop_size = 6
         num_of_generations = 3
-        learning_time = 1
+        learning_time = 0.15
 
     auto_model = Fedot(problem=task, seed=42, preset='light_steady_state', verbose_level=4,
                        timeout=learning_time,
