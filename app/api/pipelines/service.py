@@ -4,6 +4,7 @@ from io import BytesIO
 from pathlib import Path
 from typing import Optional, Tuple
 
+import pymongo
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.pipelines.validation import validate
 from flask import url_for
@@ -71,6 +72,8 @@ def create_pipeline(db, uid: str, pipeline: Pipeline):
                 db.dict_fitted_operations.insert_one(dict_fitted_operations)
             except DuplicateKeyError:
                 print(f'Fitted operations dict {str(uid)} already exists')
+            except pymongo.errors.DocumentTooLarge as ex:
+                print(f'Dict {str(uid)} too large: {ex}')
 
     else:
         warnings.warn('Cannot create new pipeline')
