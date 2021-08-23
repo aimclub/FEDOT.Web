@@ -93,7 +93,7 @@ def _pipeline_first():
         [SecondaryNode(model) for model in ('xgboost', 'xgboost', 'knn')]
 
     for root_node_child in (root_child_first, root_child_second):
-        for requirement_model in ('logit', 'lda'):
+        for requirement_model in ('logit', 'pca'):
             new_node = PrimaryNode(requirement_model)
             root_node_child.nodes_from.append(new_node)
             pipeline.add_node(new_node)
@@ -123,7 +123,7 @@ def pipeline_mock(task: str = 'class'):
         #    |  \
         #   KNN  LDA
         new_node = SecondaryNode('xgboost')
-        for model_type in ('knn', 'pca'):
+        for model_type in ('knn', 'lda'):
             new_node.nodes_from.append(PrimaryNode(model_type))
         pipeline = _pipeline_first()
         pipeline.update_subtree(pipeline.root_node.nodes_from[0].nodes_from[1], new_node)
