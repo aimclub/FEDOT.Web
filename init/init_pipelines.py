@@ -1,7 +1,9 @@
 import json
 
 import bson
+import gridfs
 import pymongo
+from bson import json_util
 from fedot.core.pipelines.node import PrimaryNode, SecondaryNode
 from fedot.core.pipelines.pipeline import Pipeline
 from pymongo.errors import CollectionInvalid
@@ -52,7 +54,6 @@ def _extract_pipeline_with_fitted_operations(pipeline, uid):
     for i in dict_fitted_operations:
         data = dict_fitted_operations[i].getvalue()
         new_dct[i.replace(".", "-")] = bson.Binary(data)
-    new_dct['uid'] = uid
     return pipeline_json, new_dct
 
 
@@ -66,8 +67,13 @@ def _create_collection(db, name: str, id_name: str):
 
 def _add_pipeline_to_db(db, uid, pipeline_dict, dict_fitted_operations):
     _add_to_db(db, 'uid', uid, pipeline_dict)
-    db.dict_fitted_operations.remove(dict_fitted_operations)
-    db.dict_fitted_operations.insert(dict_fitted_operations, check_keys=False)
+    fs = gridfs.GridFS(db)
+    file = fs.find_one({'filename': uid, 'type': 'dict_fitted_operations'})
+    if file:
+        fs.delete(file._id)
+    fs.put(json_util.dumps(dict_fitted_operations), filename=uid, type='dict_fitted_operations', encoding='utf-8')
+    # db.dict_fitted_operations.remove(dict_fitted_operations)
+    # db.dict_fitted_operations.insert(dict_fitted_operations, check_keys=False)
 
 
 def _add_to_db(db, id_name, id_value, obj_to_add):

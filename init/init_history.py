@@ -1,6 +1,8 @@
 import pickle
 
+import gridfs
 import pymongo
+from bson import json_util
 from fedot.core.pipelines.pipeline import Pipeline
 from pymongo.errors import CollectionInvalid
 
@@ -33,11 +35,8 @@ def _create_collection(db, name: str, id_name: str):
 
 def _init_composer_history_for_case(db, history_id, task, metric, dataset_name):
     history = run_composer(task, metric, dataset_name)
-    history_obj = {
-        'history_id': history_id,
-        'history_pkl': pickle.dumps(history)
-    }
-    add_to_db(db, 'history_id', history_id, history_obj)
+    history_obj = pickle.dumps(history)
+    add_to_db(db, history_id, history_obj)
 
     for i, pipeline_template in enumerate(history.historical_pipelines):
         struct_id = pipeline_template.unique_pipeline_id
@@ -49,6 +48,11 @@ def _init_composer_history_for_case(db, history_id, task, metric, dataset_name):
             create_pipeline(db, struct_id, pipeline)
 
 
-def add_to_db(db, id_name, id_value, obj_to_add):
-    db.history.remove({id_name: id_value})
-    db.history.insert_one(obj_to_add)
+def add_to_db(db, id_value, obj_to_add):
+    fs = gridfs.GridFS(db)
+    file = fs.find_one({'filename': id_value, 'type': 'history'})
+    if file:
+        fs.delete(file._id)
+    fs.put(json_util.dumps(obj_to_add), filename=id_value, type='history', encoding='utf-8')
+    # db.history.remove({id_name: id_value})
+    # db.history.insert_one(obj_to_add)

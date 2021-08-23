@@ -1,5 +1,7 @@
 import pickle
 
+import gridfs
+from bson import json_util
 from fedot.api.main import Fedot
 from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
@@ -29,13 +31,14 @@ def composer_history_for_case(case_id: str) -> OptHistory:
     metric = case.metadata.metric_name
     dataset_name = case.metadata.dataset_name
 
-    saved_history = storage.db.history.find_one({'history_id': case_id})
-
+    fs = gridfs.GridFS(storage.db)
+    file = fs.find_one({'filename': case_id, 'type': 'history'}).read()
+    saved_history = json_util.loads(file)
     if not saved_history:
         history = run_composer(task, metric, dataset_name)
         _save_to_db(storage.db, case_id, history)
     else:
-        history = pickle.loads(saved_history['history_pkl'])
+        history = pickle.loads(saved_history)
 
     for i, pipeline_template in enumerate(history.historical_pipelines):
         struct_id = pipeline_template.unique_pipeline_id
