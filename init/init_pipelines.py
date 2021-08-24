@@ -78,6 +78,8 @@ def _extract_pipeline_with_fitted_operations(pipeline, uid):
     for i in dict_fitted_operations:
         data = dict_fitted_operations[i].getvalue()
         new_dct[i.replace(".", "-")] = bson.Binary(data)
+    new_dct['uid'] = uid
+    pipeline_json['uid'] = uid
     return pipeline_json, new_dct
 
 

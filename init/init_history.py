@@ -2,10 +2,8 @@ import os
 import pickle
 
 import gridfs
-import pymongo
 from bson import json_util
 from fedot.core.pipelines.pipeline import Pipeline
-from pymongo.errors import CollectionInvalid
 
 from app.api.composer.service import run_composer
 from app.api.data.service import get_input_data
@@ -14,20 +12,23 @@ from init.init_pipelines import _extract_pipeline_with_fitted_operations
 from utils import project_root
 
 
-def create_default_history(db=None):
+def create_default_history(db=None, opt_times=None):
     mock_list = []
+
+    if opt_times is None:
+        opt_times = [1.5, 0.1, 0.7]
 
     _init_composer_history_for_case(db=db, history_id='scoring', dataset_name='scoring',
                                     metric='roc_auc',
-                                    task='classification', time=1.5, mock_list=mock_list)
+                                    task='classification', time=opt_times[0], mock_list=mock_list)
 
     _init_composer_history_for_case(db=db, history_id='metocean', dataset_name='metocean',
                                     metric='rmse',
-                                    task='ts_forecasting', time=0.01, mock_list=mock_list)
+                                    task='ts_forecasting', time=opt_times[1], mock_list=mock_list)
 
     _init_composer_history_for_case(db=db, history_id='oil', dataset_name='oil',
                                     metric='rmse',
-                                    task='regression', time=0.7, mock_list=mock_list)
+                                    task='regression', time=opt_times[2], mock_list=mock_list)
 
     if len(mock_list) > 0:
         history = [i['history'] for i in mock_list]
@@ -60,7 +61,7 @@ def _init_composer_history_for_case(db, history_id, task, metric, dataset_name, 
         history_obj = pickle.dumps(history)
         add_to_db(db, history_id, history_obj)
     else:
-        history = run_composer(task, metric, dataset_name, 0.1)
+        history = run_composer(task, metric, dataset_name, time)
         history_obj = {
             'history_id': history_id,
             'history_pkl': pickle.dumps(history)

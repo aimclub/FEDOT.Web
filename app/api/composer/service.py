@@ -72,14 +72,9 @@ def _save_to_db(db, history_id, history):
 
 
 def run_composer(task, metric, dataset_name, time):
-    pop_size = 6
+    pop_size = 3
     num_of_generations = 5
     learning_time = time
-
-    if dataset_name == 'test':
-        pop_size = 6
-        num_of_generations = 3
-        learning_time = 0.05
 
     auto_model = Fedot(problem=task, seed=42, preset='light_steady_state', verbose_level=4,
                        timeout=learning_time,
