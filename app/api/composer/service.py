@@ -5,6 +5,7 @@ from bson import json_util
 from fedot.api.main import Fedot
 from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
+from flask import current_app
 
 from app import storage
 from app.api.data.service import get_input_data
@@ -32,14 +33,21 @@ def composer_history_for_case(case_id: str) -> OptHistory:
     metric = case.metadata.metric_name
     dataset_name = case.metadata.dataset_name
 
-    fs = gridfs.GridFS(storage.db)
-    file = fs.find_one({'filename': case_id, 'type': 'history'}).read()
-    saved_history = json_util.loads(file)
+    if current_app.config['CONFIG_NAME'] == 'test':
+        saved_history = storage.db.history.find_one({'history_id': case_id})
+    else:
+        fs = gridfs.GridFS(storage.db)
+        file = fs.find_one({'filename': case_id, 'type': 'history'}).read()
+        saved_history = json_util.loads(file)
+
     if not saved_history:
         history = run_composer(task, metric, dataset_name, time=1)
         _save_to_db(storage.db, case_id, history)
     else:
-        history = pickle.loads(saved_history)
+        if current_app.config['CONFIG_NAME'] == 'test':
+            history = pickle.loads(saved_history['history_pkl'])
+        else:
+            history = pickle.loads(saved_history)
 
     data = get_input_data(dataset_name=dataset_name, sample_type='train')
     for i, pipeline_template in enumerate(history.historical_pipelines):

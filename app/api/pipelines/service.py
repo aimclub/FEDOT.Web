@@ -9,7 +9,7 @@ from bson import json_util
 import pymongo
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.pipelines.validation import validate
-from flask import url_for
+from flask import url_for, current_app
 from pymongo.errors import DuplicateKeyError
 
 from app import storage
@@ -27,12 +27,16 @@ def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
     if pipeline_dict is None:
         return None
 
-    fs = gridfs.GridFS(storage.db)
-    file = fs.find_one({'filename': str(uid), 'type': 'dict_fitted_operations'}).read()
-    dict_fitted_operations = json_util.loads(file)
+    if current_app.config['CONFIG_NAME'] == 'test':
+        dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': str(uid)})
+    else:
+        fs = gridfs.GridFS(storage.db)
+        file = fs.find_one({'filename': str(uid), 'type': 'dict_fitted_operations'}).read()
+        dict_fitted_operations = json_util.loads(file)
+
     if dict_fitted_operations:
         for key in dict_fitted_operations:
-            if key.find("operation") != -1:
+            if key.find('operation') != -1:
                 bytes_container = BytesIO()
                 bytes_container.write(dict_fitted_operations[key])
                 dict_fitted_operations[key] = bytes_container
@@ -57,7 +61,7 @@ def create_pipeline(db, uid: str, pipeline: Pipeline):
     dumped_json, dict_fitted_operations = pipeline.save()
     if dict_fitted_operations:
         for key in dict_fitted_operations:
-            if key.find("operation") != -1:
+            if key.find('operation') != -1:
                 dict_fitted_operations[key].seek(0)
                 saved_operation = dict_fitted_operations[key].read()
                 dict_fitted_operations[key] = saved_operation
