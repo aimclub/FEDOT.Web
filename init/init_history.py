@@ -45,11 +45,11 @@ def create_default_history(db=None, opt_times=None):
                 f.write(json_util.dumps(data))
                 print('history pipelines are mocked')
 
-        dict_fitted_operations = [i['dict_fitted_operations'] for i in mock_list]
-        if len(dict_fitted_operations) > 0:
+        dicts_fitted_operations = [i['dict_fitted_operations'] for i in mock_list]
+        if len(dicts_fitted_operations) > 0:
             with open(os.path.join(project_root(), 'test/fixtures/dict_fitted_operations.json'), 'r') as f:
                 data = json_util.loads(f.read())
-                data.extend(pipelines)
+                data.extend(dicts_fitted_operations)
             with open(os.path.join(project_root(), 'test/fixtures/dict_fitted_operations.json'), 'w') as f:
                 f.write(json_util.dumps(data))
                 print('history dict_fitted_operations are mocked')
