@@ -30,6 +30,10 @@ def create_default_history(db=None, opt_times=None):
                                     metric='rmse',
                                     task='regression', time=opt_times[2], mock_list=mock_list)
 
+    mockup_history(mock_list)
+
+
+def mockup_history(mock_list):
     if len(mock_list) > 0:
         history = [i['history'] for i in mock_list]
         with open(os.path.join(project_root(), 'test/fixtures/history.json'), 'w') as f:

@@ -59,12 +59,12 @@ def create_default_cases(db=None):
     add_case_to_db(db, metocean_case, mock_list)
     add_case_to_db(db, oil_case, mock_list)
 
+
+def mockup_cases(mock_list):
     if len(mock_list) > 0:
         with open(os.path.join(project_root(), 'test/fixtures/cases.json'), 'w') as f:
             f.write(json_util.dumps(mock_list))
             print('cases are mocked')
-
-    return
 
 
 def _create_collection(db, name: str, id_name: str):

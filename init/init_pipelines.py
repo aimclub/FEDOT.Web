@@ -42,6 +42,8 @@ def create_default_pipelines(db=None):
     _create_custom_pipeline(db, 'best_oil_pipeline', 'oil', pipeline_mock('regr'), mock_list)
     _create_custom_pipeline(db, 'oil_baseline', 'oil', get_baseline('regr'), mock_list)
 
+
+def mockup_pipelines(mock_list):
     if len(mock_list) > 0:
         pipelines = [i[0] for i in mock_list]
         with open(os.path.join(project_root(), 'test/fixtures/pipelines.json'), 'w') as f:
