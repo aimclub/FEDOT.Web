@@ -2671,5 +2671,1723 @@
     "uid": {
       "$uuid": "2823392f687944d08252737119460225"
     }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_mlp_default_params",
+    "uid": {
+      "$uuid": "567807c0af4646a9befd82fd826a5038"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgboost_default_params",
+    "uid": {
+      "$uuid": "ce1167efa4ab464a80c12c1463737259"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_catboost_{'allow_writing_files': False, 'verbose': False}",
+    "uid": {
+      "$uuid": "44b9b1a21e2b4d69ad6f5bb669d074f1"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_mlp_default_params",
+    "uid": {
+      "$uuid": "567807c0af4646a9befd82fd826a5038"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_mlp_default_params",
+    "uid": {
+      "$uuid": "8de8620b06b5443fbfc19d1830ef1f2f"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_mlp_default_params",
+    "uid": {
+      "$uuid": "68b0b6e5f45f45c9a8536261eb0c5039"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_mlp_default_params",
+    "uid": {
+      "$uuid": "567807c0af4646a9befd82fd826a5038"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_mlp_default_params",
+    "uid": {
+      "$uuid": "8de8620b06b5443fbfc19d1830ef1f2f"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_mlp_default_params",
+    "uid": {
+      "$uuid": "1bdd18cc572e470298005774748cc3f1"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_mlp_default_params",
+    "uid": {
+      "$uuid": "b800e88015a84024a67f62b1bfa260b5"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_mlp_default_params",
+    "uid": {
+      "$uuid": "b800e88015a84024a67f62b1bfa260b5"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgboost"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgboost",
+        "operation_name": "XGBClassifier",
+        "custom_params": "default_params",
+        "params": {
+          "objective": "binary:logistic",
+          "base_score": 0.5,
+          "booster": null,
+          "colsample_bylevel": 1,
+          "colsample_bynode": 1,
+          "colsample_bytree": 1,
+          "gamma": 0,
+          "gpu_id": -1,
+          "importance_type": "gain",
+          "interaction_constraints": null,
+          "learning_rate": 0.300000012,
+          "max_delta_step": 0,
+          "max_depth": 6,
+          "min_child_weight": 1,
+          "missing": NaN,
+          "monotone_constraints": null,
+          "n_estimators": 100,
+          "n_jobs": 0,
+          "num_parallel_tree": 1,
+          "random_state": 0,
+          "reg_alpha": 0,
+          "reg_lambda": 1,
+          "scale_pos_weight": 1,
+          "subsample": 1,
+          "tree_method": null,
+          "validate_parameters": false,
+          "verbosity": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgboost_default_params;;/n_scaling_default_params;)/n_class_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgboost_default_params;)/n_mlp_default_params",
+    "uid": {
+      "$uuid": "fc7b8a8d6ce14a399a38dbe39eb71cf5"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": {
+          "window_size": 10
+        },
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
+    "uid": {
+      "$uuid": "5d11ff1508774881b9ae4b66481f51cd"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": {
+          "window_size": 10
+        },
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
+    "uid": {
+      "$uuid": "d13d30f0f4544a12a1f4c2de0d0e2699"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": {
+          "window_size": 10
+        },
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
+    "uid": {
+      "$uuid": "d13d30f0f4544a12a1f4c2de0d0e2699"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": {
+          "window_size": 10
+        },
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
+    "uid": {
+      "$uuid": "5453b18e77b448808789be3b9f99beb7"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": {
+          "window_size": 10
+        },
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
+    "uid": {
+      "$uuid": "5ee24d69e8e74bb197b2d6f39acf6fac"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": {
+          "window_size": 10
+        },
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
+    "uid": {
+      "$uuid": "344e91250f444429945134f389741f98"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": {
+          "window_size": 10
+        },
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
+    "uid": {
+      "$uuid": "5ee24d69e8e74bb197b2d6f39acf6fac"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": {
+          "window_size": 10
+        },
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
+    "uid": {
+      "$uuid": "7f1bc12838294dd19d6e13eaf96d24a0"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": {
+          "window_size": 10
+        },
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
+    "uid": {
+      "$uuid": "5ee24d69e8e74bb197b2d6f39acf6fac"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": {
+          "window_size": 10
+        },
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
+    "uid": {
+      "$uuid": "5ee24d69e8e74bb197b2d6f39acf6fac"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "lagged",
+      "ridge"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "lagged",
+        "operation_name": "LaggedTransformationImplementation",
+        "custom_params": {
+          "window_size": 10
+        },
+        "params": {
+          "window_size": 10
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "ridge",
+        "operation_name": "Ridge",
+        "custom_params": "default_params",
+        "params": {
+          "alpha": 1.0,
+          "copy_X": true,
+          "fit_intercept": true,
+          "max_iter": null,
+          "normalize": false,
+          "random_state": null,
+          "solver": "auto",
+          "tol": 0.001
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
+    "uid": {
+      "$uuid": "43b44bc49d1f4e66a3d2073a70fa6f6c"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": "MultiOutputRegressor",
+        "custom_params": "default_params",
+        "params": {
+          "estimator__objective": "reg:squarederror",
+          "estimator__base_score": null,
+          "estimator__booster": null,
+          "estimator__colsample_bylevel": null,
+          "estimator__colsample_bynode": null,
+          "estimator__colsample_bytree": null,
+          "estimator__gamma": null,
+          "estimator__gpu_id": null,
+          "estimator__importance_type": "gain",
+          "estimator__interaction_constraints": null,
+          "estimator__learning_rate": null,
+          "estimator__max_delta_step": null,
+          "estimator__max_depth": null,
+          "estimator__min_child_weight": null,
+          "estimator__missing": NaN,
+          "estimator__monotone_constraints": null,
+          "estimator__n_estimators": 100,
+          "estimator__n_jobs": null,
+          "estimator__num_parallel_tree": null,
+          "estimator__random_state": null,
+          "estimator__reg_alpha": null,
+          "estimator__reg_lambda": null,
+          "estimator__scale_pos_weight": null,
+          "estimator__subsample": null,
+          "estimator__tree_method": null,
+          "estimator__validate_parameters": false,
+          "estimator__verbosity": null,
+          "n_jobs": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_linear_default_params",
+    "uid": {
+      "$uuid": "a5d05721958147b6abef6b556c580608"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 2,
+    "nodes": [
+      {
+        "operation_id": 1,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 0,
+        "operation_type": "xgbreg",
+        "operation_name": "MultiOutputRegressor",
+        "custom_params": "default_params",
+        "params": {
+          "estimator__objective": "reg:squarederror",
+          "estimator__base_score": null,
+          "estimator__booster": null,
+          "estimator__colsample_bylevel": null,
+          "estimator__colsample_bynode": null,
+          "estimator__colsample_bytree": null,
+          "estimator__gamma": null,
+          "estimator__gpu_id": null,
+          "estimator__importance_type": "gain",
+          "estimator__interaction_constraints": null,
+          "estimator__learning_rate": null,
+          "estimator__max_delta_step": null,
+          "estimator__max_depth": null,
+          "estimator__min_child_weight": null,
+          "estimator__missing": NaN,
+          "estimator__monotone_constraints": null,
+          "estimator__n_estimators": 100,
+          "estimator__n_jobs": null,
+          "estimator__num_parallel_tree": null,
+          "estimator__random_state": null,
+          "estimator__reg_alpha": null,
+          "estimator__reg_lambda": null,
+          "estimator__scale_pos_weight": null,
+          "estimator__subsample": null,
+          "estimator__tree_method": null,
+          "estimator__validate_parameters": false,
+          "estimator__verbosity": null,
+          "n_jobs": null
+        },
+        "nodes_from": [
+          1
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_0.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "(/n_scaling_default_params;)/n_xgbreg_default_params",
+    "uid": {
+      "$uuid": "c5a993fa784c4a35b9e117d7ff71c488"
+    }
+  },
+  {
+    "total_pipeline_operations": [
+      "scaling",
+      "xgbreg"
+    ],
+    "depth": 5,
+    "nodes": [
+      {
+        "operation_id": 2,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_2.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 1,
+        "operation_type": "xgbreg",
+        "operation_name": "MultiOutputRegressor",
+        "custom_params": "default_params",
+        "params": {
+          "estimator__objective": "reg:squarederror",
+          "estimator__base_score": null,
+          "estimator__booster": null,
+          "estimator__colsample_bylevel": null,
+          "estimator__colsample_bynode": null,
+          "estimator__colsample_bytree": null,
+          "estimator__gamma": null,
+          "estimator__gpu_id": null,
+          "estimator__importance_type": "gain",
+          "estimator__interaction_constraints": null,
+          "estimator__learning_rate": null,
+          "estimator__max_delta_step": null,
+          "estimator__max_depth": null,
+          "estimator__min_child_weight": null,
+          "estimator__missing": NaN,
+          "estimator__monotone_constraints": null,
+          "estimator__n_estimators": 100,
+          "estimator__n_jobs": null,
+          "estimator__num_parallel_tree": null,
+          "estimator__random_state": null,
+          "estimator__reg_alpha": null,
+          "estimator__reg_lambda": null,
+          "estimator__scale_pos_weight": null,
+          "estimator__subsample": null,
+          "estimator__tree_method": null,
+          "estimator__validate_parameters": false,
+          "estimator__verbosity": null,
+          "n_jobs": null
+        },
+        "nodes_from": [
+          2
+        ],
+        "fitted_operation_path": "fitted_operations\\operation_1.pkl",
+        "rating": null
+      },
+      {
+        "operation_id": 5,
+        "operation_type": "scaling",
+        "operation_name": "ScalingImplementation",
+        "custom_params": "default_params",
+        "params": {
+          "copy": true,
+          "with_mean": true,
+          "with_std": true
+        },
+        "nodes_from": [],
+        "fitted_operation_path": "fitted_operations\\operation_5.pkl",
+        "rating": null
+      }
+    ],
+    "descriptive_id": "((((/n_scaling_default_params;)/n_xgbreg_default_params;;/n_scaling_default_params;)/n_decompose_default_params;)/n_linear_default_params;;(/n_scaling_default_params;)/n_xgbreg_default_params;)/n_catboostreg_{'allow_writing_files': False, 'verbose': False}",
+    "uid": {
+      "$uuid": "7480ce8577d044799367e516cffb6b54"
+    }
   }
 ]

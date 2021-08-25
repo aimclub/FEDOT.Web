@@ -86,7 +86,23 @@ def run_composer(task, metric, dataset_name, time):
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history = auto_model.history
+    unfit_history(history)
     return history
+
+
+def unfit_history(history):
+    for pop in history.individuals:
+        for ind in pop:
+            ind.graph.link_to_empty_pipeline.unfit()
+    for pop in history.archive_history:
+        for ind in pop:
+            ind.graph.link_to_empty_pipeline.unfit()
+
+    for ops in history.parent_operators:
+        for op in ops:
+            for op_part in op:
+                for pip in op_part.parent_objects:
+                    pip.link_to_empty_pipeline.unfit()
 
 
 def _add_to_db(db, id_name, id_value, obj_to_add):
