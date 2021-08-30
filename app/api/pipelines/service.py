@@ -4,9 +4,12 @@ from io import BytesIO
 from pathlib import Path
 from typing import Optional, Tuple
 
+import gridfs
+from bson import json_util
+import pymongo
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.pipelines.validation import validate
-from flask import url_for
+from flask import url_for, current_app
 from pymongo.errors import DuplicateKeyError
 
 from app import storage
@@ -24,10 +27,16 @@ def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
     if pipeline_dict is None:
         return None
 
-    dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': str(uid)})
+    if current_app.config['CONFIG_NAME'] == 'test':
+        dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': str(uid)})
+    else:
+        fs = gridfs.GridFS(storage.db)
+        file = fs.find_one({'filename': str(uid), 'type': 'dict_fitted_operations'}).read()
+        dict_fitted_operations = json_util.loads(file)
+
     if dict_fitted_operations:
         for key in dict_fitted_operations:
-            if key.find("operation") != -1:
+            if key.find('operation') != -1:
                 bytes_container = BytesIO()
                 bytes_container.write(dict_fitted_operations[key])
                 dict_fitted_operations[key] = bytes_container
@@ -49,12 +58,14 @@ def create_pipeline(db, uid: str, pipeline: Pipeline):
     if existing_uid:
         is_new = False
 
-    is_duplicate = False
     dumped_json, dict_fitted_operations = pipeline.save()
-
-    # if len(pipeline.nodes) > 0 and \
-    #        storage.db.pipelines.find_one({'descriptive_id': pipeline.root_node.descriptive_id}):
-    #    is_duplicate = True
+    if dict_fitted_operations:
+        for key in dict_fitted_operations:
+            if key.find('operation') != -1:
+                dict_fitted_operations[key].seek(0)
+                saved_operation = dict_fitted_operations[key].read()
+                dict_fitted_operations[key] = saved_operation
+        dict_fitted_operations['uid'] = str(uid)
 
     if is_new:
         dict_pipeline = json.loads(dumped_json)
@@ -63,6 +74,15 @@ def create_pipeline(db, uid: str, pipeline: Pipeline):
             db.pipelines.insert_one(dict_pipeline)
         except DuplicateKeyError:
             print(f'Pipeline {str(uid)} already exists')
+
+        if dict_fitted_operations is not None:
+            try:
+                db.dict_fitted_operations.insert_one(dict_fitted_operations)
+            except DuplicateKeyError:
+                print(f'Fitted operations dict {str(uid)} already exists')
+            except pymongo.errors.DocumentTooLarge as ex:
+                print(f'Dict {str(uid)} too large: {ex}')
+
     else:
         warnings.warn('Cannot create new pipeline')
 

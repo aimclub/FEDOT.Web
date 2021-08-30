@@ -1,13 +1,17 @@
+import os
 import pickle
 
 import pymongo
+from bson import json_util
 from pymongo.errors import CollectionInvalid
 
 from app.api.showcase.models import Metadata, ShowcaseItem
+from utils import project_root
 
 
-def create_default_cases(db):
-    _create_collection(db, 'cases', 'case_id')
+def create_default_cases(db=None):
+    if db:
+        _create_collection(db, 'cases', 'case_id')
 
     scoring_case = ShowcaseItem(
         case_id='scoring',
@@ -50,11 +54,20 @@ def create_default_cases(db):
         pipeline_id='best_oil_pipeline',
         metadata=Metadata(metric_name='rmse', task_name='regression', dataset_name='oil'))
 
-    add_case_to_db(db, scoring_case)
-    add_case_to_db(db, metocean_case)
-    add_case_to_db(db, oil_case)
+    mock_list = []
+    mock_list.append(add_case_to_db(db, scoring_case))
+    mock_list.append(add_case_to_db(db, metocean_case))
+    mock_list.append(add_case_to_db(db, oil_case))
 
-    return
+    if db is None:
+        mockup_cases(mock_list)
+
+
+def mockup_cases(mock_list):
+    if len(mock_list) > 0:
+        with open(os.path.join(project_root(), 'test/fixtures/cases.json'), 'w') as f:
+            f.write(json_util.dumps(mock_list))
+            print('cases are mocked')
 
 
 def _create_collection(db, name: str, id_name: str):
@@ -76,7 +89,10 @@ def add_case_to_db(db, case):
         'details': case.details
     }
 
-    _add_to_db(db, 'case_id', case.case_id, case_dict)
+    if db:
+        _add_to_db(db, 'case_id', case.case_id, case_dict)
+
+    return case_dict
 
 
 def _add_to_db(db, id_name, id_value, obj_to_add):
