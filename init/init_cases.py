@@ -55,9 +55,12 @@ def create_default_cases(db=None):
         metadata=Metadata(metric_name='rmse', task_name='regression', dataset_name='oil'))
 
     mock_list = []
-    add_case_to_db(db, scoring_case, mock_list)
-    add_case_to_db(db, metocean_case, mock_list)
-    add_case_to_db(db, oil_case, mock_list)
+    mock_list.append(add_case_to_db(db, scoring_case))
+    mock_list.append(add_case_to_db(db, metocean_case))
+    mock_list.append(add_case_to_db(db, oil_case))
+
+    if db is None:
+        mockup_cases(mock_list)
 
 
 def mockup_cases(mock_list):
@@ -75,7 +78,7 @@ def _create_collection(db, name: str, id_name: str):
         print('Cases collection already exists')
 
 
-def add_case_to_db(db, case, mock_list=[]):
+def add_case_to_db(db, case):
     case_dict = {
         'case_id': case.case_id,
         'title': case.title,
@@ -88,8 +91,8 @@ def add_case_to_db(db, case, mock_list=[]):
 
     if db:
         _add_to_db(db, 'case_id', case.case_id, case_dict)
-    else:
-        mock_list.append(case_dict)
+
+    return case_dict
 
 
 def _add_to_db(db, id_name, id_value, obj_to_add):

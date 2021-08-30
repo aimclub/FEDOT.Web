@@ -19,28 +19,31 @@ def create_default_pipelines(db=None):
 
     mock_list = []
 
-    _create_custom_pipeline(db, 'best_scoring_pipeline', 'scoring', pipeline_mock('class'), mock_list)
+    mock_list.append(_create_custom_pipeline(db, 'best_scoring_pipeline', 'scoring', pipeline_mock('class')))
     pipeline_1 = Pipeline(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
                                                                            nodes_from=[PrimaryNode('scaling')]),
                                                              PrimaryNode('knn')]))
-    _create_custom_pipeline(db, 'scoring_pipeline_1', 'scoring', pipeline_1, mock_list)
+    mock_list.append(_create_custom_pipeline(db, 'scoring_pipeline_1', 'scoring', pipeline_1))
 
     pipeline_2 = Pipeline(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
                                                                            nodes_from=[PrimaryNode('scaling')]),
                                                              SecondaryNode('knn',
                                                                            nodes_from=[PrimaryNode('scaling')])]))
-    _create_custom_pipeline(db, 'scoring_pipeline_2', 'scoring', pipeline_2, mock_list)
-    _create_custom_pipeline(db, 'scoring_baseline', 'scoring', get_baseline('class'), mock_list)
+    mock_list.append(_create_custom_pipeline(db, 'scoring_pipeline_2', 'scoring', pipeline_2))
+    mock_list.append(_create_custom_pipeline(db, 'scoring_baseline', 'scoring', get_baseline('class')))
 
     ######
 
-    _create_custom_pipeline(db, 'best_metocean_pipeline', 'metocean', pipeline_mock('ts'), mock_list)
-    _create_custom_pipeline(db, 'metocean_baseline', 'metocean', get_baseline('ts'), mock_list)
+    mock_list.append(_create_custom_pipeline(db, 'best_metocean_pipeline', 'metocean', pipeline_mock('ts')))
+    mock_list.append(_create_custom_pipeline(db, 'metocean_baseline', 'metocean', get_baseline('ts')))
 
     #######
 
-    _create_custom_pipeline(db, 'best_oil_pipeline', 'oil', pipeline_mock('regr'), mock_list)
-    _create_custom_pipeline(db, 'oil_baseline', 'oil', get_baseline('regr'), mock_list)
+    mock_list.append(_create_custom_pipeline(db, 'best_oil_pipeline', 'oil', pipeline_mock('regr')))
+    mock_list.append(_create_custom_pipeline(db, 'oil_baseline', 'oil', get_baseline('regr')))
+
+    if db is None:
+        mockup_pipelines(mock_list)
 
 
 def mockup_pipelines(mock_list):
@@ -56,7 +59,7 @@ def mockup_pipelines(mock_list):
             print('dict_fitted_operations are mocked')
 
 
-def _create_custom_pipeline(db, pipeline_id, case_id, pipeline, mock_list):
+def _create_custom_pipeline(db, pipeline_id, case_id, pipeline):
     uid = pipeline_id
     data = get_input_data(dataset_name=case_id, sample_type='train')
     if db is None:
@@ -66,8 +69,8 @@ def _create_custom_pipeline(db, pipeline_id, case_id, pipeline, mock_list):
     pipeline_dict['uid'] = uid
     if db:
         _add_pipeline_to_db(db, uid, pipeline_dict, dict_fitted_operations)
-    else:
-        mock_list.append([pipeline_dict, dict_fitted_operations])
+
+    return [pipeline_dict, dict_fitted_operations]
 
 
 def _extract_pipeline_with_fitted_operations(pipeline, uid):

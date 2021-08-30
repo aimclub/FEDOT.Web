@@ -18,19 +18,20 @@ def create_default_history(db=None, opt_times=None):
     if opt_times is None:
         opt_times = [1.5, 0.1, 0.7]
 
-    _init_composer_history_for_case(db=db, history_id='scoring', dataset_name='scoring',
+    mock_list.append(_init_composer_history_for_case(db=db, history_id='scoring', dataset_name='scoring',
                                     metric='roc_auc',
-                                    task='classification', time=opt_times[0], mock_list=mock_list)
+                                    task='classification', time=opt_times[0]))
 
-    _init_composer_history_for_case(db=db, history_id='metocean', dataset_name='metocean',
+    mock_list.append(_init_composer_history_for_case(db=db, history_id='metocean', dataset_name='metocean',
                                     metric='rmse',
-                                    task='ts_forecasting', time=opt_times[1], mock_list=mock_list)
+                                    task='ts_forecasting', time=opt_times[1]))
 
-    _init_composer_history_for_case(db=db, history_id='oil', dataset_name='oil',
+    mock_list.append(_init_composer_history_for_case(db=db, history_id='oil', dataset_name='oil',
                                     metric='rmse',
-                                    task='regression', time=opt_times[2], mock_list=mock_list)
+                                    task='regression', time=opt_times[2]))
 
-    mockup_history(mock_list)
+    if db is None:
+        mockup_history(mock_list)
 
 
 def mockup_history(mock_list):
@@ -40,26 +41,29 @@ def mockup_history(mock_list):
             f.write(json_util.dumps(history))
             print('history are mocked')
 
-        pipelines = [i['pipeline_dict'] for i in mock_list]
+        pipelines = [j for i in mock_list for j in i['pipelines_dict']]
+
         if len(pipelines) > 0:
-            with open(os.path.join(project_root(), 'test/fixtures/pipelines.json'), 'r') as f:
+            with open(os.path.join(project_root(), 'test/fixtures/pipelines.json'), 'r+') as f:
                 data = json_util.loads(f.read())
                 data.extend(pipelines)
-            with open(os.path.join(project_root(), 'test/fixtures/pipelines.json'), 'w') as f:
+                f.seek(0)
                 f.write(json_util.dumps(data))
                 print('history pipelines are mocked')
 
         dicts_fitted_operations = [i['dict_fitted_operations'] for i in mock_list]
         if len(dicts_fitted_operations) > 0:
-            with open(os.path.join(project_root(), 'test/fixtures/dict_fitted_operations.json'), 'r') as f:
+            with open(os.path.join(project_root(), 'test/fixtures/dict_fitted_operations.json'), 'r+') as f:
                 data = json_util.loads(f.read())
                 data.extend(dicts_fitted_operations)
-            with open(os.path.join(project_root(), 'test/fixtures/dict_fitted_operations.json'), 'w') as f:
+                f.seek(0)
                 f.write(json_util.dumps(data))
                 print('history dict_fitted_operations are mocked')
 
 
-def _init_composer_history_for_case(db, history_id, task, metric, dataset_name, time, mock_list):
+def _init_composer_history_for_case(db, history_id, task, metric, dataset_name, time):
+    mock_dct = {}
+
     if db:
         history = run_composer(task, metric, dataset_name, time)
         history_obj = pickle.dumps(history)
@@ -70,6 +74,10 @@ def _init_composer_history_for_case(db, history_id, task, metric, dataset_name, 
             'history_id': history_id,
             'history_pkl': pickle.dumps(history)
         }
+
+    mock_dct['history'] = history_obj
+    mock_dct['pipelines_dict'] = []
+    mock_dct['dicts_fitted_operations'] = []
 
     data = get_input_data(dataset_name=dataset_name, sample_type='train')
     for i, pipeline_template in enumerate(history.historical_pipelines):
@@ -86,8 +94,10 @@ def _init_composer_history_for_case(db, history_id, task, metric, dataset_name, 
                 create_pipeline(db, struct_id, pipeline)
             else:
                 pipeline_dict, dict_fitted_operations = _extract_pipeline_with_fitted_operations(pipeline, struct_id)
-                mock_list.append({'history': history_obj, 'pipeline_dict': pipeline_dict,
-                                  'dict_fitted_operations': dict_fitted_operations})
+                mock_dct['pipelines_dict'].append(pipeline_dict)
+                mock_dct['dicts_fitted_operations'].append(dict_fitted_operations)
+
+    return mock_dct
 
 
 def add_to_db(db, id_value, obj_to_add):
