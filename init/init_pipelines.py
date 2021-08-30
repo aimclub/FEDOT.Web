@@ -74,10 +74,7 @@ def _create_custom_pipeline(db, pipeline_id, case_id, pipeline):
 
 
 def _extract_pipeline_with_fitted_operations(pipeline, uid):
-    try:
-        pipeline_json, dict_fitted_operations = pipeline.save()
-    except:
-        return
+    pipeline_json, dict_fitted_operations = pipeline.save()
     pipeline_json = json.loads(pipeline_json)
     new_dct = {}
     for i in dict_fitted_operations:

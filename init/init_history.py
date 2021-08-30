@@ -18,17 +18,20 @@ def create_default_history(db=None, opt_times=None):
     if opt_times is None:
         opt_times = [1.5, 0.1, 0.7]
 
-    mock_list.append(_init_composer_history_for_case(db=db, history_id='scoring', dataset_name='scoring',
-                                    metric='roc_auc',
-                                    task='classification', time=opt_times[0]))
+    mock_list.append(
+        _init_composer_history_for_case(db=db, history_id='scoring', dataset_name='scoring',
+        metric='roc_auc',
+        task='classification', time=opt_times[0]))
 
-    mock_list.append(_init_composer_history_for_case(db=db, history_id='metocean', dataset_name='metocean',
-                                    metric='rmse',
-                                    task='ts_forecasting', time=opt_times[1]))
+    mock_list.append(
+        _init_composer_history_for_case(db=db, history_id='metocean', dataset_name='metocean',
+        metric='rmse',
+        task='ts_forecasting', time=opt_times[1]))
 
-    mock_list.append(_init_composer_history_for_case(db=db, history_id='oil', dataset_name='oil',
-                                    metric='rmse',
-                                    task='regression', time=opt_times[2]))
+    mock_list.append(
+        _init_composer_history_for_case(db=db, history_id='oil', dataset_name='oil',
+        metric='rmse',
+        task='regression', time=opt_times[2]))
 
     if db is None:
         mockup_history(mock_list)
@@ -51,7 +54,7 @@ def mockup_history(mock_list):
                 f.write(json_util.dumps(data))
                 print('history pipelines are mocked')
 
-        dicts_fitted_operations = [i['dict_fitted_operations'] for i in mock_list]
+        dicts_fitted_operations = [j for i in mock_list for j in i['dicts_fitted_operations']]
         if len(dicts_fitted_operations) > 0:
             with open(os.path.join(project_root(), 'test/fixtures/dict_fitted_operations.json'), 'r+') as f:
                 data = json_util.loads(f.read())
