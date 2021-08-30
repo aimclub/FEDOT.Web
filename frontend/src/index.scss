@@ -1,0 +1,54 @@
+body {
+  margin: 0 auto;
+  max-width: 1440px;
+
+  background: #e5e5e5;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+p {
+  margin: 0;
+}
+
+.about__cards {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1122px;
+  padding-top: 20px;
+  box-sizing: border-box;
+  overflow: visible;
+  flex-wrap: nowrap;
+}
+
+.about__cards {
+  // отступы и размеры
+  padding: 0;
+  margin: 0;
+  width: 1122px;
+  height: 100px;
+  //  все что связано с flex и grid
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+
+  // все что связано тектом
+
+  // все что связано с border
+
+  // все что связано с цветом
+
+  position: relative;
+}
