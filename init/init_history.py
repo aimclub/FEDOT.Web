@@ -20,18 +20,18 @@ def create_default_history(db=None, opt_times=None):
 
     mock_list.append(
         _init_composer_history_for_case(db=db, history_id='scoring', dataset_name='scoring',
-        metric='roc_auc',
-        task='classification', time=opt_times[0]))
+                                        metric='roc_auc',
+                                        task='classification', time=opt_times[0]))
 
     mock_list.append(
         _init_composer_history_for_case(db=db, history_id='metocean', dataset_name='metocean',
-        metric='rmse',
-        task='ts_forecasting', time=opt_times[1]))
+                                        metric='rmse',
+                                        task='ts_forecasting', time=opt_times[1]))
 
     mock_list.append(
         _init_composer_history_for_case(db=db, history_id='oil', dataset_name='oil',
-        metric='rmse',
-        task='regression', time=opt_times[2]))
+                                        metric='rmse',
+                                        task='regression', time=opt_times[2]))
 
     if db is None:
         mockup_history(mock_list)
