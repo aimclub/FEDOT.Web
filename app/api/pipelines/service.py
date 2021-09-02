@@ -90,10 +90,10 @@ def create_pipeline(db, uid: str, pipeline: Pipeline):
 
 
 def get_image_url(filename, pipeline):
-    image_path = f'{project_root()}/app/web/static/generated_images/{filename}'
+    image_path = f'{project_root()}/frontend/build/static/generated_images/{filename}'
     image = Path(image_path)
     if not image.exists():
-        dir_path = Path(f'{project_root()}/app/web/static/generated_images/')
+        dir_path = Path(f'{project_root()}/frontend/build/static/generated_images/')
         if not dir_path.exists():
             dir_path.mkdir()
         pipeline.show(image_path)
