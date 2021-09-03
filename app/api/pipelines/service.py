@@ -69,24 +69,42 @@ def create_pipeline(db, uid: str, pipeline: Pipeline):
 
     if is_new:
         dict_pipeline = json.loads(dumped_json)
-        dict_pipeline['uid'] = str(uid)
+        _add_pipeline_to_db(db, uid, dict_pipeline, dict_fitted_operations)
+    else:
+        warnings.warn('Cannot create new pipeline')
+
+    return uid, is_new
+
+
+def _add_pipeline_to_db(db, uid, dict_pipeline, dict_fitted_operations, init_db=False):
+    dict_pipeline['uid'] = str(uid)
+    if init_db:
+        db.pipelines.remove({'uid': uid})
+    else:
         try:
             db.pipelines.insert_one(dict_pipeline)
         except DuplicateKeyError:
             print(f'Pipeline {str(uid)} already exists')
 
-        if dict_fitted_operations is not None:
-            try:
-                db.dict_fitted_operations.insert_one(dict_fitted_operations)
-            except DuplicateKeyError:
-                print(f'Fitted operations dict {str(uid)} already exists')
-            except pymongo.errors.DocumentTooLarge as ex:
-                print(f'Dict {str(uid)} too large: {ex}')
+    if dict_fitted_operations is not None:
+        try:
+            if current_app.config['CONFIG_NAME'] == 'test':
+                dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': str(uid)})
+            else:
+                fs = gridfs.GridFS(db)
+                file = fs.find_one({'filename': uid, 'type': 'dict_fitted_operations'})
+                if file:
+                    fs.delete(file._id)
+                fs.put(json_util.dumps(dict_fitted_operations), filename=uid, type='dict_fitted_operations',
+                       encoding='utf-8')
 
-    else:
-        warnings.warn('Cannot create new pipeline')
+            if init_db:
+                return [dict_pipeline, dict_fitted_operations]
 
-    return uid, is_new
+        except DuplicateKeyError:
+            print(f'Fitted operations dict {str(uid)} already exists')
+        except pymongo.errors.DocumentTooLarge as ex:
+            print(f'Dict {str(uid)} too large: {ex}')
 
 
 def get_image_url(filename, pipeline):

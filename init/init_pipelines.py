@@ -10,6 +10,7 @@ from fedot.core.pipelines.pipeline import Pipeline
 from pymongo.errors import CollectionInvalid
 
 from app.api.data.service import get_input_data
+from app.api.pipelines.service import _add_pipeline_to_db
 from utils import project_root
 
 
@@ -91,20 +92,6 @@ def _create_collection(db, name: str, id_name: str):
         db.pipelines.create_index([(id_name, pymongo.TEXT)], unique=True)
     except CollectionInvalid:
         print('Pipelines collection already exists')
-
-
-def _add_pipeline_to_db(db, uid, pipeline_dict, dict_fitted_operations):
-    _add_to_db(db, 'uid', uid, pipeline_dict)
-    fs = gridfs.GridFS(db)
-    file = fs.find_one({'filename': uid, 'type': 'dict_fitted_operations'})
-    if file:
-        fs.delete(file._id)
-    fs.put(json_util.dumps(dict_fitted_operations), filename=uid, type='dict_fitted_operations', encoding='utf-8')
-
-
-def _add_to_db(db, id_name, id_value, obj_to_add):
-    db.pipelines.remove({id_name: id_value})
-    db.pipelines.insert_one(obj_to_add)
 
 
 def _pipeline_first():
