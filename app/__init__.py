@@ -21,8 +21,8 @@ def create_app(env=None):
     print('Create app')
     from app.config import config_by_name
 
-    template_dir = os.path.abspath('app/web/templates')
-    static_dir = os.path.abspath('app/web/static')
+    template_dir = os.path.abspath('frontend/build')
+    static_dir = os.path.abspath('frontend/build/static')
 
     app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
     cors = CORS(app)

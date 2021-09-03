@@ -1,0 +1,29 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 150%;
+  letter-spacing: 0.15px;
+
+  color: #000000;
+}
+.imgContainer {
+  margin-top: 10px;
+  padding: 8px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  background: #ffffff;
+  border-radius: 8px 0px 0px 8px;
+}
+.img {
+  width: 529px;
+  height: 168px;
+}

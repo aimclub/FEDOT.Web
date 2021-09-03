@@ -1,0 +1,21 @@
+.root {
+  display: grid;
+  grid-template-areas:
+    "left head"
+    "left content";
+  grid-template-columns: 73px 1fr;
+  grid-template-rows: 58px 1fr;
+  grid-gap: 20px;
+}
+.leftMenu {
+  min-height: 100vh;
+  grid-area: left;
+}
+
+.header {
+  grid-area: head;
+}
+
+.content {
+  grid-area: content;
+}

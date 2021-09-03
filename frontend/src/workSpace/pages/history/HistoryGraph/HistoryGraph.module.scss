@@ -1,0 +1,108 @@
+@keyframes bubbleNode {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.container {
+  flex: 1;
+  width: 100%;
+  //height: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  [id="graphSvg"] {
+    display: block;
+    width: 100%;
+    height: 100%;
+    outline: 2px solid gold;
+  }
+
+  [class*="node"] rect {
+    stroke: #999;
+    fill: #fff;
+    stroke-width: 1.5px;
+  }
+  [class*="node"]:hover > rect {
+    fill: #eba;
+  }
+  [class*="type-TK"] rect {
+    fill: #00ffd0;
+  }
+  [class*="type-TOP"] circle {
+    fill: #4a66c6;
+  }
+  [class*="type-NEW"] rect {
+    fill: #eba;
+  }
+
+  text {
+    font-weight: 300;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  [class*="edgePath"] path {
+    stroke: #333;
+    stroke-width: 1px;
+    //transition: all 1.2s ease-in-out;
+    cursor: pointer;
+  }
+
+  [class*="operator-C"] circle {
+    cursor: pointer;
+    fill: #4a66c6;
+  }
+  [class*="operator-M"] circle {
+    fill: rgba(229, 92, 222, 0.95);
+  }
+
+  [class*="clusters"] rect {
+    stroke: #263238;
+    stroke-width: 1.5px;
+  }
+
+  //[class*="edgePath"] path {
+  //  stroke: #333;
+  //  stroke-width: 2px;
+  //  //transition: all 1.2s ease-in-out;
+  //  cursor: pointer;
+  //  &[class*="edgeONE"] {
+  //    outline: 1px solid red;
+  //  }
+  //}
+}
+
+.contextMenu {
+  stroke: #00557d;
+  fill: #ffffff;
+}
+
+.menuEntry {
+  cursor: pointer;
+}
+
+.menuEntry text {
+  font-size: 12px;
+  stroke: #00557d;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0;
+  border-radius: 8px;
+  pointer-events: none;
+}

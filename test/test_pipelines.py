@@ -54,5 +54,5 @@ def test_pipeline_image_endpoint(client):
     test_pipeline = pipeline_mock()
     filename = f'{uid}.png'
     image_url = get_image_url(filename, test_pipeline)
-    assert Path(f'{project_root()}/app/web/static/generated_images/{filename}').exists()
+    assert Path(f'{project_root()}/frontend/build/static/generated_images/{filename}').exists()
     assert image_url == response['image_url']
