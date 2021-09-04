@@ -9,7 +9,7 @@ from bson import json_util
 import pymongo
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.pipelines.validation import validate
-from flask import url_for, current_app
+from flask import url_for, current_app, has_app_context
 from pymongo.errors import DuplicateKeyError
 
 from app import storage
@@ -88,7 +88,7 @@ def _add_pipeline_to_db(db, uid, dict_pipeline, dict_fitted_operations, init_db=
 
     if dict_fitted_operations is not None:
         try:
-            if current_app.config['CONFIG_NAME'] == 'test':
+            if has_app_context() and current_app.config['CONFIG_NAME'] == 'test':
                 dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': str(uid)})
             else:
                 fs = gridfs.GridFS(db)

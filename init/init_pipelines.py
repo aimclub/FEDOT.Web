@@ -2,7 +2,6 @@ import json
 import os
 
 import bson
-import gridfs
 import pymongo
 from bson import json_util
 from fedot.core.pipelines.node import PrimaryNode, SecondaryNode
