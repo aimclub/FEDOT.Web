@@ -21,6 +21,6 @@ if __name__ == "__main__":
     host = os.getenv("FLASK_HOST")
     port = os.getenv("FLASK_PORT")
     if not host:
-        socketio.run(app, ssl_context=ssl_config.get_context(), use_reloader=False)
+        socketio.run(app, use_reloader=False)
     else:
-        socketio.run(app, ssl_context=ssl_config.get_context(), use_reloader=False, host=host, port=port)
+        socketio.run(app, use_reloader=False, host=host, port=port)
