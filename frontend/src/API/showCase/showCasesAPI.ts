@@ -12,16 +12,16 @@ export const showCasesAPI = {
                 return res.data;
             })
             .catch((error: any) => {
-          console.error(`error`, error.response.data);
-          return Promise.reject(error);
-        });
-  },
-  getShowCaseById(caseId: string) {
-    return instance
-      .get<ICase>(`showcase/items/${caseId}`)
-      .then((res) => {
-        return res.data;
-      })
+                console.error(`error`, error.response.data);
+                return Promise.reject(error);
+            });
+    },
+    getShowCaseById(caseId: string) {
+        return instance
+            .get<ICase>(`showcase/items/${caseId}`)
+            .then((res) => {
+                return res.data;
+            })
       .catch((error: any) => {
         // console.error(`error`, error.response.data);
         return Promise.reject(error);

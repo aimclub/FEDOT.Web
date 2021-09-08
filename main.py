@@ -1,7 +1,6 @@
 import os
 
 from dotenv import load_dotenv
-from flask import redirect, request
 from werkzeug.contrib.fixers import ProxyFix
 
 from app import create_app, db, socketio
@@ -14,15 +13,6 @@ if __name__ == "__main__":
     print(env)
 
     app = create_app(os.getenv("FLASK_ENV") or "dev")
-
-
-    @app.before_request
-    def before_request():
-        if not request.is_secure:
-            url = request.url.replace('http://', 'https://', 1)
-            code = 301
-            return redirect(url, code=code)
-
 
     app.wsgi_app = ProxyFix(app.wsgi_app)
 

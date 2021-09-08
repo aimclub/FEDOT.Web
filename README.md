@@ -33,6 +33,7 @@ The visualisation of the evolution history.
 
 ![Evolution](./docs/img/history.png)
 
+
 ## Algorithmic core
 
 Open-source AutoML framework [FEDOT](https://github.com/nccr-itmo/FEDOT)
