@@ -5,11 +5,11 @@ from pathlib import Path
 from typing import Optional, Tuple
 
 import gridfs
-from bson import json_util
 import pymongo
+from bson import json_util
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.pipelines.validation import validate
-from flask import url_for, current_app, has_app_context
+from flask import current_app, has_app_context, url_for
 from pymongo.errors import DuplicateKeyError
 
 from app import storage
@@ -115,7 +115,7 @@ def get_image_url(filename, pipeline):
         if not dir_path.exists():
             dir_path.mkdir()
         pipeline.show(image_path)
-    return url_for('static', filename=f'generated_images/{filename}', _external=True)
+    return url_for('static', filename=f'generated_images/{filename}')
 
 
 def get_pipeline_metadata(pipeline_id) -> Tuple[int, int]:
