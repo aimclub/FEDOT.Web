@@ -1,24 +1,24 @@
-import React, { FC, memo, ReactNode } from "react";
+import React, {FC, memo, ReactNode} from "react";
 import scss from "./addButon.module.scss";
 
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
+import {createStyles, makeStyles} from "@material-ui/core/styles";
+import {Button} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles(() =>
-  createStyles({
-    button: {
-      padding: "2px 4px 2px 0",
-      textTransform: "none",
-    },
-    icon: {
-      width: 18,
-      height: 18,
+    createStyles({
+        button: {
+            padding: "2px 4px 2px 0",
+            textTransform: "none",
+        },
+        icon: {
+            width: 18,
+            height: 18,
 
-      border: "1px solid #506072",
-      borderRadius: 5,
-    },
-  })
+            border: "1px solid #506072",
+            borderRadius: 5,
+        },
+    })
 );
 
 interface IAddButton {

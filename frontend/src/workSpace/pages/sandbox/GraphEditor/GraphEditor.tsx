@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
 
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 
-import { StateType } from "../../../../redux/store";
-import { getMainGraph } from "../../../../redux/reducers/sandBox/sandbox-reducer";
+import {StateType} from "../../../../redux/store";
+import {getMainGraph} from "../../../../redux/reducers/sandBox/sandbox-reducer";
 import GraphEditorDirectedGraph from "./GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 import AddNode from "./AddNode";
 

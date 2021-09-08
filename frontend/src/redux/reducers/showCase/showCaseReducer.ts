@@ -1,7 +1,7 @@
-import { ThunkAction } from "redux-thunk";
-import { StateType } from "../../store";
-import { ICase, ICaseArr } from "../../../API/showCase/showCasesInterface";
-import { showCasesAPI } from "../../../API/showCase/showCasesAPI";
+import {ThunkAction} from "redux-thunk";
+import {StateType} from "../../store";
+import {ICase, ICaseArr} from "../../../API/showCase/showCasesInterface";
+import {showCasesAPI} from "../../../API/showCase/showCasesAPI";
 
 const SHOW_CASES_ARR = "SHOW_CASES_ARR";
 const SHOW_CASE_BY_ID = "SHOW_CASE_BY_ID";

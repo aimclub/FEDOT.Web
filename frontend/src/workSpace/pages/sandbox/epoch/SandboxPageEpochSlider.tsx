@@ -1,27 +1,23 @@
-import React, { memo, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {memo, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Slider } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import {
-  getEpochs,
-  setSelectedEpoch,
-} from "../../../../redux/reducers/sandBox/sandBoxReducer";
-import { StateType } from "../../../../redux/store";
-import { getMainGraph } from "../../../../redux/reducers/sandBox/sandbox-reducer";
+import {createStyles, makeStyles, withStyles} from "@material-ui/core/styles";
+import {Slider} from "@material-ui/core";
+import {getEpochs, setSelectedEpoch,} from "../../../../redux/reducers/sandBox/sandBoxReducer";
+import {StateType} from "../../../../redux/store";
+import {getMainGraph} from "../../../../redux/reducers/sandBox/sandbox-reducer";
 
 const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      padding: "0 32px",
-      width: "100%",
+    createStyles({
+      root: {
+        padding: "0 32px",
+        width: "100%",
 
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-    },
-  })
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+      },
+    })
 );
 
 const CustomSlider = withStyles({
@@ -83,19 +79,19 @@ const SandboxPageEpochSlider = () => {
   }
 
   const onChangeEpoch = (event: any, value: any) => {
-    console.log(`value`, value);
-    console.log(`sandBox_epochs`, sandBox_epochs);
+    // console.log(`value`, value);
+    // console.log(`sandBox_epochs`, sandBox_epochs);
     if (sandBox_epochs) {
       // sandBox_epochs.find((epoch) => epoch.epoch_num === value);
       dispatch(
-        setSelectedEpoch(
-          sandBox_epochs.find((epoch) => epoch.epoch_num === value)!
-        )
+          setSelectedEpoch(
+              sandBox_epochs.find((epoch) => epoch.epoch_num === value)!
+          )
       );
       dispatch(
-        getMainGraph(
-          sandBox_epochs.find((epoch) => epoch.epoch_num === value)!.pipeline_id
-        )
+          getMainGraph(
+              sandBox_epochs.find((epoch) => epoch.epoch_num === value)!.pipeline_id
+          )
       );
     }
   };

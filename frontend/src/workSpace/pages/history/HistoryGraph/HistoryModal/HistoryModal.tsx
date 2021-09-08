@@ -1,11 +1,5 @@
-import React, { FC, useEffect, useState } from "react";
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  withStyles,
-  WithStyles,
-} from "@material-ui/core/styles";
+import React, {FC, useEffect, useState} from "react";
+import {createStyles, makeStyles, Theme, withStyles, WithStyles,} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
@@ -14,24 +8,24 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
 import Loader from "react-loader-spinner";
-import { useHistory } from "react-router-dom";
-import { IPipelineImage, sandboxAPI } from "../../../../../API/sandbox";
+import {useHistory} from "react-router-dom";
+import {IPipelineImage, sandboxAPI} from "../../../../../API/sandbox";
 
 const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      padding: theme.spacing(0),
-      background: "#E2E7EA",
-      borderRadius: "20px",
-      margin: 2,
-      display: "flex",
-      justifyContent: "space-between",
-    },
-    closeButton: {
-      color: theme.palette.grey[500],
-      padding: 2,
-    },
-  });
+    createStyles({
+      root: {
+        padding: theme.spacing(0),
+        background: "#E2E7EA",
+        borderRadius: "20px",
+        margin: 2,
+        display: "flex",
+        justifyContent: "space-between",
+      },
+      closeButton: {
+        color: theme.palette.grey[500],
+        padding: 2,
+      },
+    });
 
 export interface DialogTitleProps extends WithStyles<typeof styles> {
   id: string;

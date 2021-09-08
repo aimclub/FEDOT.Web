@@ -1,16 +1,16 @@
-import React, { memo, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import React, {memo, useCallback} from "react";
+import {useDispatch} from "react-redux";
 
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import {createStyles, makeStyles} from "@material-ui/core/styles";
+import {Grid} from "@material-ui/core";
 
 import SandBoxChartBtn from "../../../../../ui/buttons/SandBoxChartBtn";
-import { setHistoryToggle } from "../../../../../redux/reducers/sandBox/sandBoxReducer";
+import {setHistoryToggle} from "../../../../../redux/reducers/sandBox/sandBoxReducer";
 
 const useStyles = makeStyles(() =>
-  createStyles({
-    btns: { display: "flex", alignItems: "center", justifyContent: "flex-end" },
-  })
+    createStyles({
+      btns: {display: "flex", alignItems: "center", justifyContent: "flex-end"},
+    })
 );
 
 const SandboxPageChartsBtns = () => {

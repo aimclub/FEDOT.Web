@@ -1,11 +1,11 @@
-import { instance } from "../baseURL";
-import { IGeneration, IMetric, IResult } from "./analyticsInterface";
+import {instance} from "../baseURL";
+import {IGeneration, IMetric, IResult} from "./analyticsInterface";
 
 export const analyticsAPI = {
   async getResults(caseId: string, pipelineId: string) {
     try {
       const res = await instance.get<IResult>(
-        `/analytics/results/${caseId}/${pipelineId}`
+          `/analytics/results/${caseId}/${pipelineId}`
       );
       // console.log(`res`, res.data);
       return res.data;

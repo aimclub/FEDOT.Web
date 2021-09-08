@@ -1,10 +1,11 @@
-import { StateType } from "../../store";
-import { ThunkAction } from "redux-thunk";
+import {StateType} from "../../store";
+import {ThunkAction} from "redux-thunk";
 
-import { IHistoryGraph, IMainGraph, sandboxAPI } from "../../../API/sandbox";
+import {IHistoryGraph, IMainGraph, sandboxAPI} from "../../../API/sandbox";
 import {
   EdgeDataType,
   edgeValueType,
+  NodeDataType,
 } from "../../../workSpace/pages/sandbox/GraphEditor/GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 
 const SET_MAIN_GRAPH = "SET_MAIN_GRAPH";
@@ -183,12 +184,13 @@ export const actionsSandbox = {
 };
 // для async
 type ThunkTypeAsync = ThunkAction<Promise<void>, StateType, unknown, AllTypes>;
+type ThunkType = ThunkAction<void, StateType, unknown, AllTypes>;
 
 export const getMainGraph = (uid: string): ThunkTypeAsync => {
   return async (dispatch) => {
     try {
       let data = await sandboxAPI.getMainGraph(uid);
-      console.log(`data`, data);
+      // console.log(`data`, data);
       dispatch(actionsSandbox.setMainGraph(data));
     } catch (err) {
       return Promise.reject(err);
@@ -204,6 +206,24 @@ export const getHistoryGraph = (uid: string): ThunkTypeAsync => {
     } catch (err) {
       return Promise.reject(err);
     }
+  };
+};
+
+export const editMainGraph = (
+    mainGraph: IMainGraph,
+    nodes: NodeDataType[],
+    edges: EdgeDataType[]
+): ThunkType => {
+  return (dispatch) => {
+    let nodesEdit = mainGraph.nodes.filter((item) => item.id !== nodes[0].id);
+    let edgesEdit = mainGraph.edges.filter(
+        (item) => item.source !== nodes[0].id && item.target !== nodes[0].id
+    );
+
+    dispatch(
+        actionsSandbox.setMainGraph({nodes: nodesEdit, edges: edgesEdit})
+    );
+    dispatch(actionsSandbox.addNodeMainGraph({nodes: nodes, edges: edges}));
   };
 };
 
