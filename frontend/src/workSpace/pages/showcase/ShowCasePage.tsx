@@ -20,16 +20,16 @@ const ShowcasePage = () => {
               mountOnEnter
               unmountOnExit
               timeout={1000}
-        >
-          <div>
-            <ShowCaseInfo />
-          </div>
-        </Fade>
-      </Grid>
-      <Grid item xs={4}>
-        <Fade
-          in={show_case_by_id !== null}
-          mountOnEnter
+          >
+            <div>
+              <ShowCaseInfo/>
+            </div>
+          </Fade>
+        </Grid>
+        <Grid item xs={4}>
+          <Fade
+              in={show_case_by_id !== null}
+              mountOnEnter
           unmountOnExit
           timeout={2000}
         >

@@ -21,11 +21,11 @@ const ShowCaseInfoCardDetals = () => {
                             value={metric[1]}
                             key={index + "o"}
                         />
-          )
-        )}
-      </div>
-    </div>
-  );
+                    )
+                )}
+            </div>
+        </div>
+    );
 };
 
 export default memo(ShowCaseInfoCardDetals);

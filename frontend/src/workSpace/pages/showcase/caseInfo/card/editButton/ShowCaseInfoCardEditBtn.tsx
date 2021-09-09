@@ -25,9 +25,9 @@ const useStyles = makeStyles(() =>
             "&:hover": {
                 background: "#90A4AE",
             },
-    },
-    text: {
-      fontWeight: 300,
+        },
+        text: {
+            fontWeight: 300,
       fontSize: "14px",
       lineHeight: "24px",
       letterSpacing: "0.1px",

@@ -14,6 +14,7 @@ import LeftMenuButtonItem from "./buttonItem/LeftMenuButtonItem";
 import {selectPage} from "../../../redux/reducers/leftMenu/leftMenuReducer";
 import {StateType} from "../../../redux/store";
 import {setHistoryToggle} from "./../../../redux/reducers/sandBox/sandBoxReducer";
+import {getShowCaseById} from "../../../redux/reducers/showCase/showCaseReducer";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -52,8 +53,15 @@ const LeftMenu = () => {
 
   const onMenuClick = useCallback(
     (page: "Showcase" | "Sandbox" | "FEDOT" | "Settings") => {
-      dispatch(setHistoryToggle(false));
-      dispatch(selectPage(page));
+        dispatch(setHistoryToggle(false));
+        dispatch(selectPage(page));
+
+        if (page === "Sandbox") {
+            dispatch(getShowCaseById("scoring"));
+        }
+        if (page === "FEDOT") {
+            dispatch(getShowCaseById("scoring"));
+        }
     },
     [dispatch]
   );

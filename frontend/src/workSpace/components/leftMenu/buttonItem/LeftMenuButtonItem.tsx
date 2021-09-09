@@ -21,7 +21,7 @@ const useStyles = makeStyles(() =>
             "&:hover": {
                 background: "#B0BEC5",
             },
-    },
+        },
     selected: {
       background: "#4F5B62",
     },

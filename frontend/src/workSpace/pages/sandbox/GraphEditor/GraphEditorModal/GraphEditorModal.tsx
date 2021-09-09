@@ -116,16 +116,16 @@ const GraphEditorModal: FC<IGraphEditorModal> = ({ dataContext }) => {
           <div className={classes.line}>
             <StarRateIcon/>
             <Typography>Rating 10/10</Typography>
-        </div>
-        <div className={classes.line}>
-          <Typography>modal_name: </Typography>
-          <Typography
-            style={{ backgroundColor: "#F4F6F8", marginLeft: 10, padding: 2 }}
-          >
-            modal_name
-          </Typography>
-        </div>
-        <Typography variant={"body1"}>Hyperparameters:</Typography>
+          </div>
+          <div className={classes.line}>
+            <Typography>modal_name: </Typography>
+            <Typography
+                style={{backgroundColor: "#F4F6F8", marginLeft: 10, padding: 2}}
+            >
+              modal_name
+            </Typography>
+          </div>
+          <Typography variant={"body1"}>Hyperparameters:</Typography>
         <div
           style={{
             backgroundColor: "#F4F6F8",

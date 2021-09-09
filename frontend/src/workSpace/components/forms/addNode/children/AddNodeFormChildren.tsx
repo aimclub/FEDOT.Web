@@ -21,16 +21,16 @@ const useStyles = makeStyles(() =>
             borderRadius: 10,
             background: "#828282",
         },
-    text: {
-      paddingLeft: 9,
+        text: {
+            paddingLeft: 9,
 
-      fontFamily: "Open Sans",
-      fontSize: "14px",
-      lineHeight: "18px",
-      letterSpacing: "0.1px",
+            fontFamily: "Open Sans",
+            fontSize: "14px",
+            lineHeight: "18px",
+            letterSpacing: "0.1px",
 
-      color: " #ffffff",
-    },
+            color: " #ffffff",
+        },
   })
 );
 

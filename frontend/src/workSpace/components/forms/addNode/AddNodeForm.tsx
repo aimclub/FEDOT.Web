@@ -55,7 +55,6 @@ const creatingConnections = (
 
 interface I {
   setFromClosed(): void;
-
   type: "edit" | "new";
 }
 
@@ -163,8 +162,8 @@ const AddNodeForm: FC<I> = ({setFromClosed, type}) => {
               onChange={formik.handleChange}
           />
           <AddNodeFormType
-            values={formik.values}
-            onChange={formik.handleChange}
+              values={formik.values}
+              onChange={formik.handleChange}
           />
           <div className={classes.buttonsPosition}>
             <ButtonsCancelAndSubmit

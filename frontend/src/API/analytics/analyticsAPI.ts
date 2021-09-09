@@ -9,7 +9,7 @@ export const analyticsAPI = {
       );
       // console.log(`res`, res.data);
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`error`, error.response.data);
       return Promise.reject(error);
     }
@@ -19,7 +19,7 @@ export const analyticsAPI = {
       const res = await instance.get<IMetric>(`/analytics/quality/${caseId}`);
       // console.log(`res`, res.data);
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`error`, error.response.data);
       return Promise.reject(error);
     }
@@ -27,10 +27,10 @@ export const analyticsAPI = {
   async getGenerations(caseId: string, type: string) {
     try {
       const res = await instance.get<IGeneration>(
-        `/analytics/generations/${caseId}/${type}`
+          `/analytics/generations/${caseId}/${type}`
       );
       return res.data;
-    } catch (error) {
+    } catch (error: any) {
       console.error(`error`, error.response.data);
       return Promise.reject(error);
     }

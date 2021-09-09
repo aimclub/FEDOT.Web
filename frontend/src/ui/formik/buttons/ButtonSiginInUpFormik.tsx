@@ -20,7 +20,7 @@ const useStyles = makeStyles(() =>
           background: "#515B5F",
         },
       },
-  })
+    })
 );
 
 interface IButtonSiginInUpFormik {

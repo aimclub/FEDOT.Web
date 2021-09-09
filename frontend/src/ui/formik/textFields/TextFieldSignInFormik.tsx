@@ -23,8 +23,8 @@ const useStyles = makeStyles(() =>
         notchedOutline: {},
         cssFocused: {},
         error: {},
-    disabled: {},
-  })
+        disabled: {},
+    })
 );
 
 interface ITextFieldSignIn {

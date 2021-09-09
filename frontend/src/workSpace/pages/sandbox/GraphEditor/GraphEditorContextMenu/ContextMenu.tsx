@@ -23,16 +23,16 @@ const useStyles = makeStyles(() =>
         width: "100%",
 
         textTransform: "none",
-      borderRadius: 4,
-      background: "#828282",
+        borderRadius: 4,
+        background: "#828282",
 
-      "&:disabled": {
-        background: "#ECEFF1",
+        "&:disabled": {
+          background: "#ECEFF1",
+        },
+        "&:hover": {
+          background: "#515B5F",
+        },
       },
-      "&:hover": {
-        background: "#515B5F",
-      },
-    },
   })
 );
 

@@ -19,13 +19,13 @@ const useStyles = makeStyles(() =>
       },
       text: {
         fontFamily: "Open Sans",
-      fontSize: "14px",
-      lineHeight: "150%",
-      letterSpacing: "0.15px",
+        fontSize: "14px",
+        lineHeight: "150%",
+        letterSpacing: "0.15px",
 
-      color: "#FFFFFF",
-    },
-  })
+        color: "#FFFFFF",
+      },
+    })
 );
 
 interface I {

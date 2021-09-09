@@ -21,16 +21,16 @@ const useStyles = makeStyles(() =>
         },
         "& .MuiOutlinedInput-multiline": {
           padding: 0,
-      },
-      "& .MuiOutlinedInput-root": {
-        minHeight: 24,
+        },
+        "& .MuiOutlinedInput-root": {
+          minHeight: 24,
 
-        boxSizing: "border-box",
-        borderRadius: "10px",
+          boxSizing: "border-box",
+          borderRadius: "10px",
 
-        "&:hover fieldset": {
-          borderColor: "#064477",
-          transition: "borderColor 1s",
+          "&:hover fieldset": {
+            borderColor: "#064477",
+            transition: "borderColor 1s",
         },
 
         "&.Mui-focused fieldset": {
