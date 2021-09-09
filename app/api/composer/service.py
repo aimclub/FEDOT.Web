@@ -41,7 +41,7 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
         saved_history = json_util.loads(file)
 
     if not saved_history:
-        history = run_composer(task, metric, dataset_name, time=1)
+        history = run_composer(task, metric, dataset_name, time=1.0)
         _save_to_db(storage.db, case_id, history)
     else:
         if current_app.config['CONFIG_NAME'] == 'test':
