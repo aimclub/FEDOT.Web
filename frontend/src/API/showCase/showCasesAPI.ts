@@ -4,7 +4,7 @@ import {ICase, ICaseArr} from "./showCasesInterface";
 export const showCasesAPI = {
   getShowCasesArr() {
     return instance
-        .get<ICaseArr[]>(`/showcase`)
+        .get<ICaseArr[]>(`/showcase/`)
         .then((res) => {
           // console.log("res.headers", res);
           return res.data;
