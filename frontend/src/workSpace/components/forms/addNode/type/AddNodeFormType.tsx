@@ -1,28 +1,28 @@
-import React, {FC, memo} from "react";
+import React, { FC, memo } from "react";
 
-import {createStyles, makeStyles} from "@material-ui/core/styles";
-import {Grid} from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 
-import {OnChangeFormikType} from "../../../../../ui/formik/onChangeFormikType";
+import { OnChangeFormikType } from "../../../../../ui/formik/onChangeFormikType";
 import TextFieldFormik from "../../../../../ui/formik/textFields/TextFieldFormik";
 
 const useStyles = makeStyles(() =>
-    createStyles({
-        root: {
-            marginTop: 10,
-        },
+  createStyles({
+    root: {
+      marginTop: 10,
+    },
 
-        item: {
-            display: "flex",
-            alignItems: "center",
-        },
+    item: {
+      display: "flex",
+      alignItems: "center",
+    },
 
-        textContainer: {
-            borderRadius: 10,
-            background: "#828282",
-        },
-        text: {
-            paddingLeft: 9,
+    textContainer: {
+      borderRadius: 10,
+      background: "#828282",
+    },
+    text: {
+      paddingLeft: 9,
 
             fontFamily: "Open Sans",
             fontSize: "14px",

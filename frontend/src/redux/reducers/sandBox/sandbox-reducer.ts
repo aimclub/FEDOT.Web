@@ -1,7 +1,7 @@
-import {StateType} from "../../store";
-import {ThunkAction} from "redux-thunk";
+import { StateType } from "../../store";
+import { ThunkAction } from "redux-thunk";
 
-import {IHistoryGraph, IMainGraph, sandboxAPI} from "../../../API/sandbox";
+import { IHistoryGraph, IMainGraph, sandboxAPI } from "../../../API/sandbox";
 import {
   EdgeDataType,
   edgeValueType,
@@ -188,7 +188,8 @@ type ThunkType = ThunkAction<void, StateType, unknown, AllTypes>;
 
 export const getMainGraph = (uid: string): ThunkTypeAsync => {
   return async (dispatch) => {
-    dispatch(actionsSandbox.setMainGraph({nodes: [], edges: []}));
+    // console.log(`tra ta ta`, uid);
+    dispatch(actionsSandbox.setMainGraph({ nodes: [], edges: [] }));
     try {
       let data = await sandboxAPI.getMainGraph(uid);
       console.log(`data`, data);
@@ -211,20 +212,20 @@ export const getHistoryGraph = (uid: string): ThunkTypeAsync => {
 };
 
 export const editMainGraph = (
-    mainGraph: IMainGraph,
-    nodes: NodeDataType[],
-    edges: EdgeDataType[]
+  mainGraph: IMainGraph,
+  nodes: NodeDataType[],
+  edges: EdgeDataType[]
 ): ThunkType => {
   return (dispatch) => {
     let nodesEdit = mainGraph.nodes.filter((item) => item.id !== nodes[0].id);
     let edgesEdit = mainGraph.edges.filter(
-        (item) => item.source !== nodes[0].id && item.target !== nodes[0].id
+      (item) => item.source !== nodes[0].id && item.target !== nodes[0].id
     );
 
     dispatch(
-        actionsSandbox.setMainGraph({nodes: nodesEdit, edges: edgesEdit})
+      actionsSandbox.setMainGraph({ nodes: nodesEdit, edges: edgesEdit })
     );
-    dispatch(actionsSandbox.addNodeMainGraph({nodes: nodes, edges: edges}));
+    dispatch(actionsSandbox.addNodeMainGraph({ nodes: nodes, edges: edges }));
   };
 };
 

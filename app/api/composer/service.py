@@ -74,7 +74,7 @@ def _save_to_db(db, history_id, history):
 
 
 def run_composer(task, metric, dataset_name, time):
-    pop_size = 3
+    pop_size = 10
     num_of_generations = 5
     learning_time = time
 
@@ -83,8 +83,8 @@ def run_composer(task, metric, dataset_name, time):
                        composer_params={'composer_metric': metric,
                                         'pop_size': pop_size,
                                         'num_of_generations': num_of_generations,
-                                        'max_arity': 2,
-                                        'max_depth': 2})
+                                        'max_arity': 3,
+                                        'max_depth': 5})
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history = auto_model.history

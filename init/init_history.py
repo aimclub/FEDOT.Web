@@ -16,7 +16,7 @@ def create_default_history(db=None, opt_times=None):
     mock_list = []
 
     if opt_times is None:
-        opt_times = [1.5, 0.1, 0.7]
+        opt_times = [2, 1, 1]
 
     mock_list.append(
         _init_composer_history_for_case(db=db, history_id='scoring', dataset_name='scoring',

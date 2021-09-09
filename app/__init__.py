@@ -1,5 +1,6 @@
 import os
 
+import requests
 from flask import Flask, jsonify, Blueprint
 from flask_cors import CORS, cross_origin
 from flask_login import LoginManager
@@ -53,6 +54,16 @@ def create_app(env=None):
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
         response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
         return response
+
+    # @app.before_first_request
+    # def create_default_user():
+    #     host = os.getenv("FLASK_HOST")
+    #     port = os.getenv("FLASK_PORT")
+    #     if not host or not port:
+    #         host = 'http://127.0.0.1'
+    #         port = 5000
+    #     r = requests.post(f'{host}:{port}/api/token/signup', data={'email': 'guest', 'password': 'guest'})
+    #     print(r.status_code, r.reason)
 
     from app.web.auth.controller import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)

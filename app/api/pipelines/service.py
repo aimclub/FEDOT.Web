@@ -27,12 +27,16 @@ def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
     if pipeline_dict is None:
         return None
 
+    dict_fitted_operations = None
     if current_app.config['CONFIG_NAME'] == 'test':
         dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': str(uid)})
     else:
-        fs = gridfs.GridFS(storage.db)
-        file = fs.find_one({'filename': str(uid), 'type': 'dict_fitted_operations'}).read()
-        dict_fitted_operations = json_util.loads(file)
+        try:
+            fs = gridfs.GridFS(storage.db)
+            file = fs.find_one({'filename': str(uid), 'type': 'dict_fitted_operations'}).read()
+            dict_fitted_operations = json_util.loads(file)
+        except AttributeError as ex:
+            print(f'dict_fitted_operations not found for {uid}')
 
     if dict_fitted_operations:
         for key in dict_fitted_operations:
