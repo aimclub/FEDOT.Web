@@ -107,7 +107,11 @@ def _test_prediction_for_pipeline(case, pipeline):
 
 def get_modelling_results(case, pipeline, baseline_pipeline=None) -> PlotData:
     test_data, prediction = _test_prediction_for_pipeline(case, pipeline)
-    obs = test_data.target
+
+    if case.metadata.task_name == 'ts_forecasting':
+        obs = test_data.target
+    else:
+        obs = list([float(o[0]) for o in test_data.target])
 
     baseline_prediction = None
     if baseline_pipeline:
@@ -130,14 +134,14 @@ def get_modelling_results(case, pipeline, baseline_pipeline=None) -> PlotData:
         plot_type = 'line'
         y = list(prediction.predict[0, :])
         y_baseline = list(baseline_prediction.predict[0, :]) if baseline_prediction else None
-        y_obs = list(obs[0, :]) if obs else None
+        y_obs = list([float(o) for o in obs]) if obs is not None else None
 
     else:
         plot_type = 'scatter'
         y = prediction.predict.tolist()
         if baseline_prediction:
-            y_baseline = baseline_prediction.predict.tolist() if baseline_prediction else None
-        y_obs = obs.tolist()
+            y_baseline = list(baseline_prediction.predict) if baseline_prediction else None
+        y_obs = obs
 
     x = list(range(len(prediction.predict)))
     x = x[:max_items_in_plot]
@@ -148,7 +152,7 @@ def get_modelling_results(case, pipeline, baseline_pipeline=None) -> PlotData:
         y_baseline = y_baseline[:max_items_in_plot]
         ys.append(y_baseline)
         names.append('Baseline')
-    if obs:
+    if obs is not None:
         y_obs = y_obs[:max_items_in_plot]
         ys.append(y_obs)
         names.append('Observations')
