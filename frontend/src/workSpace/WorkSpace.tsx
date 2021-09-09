@@ -1,12 +1,12 @@
-import React, { memo, useEffect } from "react";
+import React, {memo, useEffect} from "react";
 import scss from "./workSpace.module.scss";
-import { Route, Switch, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {Route, Switch, useHistory} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 import LeftMenu from "./components/leftMenu/LeftMenu";
 import Header from "./components/header/Header";
 import SandboxPage from "./pages/sandbox/SandboxPage";
-import { StateType } from "../redux/store";
+import {StateType} from "../redux/store";
 import HistoryPage from "./pages/history/HistoryPage";
 import ShowcasePage from "./pages/showcase/ShowCasePage";
 

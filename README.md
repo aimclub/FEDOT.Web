@@ -1,21 +1,48 @@
 # FEDOT.Web
 
-This repository contains prototype of tool for interactive editing and visualization of the composite models obtained with FEDOT Framework.
+This repository contains the tool for interactive editing and visualization of the composite machine learning models
+obtained with FEDOT Framework. The online version this tool is available in https://fedot.onti.actcognitive.org/
 
-# Prototype of the composite model editor
+# Showcase of the models
 
-![Model editor prototype](./docs/img/editor.gif)
+Description of several domain-specific cases that can be sovled using composite pipelines
 
-## Expected design
+![Showcase](./docs/img/showcase.png)
 
-![Expected design](./docs/img/design.png)
+# Detailed model description
+
+Detailed description of domain case, pipeline and its paramaters for specified case
+
+![details.png](./docs/img/details.png)
+
+# Composite model editor
+
+Interactive editor of the pipeline structure. All nodes, edges, and hyperparameters can be changed.
+
+![Model editor prototype](./docs/img/editor.png)
+
+# Analytics
+
+Analytics for the current pipeline and its history of evolution.
+
+![Analytics](./docs/img/analytics.png)
+
+# Evolution history
+
+The visualisation of the evolution history.
+
+![Evolution](./docs/img/history.png)
+
 
 ## Algorithmic core
 
 Open-source AutoML framework [FEDOT](https://github.com/nccr-itmo/FEDOT)
 
 ## Acknowledgments
-We acknowledge the contributors for their important impact and the participants of the numerous scientific conferences and workshops for their valuable advice and suggestions.
+
+We acknowledge the contributors for their important impact and the participants of the numerous scientific conferences
+and workshops for their valuable advice and suggestions. The project is funded by ITMO University students R&D project
+№620175.
 
 ## Contacts
 
@@ -28,8 +55,8 @@ We acknowledge the contributors for their important impact and the participants 
 [Youtube channel](https://www.youtube.com/channel/UC4K9QWaEUpT_p3R4FeDp5jA)
 
 ## Citation
-@article{nikitin2020structural,
-title={Structural Evolutionary Learning for Composite Classification Models}, author={Nikitin, Nikolay O and Polonskaia, Iana S and Vychuzhanin, Pavel and Barabanova, Irina V and Kalyuzhnaya, Anna V}, journal={Procedia Computer Science}, volume={178}, pages={414--423}, year={2020}, publisher={Elsevier}}
 
-@inproceedings{kalyuzhnaya2020automatic,
-title={Automatic evolutionary learning of composite models with knowledge enrichment}, author={Kalyuzhnaya, Anna V and Nikitin, Nikolay O and Vychuzhanin, Pavel and Hvatov, Alexander and Boukhanovsky, Alexander}, booktitle={Proceedings of the 2020 Genetic and Evolutionary Computation Conference Companion}, pages={43--44}, year={2020}}
+@article{nikitin2021automated, title={Automated Evolutionary Approach for the Design of Composite Machine Learning
+Pipelines}, author={Nikitin, Nikolay O and Vychuzhanin, Pavel and Sarafanov, Mikhail and Polonskaia, Iana S and Revin,
+Ilia and Barabanova, Irina V and Maximov, Gleb and Kalyuzhnaya, Anna V and Boukhanovsky, Alexander}, journal={arXiv
+preprint arXiv:2106.15397}, year={2021} }

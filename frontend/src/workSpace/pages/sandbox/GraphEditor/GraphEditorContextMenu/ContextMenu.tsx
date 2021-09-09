@@ -1,28 +1,28 @@
-import React, { FC } from "react";
+import React, {FC} from "react";
 import scss from "./contextMenu.module.scss";
 
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Button, Paper } from "@material-ui/core";
+import {createStyles, makeStyles} from "@material-ui/core/styles";
+import {Button, Paper} from "@material-ui/core";
 
-import { offsetContextMenuType } from "../GraphEditorDirectedGraph/GraphEditorDirectedGraph";
+import {offsetContextMenuType} from "../GraphEditorDirectedGraph/GraphEditorDirectedGraph";
 import AddNodeFormTitle from "../../../../components/forms/addNode/AddNodeFormTitle";
 
 const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      position: "absolute",
-      top: 0,
-      left: 0,
+    createStyles({
+      root: {
+        position: "absolute",
+        top: 0,
+        left: 0,
 
-      display: "flex",
-      flexDirection: "column",
-    },
-    submitButton: {
-      marginTop: 4,
-      padding: "0 8px",
-      width: "100%",
+        display: "flex",
+        flexDirection: "column",
+      },
+      submitButton: {
+        marginTop: 4,
+        padding: "0 8px",
+        width: "100%",
 
-      textTransform: "none",
+        textTransform: "none",
       borderRadius: 4,
       background: "#828282",
 
@@ -60,9 +60,13 @@ const ContextMenu: FC<IContextMenu> = ({ buttons, offset }) => {
       <AddNodeFormTitle title="point menu" />
       <div className={scss.buttonsContainer}>
         {buttons.map((item) => (
-          <Button onClick={item.action} className={classes.submitButton}>
-            <p className={scss.buttonTexxt}>{item.name}</p>
-          </Button>
+            <Button
+                onClick={item.action}
+                className={classes.submitButton}
+                key={item.name}
+            >
+              <p className={scss.buttonTexxt}>{item.name}</p>
+            </Button>
         ))}
       </div>
     </Paper>

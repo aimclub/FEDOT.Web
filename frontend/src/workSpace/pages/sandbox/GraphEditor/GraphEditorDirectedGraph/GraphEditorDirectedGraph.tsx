@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { runDirectedGraph } from "./directedGraphGenerator";
+import React, {useEffect, useRef, useState} from "react";
+import {runDirectedGraph} from "./directedGraphGenerator";
 import styles from "./directedGraph.module.scss";
 import Loader from "react-loader-spinner";
 import ContextMenu from "../GraphEditorContextMenu/ContextMenu";
-import { ClickAwayListener } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
+import {ClickAwayListener} from "@material-ui/core";
+import {useDispatch, useSelector} from "react-redux";
 import GraphEditorModal from "../GraphEditorModal/GraphEditorModal";
-import { StateType } from "../../../../../redux/store";
-import { actionsSandbox } from "../../../../../redux/reducers/sandBox/sandbox-reducer";
+import {StateType} from "../../../../../redux/store";
+import {actionsSandbox} from "../../../../../redux/reducers/sandBox/sandbox-reducer";
+import {setEditOrAddFormOpened, setInitialValuesEditForm,} from "../../../../../redux/reducers/sandBox/sandBoxReducer";
 
 export type EdgeDataType = {
   source: number;
@@ -66,6 +67,8 @@ const GraphEditorDirectedGraph = ({
       const handleContextMenuNode = (e: any, id: any) => {
         // console.log(`d`, id);
         e.preventDefault();
+
+        // console.log(`effff`, e);
 
         setDataContext({
           data: id,
@@ -131,7 +134,18 @@ const GraphEditorDirectedGraph = ({
   };
 
   const openEditNode = () => {
-    console.log("openEditNode");
+    // получаю ифо об узле, его родителей, его потомков
+    if (dataContext) {
+      let node = mainGraph.nodes.find((item) => +dataContext.data === item.id);
+      dispatch(setInitialValuesEditForm(node));
+    }
+    // открываю form (timeout для обновления формы)
+    setTimeout(() => {
+      dispatch(setEditOrAddFormOpened({isOpen: true, type: "edit"}));
+    }, 300);
+
+    // закрываю меню
+    setDataContext(undefined);
   };
 
   // const handleDeleteEdge = () => {
@@ -142,15 +156,15 @@ const GraphEditorDirectedGraph = ({
   return (
     <div ref={containerRef} className={styles.container}>
       {showLoader && (
-        <Loader
-          type="MutatingDots"
-          color="#263238"
-          secondaryColor="#0199E4"
-          height={100}
-          width={100}
-        />
+          <Loader
+              type="MutatingDots"
+              color="#263238"
+              secondaryColor="#0199E4"
+              height={100}
+              width={100}
+          />
       )}
-
+      {/* контекстное меню узла  */}
       <ClickAwayListener onClickAway={handleClickAwayNodeContext}>
         <div>
           {dataContext && (
@@ -165,17 +179,6 @@ const GraphEditorDirectedGraph = ({
           )}
         </div>
       </ClickAwayListener>
-      {/* <ClickAwayListener onClickAway={handleClickAwayEdgeContext}>
-        <div>
-          {edgeContext && (
-            <ContextMenu
-              firstName={"delete edge"}
-              offset={edgeContext?.offset}
-              firstAction={handleDeleteEdge}
-            />
-          )}
-        </div>
-      </ClickAwayListener> */}
       <GraphEditorModal dataContext={dataContext} />
     </div>
   );

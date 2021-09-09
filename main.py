@@ -1,9 +1,9 @@
 import os
 
 from dotenv import load_dotenv
+from werkzeug.contrib.fixers import ProxyFix
 
 from app import create_app, db, socketio
-from app.ssl.ssl_config import SslConfig
 
 if __name__ == "__main__":
     load_dotenv("oauth.env")
@@ -14,8 +14,7 @@ if __name__ == "__main__":
 
     app = create_app(os.getenv("FLASK_ENV") or "dev")
 
-    ssl_config = SslConfig()
-    ssl_config.get_config("app/ssl/cert")
+    app.wsgi_app = ProxyFix(app.wsgi_app)
 
     db.create_all(app=app)
     host = os.getenv("FLASK_HOST")

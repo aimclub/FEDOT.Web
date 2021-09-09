@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { runHistory } from "./historyGraphGenerator";
+import React, {useState} from "react";
+import {runHistory} from "./historyGraphGenerator";
 import styles from "./HistoryGraph.module.scss";
 import Loader from "react-loader-spinner";
 

@@ -20,8 +20,7 @@ def showcase_item_from_db(case_id: str) -> ShowcaseItem:
 
 def prepare_icon_path(dumped_item):
     if 'cases_icons' not in dumped_item["icon_path"]:
-        icon_path = url_for('static', filename=f'cases_icons/{dumped_item["icon_path"]}',
-                            _external=True)
+        icon_path = url_for('static', filename=f'cases_icons/{dumped_item["icon_path"]}')
     else:
         icon_path = dumped_item["icon_path"]
     return icon_path
