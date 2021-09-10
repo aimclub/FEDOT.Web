@@ -16,8 +16,11 @@ one (https://www.mongodb.com/cloud).
 #### Windows installation:
 
 local user name and passwords are required during installation; to resolve possible errors,, additional command ‘net
-localgroup "Performance Monitor Users" /add’ should be executed in Admin mode. the database can be analyzed using
-MongoDB Compass:
+localgroup "Performance Monitor Users" /add’ should be executed in Admin mode.
+
+The database can be analyzed using MongoDB Compass. The expected state after initialization is:
+
+![MongoDB Compass GUI](./img/mongo_win.png)
 
 ### Add environment variables:
 
@@ -52,8 +55,15 @@ Open http://localhost:5000/api in the browser.
 
 Use https://reqbin.com/ to create the users with http://localhost:5000/api/token/signup
 
-The example is:
+The example of request body is:
+
+```json
 {
 "email": "guest",
 "password": "guest"
 }
+```
+
+Expected response:
+
+![Expected response for registration request](./img/reqbin.png)
