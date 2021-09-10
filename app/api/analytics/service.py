@@ -1,6 +1,7 @@
 from app.api.composer.service import composer_history_for_case
 from app.api.data.service import get_input_data
 from .models import PlotData, BoxPlotData
+import numpy as np
 
 max_items_in_plot = 50
 
@@ -20,6 +21,13 @@ def _make_chart_dicts_for_boxplot(x, ys, x_title, y_title):
     return series
 
 
+def _process_y_value(y):
+    y_new = y
+    if isinstance(y, list) or isinstance(y, np.ndarray):
+        y_new = y[0]
+    return round(y_new, 3)
+
+
 def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
     series = []
 
@@ -27,7 +35,7 @@ def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
         if plot_type == 'line':
             data = [round(_, 3) for _ in ys[i]]
         else:
-            data = [[x[j], round(ys[i][j], 3)] for j in range(len(ys[i]))]
+            data = [[x[j], round(_process_y_value(ys[i][j]), 3)] for j in range(len(ys[i]))]
 
         series.append({
             'name': names[i],
@@ -35,8 +43,8 @@ def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
         })
 
     if not y_bnd:
-        min_y = min([min(y) for y in ys]) * 0.95
-        max_y = max([max(y) for y in ys]) * 1.05
+        min_y = min([_process_y_value(min(y)) for y in ys]) * 0.95
+        max_y = max([_process_y_value(max(y)) for y in ys]) * 1.05
     else:
         min_y, max_y = y_bnd
 
