@@ -22,14 +22,14 @@ const useStyles = makeStyles(() =>
         text: {
             paddingLeft: 9,
 
-      fontFamily: "Open Sans",
-      fontSize: "14px",
-      lineHeight: "18px",
-      letterSpacing: "0.1px",
+            fontFamily: "Open Sans",
+            fontSize: "14px",
+            lineHeight: "18px",
+            letterSpacing: "0.1px",
 
-      color: " #ffffff",
-    },
-  })
+            color: " #ffffff",
+        },
+    })
 );
 
 interface I {

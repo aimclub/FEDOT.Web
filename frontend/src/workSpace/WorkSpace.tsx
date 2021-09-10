@@ -48,10 +48,11 @@ const WorkSpace = () => {
           <Route exact path="/ws/showcase/" render={() => <ShowcasePage />} />
           <Route exact path="/ws/sandbox/" render={() => <SandboxPage />} />
           <Route
-            exact
-            path="/ws/sandbox/history/"
-            render={() => <HistoryPage />}
+              exact
+              path="/ws/sandbox/history/"
+              render={() => <HistoryPage/>}
           />
+          <Route exact path="/ws/fedot/" render={() => <SandboxPage/>}/>
         </Switch>
       </div>
     </section>

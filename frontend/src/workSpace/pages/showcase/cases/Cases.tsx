@@ -30,16 +30,16 @@ const Cases = () => {
     );
 
     return (
-    <section
-      className={
-        show_case_by_id ? clsx(scss.showcase, scss.selected) : scss.showcase
-      }
-    >
-      <PageTitle title="Case" />
-      {show_cases_arr ? (
-        <div className={scss.cardsArea}>
-          {show_cases_arr.map((caseItem, index) => (
-            <div key={index + "l"} className={scss.cardsAreaItem}>
+        <section
+            className={
+                show_case_by_id ? clsx(scss.showcase, scss.selected) : scss.showcase
+            }
+        >
+            <PageTitle title="Case"/>
+            {show_cases_arr ? (
+                <div className={scss.cardsArea}>
+                    {show_cases_arr.map((caseItem, index) => (
+                        <div key={index + "l"} className={scss.cardsAreaItem}>
               <ShowcasePageCard
                 caseItem={caseItem}
                 onClick={handleSelectCase}

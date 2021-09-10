@@ -62,6 +62,7 @@ export const getShowCasesArr = (): ThunkTypeAsync => {
 
 export const getShowCaseById = (caseId: string): ThunkTypeAsync => {
   return async (dispatch) => {
+    dispatch(actionsCases.showCaseById(null));
     try {
       let caseById = await showCasesAPI.getShowCaseById(caseId);
       // console.log(`caseById`, caseById);

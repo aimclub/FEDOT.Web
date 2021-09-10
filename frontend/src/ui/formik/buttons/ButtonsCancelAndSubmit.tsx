@@ -19,15 +19,15 @@ const useStyles = makeStyles(() =>
 
             textTransform: "none",
             borderRadius: 4,
-      background: "#828282",
+            background: "#828282",
 
-      "&:disabled": {
-        background: "#ECEFF1",
-      },
-      "&:hover": {
-        background: "#515B5F",
-      },
-    },
+            "&:disabled": {
+                background: "#ECEFF1",
+            },
+            "&:hover": {
+                background: "#515B5F",
+            },
+        },
   })
 );
 

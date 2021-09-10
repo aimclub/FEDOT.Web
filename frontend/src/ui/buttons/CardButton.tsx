@@ -18,11 +18,11 @@ const useStyles = makeStyles(() =>
             fontFamily: "Open Sans",
             fontSize: "14px",
             lineHeight: "24px",
-      letterSpacing: "0.1px",
+            letterSpacing: "0.1px",
 
-      color: "#FFFFFF",
-    },
-  })
+            color: "#FFFFFF",
+        },
+    })
 );
 
 interface ICardButton {

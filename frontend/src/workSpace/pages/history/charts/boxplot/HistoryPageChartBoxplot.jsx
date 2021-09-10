@@ -24,13 +24,13 @@ const HistoryPageChartBoxplot = ({data}) => {
                 moauseZoom: false,
                 displayModeBar: false,
                 showlegend: true,
-      }}
-    />
-  ) : (
-    <div className={scss.progress}>
-      <CircularProgress />
-    </div>
-  );
+            }}
+        />
+    ) : (
+        <div className={scss.progress}>
+            <CircularProgress/>
+        </div>
+    );
 };
 
 export default memo(HistoryPageChartBoxplot);

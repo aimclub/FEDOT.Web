@@ -27,9 +27,9 @@ const useStyles = makeStyles(() =>
 
                 borderRadius: 8,
 
-        transition: "all 0.5s",
-      },
-    },
+                transition: "all 0.5s",
+            },
+        },
     textActive: {
       fontFamily: "Open Sans",
       fontWeight: "bold",

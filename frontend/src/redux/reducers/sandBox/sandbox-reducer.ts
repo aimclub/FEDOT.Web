@@ -188,9 +188,10 @@ type ThunkType = ThunkAction<void, StateType, unknown, AllTypes>;
 
 export const getMainGraph = (uid: string): ThunkTypeAsync => {
   return async (dispatch) => {
+    dispatch(actionsSandbox.setMainGraph({nodes: [], edges: []}));
     try {
       let data = await sandboxAPI.getMainGraph(uid);
-      // console.log(`data`, data);
+      console.log(`data`, data);
       dispatch(actionsSandbox.setMainGraph(data));
     } catch (err) {
       return Promise.reject(err);

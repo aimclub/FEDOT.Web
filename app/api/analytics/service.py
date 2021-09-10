@@ -1,6 +1,7 @@
 from app.api.composer.service import composer_history_for_case
 from app.api.data.service import get_input_data
 from .models import PlotData, BoxPlotData
+import numpy as np
 
 max_items_in_plot = 50
 
@@ -20,6 +21,13 @@ def _make_chart_dicts_for_boxplot(x, ys, x_title, y_title):
     return series
 
 
+def _process_y_value(y):
+    y_new = y
+    if isinstance(y, list) or isinstance(y, np.ndarray):
+        y_new = y[0]
+    return round(y_new, 3)
+
+
 def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
     series = []
 
@@ -27,7 +35,7 @@ def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
         if plot_type == 'line':
             data = [round(_, 3) for _ in ys[i]]
         else:
-            data = [[x[j], round(ys[i][j], 3)] for j in range(len(ys[i]))]
+            data = [[x[j], round(_process_y_value(ys[i][j]), 3)] for j in range(len(ys[i]))]
 
         series.append({
             'name': names[i],
@@ -35,8 +43,8 @@ def _make_chart_dicts(x, ys, names, x_title, y_title, plot_type, y_bnd=None):
         })
 
     if not y_bnd:
-        min_y = min([min(y) for y in ys]) * 0.95
-        max_y = max([max(y) for y in ys]) * 1.05
+        min_y = min([_process_y_value(min(y)) for y in ys]) * 0.95
+        max_y = max([_process_y_value(max(y)) for y in ys]) * 1.05
     else:
         min_y, max_y = y_bnd
 
@@ -106,7 +114,13 @@ def _test_prediction_for_pipeline(case, pipeline):
 
 
 def get_modelling_results(case, pipeline, baseline_pipeline=None) -> PlotData:
-    _, prediction = _test_prediction_for_pipeline(case, pipeline)
+    test_data, prediction = _test_prediction_for_pipeline(case, pipeline)
+
+    if case.metadata.task_name == 'ts_forecasting':
+        obs = test_data.target
+    else:
+        obs = list([float(o[0]) for o in test_data.target])
+
     baseline_prediction = None
     if baseline_pipeline:
         _, baseline_prediction = _test_prediction_for_pipeline(case, baseline_pipeline)
@@ -128,11 +142,14 @@ def get_modelling_results(case, pipeline, baseline_pipeline=None) -> PlotData:
         plot_type = 'line'
         y = list(prediction.predict[0, :])
         y_baseline = list(baseline_prediction.predict[0, :]) if baseline_prediction else None
+        y_obs = list([float(o) for o in obs]) if obs is not None else None
 
     else:
         plot_type = 'scatter'
         y = prediction.predict.tolist()
-        y_baseline = baseline_prediction.predict.tolist() if baseline_prediction else None
+        if baseline_prediction:
+            y_baseline = list(baseline_prediction.predict) if baseline_prediction else None
+        y_obs = obs
 
     x = list(range(len(prediction.predict)))
     x = x[:max_items_in_plot]
@@ -143,6 +160,11 @@ def get_modelling_results(case, pipeline, baseline_pipeline=None) -> PlotData:
         y_baseline = y_baseline[:max_items_in_plot]
         ys.append(y_baseline)
         names.append('Baseline')
+    if obs is not None:
+        y_obs = y_obs[:max_items_in_plot]
+        ys.append(y_obs)
+        names.append('Observations')
+
     series, options = _make_chart_dicts(x=x, ys=ys, names=names,
                                         x_title=x_title, y_title=y_title,
                                         plot_type=plot_type, y_bnd=y_bnd)

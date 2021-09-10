@@ -33,7 +33,7 @@ class PipelinesIdResource(Resource):
 
 
 @cross_origin()
-@api.route("/validate")
+@api.route("/validate", methods=['POST', 'OPTIONS'])
 class PipelinesValidateResource(Resource):
     """Pipeline validation"""
 
@@ -52,9 +52,12 @@ class PipelinesValidateResource(Resource):
 
         return PipelineValidationResponse(is_valid, msg)
 
+    def options(self):
+        return True
+
 
 @cross_origin()
-@api.route("/add")
+@api.route("/add", methods=['POST', 'OPTIONS'])
 class PipelinesAddResource(Resource):
     @accepts(schema=PipelineGraphSchema, api=api)
     @responds(schema=PipelineResponseSchema)
@@ -69,6 +72,9 @@ class PipelinesAddResource(Resource):
             return PipelineResponse(uid, is_exists)
         else:
             return PipelineResponse(None, False)
+
+    def options(self):
+        return True
 
 
 @cross_origin()

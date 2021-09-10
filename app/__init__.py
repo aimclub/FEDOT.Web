@@ -25,7 +25,7 @@ def create_app(env=None):
     static_dir = os.path.abspath('frontend/build/static')
 
     app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
-    cors = CORS(app)
+    cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
     app.config['CORS_HEADERS'] = 'Content-Type'
 
     app.config.from_object(config_by_name[env or "dev"])
@@ -46,6 +46,13 @@ def create_app(env=None):
     @cross_origin()
     def health():
         return jsonify("healthy")
+
+    @app.after_request
+    def after_request(response):
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+        return response
 
     from app.web.auth.controller import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
