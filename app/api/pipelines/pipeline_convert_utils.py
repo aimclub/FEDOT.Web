@@ -81,7 +81,7 @@ def _graph_node_to_pipeline_node(graph_node: dict, existing_graph_nodes: dict, p
     else:
         parent_pipeline_nodes = []
         for parent_id in graph_node['parents']:
-            parent_node = [n for n in existing_graph_nodes if n['id']==parent_id]
+            parent_node = [n for n in existing_graph_nodes if n['id'] == parent_id]
 
             if len(parent_node) == 0:
                 continue
