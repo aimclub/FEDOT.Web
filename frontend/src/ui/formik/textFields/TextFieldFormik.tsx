@@ -1,29 +1,29 @@
-import React, {FC, memo} from "react";
+import React, { FC, memo } from "react";
 
-import {createStyles, makeStyles} from "@material-ui/core/styles";
-import {TextField} from "@material-ui/core";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { TextField } from "@material-ui/core";
 
-import {OnChangeFormikType} from "../onChangeFormikType";
+import { OnChangeFormikType } from "../onChangeFormikType";
 
 const useStyles = makeStyles(() =>
-    createStyles({
-      root: {
-        // color: "red",
-        "& .MuiOutlinedInput-input": {
-          padding: "4px 8px",
+  createStyles({
+    root: {
+      // color: "red",
+      "& .MuiOutlinedInput-input": {
+        padding: "4px 8px",
 
-          fontFamily: "Open Sans",
-          fontSize: "14px",
-          lineHeight: "18px",
-          letterSpacing: "0.1px",
+        fontFamily: "Open Sans",
+        fontSize: "14px",
+        lineHeight: "18px",
+        letterSpacing: "0.1px",
 
-          color: "#263238",
-        },
-        "& .MuiOutlinedInput-multiline": {
-          padding: 0,
-        },
-        "& .MuiOutlinedInput-root": {
-          minHeight: 24,
+        color: "#263238",
+      },
+      "& .MuiOutlinedInput-multiline": {
+        padding: 0,
+      },
+      "& .MuiOutlinedInput-root": {
+        minHeight: 24,
 
           boxSizing: "border-box",
           borderRadius: "10px",

@@ -1,33 +1,33 @@
 import React from "react";
 
-import {createStyles, makeStyles} from "@material-ui/core/styles";
-import {Button, Grid} from "@material-ui/core";
-import {useDispatch} from "react-redux";
-import {selectPage} from "../../../../../../redux/reducers/leftMenu/leftMenuReducer";
-import {setHistoryToggle} from "../../../../../../redux/reducers/sandBox/sandBoxReducer";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { Button, Grid } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { selectPage } from "../../../../../../redux/reducers/leftMenu/leftMenuReducer";
+import { setHistoryToggle } from "../../../../../../redux/reducers/sandBox/sandBoxReducer";
 
 const useStyles = makeStyles(() =>
-    createStyles({
-        container: {
-            marginTop: 8,
-        },
-        item: {
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-        },
-        btn: {
-            textTransform: "none",
+  createStyles({
+    container: {
+      marginTop: 8,
+    },
+    item: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
+    },
+    btn: {
+      textTransform: "none",
 
-            borderRadius: 4,
+      borderRadius: 4,
 
-            background: "#F5F5F6",
-            "&:hover": {
-                background: "#90A4AE",
-            },
-        },
-        text: {
-            fontWeight: 300,
+      background: "#F5F5F6",
+      "&:hover": {
+        background: "#90A4AE",
+      },
+    },
+    text: {
+      fontWeight: 300,
       fontSize: "14px",
       lineHeight: "24px",
       letterSpacing: "0.1px",
