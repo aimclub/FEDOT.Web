@@ -1,5 +1,9 @@
 # FEDOT.Web
 
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+![Build status](https://github.com/nccr-itmo/FEDOT.Web/workflows/Build/badge.svg?branch=master)
+[![Helpdesk](https://patrolavia.github.io/telegram-badge/chat.png)](https://t.me/FEDOT_helpdesk)
+
 This repository contains the tool for interactive editing and visualization of the composite machine learning models
 obtained with FEDOT Framework. The online version this tool is available in https://fedot.onti.actcognitive.org/
 
