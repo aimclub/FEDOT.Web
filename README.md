@@ -4,12 +4,17 @@
 ![Build status](https://github.com/nccr-itmo/FEDOT.Web/workflows/Build/badge.svg?branch=master)
 [![Helpdesk](https://patrolavia.github.io/telegram-badge/chat.png)](https://t.me/FEDOT_helpdesk)
 
-This repository contains the tool for interactive editing and visualization of the composite machine learning models
-obtained with FEDOT Framework. The online version this tool is available in https://fedot.onti.actcognitive.org/
+This repository contains the tool for interactive editing, evolution and visualization of the composite machine learning
+models obtained with [FEDOT](https://github.com/nccr-itmo/FEDOT) AutoML Framework. The online version this tool is
+available in https://fedot.onti.actcognitive.org/
+
+## Demo
+
+![Animated demo](./docs/img/fedot_web_demo.gif)
 
 ## Documentation
 
-* [Tutorial](./docs/user_manual.md) for regular users
+* [Tutorial](./docs/users_guide.pdf) for beginners
 * [Tutorial](./docs/developer_manual.md) for advanced users (local run)
 
 ## Main pages
