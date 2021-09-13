@@ -1,33 +1,44 @@
 # FEDOT.Web
 
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+![Build status](https://github.com/nccr-itmo/FEDOT.Web/workflows/Build/badge.svg?branch=master)
+[![Helpdesk](https://patrolavia.github.io/telegram-badge/chat.png)](https://t.me/FEDOT_helpdesk)
+
 This repository contains the tool for interactive editing and visualization of the composite machine learning models
 obtained with FEDOT Framework. The online version this tool is available in https://fedot.onti.actcognitive.org/
 
-# Showcase of the models
+## Documentation
+
+* [Tutorial](./docs/user_manual.md) for regular users
+* [Tutorial](./docs/developer_manual.md) for advanced users (local run)
+
+## Main pages
+
+### Showcase of the models
 
 Description of several domain-specific cases that can be sovled using composite pipelines
 
 ![Showcase](./docs/img/showcase.png)
 
-# Detailed model description
+### Detailed model description
 
 Detailed description of domain case, pipeline and its paramaters for specified case
 
 ![details.png](./docs/img/details.png)
 
-# Composite model editor
+### Composite model editor
 
 Interactive editor of the pipeline structure. All nodes, edges, and hyperparameters can be changed.
 
 ![Model editor prototype](./docs/img/editor.png)
 
-# Analytics
+### Analytics
 
 Analytics for the current pipeline and its history of evolution.
 
 ![Analytics](./docs/img/analytics.png)
 
-# Evolution history
+### Evolution history
 
 The visualisation of the evolution history.
 
