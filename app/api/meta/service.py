@@ -2,10 +2,8 @@ from typing import List
 
 from fedot.core.repository.operation_types_repository import \
     OperationTypesRepository
-from fedot.core.repository.quality_metrics_repository import \
-    ClassificationMetricsEnum, \
-    ClusteringMetricsEnum, \
-    RegressionMetricsEnum
+from fedot.core.repository.quality_metrics_repository import (
+    ClassificationMetricsEnum, ClusteringMetricsEnum, RegressionMetricsEnum)
 from fedot.core.repository.tasks import TaskTypesEnum
 
 from .models import MetricInfo, ModelInfo, TaskInfo
@@ -38,6 +36,5 @@ def task_type_from_id(task_type_id: str) -> TaskTypesEnum:
 
 
 def get_tasks_info() -> List[TaskInfo]:
-    tasks = [TaskInfo(task_name, task_name) for
-             task_name in list(_task_dict.keys())]
+    tasks = [TaskInfo(task_name, task_name) for task_name in _task_dict]
     return tasks

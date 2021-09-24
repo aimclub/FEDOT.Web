@@ -1,11 +1,20 @@
+from typing import Dict
+
 from app.api.analytics.service import get_prediction_for_pipeline
+from app.api.showcase.models import ShowcaseItem
 from fedot.core.composer.metrics import MAE, MAPE, RMSE, ROCAUC
+from fedot.core.pipelines.pipeline import Pipeline
+
+from .service import Integral
 
 
-def get_metrics_for_pipeline(case, pipeline) -> dict:
+def get_metrics_for_pipeline(case: ShowcaseItem, pipeline: Pipeline) -> Dict[str, Integral]:
     input_data, output_data = get_prediction_for_pipeline(case, pipeline)
 
-    metrics = {}
+    if input_data is None or output_data is None:
+        raise ValueError(f'Input/ouptut data should exist for {case=} and pipeline to score metrics')
+
+    metrics: Dict[str, Integral] = {}
     if case.metadata.task_name == 'classification':
         input_data.target = input_data.target.astype('int')
         metrics['ROCAUC'] = round(abs(ROCAUC().metric(input_data, output_data)), 3)
