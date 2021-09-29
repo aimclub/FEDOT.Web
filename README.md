@@ -72,7 +72,7 @@ and workshops for their valuable advice and suggestions. The project is funded b
 
 ## Citation
 
-@article{nikitin2021automated, title={Automated Evolutionary Approach for the Design of Composite Machine Learning
-Pipelines}, author={Nikitin, Nikolay O and Vychuzhanin, Pavel and Sarafanov, Mikhail and Polonskaia, Iana S and Revin,
-Ilia and Barabanova, Irina V and Maximov, Gleb and Kalyuzhnaya, Anna V and Boukhanovsky, Alexander}, journal={arXiv
-preprint arXiv:2106.15397}, year={2021} }
+@article{nikitin2021automated, title = {Automated evolutionary approach for the design of composite machine learning
+pipelines}, author = {Nikolay O. Nikitin and Pavel Vychuzhanin and Mikhail Sarafanov and Iana S. Polonskaia and Ilia
+Revin and Irina V. Barabanova and Gleb Maximov and Anna V. Kalyuzhnaya and Alexander Boukhanovsky}, journal = {Future
+Generation Computer Systems}, year = {2021}, issn = {0167-739X}, doi = {https://doi.org/10.1016/j.future.2021.08.022}}
