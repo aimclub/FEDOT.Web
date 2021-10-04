@@ -1,3 +1,5 @@
+![logo](./docs/img/fedot_web_logo.png)
+
 # FEDOT.Web
 
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
@@ -48,7 +50,6 @@ Analytics for the current pipeline and its history of evolution.
 The visualisation of the evolution history.
 
 ![Evolution](./docs/img/history.png)
-
 
 ## Algorithmic core
 
