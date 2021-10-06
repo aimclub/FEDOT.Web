@@ -1,12 +1,14 @@
+from typing import Dict
+
 from flask import request
-from flask_accepts import responds, accepts
+from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
-from werkzeug.exceptions import Unauthorized, BadRequest
+from werkzeug.exceptions import BadRequest, Unauthorized
 from werkzeug.security import check_password_hash
 
 from .models import Token
 from .schema import TokenSchema, UserSchema
-from .service import find_user_by_email, generate_token, create_user
+from .service import create_user, find_user_by_email, generate_token
 
 api = Namespace("Auth", description="Getting a token")
 
@@ -39,7 +41,7 @@ class RegisterResource(Resource):
     @accepts(schema=UserSchema, api=api)
     @api.doc(responses={200: 'registration successful'})
     @api.doc(responses={400: 'user already exists'})
-    def post(self) -> Token:
+    def post(self) -> Dict[str, str]:
         """User registration"""
         obtained = request.parsed_obj
         email = obtained['email']

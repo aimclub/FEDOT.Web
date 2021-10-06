@@ -1,22 +1,18 @@
 import pickle
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
-from app import storage
 from app.api.data.service import get_dataset_metadata
-from app.api.pipelines.service import pipeline_by_uid, get_pipeline_metadata
+from app.api.pipelines.service import get_pipeline_metadata, pipeline_by_uid
+from app.singletons.db_service import DBServiceSingleton
 from init.init_cases import add_case_to_db
+
+from ..analytics.pipeline_analytics import get_metrics_for_pipeline
 from .models import ShowcaseItem
 from .showcase_utils import prepare_icon_path, showcase_item_from_db
-from ..analytics.pipeline_analytics import get_metrics_for_pipeline
-
-
-def showcase_item_by_uid(case_id: str) -> ShowcaseItem:
-    item = showcase_item_from_db(case_id)
-    return item
 
 
 def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
-    dumped_item = storage.db.cases.find_one({'case_id': case_id})
+    dumped_item: Optional[Dict[str, Any]] = DBServiceSingleton().try_find_one('cases', {'case_id': case_id})
     if dumped_item is None:
         return None
 
@@ -37,14 +33,16 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
             'n_rows': n_rows}
 
         case_id = dumped_item['case_id']
-        pipeline, case = pipeline_by_uid(pipeline_id), showcase_item_by_uid(case_id)
+        pipeline, case = pipeline_by_uid(pipeline_id), showcase_item_from_db(case_id)
 
         if pipeline is None:
             raise ValueError(f'Pipeline with id {pipeline_id} not exists.')
+        if case is None:
+            raise ValueError(f'Case with id {case_id} not exists.')
 
         metrics = get_metrics_for_pipeline(case, pipeline)
-        for metric_id in metrics.keys():
-            details[metric_id] = metrics[metric_id]
+        for metric_id, metric_val in metrics.items():
+            details[metric_id] = metric_val
         is_updated = True
 
     item = ShowcaseItem(case_id=case_id,
@@ -55,11 +53,11 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
                         metadata=case_metadata,
                         details=details)
     if is_updated:
-        add_case_to_db(db=storage.db, case=item)
+        add_case_to_db(case=item)
     return item
 
 
 def all_showcase_items_ids() -> List[str]:
-    items = storage.db.cases.find()
+    items = DBServiceSingleton().find_all('cases')
     ids = [item['case_id'] for item in items if 'case_id' in item]
     return ids

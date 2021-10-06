@@ -1,11 +1,12 @@
 from copy import deepcopy
+from typing import Any, Dict
 
 import networkx as nx
+from fedot.core.optimisers.opt_history import OptHistory
 from matplotlib import pyplot as plt
 
 
-def history_to_graph(history):
-    output_graph = {}
+def history_to_graph(history: OptHistory) -> Dict[str, Any]:
     all_nodes = _create_operators_and_nodes(history)
 
     all_nodes, edges = _create_edges(all_nodes)
@@ -14,19 +15,21 @@ def history_to_graph(history):
     # postprocessing of edges
     new_edges = []
     nodes_ids = [n['uid'] for n in all_nodes]
-    for edge_id, edge in enumerate(edges):
+    for _, edge in enumerate(edges):
         if edge['source'] in nodes_ids and edge['target'] in nodes_ids and edge['source'] != edge['target']:
             new_edges.append(edge)
         else:
             print(edge)
 
-    output_graph['nodes'] = all_nodes
-    output_graph['edges'] = new_edges
+    output_graph_dict = {
+        'nodes': all_nodes,
+        'edges': new_edges
+    }
 
     if False:
-        _draw_history(output_graph)
+        _draw_history(output_graph_dict)
 
-    return output_graph
+    return output_graph_dict
 
 
 def _process_operator(all_nodes, operator, individual, o_id, gen_id, prev_operator, skip_next):

@@ -1,21 +1,21 @@
 import datetime
 import json
+from typing import Any, Dict, Optional
 
 import jwt
+from app import db
+from app.web.auth.model import User
 from flask import current_app
 from werkzeug.security import generate_password_hash
 
-from app import db
-from app.web.auth.model import User
 
-
-def find_user_by_email(email):
+def find_user_by_email(email: str) -> Optional[User]:
     user = User.query.filter_by(email=email).first()
     return user
 
 
-def create_user(email, name=None, password=None):
-    password_hash = None
+def create_user(email: str, name: Optional[str] = None, password: Optional[str] = None) -> User:
+    password_hash: Optional[str] = None
     if password:
         password_hash = generate_password_hash(password, method='sha256')
     new_user = User(email=email,
@@ -25,23 +25,15 @@ def create_user(email, name=None, password=None):
     return new_user
 
 
-def get_user(user_data):
-    email = user_data['email']
-    user = find_user_by_email(email)
-    if user is None:
-        user = create_user(email)
-    return user
-
-
-def set_user_data(user, user_data, token):
+def set_user_data(user: User, user_data: Dict[str, Any], token: Dict[str, Any]) -> None:
     user.name = user_data['name']
     user.tokens = json.dumps(token)
     user.avatar = user_data['picture']
     save_changes(user)
 
 
-def generate_token(user_id):
-    payload = {
+def generate_token(user_id: int) -> str:
+    payload: Dict[str, Any] = {
         'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=5),
         'iat': datetime.datetime.utcnow(),
         'sub': user_id
@@ -53,7 +45,7 @@ def generate_token(user_id):
     )
 
 
-def save_changes(data=None):
+def save_changes(data: Optional[Any] = None) -> None:
     if data:
         db.session.add(data)
     db.session.commit()

@@ -1,18 +1,20 @@
 from typing import Optional
 from uuid import uuid4
 
+from app import storage
 from flask import request
 from flask_accepts import accepts, responds
 from flask_cors import cross_origin
 from flask_restx import Namespace, Resource
 
-from app import storage
-from .models import PipelineGraph, PipelineResponse, PipelineValidationResponse, PipelineImage
-from .pipeline_convert_utils import pipeline_to_graph, graph_to_pipeline
-from .schema import (PipelineGraphSchema, PipelineResponseSchema,
-                     PipelineValidationResponseSchema, PipelineImageSchema)
-from .service import pipeline_by_uid, create_pipeline, validate_pipeline, get_image_url
 from ..data.service import get_input_data
+from .models import (PipelineGraph, PipelineImage, PipelineResponse,
+                     PipelineValidationResponse)
+from .pipeline_convert_utils import graph_to_pipeline, pipeline_to_graph
+from .schema import (PipelineGraphSchema, PipelineImageSchema,
+                     PipelineResponseSchema, PipelineValidationResponseSchema)
+from .service import (create_pipeline, get_image_url, pipeline_by_uid,
+                      validate_pipeline)
 
 api = Namespace("Pipelines", description="Operations with pipelines")
 
@@ -23,7 +25,7 @@ class PipelinesIdResource(Resource):
     """Pipelines"""
 
     @responds(schema=PipelineGraphSchema, many=False)
-    def get(self, uid) -> Optional[PipelineGraph]:
+    def get(self, uid: str) -> Optional[PipelineGraph]:
         """Get pipeline with specific UID"""
         pipeline = pipeline_by_uid(uid)
         if pipeline is None:
@@ -72,7 +74,7 @@ class PipelinesAddResource(Resource):
 
         new_uid = str(uuid4())
         if is_correct:
-            uid, is_exists = create_pipeline(storage.db, new_uid, pipeline)
+            uid, is_exists = create_pipeline(new_uid, pipeline)
             return PipelineResponse(uid, is_exists)
         else:
             return PipelineResponse(None, False)
@@ -87,7 +89,7 @@ class PipelinesIdImage(Resource):
     """Pipelines"""
 
     @responds(schema=PipelineImageSchema, many=False)
-    def get(self, uid) -> PipelineImage:
+    def get(self, uid: str) -> PipelineImage:
         """Get image of pipeline with specific UID"""
 
         pipeline = pipeline_by_uid(uid)

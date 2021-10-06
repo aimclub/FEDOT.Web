@@ -1,17 +1,15 @@
 import os
 import pickle
 
-import pymongo
-from bson import json_util
-from pymongo.errors import CollectionInvalid
-
 from app.api.showcase.models import Metadata, ShowcaseItem
+from app.singletons.db_service import DBServiceSingleton
+from bson import json_util
 from utils import project_root
 
 
-def create_default_cases(db=None):
-    if db:
-        _create_collection(db, 'cases', 'case_id')
+def create_default_cases():
+    db_service = DBServiceSingleton()
+    db_service.try_create_collection('cases', 'case_id')
 
     scoring_case = ShowcaseItem(
         case_id='scoring',
@@ -55,11 +53,11 @@ def create_default_cases(db=None):
         metadata=Metadata(metric_name='rmse', task_name='regression', dataset_name='oil'))
 
     mock_list = []
-    mock_list.append(add_case_to_db(db, scoring_case))
-    mock_list.append(add_case_to_db(db, metocean_case))
-    mock_list.append(add_case_to_db(db, oil_case))
+    mock_list.append(add_case_to_db(scoring_case))
+    mock_list.append(add_case_to_db(metocean_case))
+    mock_list.append(add_case_to_db(oil_case))
 
-    if db is None:
+    if not db_service.exists():
         mockup_cases(mock_list)
 
 
@@ -70,15 +68,7 @@ def mockup_cases(mock_list):
             print('cases are mocked')
 
 
-def _create_collection(db, name: str, id_name: str):
-    try:
-        db.create_collection(name)
-        db.cases.create_index([(id_name, pymongo.TEXT)], unique=True)
-    except CollectionInvalid:
-        print('Cases collection already exists')
-
-
-def add_case_to_db(db, case):
+def add_case_to_db(case):
     case_dict = {
         'case_id': case.case_id,
         'title': case.title,
@@ -89,15 +79,9 @@ def add_case_to_db(db, case):
         'details': case.details
     }
 
-    if db:
-        _add_to_db(db, 'case_id', case.case_id, case_dict)
+    DBServiceSingleton().try_reinsert_one('cases', {'case_id': case.case_id}, case_dict)
 
     return case_dict
-
-
-def _add_to_db(db, id_name, id_value, obj_to_add):
-    db.cases.remove({id_name: id_value})
-    db.cases.insert_one(obj_to_add)
 
 
 def _get_icon_url(filename):

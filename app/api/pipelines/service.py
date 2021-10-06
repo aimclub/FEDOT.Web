@@ -2,41 +2,36 @@ import json
 import warnings
 from io import BytesIO
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
-import gridfs
 import pymongo
+from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.pipelines.validation import validate
 from flask import current_app, has_app_context, url_for
 from pymongo.errors import DuplicateKeyError
-
-from app import storage
 from utils import project_root
 
 
-def is_pipeline_exists(db, uid: str) -> Optional[Pipeline]:
-    pipeline_dict = db.pipelines.find_one({'uid': str(uid)})
-    return pipeline_dict is not None
+def is_pipeline_exists(uid: str) -> bool:
+    DBServiceSingleton().try_find_one('pipelines', {'uid': uid}) is not None
 
 
 def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
+    db_service = DBServiceSingleton()
     pipeline = Pipeline()
-    pipeline_dict = storage.db.pipelines.find_one({'uid': str(uid)})
+    pipeline_dict: Optional[Dict[str, Any]] = db_service.try_find_one('pipelines', {'uid': uid})
     if pipeline_dict is None:
         return None
 
-    dict_fitted_operations = None
+    dict_fitted_operations: Optional[Dict[str, Any]] = None
     if current_app.config['CONFIG_NAME'] == 'test':
-        dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': str(uid)})
+        dict_fitted_operations = db_service.try_find_one('dict_fitted_operations', {'uid': uid})
     else:
-        try:
-            fs = gridfs.GridFS(storage.db)
-            file = fs.find_one({'filename': str(uid), 'type': 'dict_fitted_operations'}).read()
-            dict_fitted_operations = json_util.loads(file)
-        except AttributeError as ex:
-            print(f'dict_fitted_operations not found for {uid}')
+        file = db_service.try_find_one_file({'filename': uid, 'type': 'dict_fitted_operations'})
+        if file is not None:
+            dict_fitted_operations = json_util.loads(file.read())
 
     if dict_fitted_operations:
         for key in dict_fitted_operations:
@@ -56,9 +51,9 @@ def validate_pipeline(pipeline: Pipeline) -> Tuple[bool, str]:
         return False, str(ex)
 
 
-def create_pipeline(db, uid: str, pipeline: Pipeline, overwrite=False):
+def create_pipeline(uid: str, pipeline: Pipeline, overwrite: bool = False) -> Tuple[str, bool]:
     is_new = True
-    existing_uid = db.pipelines.find_one({'uid': str(uid)})
+    existing_uid = is_pipeline_exists(uid)
     if existing_uid and not overwrite:
         is_new = False
 
@@ -73,39 +68,37 @@ def create_pipeline(db, uid: str, pipeline: Pipeline, overwrite=False):
 
     if is_new:
         dict_pipeline = json.loads(dumped_json)
-        _add_pipeline_to_db(db, uid, dict_pipeline, dict_fitted_operations, overwrite=overwrite)
+        _add_pipeline_to_db(uid, dict_pipeline, dict_fitted_operations, overwrite=overwrite)
     else:
         warnings.warn('Cannot create new pipeline')
 
     return uid, is_new
 
 
-def _add_pipeline_to_db(db, uid, dict_pipeline, dict_fitted_operations, init_db=False, overwrite=False):
+def _add_pipeline_to_db(
+    uid: str, dict_pipeline: Dict, dict_fitted_operations: Dict,
+    init_db: bool = False, overwrite: bool = False
+) -> Optional[List[Dict]]:
     dict_pipeline['uid'] = str(uid)
+    db_service = DBServiceSingleton()
     if init_db:
-        db.pipelines.remove({'uid': uid})
+        db_service.try_delete_one('pipelines', {'uid': uid})
     else:
-        is_exists = db.pipelines.find_one({'uid': uid}) is not None
+        is_exists = is_pipeline_exists(uid)
         if is_exists and overwrite:
-            db.pipelines.remove({'uid': uid})
+            db_service.try_delete_one('pipelines', {'uid': uid})
             is_exists = False
         if not is_exists:
-            try:
-                db.pipelines.insert_one(dict_pipeline)
-            except DuplicateKeyError as ex:
-                print(f'Suddenly, pipeline {str(uid)} already exists: {ex}')
+            db_service.try_insert_one('pipelines', dict_pipeline)
 
     if dict_fitted_operations is not None:
         try:
             if has_app_context() and current_app.config['CONFIG_NAME'] == 'test':
-                dict_fitted_operations = storage.db.dict_fitted_operations.find_one({'uid': str(uid)})
+                dict_fitted_operations = db_service.try_find_one('dict_fitted_operations', {'uid': uid})
             else:
-                fs = gridfs.GridFS(db)
-                file = fs.find_one({'filename': uid, 'type': 'dict_fitted_operations'})
-                if file:
-                    fs.delete(file._id)
-                fs.put(json_util.dumps(dict_fitted_operations), filename=uid, type='dict_fitted_operations',
-                       encoding='utf-8')
+                db_service.try_reinsert_file(
+                    {'filename': uid, 'type': 'dict_fitted_operations'}, dict_fitted_operations
+                )
 
             if init_db:
                 return [dict_pipeline, dict_fitted_operations]
@@ -114,28 +107,23 @@ def _add_pipeline_to_db(db, uid, dict_pipeline, dict_fitted_operations, init_db=
             print(f'Fitted operations dict {str(uid)} already exists')
         except pymongo.errors.DocumentTooLarge as ex:
             print(f'Dict {str(uid)} too large: {ex}')
+    return None
 
 
-def get_image_url(filename, pipeline):
+def get_image_url(filename: str, pipeline: Optional[Pipeline]) -> str:
     image_path = f'{project_root()}/frontend/build/static/generated_images/{filename}'
     image = Path(image_path)
     if not image.exists():
         dir_path = Path(f'{project_root()}/frontend/build/static/generated_images/')
         if not dir_path.exists():
             dir_path.mkdir()
-        pipeline.show(image_path)
+        if pipeline is not None:
+            pipeline.show(image_path)
     return url_for('static', filename=f'generated_images/{filename}')
 
 
-def get_pipeline_metadata(pipeline_id) -> Tuple[int, int]:
+def get_pipeline_metadata(pipeline_id: str) -> Tuple[int, int]:
     pipeline = pipeline_by_uid(pipeline_id)
     if not pipeline:
         return -1, -1
     return pipeline.length, pipeline.depth
-
-
-def _replace_symbols_in_dct_keys(dct, old, new_symb):
-    for key in list(dct.keys()):
-        new_key = key.replace(old, new_symb)
-        dct[new_key] = dct.pop(key)
-    return dct
