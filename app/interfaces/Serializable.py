@@ -1,7 +1,8 @@
 import json
-from abc import ABC, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 from dataclasses import is_dataclass
 from importlib import import_module
+from inspect import signature
 from typing import Any, Dict
 
 DELIMITER = '/'
@@ -20,8 +21,12 @@ class Serializable(ABC):
     @classmethod
     @abstractmethod
     def from_json(cls, json_obj: Dict[str, Any]):
-        obj = cls()
-        del json_obj[CLASS_PATH_KEY]
+        init_data = {
+            k: v
+            for k, v in json_obj.items()
+            if k in signature(cls.__init__).parameters
+        }
+        obj = cls(init_data)
         vars(obj).update(json_obj)
         return obj
 
@@ -34,16 +39,17 @@ def encoder(obj: Any) -> Dict[str, Any]:
 
 def _get_class(class_path: str) -> Any:
     module_name, class_name = class_path.split(DELIMITER)
-    obj = import_module(module_name)
+    obj_cls = import_module(module_name)
     for sub in class_name.split('.'):
-        obj = getattr(obj, sub)
-    return obj
+        obj_cls = getattr(obj_cls, sub)
+    return obj_cls
 
 
 def decoder(json_obj: Dict[str, Any]) -> Any:
     if CLASS_PATH_KEY in json_obj:
-        cls_obj = _get_class(json_obj[CLASS_PATH_KEY])
-        if issubclass(cls_obj, Serializable):
-            return cls_obj.from_json(json_obj)
-        raise TypeError(f'Parsed {cls_obj=} is not serializable, but should be')
+        obj_cls = _get_class(json_obj[CLASS_PATH_KEY])
+        del json_obj[CLASS_PATH_KEY]
+        if issubclass(obj_cls, Serializable):
+            return obj_cls.from_json(json_obj)
+        raise TypeError(f'Parsed {obj_cls=} is not serializable, but should be')
     return json_obj
