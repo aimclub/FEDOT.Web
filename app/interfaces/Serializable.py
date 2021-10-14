@@ -8,6 +8,8 @@ from typing import Any, Dict
 DELIMITER = '/'
 CLASS_PATH_KEY = '_class_path'
 
+from uuid import UUID
+
 
 class Serializable(ABC):
 
@@ -34,6 +36,8 @@ class Serializable(ABC):
 def encoder(obj: Any) -> Dict[str, Any]:
     if isinstance(obj, Serializable):
         return obj.to_json()
+    elif isinstance(obj, UUID):
+        return obj.hex
     raise TypeError(f'{obj=} can\'t be serialized!')
 
 

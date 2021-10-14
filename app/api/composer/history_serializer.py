@@ -6,7 +6,23 @@ from app.interfaces.serializable import CLASS_PATH_KEY, DELIMITER, Serializable
 class Serializer(Serializable):
 
     def to_json(self) -> Dict[str, Any]:
-        return super().to_json()
+        return {
+            k: v
+            for k, v in super().to_json().items()
+            if not k.startswith("__") and not k.endswith("__")
+        }
+
+    @classmethod
+    def from_json(cls, json_obj: Dict[str, Any]):
+        return super().from_json(json_obj)
+
+
+class LogSerializer(Serializable):
+
+    def to_json(self) -> Dict[str, Any]:
+        basic_serialization = super().to_json()
+        del basic_serialization['logger']  # cause it will be automatically generated in __init__
+        return basic_serialization
 
     @classmethod
     def from_json(cls, json_obj: Dict[str, Any]):
