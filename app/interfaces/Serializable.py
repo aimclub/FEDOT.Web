@@ -4,11 +4,10 @@ from dataclasses import is_dataclass
 from importlib import import_module
 from inspect import signature
 from typing import Any, Dict
+from uuid import UUID
 
 DELIMITER = '/'
 CLASS_PATH_KEY = '_class_path'
-
-from uuid import UUID
 
 
 class Serializable(ABC):

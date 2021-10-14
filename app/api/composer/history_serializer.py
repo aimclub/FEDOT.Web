@@ -1,19 +1,34 @@
+from importlib import import_module
+from inspect import isclass
 from typing import Any, Dict
 
-from app.interfaces.serializable import CLASS_PATH_KEY, DELIMITER, Serializable
+from app.interfaces.serializable import (CLASS_PATH_KEY, DELIMITER,
+                                         Serializable, _get_class)
 
 
 class Serializer(Serializable):
 
     def to_json(self) -> Dict[str, Any]:
-        return {
-            k: v
-            for k, v in super().to_json().items()
-            if not k.startswith("__") and not k.endswith("__")
-        }
+        return super().to_json()
 
     @classmethod
     def from_json(cls, json_obj: Dict[str, Any]):
+        return super().from_json(json_obj)
+
+
+class OperationMetaInfoSerializer(Serializable):
+
+    def to_json(self) -> Dict[str, Any]:
+        basic_serialization = super().to_json()
+        strategy = basic_serialization['supported_strategies']
+        if isclass(strategy):
+            basic_serialization['supported_strategies'] = f'\
+                {strategy.__module__}{DELIMITER}{strategy.__qualname__}'
+        return basic_serialization
+
+    @classmethod
+    def from_json(cls, json_obj: Dict[str, Any]):
+        json_obj['supported_strategies'] = _get_class(json_obj['supported_strategies'])
         return super().from_json(json_obj)
 
 
@@ -40,23 +55,3 @@ class EnumSerializer(Serializable):
     @classmethod
     def from_json(cls, json_obj: Dict[str, Any]):
         return cls(json_obj["value"])
-
-
-class HistorySerializer(Serializable):
-
-    def to_json(self) -> Dict[str, Any]:
-        return super().to_json()
-
-    @classmethod
-    def from_json(cls, json_obj: Dict[str, Any]):
-        return super().from_json(json_obj)
-
-
-class IndividualSerializer(Serializable):
-
-    def to_json(self) -> Dict[str, Any]:
-        return super().to_json()
-
-    @classmethod
-    def from_json(cls, json_obj: Dict[str, Any]):
-        return super().from_json(json_obj)
