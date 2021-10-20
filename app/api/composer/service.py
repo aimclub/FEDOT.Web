@@ -9,6 +9,7 @@ from bson import json_util
 from fedot.api.main import Fedot
 from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
+from fedot.core.repository.tasks import TsForecastingParams
 from flask import current_app
 from utils import project_root
 
@@ -67,9 +68,13 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float) -> OptH
     pop_size = 10
     num_of_generations = 5
     learning_time = time
+    task_params = None
+    if task == 'ts_forecasting':
+        task_params = TsForecastingParams(forecast_length=30)
 
     auto_model = Fedot(problem=task, seed=42, preset='light_steady_state', verbose_level=4,
                        timeout=learning_time,
+                       task_params=task_params,
                        composer_params={'composer_metric': metric,
                                         'pop_size': pop_size,
                                         'num_of_generations': num_of_generations,
