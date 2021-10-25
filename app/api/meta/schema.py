@@ -13,6 +13,7 @@ class ModelInfoSchema(Schema):
 
     model_name = fields.String(attribute='model_name')
     display_name = fields.String(attribute='display_name')
+    type = fields.String(attribute='type')
 
 
 class MetricInfoSchema(Schema):
