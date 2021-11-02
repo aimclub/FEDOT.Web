@@ -1,38 +1,41 @@
 import { instance } from "../baseURL";
 import {
-  EdgeDataType,
-  NodeDataType,
-} from "../../workSpace/pages/sandbox/GraphEditor/GraphEditorDirectedGraph/GraphEditorDirectedGraph";
-import { IAdd, IValidate } from "./pipelineInterface";
+  IAdd,
+  IPipeline,
+  IPipelineImage,
+  IValidate,
+} from "./pipelineInterface";
 
 export const pipelineAPI = {
-  async postValidate(
-    uid: string,
-    nodes: NodeDataType[],
-    edges: EdgeDataType[]
-  ) {
+  async getPipeline(uid: string) {
     try {
-      const res = await instance.post<IValidate>(`/pipelines/validate`, {
-        uid: uid,
-        nodes: nodes,
-        edges: edges,
-      });
+      const res = await instance.get<IPipeline>(`/pipelines/${uid}`);
       return res.data;
-    } catch (error: any) {
-      console.error(`error`, error.response);
+    } catch (error) {
       return Promise.reject(error);
     }
   },
-  async postAdd(uid: string, nodes: NodeDataType[], edges: EdgeDataType[]) {
+  async getPipelineImage(uid: string) {
     try {
-      const res = await instance.post<IAdd>(`/pipelines/add`, {
-        uid: uid,
-        nodes: nodes,
-        edges: edges,
-      });
+      const res = await instance.get<IPipelineImage>(`/pipelines/image/${uid}`);
       return res.data;
-    } catch (error: any) {
-      console.error(`error`, error.response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
+  async validatePipeline(data: IPipeline) {
+    try {
+      const res = await instance.post<IValidate>(`/pipelines/validate`, data);
+      return res.data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
+  async postPipeline(data: IPipeline) {
+    try {
+      const res = await instance.post<IAdd>(`/pipelines/add`, data);
+      return res.data;
+    } catch (error) {
       return Promise.reject(error);
     }
   },

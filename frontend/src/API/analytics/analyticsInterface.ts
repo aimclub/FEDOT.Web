@@ -1,22 +1,14 @@
-export interface IResult {
-  options: {
-    chart: {
-      type: string;
-    };
-    xaxis: {
-      categories: number[];
-      title: { text: string };
-    };
-    yaxis: {
-      min: number;
-      max: number;
-      title: { text: string };
-    };
-  };
-  series: {
-    name: string;
-    data: number[];
-  }[];
+export type GenerationType = "pheno" | "geno";
+
+export interface IGeneration {
+  series: IGenerationSeries[];
+}
+
+export interface IGenerationSeries {
+  y: number;
+  x: number[];
+  type: string;
+  name: number | string;
 }
 
 export interface IMetric {
@@ -44,11 +36,23 @@ export interface IMetric {
   }[];
 }
 
-export interface IGeneration {
+export interface IResult {
+  options: {
+    chart: {
+      type: "line" | "scatter";
+    };
+    xaxis: {
+      categories: number[];
+      title: { text: string };
+    };
+    yaxis: {
+      min: number;
+      max: number;
+      title: { text: string };
+    };
+  };
   series: {
-    y: number;
-    x: number[];
-    type: string;
-    name: number;
+    name: string;
+    data: number[];
   }[];
 }
