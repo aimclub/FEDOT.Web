@@ -1,0 +1,55 @@
+.root {
+  margin-top: 8px;
+  padding: 12px 23px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 8px;
+  background: #ffffff;
+
+  position: relative;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.line {
+  margin-left: 20px;
+  width: 1px;
+  height: 26px;
+
+  background: #c4c4c4;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+
+  color: #263238;
+}
+
+.text {
+  padding-left: 4px;
+
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.15px;
+  text-decoration: none;
+
+  color: #263238;
+}

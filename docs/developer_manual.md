@@ -25,7 +25,7 @@ The database can be analyzed using MongoDB Compass. The expected state after ini
 ### Add environment variables:
 
 Path to server for frontend:
-set REACT_APP_BASE_URL=http://127.0.0.1:5000/api
+set REACT_APP_BASE_URL=http://127.0.0.1:5000
 
 Connection string for the main database:
 

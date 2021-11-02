@@ -1,0 +1,77 @@
+@keyframes bubbleNode {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.container {
+  flex-grow: 1;
+  width: 100%;
+  min-height: 100%;
+  //max-height: 594px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  [id="graphSvg"] {
+    display: flex;
+    z-index: 2;
+    //display: block;
+    //width: 100%;
+    //height: 100%;
+    //outline: 2px solid gold;
+  }
+
+  [class*="node"] rect {
+    stroke: #999;
+    fill: #fff;
+    stroke-width: 1.5px;
+  }
+  //[class*="node"] rect {
+  //  animation: bubbleNode 1s ease-in-out;
+  //
+  //}
+  //[class*="label"] {
+  //  animation: bubbleNode 1s ease-in-out;
+  //}
+
+  [class*="node"] circle {
+    stroke: #999;
+    fill: #fff;
+    stroke-width: 1.5px;
+  }
+  [class*="node"]:hover > rect {
+    fill: #eba;
+  }
+
+  text {
+    font-weight: 300;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  [class*="edgePath"] path {
+    stroke: #333;
+    stroke-width: 2px;
+    cursor: pointer;
+  }
+
+  //[class*="path"]  {
+  //  transition: all 1.2s ease-in;
+  //}
+}
+
+.empty {
+  font-weight: 300;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-size: 24px;
+  color: #cfd8dc;
+}

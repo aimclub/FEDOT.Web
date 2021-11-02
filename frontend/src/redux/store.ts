@@ -8,25 +8,23 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage/session"; // sessionStorage
 
 //------
-import authReducer from "./reducers/auth/authReducer";
-import leftMenuReducer from "./reducers/leftMenu/leftMenuReducer";
-import casesReducer from "./reducers/showCase/showCaseReducer";
-import sandbox_Egor from "./reducers/sandBox/sandbox-reducer";
-import sandBoxReducer from "./reducers/sandBox/sandBoxReducer";
-import historyReducer from "./reducers/history/historyReducer";
+import authReducer from "./auth/auth-reducer";
+import showCaseReducer from "./showCase/showCase-reducer";
+import sandboxReducer from "./sandbox/sandbox-reducer";
+import pipelineReducer from "./pipeline/pipeline-reducer";
+import historyReducer from "./history/history-reducer";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "leftMenu"], //массив для редьюсеров, которые не должны сбрасываться при обновлении
+  whitelist: ["auth", "auth_old", "showCase"], //массив для редьюсеров, которые не должны сбрасываться при обновлении
 };
 
 let reducers = combineReducers({
   auth: authReducer,
-  leftMenu: leftMenuReducer,
-  showCases: casesReducer,
-  sandbox_Egor,
-  sandBox: sandBoxReducer,
+  showCase: showCaseReducer,
+  sandbox: sandboxReducer,
+  pipeline: pipelineReducer,
   history: historyReducer,
 });
 
