@@ -11,6 +11,7 @@ class TaskInfo:
 class ModelInfo:
     model_name: str
     display_name: str
+    type: str
 
 
 @dataclass

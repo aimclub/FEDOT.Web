@@ -23,8 +23,13 @@ _metrics_dict = {TaskTypesEnum.regression: RegressionMetricsEnum,
 
 def get_models_info(task_type: TaskTypesEnum) -> List[ModelInfo]:
     model_names, _ = OperationTypesRepository().suitable_operation(task_type=task_type)
-    models = [ModelInfo(name, name) for name in model_names]
-    return models
+    operation_names, _ = OperationTypesRepository(operation_type='data_operation'). \
+        suitable_operation(task_type=task_type)
+
+    models = [ModelInfo(name, name, 'model') for name in model_names]
+    operations = [ModelInfo(name, name, 'data_operation') for name in operation_names]
+    all_info = models + operations
+    return all_info
 
 
 def get_metrics_info(task_type: TaskTypesEnum) -> List[MetricInfo]:
