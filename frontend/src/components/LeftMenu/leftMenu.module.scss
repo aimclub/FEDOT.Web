@@ -1,0 +1,87 @@
+.root {
+  width: 73px;
+  height: 100vh;
+  // position: absolute;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: #263238;
+  transition: all 1s;
+  transition-delay: 1s;
+  z-index: 10000;
+  &:hover {
+    width: 255px;
+    min-height: 100vh;
+
+    position: -webkit-sticky;
+    position: sticky;
+
+    transition: all 1s;
+    transition-delay: 1s;
+    background: #263238;
+    z-index: 10000;
+
+    .line {
+      width: 70%;
+    }
+    .buttonText {
+      width: 100px;
+      padding-left: 15px;
+
+      font-family: Open Sans;
+      font-size: 14px;
+      line-height: 21px;
+      letter-spacing: 0.15px;
+      text-align: start;
+
+      transition: all 1s;
+      transition-delay: 2s;
+      color: #ffffff;
+    }
+    .buttonWidth {
+      width: 255px;
+    }
+  }
+}
+.line {
+  margin-top: 22px;
+  height: 1px;
+  width: 100%;
+
+  transition: all 1s;
+  transition-delay: 2.5s;
+  background: #ffffff;
+}
+.logo {
+  width: 40px;
+  width: 40px;
+  margin-top: 12px;
+}
+.buttonsPosition {
+  margin-top: 16px;
+}
+.buttonText {
+  width: 1px;
+
+  font-family: Open Sans;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0.15px;
+  text-align: start;
+
+  overflow: hidden;
+  transition: all 1s;
+  transition-delay: 0.5s;
+}
+.buttonWidth {
+  margin: 6px 0;
+  width: 73px;
+
+  transition: all 1s;
+  transition-delay: 1s;
+}
