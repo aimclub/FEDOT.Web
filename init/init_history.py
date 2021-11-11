@@ -1,5 +1,6 @@
+import itertools
+import json
 import os
-import pickle
 
 from app.api.composer.service import run_composer
 from app.api.data.service import get_input_data
@@ -7,6 +8,7 @@ from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.core.pipelines.pipeline import Pipeline
+from fedot.shared import json_helpers
 from utils import project_root
 
 from init.init_pipelines import _extract_pipeline_with_fitted_operations
@@ -70,12 +72,12 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     db_service = DBServiceSingleton()
     history = run_composer(task, metric, dataset_name, time)
     if db_service.exists():
-        history_obj = pickle.dumps(history)
+        history_obj = json.dumps(history, default=json_helpers.encoder)
         db_service.try_reinsert_file({'filename': history_id, 'type': 'history'}, history_obj)
     else:
         history_obj = {
             'history_id': history_id,
-            'history_pkl': pickle.dumps(history)
+            'history_json': json.dumps(history, default=json_helpers.encoder)
         }
 
     mock_dct['history'] = history_obj
@@ -86,7 +88,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
 
     best_fitness = None
 
-    for i, pipeline_template in enumerate(history.historical_pipelines):
+    for i, pipeline_template in enumerate([ind.graph for ind in list(itertools.chain(*history.individuals))]):
         pipeline_uid = pipeline_template.unique_pipeline_id
 
         fitness = history.all_historical_fitness[i]

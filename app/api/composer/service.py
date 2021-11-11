@@ -1,5 +1,4 @@
-import pickle
-from typing import Any, Dict, Optional
+import json
 
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
@@ -7,9 +6,12 @@ from app.api.showcase.showcase_utils import showcase_item_from_db
 from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.api.main import Fedot
+from fedot.core.optimisers.adapters import PipelineAdapter
+from fedot.core.optimisers.graph import OptGraph
 from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.repository.tasks import TsForecastingParams
+from fedot.shared import json_helpers
 from flask import current_app
 from utils import project_root
 
@@ -36,9 +38,9 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
         history = run_composer(task, metric, dataset_name, time=1.0)
         _save_to_db(case_id, history)
     elif current_app.config['CONFIG_NAME'] == 'test':
-        history = pickle.loads(saved_history['history_pkl'])
+        history = json.loads(saved_history['history_json'], object_hook=json_helpers.decoder)
     else:
-        history = pickle.loads(saved_history)
+        history = json.loads(saved_history, object_hook=json_helpers.decoder)
 
     data = get_input_data(dataset_name=dataset_name, sample_type='train')
 
@@ -59,9 +61,20 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
 def _save_to_db(history_id: str, history: OptHistory) -> None:
     history_obj = {
         'history_id': history_id,
-        'history_pkl': pickle.dumps(history)
+        'history_json': json.dumps(history, default=json_helpers.encoder)
     }
     DBServiceSingleton().try_reinsert_one('history', {'history_id': history_id}, history_obj)
+
+
+def _convert_history_opt_graph_to_template(history: OptHistory):
+    adapter = PipelineAdapter()
+    for gen in history.individuals:
+        for ind in gen:
+            ind.graph = adapter.restore_as_template(ind.graph, ind.computation_time)
+    for gen in history.archive_history:
+        for ind in gen:
+            if isinstance(ind.graph, OptGraph):
+                ind.graph = adapter.restore_as_template(ind.graph, ind.computation_time)
 
 
 def run_composer(task: str, metric: str, dataset_name: str, time: float) -> OptHistory:
@@ -83,6 +96,7 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float) -> OptH
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history
+    _convert_history_opt_graph_to_template(history)
     unfit_history(history)
     return history
 
@@ -91,12 +105,9 @@ def unfit_history(history: OptHistory) -> None:
     for pop in history.individuals:
         for ind in pop:
             ind.graph.link_to_empty_pipeline.unfit()
+            for ops in ind.parent_operators:
+                for pip in ops.parent_objects:
+                    pip.link_to_empty_pipeline.unfit()
     for pop in history.archive_history:
         for ind in pop:
             ind.graph.link_to_empty_pipeline.unfit()
-
-    for ops in history.parent_operators:
-        for op in ops:
-            for op_part in op:
-                for pip in op_part.parent_objects:
-                    pip.link_to_empty_pipeline.unfit()
