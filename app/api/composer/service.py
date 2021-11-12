@@ -1,4 +1,5 @@
 import json
+from os import pipe
 from typing import List
 
 from app.api.data.service import get_input_data
@@ -69,13 +70,17 @@ def _save_to_db(history_id: str, history: OptHistory) -> None:
     DBServiceSingleton().try_reinsert_one('history', {'history_id': history_id}, history_obj)
 
 
-def _convert_individuals_opt_graphs_to_templates(individuals: List[Individual]) -> List[PipelineTemplate]:
+def _convert_history_opt_graphs_to_templates(history: OptHistory) -> OptHistory:
     adapter = PipelineAdapter()
-    for gen in individuals:
-        for ind in gen:
-            if isinstance(ind.graph, OptGraph):
-                ind.graph = adapter.restore_as_template(ind.graph, ind.computation_time)
-    return individuals
+    def convert_individuals_opt_graphs_to_templates(individuals: List[Individual]) -> List[PipelineTemplate]:
+        for gen in individuals:
+            for ind in gen:
+                if isinstance(ind.graph, OptGraph):
+                    ind.graph = adapter.restore_as_template(ind.graph, ind.computation_time)
+        return individuals
+    history.individuals = convert_individuals_opt_graphs_to_templates(history.individuals)
+    history.archive_history = convert_individuals_opt_graphs_to_templates(history.archive_history)
+    return history
 
 
 def run_composer(task: str, metric: str, dataset_name: str, time: float) -> OptHistory:
@@ -97,19 +102,5 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float) -> OptH
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history
-    history.individuals = _convert_individuals_opt_graphs_to_templates(history.individuals)
-    history.archive_history = _convert_individuals_opt_graphs_to_templates(history.archive_history)
-    unfit_history(history)
-    return history
-
-
-def unfit_history(history: OptHistory) -> None:
-    for pop in history.individuals:
-        for ind in pop:
-            ind.graph.link_to_empty_pipeline.unfit()
-            for ops in ind.parent_operators:
-                for pip in ops.parent_objects:
-                    pip.link_to_empty_pipeline.unfit()
-    for pop in history.archive_history:
-        for ind in pop:
-            ind.graph.link_to_empty_pipeline.unfit()
+    pipeline_history = _convert_history_opt_graphs_to_templates(history)
+    return pipeline_history
