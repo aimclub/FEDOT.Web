@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
@@ -7,9 +8,11 @@ from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.api.main import Fedot
 from fedot.core.optimisers.adapters import PipelineAdapter
+from fedot.core.optimisers.gp_comp.individual import Individual
 from fedot.core.optimisers.graph import OptGraph
 from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
+from fedot.core.pipelines.template import PipelineTemplate
 from fedot.core.repository.tasks import TsForecastingParams
 from fedot.shared import json_helpers
 from flask import current_app
@@ -66,15 +69,13 @@ def _save_to_db(history_id: str, history: OptHistory) -> None:
     DBServiceSingleton().try_reinsert_one('history', {'history_id': history_id}, history_obj)
 
 
-def _convert_history_opt_graph_to_template(history: OptHistory):
+def _convert_individuals_opt_graphs_to_templates(individuals: List[Individual]) -> List[PipelineTemplate]:
     adapter = PipelineAdapter()
-    for gen in history.individuals:
-        for ind in gen:
-            ind.graph = adapter.restore_as_template(ind.graph, ind.computation_time)
-    for gen in history.archive_history:
+    for gen in individuals:
         for ind in gen:
             if isinstance(ind.graph, OptGraph):
                 ind.graph = adapter.restore_as_template(ind.graph, ind.computation_time)
+    return individuals
 
 
 def run_composer(task: str, metric: str, dataset_name: str, time: float) -> OptHistory:
@@ -96,7 +97,8 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float) -> OptH
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history
-    _convert_history_opt_graph_to_template(history)
+    history.individuals = _convert_individuals_opt_graphs_to_templates(history.individuals)
+    history.archive_history = _convert_individuals_opt_graphs_to_templates(history.archive_history)
     unfit_history(history)
     return history
 
