@@ -17,6 +17,7 @@ def singleton(cls):
         if cls not in instances:
             instances[cls] = cls(*args, **kwargs)
         return instances[cls]
+
     return getinstance
 
 
@@ -24,6 +25,7 @@ def singleton(cls):
 class DBServiceSingleton:
     def __init__(self, db: Optional[Database] = None):
         self._db: Optional[Database] = db
+        self._fs = None
         if db is not None and isinstance(db, Database):
             self._fs: Optional[GridFS] = gridfs.GridFS(self._db)
 

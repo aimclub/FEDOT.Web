@@ -1,13 +1,12 @@
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 import numpy as np
+from fedot.core.data.data import InputData, OutputData
+from fedot.core.pipelines.pipeline import Pipeline
+
 from app.api.composer.service import composer_history_for_case
 from app.api.data.service import get_input_data
 from app.api.showcase.models import ShowcaseItem
-from fedot.core.data.data import InputData, OutputData
-from fedot.core.optimisers.opt_history import OptHistory
-from fedot.core.pipelines.pipeline import Pipeline
-
 from .models import BoxPlotData, PlotData
 
 max_items_in_plot: int = 50
@@ -193,7 +192,7 @@ def get_modelling_results(
     if plot_type != 'line':
         for y in ys:
             if len(y) != len(x):
-                raise ValueError(f'Inner lists must have the same size: {x=} size differs from {y=}')
+                raise ValueError(f'Inner lists must have the same size: x={x} size differs from y={y}')
 
     series, options = _make_chart_dicts(x=x, ys=ys, names=names,
                                         x_title=x_title, y_title=y_title,

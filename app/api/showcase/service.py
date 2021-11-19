@@ -5,10 +5,9 @@ from app.api.data.service import get_dataset_metadata
 from app.api.pipelines.service import get_pipeline_metadata, pipeline_by_uid
 from app.singletons.db_service import DBServiceSingleton
 from init.init_cases import add_case_to_db
-
-from ..analytics.pipeline_analytics import get_metrics_for_pipeline
 from .models import ShowcaseItem
 from .showcase_utils import prepare_icon_path, showcase_item_from_db
+from ..analytics.pipeline_analytics import get_metrics_for_pipeline
 
 
 def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
@@ -57,7 +56,9 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
     return item
 
 
-def all_showcase_items_ids() -> List[str]:
+def all_showcase_items_ids(with_custom: bool = False) -> List[str]:
     items = DBServiceSingleton().find_all('cases')
     ids = [item['case_id'] for item in items if 'case_id' in item]
+    if not with_custom:
+        ids = [ind for ind in ids if 'custom_' not in ind]
     return ids

@@ -4,6 +4,7 @@ from typing import List, Optional, Tuple
 from fedot.core.data.data import DataTypesEnum, InputData
 from fedot.core.repository.tasks import (Task, TaskTypesEnum,
                                          TsForecastingParams)
+
 from utils import project_root
 
 default_datasets = {
@@ -36,7 +37,7 @@ def get_datasets_names() -> List[str]:
 def get_dataset_metadata(dataset_name: str, sample_type: str) -> Tuple[int, int]:
     data = get_input_data(dataset_name, sample_type)
     if data is None:
-        raise ValueError(f'Data for {dataset_name=} with {sample_type=} must exists')
+        raise ValueError(f'Data for dataset_name={dataset_name} with sample_type={sample_type} must exists')
     if len(data.features.shape) > 1:
         n_features, n_rows = data.features.shape[1], data.features.shape[0]
     else:

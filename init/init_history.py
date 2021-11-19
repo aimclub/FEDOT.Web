@@ -1,17 +1,19 @@
 import itertools
 import json
 import os
+from typing import Optional
 
-from app.api.composer.service import run_composer
-from app.api.data.service import get_input_data
-from app.api.pipelines.service import create_pipeline, is_pipeline_exists
-from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.serializers import json_helpers
-from utils import project_root
+from flask import current_app
 
+from app.api.composer.service import convert_history_opt_graphs_to_templates, run_composer
+from app.api.data.service import get_input_data
+from app.api.pipelines.service import create_pipeline, is_pipeline_exists
+from app.singletons.db_service import DBServiceSingleton
 from init.init_pipelines import _extract_pipeline_with_fitted_operations
+from utils import project_root
 
 
 def create_default_history(opt_times=None):
@@ -66,18 +68,30 @@ def mockup_history(mock_list):
                 print('history dict_fitted_operations are mocked')
 
 
-def _init_composer_history_for_case(history_id, task, metric, dataset_name, time):
+def _init_composer_history_for_case(history_id, task, metric, dataset_name, time,
+                                    external_history: Optional[dict] = None):
     mock_dct = {}
 
     db_service = DBServiceSingleton()
-    history = run_composer(task, metric, dataset_name, time)
-    if db_service.exists():
+
+    if external_history is None:
+        history = run_composer(task, metric, dataset_name, time)
         history_obj = json.dumps(history, default=json_helpers.encoder)
-        db_service.try_reinsert_file({'filename': history_id, 'type': 'history'}, history_obj)
+    else:
+        history_obj = external_history
+        history = json.loads(json.dumps(external_history, default=json_helpers.encoder),
+                             object_hook=json_helpers.decoder)
+        history = convert_history_opt_graphs_to_templates(history)
+
+    if db_service.exists():
+        if current_app.config['CONFIG_NAME'] == 'test':
+            db_service.try_reinsert_one('history', {'history_id': history_id}, history_obj)
+        else:
+            db_service.try_reinsert_file({'filename': history_id, 'type': 'history'}, history_obj)
     else:
         history_obj = {
             'history_id': history_id,
-            'history_json': json.dumps(history, default=json_helpers.encoder)
+            'history_json': history_obj
         }
 
     mock_dct['history'] = history_obj
