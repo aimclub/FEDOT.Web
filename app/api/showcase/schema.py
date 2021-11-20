@@ -10,3 +10,10 @@ class ShowcaseItemSchema(Schema):
     pipeline_id = fields.String(attribute='pipeline_id')
     icon_path = fields.String(attribute='icon_path')
     details = fields.Dict(attribute='details')
+
+
+class ShowcaseItemAddingSchema(Schema):
+    """Showcase items adding schema"""
+
+    case = fields.Dict(attribute='case')
+    history = fields.Dict(attribute='history')

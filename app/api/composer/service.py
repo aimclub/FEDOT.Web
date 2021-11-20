@@ -1,11 +1,6 @@
 import json
-from os import pipe
 from typing import List
 
-from app.api.data.service import get_input_data
-from app.api.pipelines.service import create_pipeline, is_pipeline_exists
-from app.api.showcase.showcase_utils import showcase_item_from_db
-from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.api.main import Fedot
 from fedot.core.optimisers.adapters import PipelineAdapter
@@ -17,13 +12,18 @@ from fedot.core.pipelines.template import PipelineTemplate
 from fedot.core.repository.tasks import TsForecastingParams
 from fedot.core.serializers import json_helpers
 from flask import current_app
+
+from app.api.data.service import get_input_data
+from app.api.pipelines.service import create_pipeline, is_pipeline_exists
+from app.api.showcase.showcase_utils import showcase_item_from_db
+from app.singletons.db_service import DBServiceSingleton
 from utils import project_root
 
 
 def composer_history_for_case(case_id: str, validate_history: bool = False) -> OptHistory:
     case = showcase_item_from_db(case_id)
     if case is None:
-        raise ValueError(f'Showcase item for {case_id=} is None but should exist')
+        raise ValueError(f'Showcase item for case_id={case_id} is None but should exist')
 
     task = case.metadata.task_name
     metric = case.metadata.metric_name
@@ -70,7 +70,7 @@ def _save_to_db(history_id: str, history: OptHistory) -> None:
     DBServiceSingleton().try_reinsert_one('history', {'history_id': history_id}, history_obj)
 
 
-def _convert_history_opt_graphs_to_templates(history: OptHistory) -> OptHistory:
+def convert_history_opt_graphs_to_templates(history: OptHistory) -> OptHistory:
     adapter = PipelineAdapter()
     def convert_individuals_opt_graphs_to_templates(individuals: List[Individual]) -> List[PipelineTemplate]:
         for gen in individuals:
@@ -83,7 +83,8 @@ def _convert_history_opt_graphs_to_templates(history: OptHistory) -> OptHistory:
     return history
 
 
-def run_composer(task: str, metric: str, dataset_name: str, time: float) -> OptHistory:
+def run_composer(task: str, metric: str, dataset_name: str, time: float,
+                 convert_history_to_pipelines=True) -> OptHistory:
     pop_size = 10
     num_of_generations = 5
     learning_time = time
@@ -102,5 +103,6 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float) -> OptH
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history
-    pipeline_history = _convert_history_opt_graphs_to_templates(history)
-    return pipeline_history
+    if convert_history_to_pipelines:
+        history = convert_history_opt_graphs_to_templates(history)
+    return history
