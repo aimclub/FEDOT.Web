@@ -1,5 +1,4 @@
 import json
-from os import pipe
 from typing import List
 
 from bson import json_util
@@ -24,7 +23,7 @@ from utils import project_root
 def composer_history_for_case(case_id: str, validate_history: bool = False) -> OptHistory:
     case = showcase_item_from_db(case_id)
     if case is None:
-        raise ValueError(f'Showcase item for {case_id=} is None but should exist')
+        raise ValueError(f'Showcase item for case_id={case_id} is None but should exist')
 
     task = case.metadata.task_name
     metric = case.metadata.metric_name
