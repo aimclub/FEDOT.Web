@@ -8,7 +8,7 @@ from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.core.pipelines.pipeline import Pipeline
-from fedot.shared import json_helpers
+from fedot.core.serializers import json_helpers
 from utils import project_root
 
 from init.init_pipelines import _extract_pipeline_with_fitted_operations

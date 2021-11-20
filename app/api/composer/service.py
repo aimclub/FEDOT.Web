@@ -15,7 +15,7 @@ from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.pipelines.template import PipelineTemplate
 from fedot.core.repository.tasks import TsForecastingParams
-from fedot.shared import json_helpers
+from fedot.core.serializers import json_helpers
 from flask import current_app
 from utils import project_root
 
