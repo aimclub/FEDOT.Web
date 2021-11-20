@@ -34,7 +34,7 @@ def test_add_case_endpoint(client):
     new_case = {
         'case': {
             'case_id': 'new_case',
-            'task': 'scoring',
+            'task': 'classification',
             'metric_name': 'roc_auc',
             'dataset_name': 'scoring'
         },
