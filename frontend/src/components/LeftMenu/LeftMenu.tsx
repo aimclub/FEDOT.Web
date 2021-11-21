@@ -13,6 +13,8 @@ import scss from "./leftMenu.module.scss";
 // import LogoMenu from "../../data/images/LogoMenu.png";
 import Logo from "../../images/LogoMonochrome.svg";
 import { AppRoutesEnum, GITHUB_LINK } from "../../routes";
+import { useSelector } from "react-redux";
+import { StateType } from "../../redux/store";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -68,6 +70,7 @@ const useStyles = makeStyles(() =>
 
 const LeftMenu: FC = () => {
   const classes = useStyles();
+  const { showCase } = useSelector((state: StateType) => state.showCase);
 
   return (
     <section className={scss.root}>
@@ -92,7 +95,7 @@ const LeftMenu: FC = () => {
           <NavLink
             className={classes.button}
             activeClassName={classes.selected}
-            to={AppRoutesEnum.SANDBOX}
+            to={`${AppRoutesEnum.TO_SANDBOX}${showCase?.case_id}`}
           >
             <TerrainIcon className={classes.icon} />
             <p className={scss.buttonText}>Sandbox</p>

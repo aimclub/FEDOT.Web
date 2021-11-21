@@ -1,13 +1,16 @@
-import React, { FC, memo, useEffect } from "react";
+import React, { FC, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { LinearProgress, Slider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import TimelineIcon from "@material-ui/icons/Timeline";
 
-// import { actionsPipeline } from "../../../redux/pipeline/pipeline-actions";
-import { actionsSandbox } from "../../../redux/sandbox/sandbox-actions";
+import {
+  actionsSandbox,
+  getResult,
+} from "../../../redux/sandbox/sandbox-actions";
 import { StateType } from "../../../redux/store";
+import { getPipeline } from "../../../redux/pipeline/pipeline-actions";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -95,7 +98,9 @@ const useStyles = makeStyles(() => ({
 const SandboxEpoch: FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { showCase } = useSelector((state: StateType) => state.showCase);
+  const { isLoadingCase, showCase } = useSelector(
+    (state: StateType) => state.showCase
+  );
   const { isLoadingEpochs, epochs } = useSelector(
     (state: StateType) => state.sandbox
   );
@@ -109,14 +114,9 @@ const SandboxEpoch: FC = () => {
     const selectedEpoch = epochs.find((epoch) => epoch.epoch_num === value)!;
 
     dispatch(actionsSandbox.selectEpoch(selectedEpoch));
-    dispatch(actionsSandbox.setPipelineUid(selectedEpoch.pipeline_id, "epoch"));
+    dispatch(getPipeline(selectedEpoch.pipeline_id));
+    dispatch(getResult(showCase?.case_id!, selectedEpoch.pipeline_id));
   };
-
-  useEffect(() => {
-    if (showCase) {
-      dispatch(actionsSandbox.getEpochs(showCase.case_id));
-    }
-  }, [dispatch, showCase]);
 
   return (
     <section className={classes.root}>
@@ -125,7 +125,7 @@ const SandboxEpoch: FC = () => {
         Epoch
       </Typography>
       <div className={classes.content}>
-        {isLoadingEpochs ? (
+        {isLoadingEpochs || isLoadingCase ? (
           <LinearProgress className={classes.progress} />
         ) : (
           <Slider

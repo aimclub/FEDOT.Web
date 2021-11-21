@@ -1,9 +1,12 @@
 import { analyticsAPI } from "../../API/analytics/analyticsAPI";
 import { IMetric, IResult } from "../../API/analytics/analyticsInterface";
+import { metaAPI } from "../../API/meta/metaAPI";
+import { IModelName } from "../../API/meta/metaInterface";
 import { sandboxAPI } from "../../API/sanbox/sandboxAPI";
 import { ICaseParams, IEpoch } from "../../API/sanbox/sandboxInterface";
+import { getPipeline, resetPipeline } from "../pipeline/pipeline-actions";
+import { getShowCase } from "../showCase/showCase-actions";
 import {
-  PipelineFromType,
   SandboxActionsEnum,
   SetCaseParams,
   SetEpochs,
@@ -11,10 +14,9 @@ import {
   SetEpochsLoading,
   SetMetric,
   SetMetricLoading,
-  SetPipelineUid,
+  SetModelNames,
   SetResult,
   SetResultLoading,
-  ThunkType,
   ThunkTypeAsync,
 } from "./sandbox-types";
 
@@ -24,6 +26,9 @@ export const actionsSandbox = {
       try {
         const params = await sandboxAPI.getSandboxParams(caseId);
         dispatch(actionsSandbox.setCaseParams(params));
+        if (params) {
+          dispatch(getModelNames(params.task_id));
+        }
       } catch (error) {
         console.log(error);
       }
@@ -55,20 +60,6 @@ export const actionsSandbox = {
         dispatch(actionsSandbox.setMetricLoading(false));
       }
     },
-  getResult:
-    (caseId: string, pipelineId: string): ThunkTypeAsync =>
-    async (dispatch) => {
-      dispatch(actionsSandbox.setResultLoading(true));
-      try {
-        const result = await analyticsAPI.getResults(caseId, pipelineId);
-        dispatch(actionsSandbox.setResult(result));
-      } catch (error) {
-        console.log(error);
-        dispatch(actionsSandbox.setResult(null));
-      } finally {
-        dispatch(actionsSandbox.setResultLoading(false));
-      }
-    },
   selectEpoch: (data: IEpoch): SetEpochSelected => ({
     type: SandboxActionsEnum.SET_EPOCH_SELECTED,
     data,
@@ -93,9 +84,9 @@ export const actionsSandbox = {
     type: SandboxActionsEnum.SET_METRIC_LOADING,
     data,
   }),
-  setPipelineUid: (uid: string, from: PipelineFromType): SetPipelineUid => ({
-    type: SandboxActionsEnum.SET_PIPELINE_UID,
-    data: { uid, from },
+  setModelNames: (data: IModelName[]): SetModelNames => ({
+    type: SandboxActionsEnum.SET_MODEL_NAMES,
+    data,
   }),
   setResult: (data: IResult | null): SetResult => ({
     type: SandboxActionsEnum.SET_RESULT,
@@ -107,8 +98,54 @@ export const actionsSandbox = {
   }),
 };
 
-export const setPipelineUid =
-  (uid: string, from: PipelineFromType): ThunkType =>
-  (dispatch) => {
-    dispatch(actionsSandbox.setPipelineUid(uid, from));
+export const getCase =
+  (caseId: string): ThunkTypeAsync =>
+  async (dispatch, getState) => {
+    const { isFromHistory } = getState().pipeline;
+    // console.log("isFromHistory", isFromHistory);
+    if (!isFromHistory) dispatch(resetPipeline());
+    const res =
+      getState().showCase.showCase?.case_id !== caseId
+        ? dispatch(getShowCase(caseId))
+        : Promise.resolve();
+    return res.then(() => {
+      const { showCase } = getState().showCase;
+      // console.log("case id", showCase?.case_id);
+      if (showCase?.case_id) {
+        dispatch(getPipeline(showCase.pipeline_id));
+        if (!isFromHistory) {
+          dispatch(actionsSandbox.getEpochs(showCase.case_id));
+          dispatch(getResult(showCase.case_id, showCase.pipeline_id));
+        }
+        dispatch(actionsSandbox.getMetric(showCase.case_id));
+        dispatch(actionsSandbox.getCaseParams(showCase.case_id));
+      }
+    });
+  };
+
+export const getModelNames =
+  (taskId: string): ThunkTypeAsync =>
+  async (dispatch) => {
+    try {
+      const modelNames = await metaAPI.getAllModelName(taskId);
+      dispatch(actionsSandbox.setModelNames(modelNames));
+    } catch (error) {
+      console.log(error);
+      return Promise.reject(error);
+    }
+  };
+
+export const getResult =
+  (caseId: string, pipelineId: string): ThunkTypeAsync =>
+  async (dispatch) => {
+    dispatch(actionsSandbox.setResultLoading(true));
+    try {
+      const result = await analyticsAPI.getResults(caseId, pipelineId);
+      dispatch(actionsSandbox.setResult(result));
+    } catch (error) {
+      console.log(error);
+      dispatch(actionsSandbox.setResult(null));
+    } finally {
+      dispatch(actionsSandbox.setResultLoading(false));
+    }
   };

@@ -1,17 +1,17 @@
 import React, { FC } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Route, Switch } from "react-router-dom";
 
-import { Breadcrumbs } from "@material-ui/core";
 import GradientIcon from "@material-ui/icons/Gradient";
 import SettingsIcon from "@material-ui/icons/Settings";
 import TerrainIcon from "@material-ui/icons/Terrain";
 
 import scss from "./header.module.scss";
 
-import { AppRoutesEnum } from "../../routes";
-import HeaderMenu from "./HeaderMenu";
-import { useSelector } from "react-redux";
 import { StateType } from "../../redux/store";
+import { AppRoutesEnum } from "../../routes";
+import HeaderHistory from "./HeaderHistory";
+import HeaderMenu from "./HeaderMenu";
 
 const Header: FC = () => {
   const { isAuth } = useSelector((state: StateType) => state.auth);
@@ -34,15 +34,7 @@ const Header: FC = () => {
         </Route>
 
         <Route exact path={AppRoutesEnum.HISTORY}>
-          <div className={scss.nav}>
-            <GradientIcon className={scss.icon} />
-            <Breadcrumbs>
-              <Link to={AppRoutesEnum.SANDBOX} className={scss.text}>
-                Sandbox
-              </Link>
-              <p className={scss.text}>History</p>
-            </Breadcrumbs>
-          </div>
+          <HeaderHistory />
         </Route>
 
         <Route exact path={AppRoutesEnum.SETTING}>

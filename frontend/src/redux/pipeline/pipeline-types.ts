@@ -1,5 +1,4 @@
 import { ThunkAction } from "redux-thunk";
-import { IModelName } from "../../API/meta/metaInterface";
 import {
   IEdgeData,
   INodeData,
@@ -11,16 +10,17 @@ import { initialState } from "./pipeline-reducer";
 export enum PipelineActionsEnum {
   MENU_CLOSE = "MENU_CLOSE",
   MENU_OPEN = "MENU_OPEN",
-  MODEL_NAMES = "MODAL_NAMES",
   NODE_EDIT_DATA = "NODE_EDIT_DATA",
   NODE_EDIT_OPEN = "NODE_EDIT_OPEN",
   PIPELINE = "PIPELINE",
+  PIPELINE_FROM_HISTORY = "PIPELINE_FROM_HISTORY",
   PIPELINE_EVALUATING = "PIPELINE_EVALUATING",
   PIPELINE_LOADING = "PIPELINE_LOADING",
   PIPELINE_NODE_ADD = "PIPELINE_NODE_ADD",
   PIPELINE_NODE_DELETE = "PIPELINE_NODE_DELETE",
   POINT_EDIT_CLOSE = "POINT_EDIT_CLOSE",
   POINT_EDIT_OPEN = "POINT_EDIT_OPEN",
+  RESET_PIPELINE = "RESET_PIPELINE",
 }
 
 export enum SandboxPointFormType {
@@ -51,12 +51,13 @@ export type AllTypes =
   | OpenPointEdit
   | SetMenuClose
   | SetMenuOpen
-  | SetModelNames
   | SetNodeEditData
   | SetNodeEditOpen
   | SetPipeline
+  | SetPipelineFromHistory
   | SetPipelineLoading
-  | SetPipelineEvaluating;
+  | SetPipelineEvaluating
+  | ResetPipeline;
 
 export type AddPipelineNode = {
   type: PipelineActionsEnum.PIPELINE_NODE_ADD;
@@ -89,11 +90,6 @@ export type SetMenuOpen = {
   data: { nodeId: number; position: MenuPositionType };
 };
 
-export type SetModelNames = {
-  type: PipelineActionsEnum.MODEL_NAMES;
-  data: IModelName[];
-};
-
 export type SetNodeEditData = {
   type: PipelineActionsEnum.NODE_EDIT_DATA;
   data: INodeData;
@@ -106,7 +102,12 @@ export type SetNodeEditOpen = {
 
 export type SetPipeline = {
   type: PipelineActionsEnum.PIPELINE;
-  data: IPipeline;
+  data: { pipeline: IPipeline; isFromHistory: boolean };
+};
+
+export type SetPipelineFromHistory = {
+  type: PipelineActionsEnum.PIPELINE_FROM_HISTORY;
+  data: boolean;
 };
 
 export type SetPipelineLoading = {
@@ -117,4 +118,8 @@ export type SetPipelineLoading = {
 export type SetPipelineEvaluating = {
   type: PipelineActionsEnum.PIPELINE_EVALUATING;
   data: boolean;
+};
+
+export type ResetPipeline = {
+  type: PipelineActionsEnum.RESET_PIPELINE;
 };

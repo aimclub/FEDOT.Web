@@ -69,7 +69,10 @@ const ShowcaseInfo: FC = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} className={classes.item}>
-              <Link to={AppRoutesEnum.SANDBOX} className={classes.link}>
+              <Link
+                to={`${AppRoutesEnum.TO_SANDBOX}${showCase?.case_id}`}
+                className={classes.link}
+              >
                 Edit in Sandbox
               </Link>
             </Grid>

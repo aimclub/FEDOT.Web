@@ -1,12 +1,9 @@
+import React, { FC, memo } from "react";
+import { useSelector } from "react-redux";
+
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC, memo, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import AppLoader from "../../../components/UI/loaders/AppLoader";
-import {
-  getGenerationGeno,
-  getGenerationPheno,
-} from "../../../redux/history/history-actions";
 import { StateType } from "../../../redux/store";
 import HistoryGenerationBoxplot from "./boxplot/HistoryGenerationBoxplot";
 import HistoryGenerationType from "./type/HistoryGenerationType";
@@ -32,7 +29,6 @@ const useStyles = makeStyles(() => ({
 
 const HistoryGeneration: FC = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   const {
     isLoadingGenerationGeno,
@@ -41,14 +37,6 @@ const HistoryGeneration: FC = () => {
     generationGeno,
     generationPheno,
   } = useSelector((state: StateType) => state.history);
-  const { showCase } = useSelector((state: StateType) => state.showCase);
-
-  useEffect(() => {
-    if (showCase) {
-      dispatch(getGenerationGeno(showCase.case_id));
-      dispatch(getGenerationPheno(showCase.case_id));
-    }
-  }, [dispatch, showCase]);
 
   return (
     <section className={classes.root}>
