@@ -11,6 +11,10 @@
 # production
 /build
 !/build/static/cases_icons/*
+!/build/favicon.ico
+!/build/logo192.png
+!/build/logo512.png
+!/build/robots.txt
 
 # misc
 .DS_Store
