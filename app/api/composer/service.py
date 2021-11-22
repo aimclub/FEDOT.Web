@@ -1,6 +1,10 @@
 import json
 from typing import List
 
+from app.api.data.service import get_input_data
+from app.api.pipelines.service import create_pipeline, is_pipeline_exists
+from app.api.showcase.showcase_utils import showcase_item_from_db
+from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.api.main import Fedot
 from fedot.core.optimisers.adapters import PipelineAdapter
@@ -12,11 +16,6 @@ from fedot.core.pipelines.template import PipelineTemplate
 from fedot.core.repository.tasks import TsForecastingParams
 from fedot.core.serializers import json_helpers
 from flask import current_app
-
-from app.api.data.service import get_input_data
-from app.api.pipelines.service import create_pipeline, is_pipeline_exists
-from app.api.showcase.showcase_utils import showcase_item_from_db
-from app.singletons.db_service import DBServiceSingleton
 from utils import project_root
 
 
@@ -70,14 +69,16 @@ def _save_to_db(history_id: str, history: OptHistory) -> None:
     DBServiceSingleton().try_reinsert_one('history', {'history_id': history_id}, history_obj)
 
 
-def convert_history_opt_graphs_to_templates(history: OptHistory) -> OptHistory:
+def convert_individuals_opt_graphs_to_templates(individuals: List[Individual]) -> List[PipelineTemplate]:
     adapter = PipelineAdapter()
-    def convert_individuals_opt_graphs_to_templates(individuals: List[Individual]) -> List[PipelineTemplate]:
-        for gen in individuals:
-            for ind in gen:
-                if isinstance(ind.graph, OptGraph):
-                    ind.graph = adapter.restore_as_template(ind.graph, ind.computation_time)
-        return individuals
+    for gen in individuals:
+        for ind in gen:
+            if isinstance(ind.graph, OptGraph):
+                ind.graph = adapter.restore_as_template(ind.graph, ind.computation_time)
+    return individuals
+
+
+def convert_history_opt_graphs_to_templates(history: OptHistory) -> OptHistory:
     history.individuals = convert_individuals_opt_graphs_to_templates(history.individuals)
     history.archive_history = convert_individuals_opt_graphs_to_templates(history.archive_history)
     return history
