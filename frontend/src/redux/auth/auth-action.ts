@@ -78,24 +78,4 @@ export const actionsAuth = {
         dispatch(actionsAuth.setLoading(false));
       }
     },
-  singInAsGuest: (): ThunkTypeAsync => async (dispatch) => {
-    // no token if guest not in base
-    const login = "guest";
-    const password = "guest";
-    dispatch(actionsAuth.setLoading(true));
-    dispatch(actionsAuth.setError(null));
-    dispatch(actionsAuth.setToken(""));
-    dispatch(actionsAuth.setAuth(false));
-    try {
-      const { token_value } = await authAPI.signIn(login, password);
-      dispatch(actionsAuth.setToken(token_value));
-    } catch (error) {
-      dispatch(actionsAuth.setError((error as Error).message));
-      console.log(error);
-    } finally {
-      dispatch(actionsAuth.setAuth(true));
-      dispatch(actionsAuth.setUser({ login }));
-      dispatch(actionsAuth.setLoading(false));
-    }
-  },
 };

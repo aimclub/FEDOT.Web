@@ -87,7 +87,6 @@ export const closeHistoryModal = (): ThunkType => (dispatch) => {
 export const openHistoryModal =
   (pipeline: IHistoryNodeIndividual): ThunkTypeAsync =>
   async (dispatch) => {
-    console.log(pipeline);
     dispatch(actionsHistory.setModalPipeline(pipeline));
     dispatch(actionsHistory.setModalPipelineImageLoading(true));
     dispatch(actionsHistory.setModalOpen(true));

@@ -5,22 +5,30 @@ export function runHistory(
   container,
   linksData,
   nodesData,
-  nodeHoverTooltip,
-  onClick
+  highlightNodes,
+  onClickPipeline,
+  onDblClickPipeline,
+  { zoom, setZoom }
 ) {
-  let links = linksData.map((d) => Object.assign({}, d));
-  let nodes = nodesData.map((d) => Object.assign({}, d));
-  let nodesIndividual = nodes.filter((item) => item.type === "individual");
-  let nodesOperator = nodes.filter((item) => item.type === "evo_operator");
+  // nodeHoverTooltip,
+
+  const links = linksData.map((d) => Object.assign({}, d));
+
+  // let nodes = nodesData.map((d) => Object.assign({}, d));
+  const nodesIndividual = nodesData.filter(
+    (item) => item.type === "individual"
+  );
+  const nodesOperator = nodesData.filter(
+    (item) => item.type === "evo_operator"
+  );
+
   let generations = [];
   nodesIndividual.forEach((item) => generations.push(item.gen_id));
-
   // оставляем уникальные значения
-  let uniqGenerations = Array.from(new Set(generations));
+  const uniqGenerations = Array.from(new Set(generations));
 
-  const containerRect = container.getBoundingClientRect();
-  const height = containerRect.height;
-  const width = containerRect.width;
+  // размеры контейнера
+  const { height, width } = container.getBoundingClientRect();
 
   const svg = d3
     .select(container)
@@ -30,22 +38,35 @@ export function runHistory(
     .call(
       d3.zoom().on("zoom", function (event) {
         svgGroup.attr("transform", event.transform);
+        // console.log(event.transform);
+        setZoom(event.transform);
       })
     );
 
   // Set up an SVG group so that we can translate the final graph.
-  let svgGroup = svg.append("g").on("click", (e, d) => {
-    if (e.target && e.target.textContent.includes("pipeline")) {
-      nodesIndividual.find((item) => item.uid === e.target.textContent);
-      // onClick(e.target.textContent);
-      onClick(
-        nodesIndividual.find((item) => item.uid === e.target.textContent)
-      );
-    }
-  });
+  const svgGroup = svg
+    .append("g")
+    .on("click", (e, d) => {
+      // нажатие на pipeline
+      if (e.target && e.target.textContent.includes("pipeline")) {
+        e.stopPropagation();
+        onClickPipeline(
+          nodesIndividual.find((item) => item.uid === e.target.textContent)
+        );
+      }
+    })
+    .on("dblclick", (e, d) => {
+      // двойное нажатие на pipeline
+      if (e.target && e.target.textContent.includes("pipeline")) {
+        e.stopPropagation();
+        onDblClickPipeline(
+          nodesIndividual.find((item) => item.uid === e.target.textContent)
+        );
+      }
+    });
 
   // Create the input graph
-  let g = new dagreD3.graphlib.Graph({ compound: true })
+  const g = new dagreD3.graphlib.Graph({ compound: true })
     .setGraph({
       rankdir: "TB",
       ranker: "network-simplex",
@@ -59,12 +80,13 @@ export function runHistory(
   //Кластеры поколений
 
   uniqGenerations.forEach((generation) => {
-    let nameG = `Generation ${generation}`;
+    const nameG = `Generation ${generation}`;
 
     g.setNode(generation, {
       label: generation,
+      labelStyle: "cursor: default;",
       clusterLabelPos: "left",
-      style: "fill: #d3d7e8",
+      style: "fill: #d3d7e8; cursor: default;",
     });
 
     //узел отображающий поколение
@@ -78,8 +100,8 @@ export function runHistory(
       if (generation === item.gen_id) {
         g.setNode(item.uid, {
           label: item.uid,
-          labelStyle: "font-size: 36px; cursor: pointer",
-          class: "type-TK",
+          labelStyle: "font-size: 36px; cursor: pointer;",
+          class: `type-TK ${highlightNodes.includes(item.uid) && "highlight"}`,
           shape: "rect",
         });
 
@@ -92,14 +114,16 @@ export function runHistory(
     const label = item.name[0][0].toUpperCase();
     g.setNode(item.uid, {
       label: label,
-      labelStyle: "font-size: 60px; cursor: pointer",
-      class: `operator-${label}`,
+      labelStyle: "font-size: 60px; cursor: default;",
+      class: `operator-${label} ${
+        highlightNodes.includes(item.uid) && "highlight"
+      }`,
       shape: "circle",
     });
   });
 
   g.nodes().forEach(function (v) {
-    let node = g.node(v);
+    const node = g.node(v);
     // Round the corners of the nodes
     node.rx = node.ry = 5;
   });
@@ -110,15 +134,20 @@ export function runHistory(
     const haveTarget = g.hasNode(item.target);
     if (haveSource && haveTarget) {
       g.setEdge(item.source, item.target, {
-        style: "stroke: #007DFF; stroke-width: 4px; fill-opacity: 0",
-        arrowheadStyle: "fill: #007DFF",
+        // style: "stroke: #007DFF; stroke-width: 4px; fill-opacity: 0",
+        // arrowheadStyle: "fill: #007DFF",
         curve: d3.curveBasis,
+        class: `${
+          highlightNodes.includes(item.source) &&
+          highlightNodes.includes(item.target) &&
+          "highlight"
+        }`,
       });
     }
   });
 
   // Create the renderer
-  let render = new dagreD3.render();
+  const render = new dagreD3.render();
 
   // Run the renderer. This is what draws the final graph.
   render(svgGroup, g);
@@ -126,8 +155,6 @@ export function runHistory(
   // Center the graph
   const gHeight = g.graph().height;
   const gWidth = g.graph().width;
-  let xCenterOffset = (svg.attr("width") - gWidth) / 2;
-  let yCenterOffset = (svg.attr("height") - gHeight) / 2;
 
   if (height < gHeight || width < gWidth) {
     const viewHeight = height < gHeight ? gHeight : height;
@@ -140,10 +167,21 @@ export function runHistory(
       viewHeight,
     ]);
   }
-  svgGroup.attr(
-    "transform",
-    "translate(" + xCenterOffset + "," + yCenterOffset + ")"
-  );
+
+  if (!zoom) {
+    const xCenterOffset = (svg.attr("width") - gWidth) / 2;
+    const yCenterOffset = (svg.attr("height") - gHeight) / 2;
+
+    svgGroup.attr(
+      "transform",
+      "translate(" + xCenterOffset + "," + yCenterOffset + ")"
+    );
+  } else {
+    svgGroup.attr(
+      "transform",
+      `translate(${zoom.x},${zoom.y}) scale(${zoom.k})`
+    );
+  }
 
   /**
    * Блок добавления и удаления подсказки на Граф
@@ -174,7 +212,7 @@ export function runHistory(
    * Конец блока добавления и удаления Подсказки
    */
 
-  svgGroup.selectAll("g.node");
+  // svgGroup.selectAll("g.node");
   // .on("mouseover", (event, d) => {
   //   addTooltip(nodeHoverTooltip, d, event.pageX, event.pageY);
   // })
@@ -184,7 +222,7 @@ export function runHistory(
 
   return {
     destroy: () => {
-      return svg.remove();
+      svg.remove();
     },
     nodes: () => {
       return svg.node();

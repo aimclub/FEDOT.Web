@@ -1,9 +1,9 @@
 import { IMetric, IResult } from "../../API/analytics/analyticsInterface";
+import { IModelName } from "../../API/meta/metaInterface";
 import { ICaseParams, IEpoch } from "../../API/sanbox/sandboxInterface";
 import {
   AllTypes,
   InitialStateType,
-  PipelineFromType,
   SandboxActionsEnum,
 } from "./sandbox-types";
 
@@ -15,8 +15,7 @@ export const initialState = {
   isLoadingMetric: false,
   isLoadingResult: false,
   metric: null as IMetric | null,
-  pipelineUid: null as string | null,
-  pipelineFrom: null as PipelineFromType | null,
+  modelNames: [] as IModelName[],
   result: null as IResult | null,
 };
 
@@ -43,12 +42,8 @@ const sandboxReducer = (
     case SandboxActionsEnum.SET_METRIC_LOADING:
       return { ...state, isLoadingMetric: action.data };
 
-    case SandboxActionsEnum.SET_PIPELINE_UID:
-      return {
-        ...state,
-        pipelineUid: action.data.uid,
-        pipelineFrom: action.data.from,
-      };
+    case SandboxActionsEnum.SET_MODEL_NAMES:
+      return { ...state, modelNames: action.data };
 
     case SandboxActionsEnum.SET_RESULT:
       return { ...state, result: action.data };

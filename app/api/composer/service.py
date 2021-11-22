@@ -1,15 +1,16 @@
 import pickle
-from typing import Any, Dict, Optional
+
+from bson import json_util
+from fedot.api.main import Fedot
+from fedot.core.optimisers.opt_history import OptHistory
+from fedot.core.pipelines.pipeline import Pipeline
+from fedot.core.repository.tasks import TsForecastingParams
+from flask import current_app
 
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.api.showcase.showcase_utils import showcase_item_from_db
 from app.singletons.db_service import DBServiceSingleton
-from bson import json_util
-from fedot.api.main import Fedot
-from fedot.core.optimisers.opt_history import OptHistory
-from fedot.core.pipelines.pipeline import Pipeline
-from flask import current_app
 from utils import project_root
 
 
@@ -68,13 +69,22 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float) -> OptH
     num_of_generations = 5
     learning_time = time
 
-    auto_model = Fedot(problem=task, seed=42, preset='light_steady_state', verbose_level=4,
+    composer_params = {'composer_metric': metric,
+                       'pop_size': pop_size,
+                       'num_of_generations': num_of_generations,
+                       'max_arity': 3,
+                       'max_depth': 5}
+
+    if task == 'ts_forecasting':
+        task_parameters = TsForecastingParams(forecast_length=30)
+        preset = 'ts_steady_state'
+    else:
+        task_parameters = None
+        preset = 'light_steady_state'
+
+    auto_model = Fedot(problem=task, seed=42, preset=preset, verbose_level=4,
                        timeout=learning_time,
-                       composer_params={'composer_metric': metric,
-                                        'pop_size': pop_size,
-                                        'num_of_generations': num_of_generations,
-                                        'max_arity': 3,
-                                        'max_depth': 5})
+                       composer_params=composer_params, task_params=task_parameters)
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history

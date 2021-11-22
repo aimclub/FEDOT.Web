@@ -1,12 +1,10 @@
-import { metaAPI } from "../../API/meta/metaAPI";
-import { IModelName } from "../../API/meta/metaInterface";
 import { pipelineAPI } from "../../API/pipeline/pipelineAPI";
 import {
   IEdgeData,
   INodeData,
   IPipeline,
 } from "../../API/pipeline/pipelineInterface";
-import { setPipelineUid } from "../sandbox/sandbox-actions";
+import { getResult } from "../sandbox/sandbox-actions";
 import {
   AddPipelineNode,
   ClosePointEdit,
@@ -14,14 +12,15 @@ import {
   MenuPositionType,
   OpenPointEdit,
   PipelineActionsEnum,
+  ResetPipeline,
   SandboxPointFormType,
   SetMenuClose,
   SetMenuOpen,
-  SetModelNames,
   SetNodeEditData,
   SetNodeEditOpen,
   SetPipeline,
   SetPipelineEvaluating,
+  SetPipelineFromHistory,
   SetPipelineLoading,
   ThunkType,
   ThunkTypeAsync,
@@ -56,30 +55,6 @@ export const actionsPipeline = {
       );
       dispatch(actionsPipeline.addPipelineNode({ node, edges }));
     },
-  getModelNames:
-    (taskId: string): ThunkTypeAsync =>
-    async (dispatch) => {
-      try {
-        const modelNames = await metaAPI.getAllModelName(taskId);
-        dispatch(actionsPipeline.setModelNames(modelNames));
-      } catch (error) {
-        console.log(error);
-        return Promise.reject(error);
-      }
-    },
-  getPipeline:
-    (uid: string): ThunkTypeAsync =>
-    async (dispatch) => {
-      dispatch(actionsPipeline.closeAllModals());
-      dispatch(actionsPipeline.setPipelineLoading(true));
-      try {
-        const data = await pipelineAPI.getPipeline(uid);
-        dispatch(actionsPipeline.setPipeline(data));
-        dispatch(actionsPipeline.setPipelineLoading(false));
-      } catch (error) {
-        console.log(error);
-      }
-    },
   closeAllModals: (): ThunkType => (dispatch) => {
     dispatch(actionsPipeline.closePointEdit());
     dispatch(actionsPipeline.setNodeEditOpen(false));
@@ -100,10 +75,6 @@ export const actionsPipeline = {
     nodeId: number;
     position: MenuPositionType;
   }): SetMenuOpen => ({ type: PipelineActionsEnum.MENU_OPEN, data }),
-  setModelNames: (data: IModelName[]): SetModelNames => ({
-    type: PipelineActionsEnum.MODEL_NAMES,
-    data,
-  }),
   setNodeEditData: (data: INodeData): SetNodeEditData => ({
     type: PipelineActionsEnum.NODE_EDIT_DATA,
     data,
@@ -112,8 +83,12 @@ export const actionsPipeline = {
     type: PipelineActionsEnum.NODE_EDIT_OPEN,
     data,
   }),
-  setPipeline: (data: IPipeline): SetPipeline => ({
+  setPipeline: (pipeline: IPipeline, isFromHistory?: boolean): SetPipeline => ({
     type: PipelineActionsEnum.PIPELINE,
+    data: { pipeline, isFromHistory: isFromHistory || false },
+  }),
+  setPipelineFromHistory: (data: boolean): SetPipelineFromHistory => ({
+    type: PipelineActionsEnum.PIPELINE_FROM_HISTORY,
     data,
   }),
   setPipelineEvaluating: (data: boolean): SetPipelineEvaluating => ({
@@ -124,19 +99,37 @@ export const actionsPipeline = {
     type: PipelineActionsEnum.PIPELINE_LOADING,
     data,
   }),
+  resetPipeline: (): ResetPipeline => ({
+    type: PipelineActionsEnum.RESET_PIPELINE,
+  }),
 };
+
+export const getPipeline =
+  (uid: string, isFromHistory?: boolean): ThunkTypeAsync =>
+  async (dispatch) => {
+    dispatch(actionsPipeline.closeAllModals());
+    dispatch(actionsPipeline.setPipelineLoading(true));
+    try {
+      const data = await pipelineAPI.getPipeline(uid);
+      dispatch(actionsPipeline.setPipeline(data, isFromHistory));
+      dispatch(actionsPipeline.setPipelineLoading(false));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 export const evaluatePipeline =
   (uid: string, nodes: INodeData[], edges: IEdgeData[]): ThunkTypeAsync =>
-  async (dispatch) => {
+  async (dispatch, getState) => {
     dispatch(actionsPipeline.setPipelineEvaluating(true));
     try {
       const res = await pipelineAPI.validatePipeline({ uid, nodes, edges });
       if (res.is_valid) {
         const data = await pipelineAPI.postPipeline({ uid, nodes, edges });
         if (data.is_new) {
-          dispatch(setPipelineUid(data.uid, "evaluate"));
           alert("Graph is valid. Added.");
+          dispatch(getPipeline(data.uid));
+          dispatch(getResult(getState().showCase.showCase?.case_id!, data.uid));
         }
       } else {
         alert(res.error_desc);
@@ -148,3 +141,7 @@ export const evaluatePipeline =
       dispatch(actionsPipeline.setPipelineEvaluating(false));
     }
   };
+
+export const resetPipeline = (): ThunkType => (dispatch) => {
+  dispatch(actionsPipeline.resetPipeline());
+};
