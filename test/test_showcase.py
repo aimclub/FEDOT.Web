@@ -1,9 +1,8 @@
 import json
 
-from fedot.core.serializers import json_helpers
-
 from app.api.composer.service import run_composer
 from app.api.showcase.service import all_showcase_items_ids
+from fedot.core.serializers import json_helpers
 
 
 def test_get_showcase_item_endpoint(client):
@@ -24,7 +23,7 @@ def test_get_showcase_endpoint(client):
 
 def test_add_case_endpoint(client):
     history = run_composer('classification', 'roc_auc', dataset_name='scoring', time=0.01,
-                           convert_history_to_pipelines=False)
+                           load_fitted_history=False)
 
     history_json = json.dumps(history, default=json_helpers.encoder)
 

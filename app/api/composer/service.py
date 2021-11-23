@@ -1,4 +1,6 @@
 import json
+import sys
+from pathlib import Path
 from typing import List
 
 from app.api.data.service import get_input_data
@@ -85,25 +87,35 @@ def convert_history_opt_graphs_to_templates(history: OptHistory) -> OptHistory:
 
 
 def run_composer(task: str, metric: str, dataset_name: str, time: float,
-                 convert_history_to_pipelines=True) -> OptHistory:
+                 load_fitted_history=True) -> OptHistory:
+    if load_fitted_history:
+        history_path = Path('test/fixtures/history.json')
+        if history_path.exists():
+            for dumped_history in json.loads(history_path.read_text()):
+                if dataset_name == dumped_history['history_id']:
+                    return json.loads(dumped_history['history_json'], object_hook=json_helpers.decoder)
+        print('history.json doesn\'t exist, trying to fit history from FEDOT', file=sys.stderr)
     pop_size = 10
     num_of_generations = 5
     learning_time = time
-    task_params = None
-    if task == 'ts_forecasting':
-        task_params = TsForecastingParams(forecast_length=30)
 
-    auto_model = Fedot(problem=task, seed=42, preset='light_steady_state', verbose_level=4,
+    composer_params = {'composer_metric': metric,
+                       'pop_size': pop_size,
+                       'num_of_generations': num_of_generations,
+                       'max_arity': 3,
+                       'max_depth': 5}
+
+    if task == 'ts_forecasting':
+        task_parameters = TsForecastingParams(forecast_length=30)
+        preset = 'ts_steady_state'
+    else:
+        task_parameters = None
+        preset = 'light_steady_state'
+
+    auto_model = Fedot(problem=task, seed=42, preset=preset, verbose_level=4,
                        timeout=learning_time,
-                       task_params=task_params,
-                       composer_params={'composer_metric': metric,
-                                        'pop_size': pop_size,
-                                        'num_of_generations': num_of_generations,
-                                        'max_arity': 3,
-                                        'max_depth': 5})
+                       composer_params=composer_params, task_params=task_parameters)
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history
-    if convert_history_to_pipelines:
-        history = convert_history_opt_graphs_to_templates(history)
     return history

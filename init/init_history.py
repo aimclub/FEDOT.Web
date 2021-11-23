@@ -3,17 +3,17 @@ import json
 import os
 from typing import Optional
 
-from bson import json_util
-from fedot.core.pipelines.pipeline import Pipeline
-from fedot.core.serializers import json_helpers
-from flask import current_app
-
 from app.api.composer.service import convert_history_opt_graphs_to_templates, run_composer
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.singletons.db_service import DBServiceSingleton
-from init.init_pipelines import _extract_pipeline_with_fitted_operations
+from bson import json_util
+from fedot.core.pipelines.pipeline import Pipeline
+from fedot.core.serializers import json_helpers
+from flask import current_app
 from utils import project_root
+
+from init.init_pipelines import _extract_pipeline_with_fitted_operations
 
 
 def create_default_history(opt_times=None):
@@ -81,10 +81,9 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
         history_obj = external_history
         history = json.loads(json.dumps(external_history, default=json_helpers.encoder),
                              object_hook=json_helpers.decoder)
-        history = convert_history_opt_graphs_to_templates(history)
 
     if db_service.exists():
-        if current_app.config['CONFIG_NAME'] == 'test':
+        if current_app and current_app.config['CONFIG_NAME'] == 'test':
             db_service.try_reinsert_one('history', {'history_id': history_id}, history_obj)
         else:
             db_service.try_reinsert_file({'filename': history_id, 'type': 'history'}, history_obj)
@@ -102,8 +101,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
 
     best_fitness = None
 
-    pipeline_templates = [ind.graph for ind in list(itertools.chain(*history.individuals))]
-    for i, pipeline_template in enumerate(pipeline_templates):
+    for i, pipeline_template in enumerate(history.historical_pipelines):
         pipeline_uid = pipeline_template.unique_pipeline_id
 
         fitness = history.all_historical_fitness[i]
