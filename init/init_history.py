@@ -1,7 +1,7 @@
 import json
 import os
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Union
 
 from bson import json_util
 from fedot.core.optimisers.opt_history import OptHistory
@@ -23,20 +23,36 @@ def create_default_history(opt_times=None):
     if opt_times is None:
         opt_times = [2, 1, 1]
 
+    path = None
+    candidate_path = Path(f'{project_root()}/data/scoring/scoring_classification.json')
+    if os.path.exists(candidate_path):
+        path = candidate_path
+
     mock_list.append(
         _init_composer_history_for_case(history_id='scoring', dataset_name='scoring',
                                         metric='roc_auc',
-                                        task='classification', time=opt_times[0]))
+                                        task='classification', time=opt_times[0],
+                                        external_history=path))
+
+    candidate_path = Path(f'{project_root()}/data/metocean/metocean_ts_forecasting.json')
+    if os.path.exists(candidate_path):
+        path = candidate_path
 
     mock_list.append(
         _init_composer_history_for_case(history_id='metocean', dataset_name='metocean',
                                         metric='rmse',
-                                        task='ts_forecasting', time=opt_times[1]))
+                                        task='ts_forecasting', time=opt_times[1],
+                                        external_history=path))
+
+    candidate_path = Path(f'{project_root()}/data/oil/oil_regression.json')
+    if os.path.exists(candidate_path):
+        path = candidate_path
 
     mock_list.append(
         _init_composer_history_for_case(history_id='oil', dataset_name='oil',
                                         metric='rmse',
-                                        task='regression', time=opt_times[2]))
+                                        task='regression', time=opt_times[2],
+                                        external_history=path))
 
     if not DBServiceSingleton().exists():
         mockup_history(mock_list)
@@ -76,7 +92,7 @@ def _save_history_to_path(history: OptHistory, path: Path) -> None:
 
 
 def _init_composer_history_for_case(history_id, task, metric, dataset_name, time,
-                                    external_history: Optional[dict, str] = None):
+                                    external_history: Optional[Union[dict, str]] = None):
     mock_dct = {}
 
     db_service = DBServiceSingleton()
