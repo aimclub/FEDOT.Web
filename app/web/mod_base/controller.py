@@ -26,8 +26,9 @@ def custom_callback(pop):
 main = Blueprint('main', __name__, url_prefix="/")
 
 
-@main.route('/')
-def index():
+@main.route('/', defaults={'path': ''})
+@main.route('/<path:path>')
+def index(path):
     return render_template('index.html')
 
 
