@@ -1,7 +1,8 @@
 import json
 import sys
+from os import PathLike
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
@@ -87,14 +88,12 @@ def convert_history_opt_graphs_to_templates(history: OptHistory) -> OptHistory:
 
 
 def run_composer(task: str, metric: str, dataset_name: str, time: float,
-                 load_fitted_history=True) -> OptHistory:
-    if load_fitted_history:
-        history_path = Path('test/fixtures/history.json')
-        if history_path.exists():
-            for dumped_history in json.loads(history_path.read_text()):
-                if dataset_name == dumped_history['history_id']:
-                    return json.loads(dumped_history['history_json'], object_hook=json_helpers.decoder)
-        print('history.json doesn\'t exist, trying to fit history from FEDOT', file=sys.stderr)
+                 fitted_history_path: Optional[PathLike] = None) -> OptHistory:
+    checked_hist_path = Path(fitted_history_path) if fitted_history_path is not None else None
+    if checked_hist_path is not None:
+        if checked_hist_path.exists():
+            return json.loads(checked_hist_path.read_text(), object_hook=json_helpers.decoder)
+        print(f'history_path={checked_hist_path} doesn\'t exist, trying to fit history from FEDOT', file=sys.stderr)
     pop_size = 10
     num_of_generations = 5
     learning_time = time

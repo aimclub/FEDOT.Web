@@ -1,6 +1,8 @@
 import itertools
 import json
 import os
+from os import PathLike
+from pathlib import Path
 from typing import Optional
 
 from app.api.composer.service import convert_history_opt_graphs_to_templates, run_composer
@@ -8,6 +10,7 @@ from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
+from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.serializers import json_helpers
 from flask import current_app
@@ -68,19 +71,25 @@ def mockup_history(mock_list):
                 print('history dict_fitted_operations are mocked')
 
 
+def _save_history_to_path(history: OptHistory, path: Path) -> None:
+    path.write_text(json.dumps(history, default=json_helpers.encoder))
+
+
 def _init_composer_history_for_case(history_id, task, metric, dataset_name, time,
                                     external_history: Optional[dict] = None):
     mock_dct = {}
 
     db_service = DBServiceSingleton()
 
+    history_path = Path(f'{project_root()}/data/{history_id}/{history_id}_{task}.json')
     if external_history is None:
-        history = run_composer(task, metric, dataset_name, time)
+        history = run_composer(task, metric, dataset_name, time, history_path)
         history_obj = json.dumps(history, default=json_helpers.encoder)
     else:
         history_obj = external_history
         history = json.loads(json.dumps(external_history, default=json_helpers.encoder),
                              object_hook=json_helpers.decoder)
+    _save_history_to_path(history, history_path)
 
     if db_service.exists():
         if current_app and current_app.config['CONFIG_NAME'] == 'test':
