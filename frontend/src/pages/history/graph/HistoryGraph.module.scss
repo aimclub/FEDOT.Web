@@ -23,7 +23,7 @@
     display: block;
     width: 100%;
     height: 100%;
-    outline: 2px solid gold;
+    // outline: 2px solid gold;
   }
 
   [class*="node"] rect {
@@ -36,6 +36,9 @@
   }
   [class*="type-TK"] rect {
     fill: #00ffd0;
+  }
+  [class*="type-TK highlight"] rect {
+    fill: #ffd000;
   }
   [class*="type-TOP"] circle {
     fill: #4a66c6;
@@ -51,34 +54,39 @@
   }
 
   [class*="edgePath"] path {
-    stroke: #333;
-    stroke-width: 1px;
-    //transition: all 1.2s ease-in-out;
-    cursor: pointer;
+    stroke: #007dff;
+    stroke-width: 4px;
+    // fill-opacity: 0;
+    fill: #007DFF;
+  }
+  // arrowheadStyle: "fill: #007DFF",
+
+  [class*="edgePath highlight"] path {
+    stroke: #ffd000;
+    fill: #ffd000;
   }
 
   [class*="operator-C"] circle {
-    cursor: pointer;
+    cursor: default;
     fill: #4a66c6;
   }
+
+  [class*="operator-C highlight"] circle {
+    fill: #ffd000;
+  }
+
   [class*="operator-M"] circle {
+    cursor: default;
     fill: rgba(229, 92, 222, 0.95);
+  }
+  [class*="operator-M highlight"] circle {
+    fill: #ffd000;
   }
 
   [class*="clusters"] rect {
     stroke: #263238;
     stroke-width: 1.5px;
   }
-
-  //[class*="edgePath"] path {
-  //  stroke: #333;
-  //  stroke-width: 2px;
-  //  //transition: all 1.2s ease-in-out;
-  //  cursor: pointer;
-  //  &[class*="edgeONE"] {
-  //    outline: 1px solid red;
-  //  }
-  //}
 }
 
 .contextMenu {

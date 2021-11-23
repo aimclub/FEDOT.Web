@@ -1,9 +1,10 @@
+import React, { FC } from "react";
+import { Link, useRouteMatch } from "react-router-dom";
+
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { FC } from "react";
-import { Link } from "react-router-dom";
+
 import { AppRoutesEnum } from "../../../routes";
-// import SandboxPageChartsResult from "../../../workSpace/pages/sandbox/charts/result/SandboxPageChartsResult";
 import SandboxChartsMetric from "./metric/SandboxChartsMetric";
 import SandboxChartsResult from "./result/SandboxChartsResult";
 
@@ -49,11 +50,12 @@ const useStyles = makeStyles(() => ({
 
 const SandboxCharts: FC = () => {
   const classes = useStyles();
+  const { url } = useRouteMatch();
 
   return (
     <section className={classes.root}>
       <div className={classes.btns}>
-        <Link to={AppRoutesEnum.HISTORY} className={classes.link}>
+        <Link to={`${url}${AppRoutesEnum.TO_HISTORY}`} className={classes.link}>
           History
         </Link>
       </div>

@@ -18,9 +18,8 @@ const SandboxPipelineNodeEdit: FC = () => {
   const { node, isOpen } = useSelector(
     (state: StateType) => state.pipeline.nodeEdit
   );
-  const { modelNames, pipeline } = useSelector(
-    (state: StateType) => state.pipeline
-  );
+  const { pipeline } = useSelector((state: StateType) => state.pipeline);
+  const { modelNames } = useSelector((state: StateType) => state.sandbox);
 
   const handleClose = () => {
     dispatch(actionsPipeline.setNodeEditOpen(false));

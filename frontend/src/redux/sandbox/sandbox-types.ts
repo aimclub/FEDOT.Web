@@ -1,5 +1,6 @@
 import { ThunkAction } from "redux-thunk";
 import { IMetric, IResult } from "../../API/analytics/analyticsInterface";
+import { IModelName } from "../../API/meta/metaInterface";
 import { ICaseParams, IEpoch } from "../../API/sanbox/sandboxInterface";
 import { StateType } from "../store";
 import { initialState } from "./sandbox-reducer";
@@ -11,7 +12,7 @@ export enum SandboxActionsEnum {
   SET_EPOCH_SELECTED = "SET_EPOCH_SELECTED",
   SET_METRIC = "SET_METRIC",
   SET_METRIC_LOADING = "SET_METRIC_LOADING",
-  SET_PIPELINE_UID = "SET_PIPELINE_UID",
+  SET_MODEL_NAMES = "SET_MODEL_NAMES",
   SET_RESULT = "SET_RESULT",
   SET_RESULT_LOADING = "SET_RESULT_LOADING",
 }
@@ -27,7 +28,7 @@ export type ThunkTypeAsync = ThunkAction<
   AllTypes
 >;
 
-export type ThunkType = ThunkAction<void, StateType, unknown, AllTypes>;
+// export type ThunkType = ThunkAction<void, StateType, unknown, AllTypes>;
 
 export type AllTypes =
   | SetCaseParams
@@ -36,7 +37,7 @@ export type AllTypes =
   | SetEpochSelected
   | SetMetric
   | SetMetricLoading
-  | SetPipelineUid
+  | SetModelNames
   | SetResult
   | SetResultLoading;
 
@@ -70,9 +71,9 @@ export type SetMetricLoading = {
   data: boolean;
 };
 
-export type SetPipelineUid = {
-  type: SandboxActionsEnum.SET_PIPELINE_UID;
-  data: { uid: string; from: PipelineFromType };
+export type SetModelNames = {
+  type: SandboxActionsEnum.SET_MODEL_NAMES;
+  data: IModelName[];
 };
 
 export type SetResult = {

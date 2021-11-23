@@ -17,7 +17,7 @@ import historyReducer from "./history/history-reducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "auth_old", "showCase"], //массив для редьюсеров, которые не должны сбрасываться при обновлении
+  whitelist: ["auth", "showCase"], //массив для редьюсеров, которые не должны сбрасываться при обновлении
 };
 
 let reducers = combineReducers({

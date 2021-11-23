@@ -126,7 +126,7 @@ export function runDirectedGraph(
 
   return {
     destroy: () => {
-      return svg.remove();
+      svg.remove();
     },
     nodes: () => {
       return svg.node();

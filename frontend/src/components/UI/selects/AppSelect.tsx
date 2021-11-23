@@ -22,6 +22,9 @@ const useStyles = makeStyles(() => ({
     "&.MuiInput-underline:before": {
       borderBottom: "1px solid #B0BEC5",
     },
+    "&.MuiInput-underline.Mui-error:before": {
+      borderBottom: "1px solid #FF0000",
+    },
     "&.MuiInput-underline.Mui-disabled:before": {
       borderBottom: "1px solid #F2F2F2",
     },
@@ -74,6 +77,7 @@ interface I {
   ) => void;
   disabled?: boolean;
   classname?: string;
+  error?: string;
 }
 
 const AppSelect: FC<I> = ({
@@ -83,6 +87,7 @@ const AppSelect: FC<I> = ({
   onChange,
   disabled,
   classname,
+  error,
 }) => {
   const classes = useStyles();
 
@@ -97,6 +102,7 @@ const AppSelect: FC<I> = ({
         MenuProps={{
           classes: { paper: classes.menuPaper },
         }}
+        error={!!error}
       >
         {availableValues &&
           availableValues.map((value) => (

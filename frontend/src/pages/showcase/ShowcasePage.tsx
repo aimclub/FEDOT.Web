@@ -29,7 +29,7 @@ const ShowCase: FC = () => {
 
   return (
     <div className={classes.root}>
-      {showCase ? (
+      {showCase?.case_id ? (
         <>
           <ShowcaseInfo />
           <ShowcaseCases />
