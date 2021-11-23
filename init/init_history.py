@@ -72,6 +72,8 @@ def mockup_history(mock_list):
 
 
 def _save_history_to_path(history: OptHistory, path: Path) -> None:
+    if not path.parent.exists():
+        path.parent.mkdir()
     path.write_text(json.dumps(history, default=json_helpers.encoder))
 
 
