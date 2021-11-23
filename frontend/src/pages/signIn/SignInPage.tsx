@@ -19,7 +19,7 @@ const SignInPage: FC = () => {
   const { isAuth, isLoading } = useSelector((state: StateType) => state.auth);
 
   const handleSignInAsGuest = () => {
-    dispatch(actionsAuth.singInAsGuest());
+    dispatch(actionsAuth.singIn("guest", "guest"));
   };
 
   return isAuth ? (

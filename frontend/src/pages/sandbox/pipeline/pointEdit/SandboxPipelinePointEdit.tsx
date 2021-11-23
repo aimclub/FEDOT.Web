@@ -15,6 +15,7 @@ import TextFieldUnderline from "../../../../components/UI/textfields/TextFieldUn
 import CustomTooltip from "../../../../components/UI/tooltip/CustomTooltip";
 import AppSelectMulti from "../../../../components/UI/selects/AppSelectMulti";
 import { NodeDataType } from "../../../../API/pipeline/pipelineInterface";
+import { validationSchema } from "./validationPointEdit";
 
 const creatingConnections = (
   id: number,
@@ -44,9 +45,8 @@ const SandboxPipelinePointEdit: FC = () => {
   const { isOpen, node, type } = useSelector(
     (state: StateType) => state.pipeline.pointEdit
   );
-  const { modelNames, pipeline } = useSelector(
-    (state: StateType) => state.pipeline
-  );
+  const { pipeline } = useSelector((state: StateType) => state.pipeline);
+  const { modelNames } = useSelector((state: StateType) => state.sandbox);
   const [nodeType, setNodeType] = useState<NodeDataType>(node?.type || "model");
 
   const initialValues = {
@@ -61,6 +61,7 @@ const SandboxPipelinePointEdit: FC = () => {
 
   const formik = useFormik({
     initialValues,
+    validationSchema,
     onSubmit: (values) => {
       const id = node
         ? node.id
@@ -139,7 +140,13 @@ const SandboxPipelinePointEdit: FC = () => {
               arrow
               title={formik.values.displayName}
             >
-              <p className={classes.text}>Display_name: </p>
+              <p
+                className={`${classes.text} ${
+                  !!formik.errors.displayName && classes.error
+                }`}
+              >
+                Display_name:{" "}
+              </p>
             </CustomTooltip>
             <AppSelect
               classname={classes.value}
@@ -151,6 +158,7 @@ const SandboxPipelinePointEdit: FC = () => {
               }))}
               onChange={formik.handleChange}
               disabled={type === SandboxPointFormType.EDIT}
+              error={formik.errors.displayName}
             />
           </div>
 

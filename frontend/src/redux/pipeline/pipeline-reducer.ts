@@ -1,4 +1,3 @@
-import { IModelName } from "../../API/meta/metaInterface";
 import { INodeData, IPipeline } from "../../API/pipeline/pipelineInterface";
 import {
   AllTypes,
@@ -9,6 +8,7 @@ import {
 } from "./pipeline-types";
 
 export const initialState = {
+  isFromHistory: false,
   isEvaluatingPipeline: false,
   isLoadingPipeline: false,
   menu: {
@@ -26,7 +26,6 @@ export const initialState = {
     node: {} as INodeData,
   },
   pipeline: { nodes: [], edges: [], uid: "" } as IPipeline,
-  modelNames: [] as IModelName[],
 };
 
 const pipelineReducer = (
@@ -54,9 +53,6 @@ const pipelineReducer = (
         },
       };
 
-    case PipelineActionsEnum.MODEL_NAMES:
-      return { ...state, modelNames: action.data };
-
     case PipelineActionsEnum.NODE_EDIT_DATA:
       return {
         ...state,
@@ -70,7 +66,17 @@ const pipelineReducer = (
       };
 
     case PipelineActionsEnum.PIPELINE:
-      return { ...state, pipeline: action.data };
+      return {
+        ...state,
+        isFromHistory: action.data.isFromHistory,
+        pipeline: action.data.pipeline,
+      };
+
+    case PipelineActionsEnum.PIPELINE_FROM_HISTORY:
+      return {
+        ...state,
+        isFromHistory: action.data,
+      };
 
     case PipelineActionsEnum.PIPELINE_LOADING:
       return { ...state, isLoadingPipeline: action.data };
@@ -93,9 +99,13 @@ const pipelineReducer = (
         ...state,
         pipeline: {
           ...state.pipeline,
-          nodes: state.pipeline.nodes.filter(
-            (item) => item.id !== +action.data
-          ),
+          nodes: state.pipeline.nodes
+            .filter((item) => item.id !== +action.data)
+            .map((item) => ({
+              ...item,
+              children: item.children.filter((c) => c !== +action.data),
+              parents: item.parents.filter((p) => p !== +action.data),
+            })),
           edges: state.pipeline.edges.filter(
             (item) =>
               item.source !== +action.data && item.target !== +action.data
@@ -121,6 +131,9 @@ const pipelineReducer = (
           node: action.data.node as INodeData,
         },
       };
+
+    case PipelineActionsEnum.RESET_PIPELINE:
+      return initialState;
 
     default:
       return state;

@@ -96,4 +96,7 @@ export const useStyles = makeStyles(() => ({
       background: "#515B5F",
     },
   },
+  error: {
+    color: "#ff0000",
+  }
 }));

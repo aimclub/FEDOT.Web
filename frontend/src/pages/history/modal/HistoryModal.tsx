@@ -9,17 +9,21 @@ import CloseIcon from "@material-ui/icons/Close";
 import { staticAPI } from "../../../API/baseURL";
 import AppLoader from "../../../components/UI/loaders/AppLoader";
 import { closeHistoryModal } from "../../../redux/history/history-actions";
-import { actionsSandbox } from "../../../redux/sandbox/sandbox-actions";
+import { getResult } from "../../../redux/sandbox/sandbox-actions";
 import { StateType } from "../../../redux/store";
 import { AppRoutesEnum } from "../../../routes";
+import {
+  actionsPipeline,
+  getPipeline,
+} from "../../../redux/pipeline/pipeline-actions";
+import { useAppParams } from "../../../hooks/useAppParams";
 
 const useStyles = makeStyles(() => ({
   header: {
-    margin: 2,
-    padding: 8,
+    margin: 0,
+    padding: "6px 12px",
 
-    borderRadius: 20,
-    background: "#E2E7EA",
+    background: "#B0BEC5",
 
     display: "flex",
     justifyContent: "space-between",
@@ -29,18 +33,17 @@ const useStyles = makeStyles(() => ({
     fontFamily: "'Open Sans'",
     fontStyle: "normal",
     fontWeight: 400,
-    fontSize: 14,
-    lineHeight: "20px",
-    letterSpacing: "0.25px",
+    fontSize: 16,
+    lineHeight: "22px",
 
-    color: "#263238",
+    color: "#4f4f4f",
   },
   closeButton: {
     padding: 2,
-
-    color: "#263238",
   },
   content: {
+    padding: 14,
+
     minWidth: 200,
     minHeight: 200,
 
@@ -55,13 +58,45 @@ const useStyles = makeStyles(() => ({
     objectFit: "contain",
     objectPosition: "center",
   },
-  buttons: {
-    padding: 8,
+  buttonGroup: {
+    margin: "0 14px 20px 0",
 
-    display: "grid",
-    gap: 20,
-    gridAutoFlow: "column",
+    display: "flex",
     justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  button: {
+    padding: "4px 16px",
+
+    fontFamily: "'Open Sans'",
+    fontStyle: "normal",
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: "24px",
+    letterSpacing: "0.1px",
+    textTransform: "uppercase",
+
+    borderRadius: 4,
+  },
+  cancelButton: {
+    color: "#828282",
+    background: "#F4F5F6",
+    "&:hover": {
+      background: "#CFD8DC",
+    },
+  },
+  submitButton: {
+    marginLeft: 20,
+    color: "#ffffff",
+    background: "#828282",
+
+    "&:disabled": {
+      opacity: 0.5,
+      background: "#ECEFF1",
+    },
+    "&:hover": {
+      background: "#515B5F",
+    },
   },
   empty: {
     fontFamily: "'Open Sans'",
@@ -78,6 +113,7 @@ const useStyles = makeStyles(() => ({
 const HistoryModal: FC = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { caseId } = useAppParams();
   const dispatch = useDispatch();
   const { isOpen, pipeline, pipelineImage, isLoadingPipelineImage } =
     useSelector((state: StateType) => state.history.modal);
@@ -89,9 +125,10 @@ const HistoryModal: FC = () => {
 
   const handleEditPipeline = () => {
     if (pipelineImage?.uid) {
-      dispatch(actionsSandbox.setPipelineUid(pipelineImage.uid, "history"));
-      history.push(AppRoutesEnum.SANDBOX);
-
+      dispatch(actionsPipeline.setPipelineFromHistory(true));
+      dispatch(getPipeline(pipelineImage.uid, true));
+      dispatch(getResult(caseId, pipelineImage.uid));
+      history.push(`${AppRoutesEnum.TO_SANDBOX}${caseId}`);
       handleClose();
     }
   };
@@ -117,14 +154,16 @@ const HistoryModal: FC = () => {
           <p className={classes.empty}>no data</p>
         )}
       </div>
-      <div className={classes.buttons}>
-        <Button size={"small"} onClick={handleClose} color="primary">
+      <div className={classes.buttonGroup}>
+        <Button
+          className={`${classes.button} ${classes.cancelButton}`}
+          onClick={handleClose}
+        >
           cancel
         </Button>
         <Button
-          size={"small"}
+          className={`${classes.button} ${classes.submitButton}`}
           onClick={handleEditPipeline}
-          variant={"contained"}
           disabled={!pipelineImage || isLoadingPipelineImage}
         >
           edit
