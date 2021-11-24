@@ -97,8 +97,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     elif isinstance(external_history, dict):
         # init from dict
         history_obj = external_history
-        history = json.loads(json.dumps(external_history, default=json_helpers.encoder),
-                             object_hook=json_helpers.decoder)
+        history = json.loads(json.dumps(history_obj), object_hook=json_helpers.decoder)
     else:
         # load from path
         history_path = Path(external_history)
