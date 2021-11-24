@@ -84,7 +84,7 @@ def _save_history_to_path(history: OptHistory, path: Path) -> None:
 
 
 def _init_composer_history_for_case(history_id, task, metric, dataset_name, time,
-                                    external_history: Optional[Union[dict, str]] = None):
+                                    external_history: Optional[Union[dict, os.PathLike]] = None):
     mock_dct = {}
 
     db_service = DBServiceSingleton()
