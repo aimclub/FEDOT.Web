@@ -44,6 +44,7 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
         history = run_composer(task, metric, dataset_name, time=1.0)
         _save_to_db(case_id, history)
     elif current_app.config['CONFIG_NAME'] == 'test':
+        # Path('./saved_history.json').write_text(json.dumps(json.loads(saved_history['history_json']), indent=4))
         history = json.loads(saved_history['history_json'], object_hook=json_helpers.decoder)
     else:
         history = json.loads(saved_history, object_hook=json_helpers.decoder)
@@ -72,23 +73,28 @@ def _save_to_db(history_id: str, history: OptHistory) -> None:
     DBServiceSingleton().try_reinsert_one('history', {'history_id': history_id}, history_obj)
 
 
-def convert_individuals_opt_graphs_to_templates(individuals: List[Individual]) -> List[PipelineTemplate]:
+def convert_individuals_opt_graphs_to_pipelines(individuals: List[List[Individual]]) -> List[List[Individual]]:
     adapter = PipelineAdapter()
     for gen in individuals:
         for ind in gen:
             if isinstance(ind.graph, OptGraph):
-                ind.graph = adapter.restore_as_template(ind.graph, ind.computation_time)
+                uid = ind.graph.uid
+                ind.graph = adapter.restore(ind.graph, ind.computation_time)
+                ind.graph.uid = uid
+            # for parent_op in ind.parent_operators:
+            #     for idx, parent_obj in enumerate(parent_op.parent_objects):
+            #         parent_op.parent_objects[idx] = parent_obj.link_to_empty_pipeline
     return individuals
 
 
-def convert_history_opt_graphs_to_templates(history: OptHistory) -> OptHistory:
-    history.individuals = convert_individuals_opt_graphs_to_templates(history.individuals)
-    history.archive_history = convert_individuals_opt_graphs_to_templates(history.archive_history)
+def convert_history_opt_graphs_to_pipelines(history: OptHistory) -> OptHistory:
+    history.individuals = convert_individuals_opt_graphs_to_pipelines(history.individuals)
+    history.archive_history = convert_individuals_opt_graphs_to_pipelines(history.archive_history)
     return history
 
 
 def run_composer(task: str, metric: str, dataset_name: str, time: float,
-                 fitted_history_path: Optional[PathLike] = None) -> OptHistory:
+                 convert_history_to_pipelines=True, fitted_history_path: Optional[PathLike] = None) -> OptHistory:
     checked_hist_path = Path(fitted_history_path) if fitted_history_path is not None else None
     if checked_hist_path is not None:
         if checked_hist_path.exists():
@@ -117,4 +123,7 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history
+    # Path('saved_history_opt_graphs.json').write_text(json.dumps(history, default=json_helpers.encoder, indent=4))
+    if convert_history_to_pipelines:
+        return convert_history_opt_graphs_to_pipelines(history)
     return history

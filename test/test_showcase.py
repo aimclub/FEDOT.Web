@@ -22,7 +22,8 @@ def test_get_showcase_endpoint(client):
 
 
 def test_add_case_endpoint(client):
-    history = run_composer('classification', 'roc_auc', dataset_name='scoring', time=0.01)
+    history = run_composer('classification', 'roc_auc', dataset_name='scoring', time=0.01,
+                           convert_history_to_pipelines=False)
 
     history_json = json.dumps(history, default=json_helpers.encoder)
 

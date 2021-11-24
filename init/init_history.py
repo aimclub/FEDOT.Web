@@ -1,3 +1,4 @@
+import itertools
 import json
 import os
 from pathlib import Path
@@ -8,8 +9,10 @@ from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
+from fedot.core.optimisers.adapters import PipelineAdapter
 from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
+from fedot.core.pipelines.template import PipelineTemplate
 from fedot.core.serializers import json_helpers
 from flask import current_app
 from utils import project_root
@@ -101,7 +104,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     else:
         # load from path
         history_path = Path(external_history)
-        history = run_composer(task, metric, dataset_name, time, history_path)
+        history = run_composer(task, metric, dataset_name, time, fitted_history_path=history_path)
         history_obj = json.dumps(history, default=json_helpers.encoder)
 
     if history_path is None:
@@ -128,7 +131,8 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
 
     best_fitness = None
 
-    for i, pipeline_template in enumerate(history.historical_pipelines):
+    pipeline_templates = [PipelineTemplate(ind.graph) for ind in list(itertools.chain(*history.individuals))]
+    for i, pipeline_template in enumerate(pipeline_templates):
         pipeline_uid = pipeline_template.unique_pipeline_id
 
         fitness = history.all_historical_fitness[i]
