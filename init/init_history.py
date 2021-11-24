@@ -83,7 +83,7 @@ def mockup_history(mock_list):
 def _save_history_to_path(history: OptHistory, path: Path) -> None:
     if not path.parent.exists():
         path.parent.mkdir()
-    path.write_text(json.dumps(history, default=json_helpers.encoder))
+    path.write_text(json.dumps(history, default=json_helpers.encoder, indent=4))
 
 
 def _init_composer_history_for_case(history_id, task, metric, dataset_name, time,
