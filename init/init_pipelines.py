@@ -62,7 +62,7 @@ def _create_custom_pipeline(pipeline_id, case_id, pipeline):
     data = get_input_data(dataset_name=case_id, sample_type='train')
     db_service = DBServiceSingleton()
     if not db_service.exists():
-        data = data.subset(0, 500)
+        data = data.subset_range(0, 500)
     pipeline.fit(data)
     pipeline_dict, dict_fitted_operations = _extract_pipeline_with_fitted_operations(pipeline, uid)
     pipeline_dict['uid'] = uid
