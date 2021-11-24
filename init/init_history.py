@@ -3,56 +3,48 @@ import os
 from pathlib import Path
 from typing import Optional, Union
 
+from app.api.composer.service import run_composer
+from app.api.data.service import get_input_data
+from app.api.pipelines.service import create_pipeline, is_pipeline_exists
+from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.serializers import json_helpers
 from flask import current_app
-
-from app.api.composer.service import run_composer
-from app.api.data.service import get_input_data
-from app.api.pipelines.service import create_pipeline, is_pipeline_exists
-from app.singletons.db_service import DBServiceSingleton
-from init.init_pipelines import _extract_pipeline_with_fitted_operations
 from utils import project_root
+
+from init.init_pipelines import _extract_pipeline_with_fitted_operations
 
 
 def create_default_history(opt_times=None):
-    mock_list = []
-
     if opt_times is None:
         opt_times = [2, 1, 1]
 
-    path = None
-    candidate_path = Path(f'{project_root()}/data/scoring/scoring_classification.json')
-    if os.path.exists(candidate_path):
-        path = candidate_path
+    cases = [
+        {
+            'history_id': 'scoring', 'dataset_name': 'scoring',
+            'metric': 'roc_auc', 'task': 'classification',
+            'time': opt_times[0]
+        },
+        {
+            'history_id': 'metocean', 'dataset_name': 'metocean',
+            'metric': 'rmse', 'task': 'ts_forecasting',
+            'time': opt_times[1]
+        },
+        {
+            'history_id': 'oil', 'dataset_name': 'oil',
+            'metric': 'rmse', 'task': 'regression',
+            'time': opt_times[2]
+        }
+    ]
 
-    mock_list.append(
-        _init_composer_history_for_case(history_id='scoring', dataset_name='scoring',
-                                        metric='roc_auc',
-                                        task='classification', time=opt_times[0],
-                                        external_history=path))
-
-    candidate_path = Path(f'{project_root()}/data/metocean/metocean_ts_forecasting.json')
-    if os.path.exists(candidate_path):
-        path = candidate_path
-
-    mock_list.append(
-        _init_composer_history_for_case(history_id='metocean', dataset_name='metocean',
-                                        metric='rmse',
-                                        task='ts_forecasting', time=opt_times[1],
-                                        external_history=path))
-
-    candidate_path = Path(f'{project_root()}/data/oil/oil_regression.json')
-    if os.path.exists(candidate_path):
-        path = candidate_path
-
-    mock_list.append(
-        _init_composer_history_for_case(history_id='oil', dataset_name='oil',
-                                        metric='rmse',
-                                        task='regression', time=opt_times[2],
-                                        external_history=path))
+    mock_list = []
+    for case in cases:
+        candidate_path = Path(f'{project_root()}/data/{case["history_id"]}/{case["history_id"]}_{case["task"]}.json')
+        if candidate_path.exists():
+            case['external_history'] = candidate_path
+        mock_list.append(_init_composer_history_for_case(**case))
 
     if not DBServiceSingleton().exists():
         mockup_history(mock_list)
