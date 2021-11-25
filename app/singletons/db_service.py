@@ -53,6 +53,8 @@ class DBServiceSingleton:
         if self.exists():
             try:
                 self._db[collection].insert_one(obj_to_add)
+                # if self._db[collection].find_one({'uid': obj_to_add['uid']}) == None:
+                #    raise ValueError('FAIL')
             except DuplicateKeyError as ex:
                 from sys import stderr
                 print(f'{collection} item already exists: {ex}', file=stderr)

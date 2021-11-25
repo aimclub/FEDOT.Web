@@ -30,7 +30,7 @@ def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
     if current_app.config['CONFIG_NAME'] == 'test':
         dict_fitted_operations = db_service.try_find_one('dict_fitted_operations', {'uid': uid})
     else:
-        file = db_service.try_find_one_file({'filename': uid, 'type': 'dict_fitted_operations'})
+        file = db_service.try_find_one_file({'filename': str(uid), 'type': 'dict_fitted_operations'})
         if file is not None:
             dict_fitted_operations = json_util.loads(file.read())
 
@@ -83,14 +83,12 @@ def _add_pipeline_to_db(
     dict_pipeline['uid'] = str(uid)
     db_service = DBServiceSingleton()
     if init_db:
-        db_service.try_delete_one('pipelines', {'uid': uid})
+        db_service.try_delete_one('pipelines', {'uid': str(uid)})
     else:
         is_exists = is_pipeline_exists(uid)
         if is_exists and overwrite:
-            db_service.try_delete_one('pipelines', {'uid': uid})
-            is_exists = False
-        if not is_exists:
-            db_service.try_insert_one('pipelines', dict_pipeline)
+            db_service.try_delete_one('pipelines', {'uid': str(uid)})
+    db_service.try_insert_one('pipelines', dict_pipeline)
 
     if dict_fitted_operations is not None:
         try:

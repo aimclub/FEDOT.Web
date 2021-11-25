@@ -1,23 +1,20 @@
-import itertools
 import json
 import os
 from pathlib import Path
 from typing import Optional, Union
 
+from bson import json_util
+from fedot.core.optimisers.opt_history import OptHistory
+from fedot.core.pipelines.pipeline import Pipeline
+from fedot.core.serializers import json_helpers
+from flask import current_app
+
 from app.api.composer.service import run_composer
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.singletons.db_service import DBServiceSingleton
-from bson import json_util
-from fedot.core.optimisers.adapters import PipelineAdapter
-from fedot.core.optimisers.opt_history import OptHistory
-from fedot.core.pipelines.pipeline import Pipeline
-from fedot.core.pipelines.template import PipelineTemplate
-from fedot.core.serializers import json_helpers
-from flask import current_app
-from utils import project_root
-
 from init.init_pipelines import _extract_pipeline_with_fitted_operations
+from utils import project_root
 
 
 def create_default_history(opt_times=None):
@@ -131,29 +128,36 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
 
     best_fitness = None
 
-    for i, pipeline_template in enumerate(history.historical_pipelines):
-        pipeline_uid = pipeline_template.unique_pipeline_id
+    global_id = 0
+    for pop_id in range(len(history.individuals)):
+        pop = history.individuals[pop_id]
+        for i, individual in enumerate(pop):
+            pipeline_uid = str(individual.graph.uid)
+            pipeline_template = history.historical_pipelines[global_id]
+            fitness = history.all_historical_fitness[i]
+            if best_fitness is None or fitness < best_fitness:
+                best_fitness = fitness
 
-        fitness = history.all_historical_fitness[i]
-        if best_fitness is None or fitness < best_fitness:
-            best_fitness = fitness
+                case = db_service.try_find_one('cases', {'case_id': history_id})
+                if case is not None:
+                    case['pipeline_id'] = pipeline_uid
+                    db_service.try_reinsert_one('cases', {'case_id': history_id}, case)
 
-            case = db_service.try_find_one('cases', {'case_id': history_id})
-            if case is not None:
-                case['pipeline_id'] = pipeline_uid
-                db_service.try_reinsert_one('cases', {'case_id': history_id}, case)
-
-        is_existing_pipeline = is_pipeline_exists(pipeline_uid)
-        if not is_existing_pipeline:
-            print(i)
-            pipeline = Pipeline()
-            pipeline_template.convert_to_pipeline(pipeline)
-            pipeline.fit(data)
-            if db_service.exists():
-                create_pipeline(pipeline_uid, pipeline)
-            else:
-                pipeline_dict, dict_fitted_operations = _extract_pipeline_with_fitted_operations(pipeline, pipeline_uid)
-                mock_dct['pipelines_dict'].append(pipeline_dict)
-                mock_dct['dicts_fitted_operations'].append(dict_fitted_operations)
+            is_existing_pipeline = is_pipeline_exists(pipeline_uid)
+            if not is_existing_pipeline:
+                print(f'Pipeline №{i} with id{pipeline_uid} added')
+                pipeline = Pipeline()
+                pipeline_template.convert_to_pipeline(pipeline)
+                pipeline.fit(data)
+                if db_service.exists():
+                    create_pipeline(pipeline_uid, pipeline)
+                else:
+                    pipeline_dict, dict_fitted_operations = \
+                        _extract_pipeline_with_fitted_operations(pipeline, pipeline_uid)
+                    mock_dct['pipelines_dict'].append(pipeline_dict)
+                    mock_dct['dicts_fitted_operations'].append(dict_fitted_operations)
+            if not is_pipeline_exists(pipeline_uid):
+                print(f'Critical error: pipeline {pipeline_uid} not found after adding')
+            global_id += 1
 
     return mock_dct

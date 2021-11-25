@@ -4,10 +4,6 @@ from os import PathLike
 from pathlib import Path
 from typing import Optional
 
-from app.api.data.service import get_input_data
-from app.api.pipelines.service import create_pipeline, is_pipeline_exists
-from app.api.showcase.showcase_utils import showcase_item_from_db
-from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.api.main import Fedot
 from fedot.core.optimisers.opt_history import OptHistory
@@ -15,6 +11,11 @@ from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.repository.tasks import TsForecastingParams
 from fedot.core.serializers import json_helpers
 from flask import current_app
+
+from app.api.data.service import get_input_data
+from app.api.pipelines.service import create_pipeline, is_pipeline_exists
+from app.api.showcase.showcase_utils import showcase_item_from_db
+from app.singletons.db_service import DBServiceSingleton
 from utils import project_root
 
 
@@ -42,7 +43,10 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
     elif current_app.config['CONFIG_NAME'] == 'test':
         history = json.loads(saved_history['history_json'], object_hook=json_helpers.decoder)
     else:
+        import datetime
+        print('start_des', datetime.datetime.now())
         history = json.loads(saved_history, object_hook=json_helpers.decoder)
+        print('end_des', datetime.datetime.now())
 
     data = get_input_data(dataset_name=dataset_name, sample_type='train')
 
