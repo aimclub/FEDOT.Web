@@ -131,8 +131,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
 
     best_fitness = None
 
-    pipeline_templates = [PipelineTemplate(ind.graph) for ind in list(itertools.chain(*history.individuals))]
-    for i, pipeline_template in enumerate(pipeline_templates):
+    for i, pipeline_template in enumerate(history.historical_pipelines):
         pipeline_uid = pipeline_template.unique_pipeline_id
 
         fitness = history.all_historical_fitness[i]
