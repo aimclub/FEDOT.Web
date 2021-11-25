@@ -51,15 +51,21 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
     data = get_input_data(dataset_name=dataset_name, sample_type='train')
 
     if validate_history:
-        for i, pipeline_template in enumerate(history.historical_pipelines):
-            struct_id = pipeline_template.unique_pipeline_id
-            existing_pipeline = is_pipeline_exists(struct_id)
-            if not existing_pipeline:
-                print(i)
-                pipeline = Pipeline()
-                pipeline_template.convert_to_pipeline(pipeline)
-                pipeline.fit(data)
-                create_pipeline(struct_id, pipeline)
+        # for i, pipeline_template in enumerate(history.historical_pipelines):
+        global_id = 0
+        for pop_id in range(len(history.individuals)):
+            pop = history.individuals[pop_id]
+            for i, individual in enumerate(pop):
+                uid = individual.graph.uid
+                existing_pipeline = is_pipeline_exists(uid)
+                pipeline_template = history.historical_pipelines[global_id]
+                if not existing_pipeline:
+                    print(i)
+                    pipeline = Pipeline()
+                    pipeline_template.convert_to_pipeline(pipeline)
+                    pipeline.fit(data)
+                    create_pipeline(uid=uid, pipeline=pipeline, overwrite=True)
+                global_id = True
 
     return history
 

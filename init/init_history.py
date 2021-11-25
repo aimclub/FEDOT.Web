@@ -150,7 +150,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
                 pipeline_template.convert_to_pipeline(pipeline)
                 pipeline.fit(data)
                 if db_service.exists():
-                    create_pipeline(pipeline_uid, pipeline)
+                    create_pipeline(uid=pipeline_uid, pipeline=pipeline, overwrite=True)
                 else:
                     pipeline_dict, dict_fitted_operations = \
                         _extract_pipeline_with_fitted_operations(pipeline, pipeline_uid)

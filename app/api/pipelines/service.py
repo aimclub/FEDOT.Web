@@ -16,19 +16,19 @@ from utils import project_root
 
 
 def is_pipeline_exists(uid: str) -> bool:
-    return DBServiceSingleton().try_find_one('pipelines', {'uid': str(uid)}) is not None
+    return DBServiceSingleton().try_find_one('pipelines', {'_id': str(uid)}) is not None
 
 
 def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
     db_service = DBServiceSingleton()
     pipeline = Pipeline()
-    pipeline_dict: Optional[Dict[str, Any]] = db_service.try_find_one('pipelines', {'uid': str(uid)})
+    pipeline_dict: Optional[Dict[str, Any]] = db_service.try_find_one('pipelines', {'_id': str(uid)})
     if pipeline_dict is None:
         return None
 
     dict_fitted_operations: Optional[Dict[str, Any]] = None
     if current_app.config['CONFIG_NAME'] == 'test':
-        dict_fitted_operations = db_service.try_find_one('dict_fitted_operations', {'uid': uid})
+        dict_fitted_operations = db_service.try_find_one('dict_fitted_operations', {'_id': uid})
     else:
         file = db_service.try_find_one_file({'filename': str(uid), 'type': 'dict_fitted_operations'})
         if file is not None:
@@ -65,7 +65,7 @@ def create_pipeline(uid: str, pipeline: Pipeline, overwrite: bool = False) -> Tu
                 dict_fitted_operations[key].seek(0)
                 saved_operation = dict_fitted_operations[key].read()
                 dict_fitted_operations[key] = saved_operation
-        dict_fitted_operations['uid'] = str(uid)
+        dict_fitted_operations['_id'] = str(uid)
 
     if is_new:
         dict_pipeline = json.loads(dumped_json)
@@ -80,20 +80,20 @@ def _add_pipeline_to_db(
     uid: str, dict_pipeline: Dict, dict_fitted_operations: Dict,
     init_db: bool = False, overwrite: bool = False
 ) -> Optional[List[Dict]]:
-    dict_pipeline['uid'] = str(uid)
+    dict_pipeline['_id'] = str(uid)
     db_service = DBServiceSingleton()
-    if init_db:
-        db_service.try_delete_one('pipelines', {'uid': str(uid)})
-    else:
-        is_exists = is_pipeline_exists(uid)
-        if is_exists and overwrite:
-            db_service.try_delete_one('pipelines', {'uid': str(uid)})
-    db_service.try_insert_one('pipelines', dict_pipeline)
+    # if init_db:
+    #     db_service.try_delete_one('pipelines', {'_id': str(uid)})
+    # else:
+    #     is_exists = is_pipeline_exists(uid)
+    #     if is_exists or overwrite:
+    #         db_service.try_delete_one('pipelines', {'_id': str(uid)})
+    db_service.try_reinsert_one('pipelines', {'_id': str(uid)}, dict_pipeline)
 
     if dict_fitted_operations is not None:
         try:
             if has_app_context() and current_app.config['CONFIG_NAME'] == 'test':
-                dict_fitted_operations = db_service.try_find_one('dict_fitted_operations', {'uid': uid})
+                dict_fitted_operations = db_service.try_find_one('dict_fitted_operations', {'_id': uid})
             else:
                 db_service.try_reinsert_file(
                     {'filename': uid, 'type': 'dict_fitted_operations'}, dict_fitted_operations

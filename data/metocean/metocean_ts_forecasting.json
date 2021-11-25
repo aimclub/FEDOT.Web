@@ -33,10 +33,10 @@
                               },
                               "params": "default_params"
                             },
-                            "_serialization_id": 2,
-                            "_node_data": {},
-                            "direct_set": false,
                             "_fitted_operation": null,
+                            "direct_set": false,
+                            "_node_data": {},
+                            "_serialization_id": 2,
                             "rating": null,
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                           }
@@ -50,9 +50,9 @@
                           },
                           "params": "default_params"
                         },
-                        "_serialization_id": 1,
                         "_fitted_operation": null,
                         "rating": null,
+                        "_serialization_id": 1,
                         "_class_path": "fedot.core.optimisers.graph/OptNode"
                       }
                     ],
@@ -65,9 +65,9 @@
                       },
                       "params": "default_params"
                     },
-                    "_serialization_id": 0,
                     "_fitted_operation": null,
                     "rating": null,
+                    "_serialization_id": 0,
                     "_class_path": "fedot.core.optimisers.graph/OptNode"
                   },
                   {
@@ -83,10 +83,10 @@
                           },
                           "params": "default_params"
                         },
-                        "_serialization_id": 2,
-                        "_node_data": {},
-                        "direct_set": false,
                         "_fitted_operation": null,
+                        "direct_set": false,
+                        "_node_data": {},
+                        "_serialization_id": 2,
                         "rating": null,
                         "_class_path": "fedot.core.optimisers.graph/OptNode"
                       }
@@ -100,9 +100,9 @@
                       },
                       "params": "default_params"
                     },
-                    "_serialization_id": 1,
                     "_fitted_operation": null,
                     "rating": null,
+                    "_serialization_id": 1,
                     "_class_path": "fedot.core.optimisers.graph/OptNode"
                   },
                   {
@@ -116,10 +116,10 @@
                       },
                       "params": "default_params"
                     },
-                    "_serialization_id": 2,
-                    "_node_data": {},
-                    "direct_set": false,
                     "_fitted_operation": null,
+                    "direct_set": false,
+                    "_node_data": {},
+                    "_serialization_id": 2,
                     "rating": null,
                     "_class_path": "fedot.core.optimisers.graph/OptNode"
                   }
@@ -155,10 +155,10 @@
                             },
                             "params": "default_params"
                           },
-                          "_serialization_id": 2,
-                          "_node_data": {},
-                          "direct_set": false,
                           "_fitted_operation": null,
+                          "direct_set": false,
+                          "_node_data": {},
+                          "_serialization_id": 2,
                           "rating": null,
                           "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
@@ -172,9 +172,9 @@
                         },
                         "params": "default_params"
                       },
-                      "_serialization_id": 1,
                       "_fitted_operation": null,
                       "rating": null,
+                      "_serialization_id": 1,
                       "_class_path": "fedot.core.optimisers.graph/OptNode"
                     }
                   ],
@@ -187,9 +187,9 @@
                     },
                     "params": "default_params"
                   },
-                  "_serialization_id": 0,
                   "_fitted_operation": null,
                   "rating": null,
+                  "_serialization_id": 0,
                   "_class_path": "fedot.core.optimisers.graph/OptNode"
                 },
                 {
@@ -205,10 +205,10 @@
                         },
                         "params": "default_params"
                       },
-                      "_serialization_id": 2,
-                      "_node_data": {},
-                      "direct_set": false,
                       "_fitted_operation": null,
+                      "direct_set": false,
+                      "_node_data": {},
+                      "_serialization_id": 2,
                       "rating": null,
                       "_class_path": "fedot.core.optimisers.graph/OptNode"
                     }
@@ -222,9 +222,9 @@
                     },
                     "params": "default_params"
                   },
-                  "_serialization_id": 1,
                   "_fitted_operation": null,
                   "rating": null,
+                  "_serialization_id": 1,
                   "_class_path": "fedot.core.optimisers.graph/OptNode"
                 },
                 {
@@ -238,10 +238,10 @@
                     },
                     "params": "default_params"
                   },
-                  "_serialization_id": 2,
-                  "_node_data": {},
-                  "direct_set": false,
                   "_fitted_operation": null,
+                  "direct_set": false,
+                  "_node_data": {},
+                  "_serialization_id": 2,
                   "rating": null,
                   "_class_path": "fedot.core.optimisers.graph/OptNode"
                 },
@@ -262,10 +262,10 @@
                                 },
                                 "params": "default_params"
                               },
-                              "_serialization_id": 2,
-                              "_node_data": {},
-                              "direct_set": false,
                               "_fitted_operation": null,
+                              "direct_set": false,
+                              "_node_data": {},
+                              "_serialization_id": 2,
                               "rating": null,
                               "_class_path": "fedot.core.optimisers.graph/OptNode"
                             }
@@ -279,9 +279,9 @@
                             },
                             "params": "default_params"
                           },
-                          "_serialization_id": 1,
                           "_fitted_operation": null,
                           "rating": null,
+                          "_serialization_id": 1,
                           "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
                       ],
@@ -294,9 +294,9 @@
                         },
                         "params": "default_params"
                       },
-                      "_serialization_id": 0,
                       "_fitted_operation": null,
                       "rating": null,
+                      "_serialization_id": 0,
                       "_class_path": "fedot.core.optimisers.graph/OptNode"
                     }
                   ],
@@ -307,11 +307,11 @@
                   "_serialization_id": 3,
                   "_class_path": "fedot.core.optimisers.graph/OptNode"
                 }
-                    ],
-                    "_class_path": "fedot.core.optimisers.graph/OptGraph"
-                },
-                "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
-            }
+              ],
+              "_class_path": "fedot.core.optimisers.graph/OptGraph"
+            },
+            "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
+          }
         ]
     ],
     "archive_history": [
@@ -343,10 +343,10 @@
                           },
                           "params": "default_params"
                         },
-                        "_serialization_id": 2,
-                        "_node_data": {},
-                        "direct_set": false,
                         "_fitted_operation": null,
+                        "direct_set": false,
+                        "_node_data": {},
+                        "_serialization_id": 2,
                         "rating": null,
                         "_class_path": "fedot.core.optimisers.graph/OptNode"
                       }
@@ -360,9 +360,9 @@
                       },
                       "params": "default_params"
                     },
-                    "_serialization_id": 1,
                     "_fitted_operation": null,
                     "rating": null,
+                    "_serialization_id": 1,
                     "_class_path": "fedot.core.optimisers.graph/OptNode"
                   }
                 ],
@@ -375,9 +375,9 @@
                   },
                   "params": "default_params"
                 },
-                "_serialization_id": 0,
                 "_fitted_operation": null,
                 "rating": null,
+                "_serialization_id": 0,
                 "_class_path": "fedot.core.optimisers.graph/OptNode"
               },
               {
@@ -393,10 +393,10 @@
                       },
                       "params": "default_params"
                     },
-                    "_serialization_id": 2,
-                    "_node_data": {},
-                    "direct_set": false,
                     "_fitted_operation": null,
+                    "direct_set": false,
+                    "_node_data": {},
+                    "_serialization_id": 2,
                     "rating": null,
                     "_class_path": "fedot.core.optimisers.graph/OptNode"
                   }
@@ -410,9 +410,9 @@
                   },
                   "params": "default_params"
                 },
-                "_serialization_id": 1,
                 "_fitted_operation": null,
                 "rating": null,
+                "_serialization_id": 1,
                 "_class_path": "fedot.core.optimisers.graph/OptNode"
               },
               {
@@ -426,10 +426,10 @@
                   },
                   "params": "default_params"
                 },
-                "_serialization_id": 2,
-                "_node_data": {},
-                "direct_set": false,
                 "_fitted_operation": null,
+                "direct_set": false,
+                "_node_data": {},
+                "_serialization_id": 2,
                 "rating": null,
                 "_class_path": "fedot.core.optimisers.graph/OptNode"
               }
@@ -465,10 +465,10 @@
                           },
                           "params": "default_params"
                         },
-                        "_serialization_id": 2,
-                        "_node_data": {},
-                        "direct_set": false,
                         "_fitted_operation": null,
+                        "direct_set": false,
+                        "_node_data": {},
+                        "_serialization_id": 2,
                         "rating": null,
                         "_class_path": "fedot.core.optimisers.graph/OptNode"
                       }
@@ -482,9 +482,9 @@
                       },
                       "params": "default_params"
                     },
-                    "_serialization_id": 1,
                     "_fitted_operation": null,
                     "rating": null,
+                    "_serialization_id": 1,
                     "_class_path": "fedot.core.optimisers.graph/OptNode"
                   }
                 ],
@@ -497,9 +497,9 @@
                   },
                   "params": "default_params"
                 },
-                "_serialization_id": 0,
                 "_fitted_operation": null,
                 "rating": null,
+                "_serialization_id": 0,
                 "_class_path": "fedot.core.optimisers.graph/OptNode"
               },
               {
@@ -515,10 +515,10 @@
                       },
                       "params": "default_params"
                     },
-                    "_serialization_id": 2,
-                    "_node_data": {},
-                    "direct_set": false,
                     "_fitted_operation": null,
+                    "direct_set": false,
+                    "_node_data": {},
+                    "_serialization_id": 2,
                     "rating": null,
                     "_class_path": "fedot.core.optimisers.graph/OptNode"
                   }
@@ -532,9 +532,9 @@
                   },
                   "params": "default_params"
                 },
-                "_serialization_id": 1,
                 "_fitted_operation": null,
                 "rating": null,
+                "_serialization_id": 1,
                 "_class_path": "fedot.core.optimisers.graph/OptNode"
               },
               {
@@ -548,10 +548,10 @@
                   },
                   "params": "default_params"
                 },
-                "_serialization_id": 2,
-                "_node_data": {},
-                "direct_set": false,
                 "_fitted_operation": null,
+                "direct_set": false,
+                "_node_data": {},
+                "_serialization_id": 2,
                 "rating": null,
                 "_class_path": "fedot.core.optimisers.graph/OptNode"
               },
@@ -572,10 +572,10 @@
                               },
                               "params": "default_params"
                             },
-                            "_serialization_id": 2,
-                            "_node_data": {},
-                            "direct_set": false,
                             "_fitted_operation": null,
+                            "direct_set": false,
+                            "_node_data": {},
+                            "_serialization_id": 2,
                             "rating": null,
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                           }
@@ -589,9 +589,9 @@
                           },
                           "params": "default_params"
                         },
-                        "_serialization_id": 1,
                         "_fitted_operation": null,
                         "rating": null,
+                        "_serialization_id": 1,
                         "_class_path": "fedot.core.optimisers.graph/OptNode"
                       }
                     ],
@@ -604,9 +604,9 @@
                       },
                       "params": "default_params"
                     },
-                    "_serialization_id": 0,
                     "_fitted_operation": null,
                     "rating": null,
+                    "_serialization_id": 0,
                     "_class_path": "fedot.core.optimisers.graph/OptNode"
                   }
                 ],
