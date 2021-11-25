@@ -5,23 +5,24 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import pymongo
-from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.pipelines.validation import validate
 from flask import current_app, has_app_context, url_for
 from pymongo.errors import DuplicateKeyError
+
+from app.singletons.db_service import DBServiceSingleton
 from utils import project_root
 
 
 def is_pipeline_exists(uid: str) -> bool:
-    DBServiceSingleton().try_find_one('pipelines', {'uid': uid}) is not None
+    return DBServiceSingleton().try_find_one('pipelines', {'uid': str(uid)}) is not None
 
 
 def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
     db_service = DBServiceSingleton()
     pipeline = Pipeline()
-    pipeline_dict: Optional[Dict[str, Any]] = db_service.try_find_one('pipelines', {'uid': uid})
+    pipeline_dict: Optional[Dict[str, Any]] = db_service.try_find_one('pipelines', {'uid': str(uid)})
     if pipeline_dict is None:
         return None
 
