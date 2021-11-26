@@ -1,4 +1,4 @@
-https://github.com/nccr-itmo/FEDOT/archive/conn-fix.zip
+https://github.com/nccr-itmo/FEDOT/archive/hotfix-idx.zip
 flask-socketio==5.0.1
 Flask==1.1.1
 flask-accepts==0.10.0

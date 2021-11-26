@@ -17,6 +17,7 @@ def singleton(cls):
         if cls not in instances:
             instances[cls] = cls(*args, **kwargs)
         return instances[cls]
+
     return getinstance
 
 
@@ -24,6 +25,7 @@ def singleton(cls):
 class DBServiceSingleton:
     def __init__(self, db: Optional[Database] = None):
         self._db: Optional[Database] = db
+        self._fs = None
         if db is not None and isinstance(db, Database):
             self._fs: Optional[GridFS] = gridfs.GridFS(self._db)
 
@@ -51,6 +53,8 @@ class DBServiceSingleton:
         if self.exists():
             try:
                 self._db[collection].insert_one(obj_to_add)
+                # if self._db[collection].find_one({'uid': obj_to_add['uid']}) == None:
+                #    raise ValueError('FAIL')
             except DuplicateKeyError as ex:
                 from sys import stderr
                 print(f'{collection} item already exists: {ex}', file=stderr)

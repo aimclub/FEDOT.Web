@@ -57,7 +57,7 @@ def _create_all_pipeline_nodes_for_pop(history, all_nodes, gen_id, local_id):
         individual = history.individuals[gen_id][ind_id]
 
         # add pipelines as node
-        pipeline_id = str(individual.graph.unique_pipeline_id)
+        pipeline_id = str(individual.graph.uid)
         uid = f'pipeline_{gen_id}_{ind_id}'
         objs = {}
         for metric in history.metrics:
@@ -167,7 +167,7 @@ def _init_operator_dict(ind, operator, o_id, gen_id):
 
     # temporary fields
     operator_node['tmp_parent_pipelines'] = [c.struct_id for c in operator.parent_objects]
-    operator_node['tmp_next_pipeline'] = ind.graph.struct_id
+    operator_node['tmp_next_pipeline'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
     return operator_node
 
 
@@ -179,7 +179,7 @@ def _init_pipeline_dict(ind, objs, uid, pipeline_id, gen_id, ind_id):
     pipeline['type'] = 'individual'
     pipeline['pipeline_id'] = pipeline_id
     pipeline['objs'] = objs
-    pipeline['tmp_pipeline_uid'] = ind.graph.struct_id
+    pipeline['tmp_pipeline_uid'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
     return pipeline
 
 

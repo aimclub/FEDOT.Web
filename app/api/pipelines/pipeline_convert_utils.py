@@ -13,6 +13,19 @@ def graph_to_pipeline(graph: dict) -> Pipeline:
     graph_nodes = graph['nodes']
 
     pipeline_nodes: List[Node] = []
+
+    # all parents should be taken from edges dict
+    for graph_node in graph_nodes:
+        graph_node['parents'] = []
+        graph_node['children'] = []
+
+    for edge in graph['edges']:
+        parent_id = edge['source']
+        child_id = edge['target']
+
+        graph_nodes[child_id]['parents'].append(parent_id)
+        graph_nodes[parent_id]['children'].append(child_id)
+
     for graph_node in graph_nodes:
         pipeline_node = _graph_node_to_pipeline_node(graph_node, graph_nodes, pipeline_nodes)
         pipeline_nodes = _add_to_pipeline_if_necessary(pipeline_node, pipeline_nodes)
@@ -77,7 +90,7 @@ def replace_deprecated_values(graph_node: dict, depr_values: tuple = ('Infinity'
 
 
 def _graph_node_to_pipeline_node(
-    graph_node: dict, existing_graph_nodes: List[Dict], pipeline_nodes: List[Node]
+        graph_node: dict, existing_graph_nodes: List[Dict], pipeline_nodes: List[Node]
 ) -> Union[PrimaryNode, SecondaryNode]:
     if not graph_node['parents']:
         pipeline_node = PrimaryNode(graph_node['model_name'])
