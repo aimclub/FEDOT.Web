@@ -1,8 +1,9 @@
 import json
 
+from fedot.core.serializers import json_helpers
+
 from app.api.composer.service import run_composer
 from app.api.showcase.service import all_showcase_items_ids
-from fedot.core.serializers import json_helpers
 
 
 def test_get_showcase_item_endpoint(client):

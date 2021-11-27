@@ -2,8 +2,6 @@ import os
 from typing import List, Optional, Tuple
 
 from fedot.core.data.data import DataTypesEnum, InputData
-from fedot.core.repository.tasks import (Task, TaskTypesEnum,
-                                         TsForecastingParams)
 
 from utils import project_root
 
@@ -11,24 +9,26 @@ default_datasets = {
     'scoring': {
         'train': 'scoring/scoring_train.csv',
         'test': 'scoring/scoring_test.csv',
-        'task_type': Task(TaskTypesEnum.classification),
         'data_type': DataTypesEnum.table
     },
     'metocean': {
         'train': 'metocean/metocean_train.csv',
         'test': 'metocean/metocean_test.csv',
-        'task_type': Task(task_type=TaskTypesEnum.ts_forecasting,
-                          task_params=TsForecastingParams(forecast_length=30)),
         'data_type': DataTypesEnum.table
     },
     'oil': {
         'train': 'oil/oil_train.csv',
         'test': 'oil/oil_test.csv',
-        'task_type': Task(TaskTypesEnum.regression),
         'data_type': DataTypesEnum.table
     }
 }
 
+data_types = {
+    'ts': DataTypesEnum.ts,
+    'table': DataTypesEnum.table,
+    'image': DataTypesEnum.image,
+    'text': DataTypesEnum.text,
+}
 
 def get_datasets_names() -> List[str]:
     return list(default_datasets)
@@ -50,12 +50,12 @@ def get_input_data(dataset_name: str, sample_type: str) -> Optional[InputData]:
         dataset = default_datasets[dataset_name]
         data_path = dataset[sample_type]
 
-        if dataset['task_type'].task_type == TaskTypesEnum.ts_forecasting:
+        if dataset['data_type'] == DataTypesEnum.ts:
             data = InputData.from_csv_time_series(file_path=os.path.join(project_root(), 'data', data_path),
-                                                  task=dataset['task_type'], target_column='target')
+                                                  task=None, target_column='target')
         else:
             data = InputData.from_csv(file_path=os.path.join(project_root(), 'data', data_path),
-                                      task=dataset['task_type'],
+                                      task=None,
                                       data_type=dataset['data_type'])
         return data
     except KeyError as ex:
