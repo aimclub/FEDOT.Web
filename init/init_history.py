@@ -124,7 +124,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     mock_dct['pipelines_dict'] = []
     mock_dct['dicts_fitted_operations'] = []
 
-    data = get_input_data(dataset_name=dataset_name, sample_type='train')
+    data = get_input_data(dataset_name=dataset_name, sample_type='train', task_type=task)
 
     best_fitness = None
 

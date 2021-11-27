@@ -122,13 +122,15 @@ def get_population_analytics(case_id: str, analytic_type: str) -> BoxPlotData:
 
 
 def get_prediction_for_pipeline(
-    case: ShowcaseItem, pipeline: Optional[Pipeline]
+        case: ShowcaseItem, pipeline: Optional[Pipeline]
 ) -> Tuple[Optional[InputData], Optional[OutputData]]:
-    test_data = get_input_data(dataset_name=case.metadata.dataset_name, sample_type='test')
+    test_data = get_input_data(dataset_name=case.metadata.dataset_name, sample_type='test',
+                               task_type=case.metadata.task_name)
     prediction: Optional[OutputData] = None
     if pipeline:
         train_data: Optional[InputData] = get_input_data(
-            dataset_name=case.metadata.dataset_name, sample_type='train'
+            dataset_name=case.metadata.dataset_name, sample_type='train',
+            task_type=case.metadata.task_name
         )
         if not pipeline.is_fitted and train_data:
             pipeline.fit(train_data)

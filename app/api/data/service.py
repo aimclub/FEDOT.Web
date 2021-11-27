@@ -2,7 +2,9 @@ import os
 from typing import List, Optional, Tuple
 
 from fedot.core.data.data import DataTypesEnum, InputData
+from fedot.core.repository.tasks import Task
 
+from app.api.meta.service import task_type_from_id
 from utils import project_root
 
 default_datasets = {
@@ -45,17 +47,19 @@ def get_dataset_metadata(dataset_name: str, sample_type: str) -> Tuple[int, int]
     return n_features, n_rows
 
 
-def get_input_data(dataset_name: str, sample_type: str) -> Optional[InputData]:
+def get_input_data(dataset_name: str, sample_type: str, task_type: str = None) -> Optional[InputData]:
     try:
         dataset = default_datasets[dataset_name]
         data_path = dataset[sample_type]
 
+        task = Task(task_type_from_id(task_type)) if task_type is not None else None
+
         if dataset['data_type'] == DataTypesEnum.ts:
             data = InputData.from_csv_time_series(file_path=os.path.join(project_root(), 'data', data_path),
-                                                  task=None, target_column='target')
+                                                  task=task, target_column='target')
         else:
             data = InputData.from_csv(file_path=os.path.join(project_root(), 'data', data_path),
-                                      task=None,
+                                      task=task,
                                       data_type=dataset['data_type'])
         return data
     except KeyError as ex:

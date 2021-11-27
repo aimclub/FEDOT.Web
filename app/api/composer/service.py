@@ -48,7 +48,8 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
         history = json.loads(saved_history, object_hook=json_helpers.decoder)
         print('end_des', datetime.datetime.now())
 
-    data = get_input_data(dataset_name=dataset_name, sample_type='train')
+    data = get_input_data(dataset_name=dataset_name, sample_type='train', task_type=task)
+    data.task = task
 
     if validate_history:
         # for i, pipeline_template in enumerate(history.historical_pipelines):

@@ -70,8 +70,8 @@ class ShowCaseItemAddResource(Resource):
         add_case_to_db(case)
 
         _init_composer_history_for_case(history_id=case_id,
-                                        task=None,
-                                        metric=None,
+                                        task=case_meta_json['task'],
+                                        metric=case_meta_json['metric_name'],
                                         dataset_name=case_meta_json['dataset_name'],
                                         time=None,
                                         external_history=opt_history_json)

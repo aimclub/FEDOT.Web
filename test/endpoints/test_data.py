@@ -14,21 +14,19 @@ def test_data_names_endpoint(client):
 
 
 def test_add_data_endpoint(client):
-    data = pd.read_csv(Path(project_root(), 'data', 'scoring', 'scoring_train'))
+    data = pd.read_csv(Path(project_root(), 'data', 'scoring', 'scoring_train.csv'))
 
-    data_bytes = str(pickle.dumps(data))
+    data_bytes = str(pickle.dumps(data), encoding='latin1')
 
     new_data = {
-        'data': {
             'dataset_name': 'new_dataset',
             'data_type': 'table',
             'content_train': data_bytes,
             'content_test': data_bytes
-        },
     }
 
     response = client.post('api/data/add', json=new_data).json
     assert response is True
 
     updated_ids = get_datasets_names()
-    assert 'new_data' in updated_ids
+    assert 'new_dataset' in updated_ids

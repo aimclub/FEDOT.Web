@@ -2,12 +2,13 @@ import json
 import os
 
 import bson
-from app.api.data.service import get_input_data
-from app.api.pipelines.service import _add_pipeline_to_db
-from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.core.pipelines.node import PrimaryNode, SecondaryNode
 from fedot.core.pipelines.pipeline import Pipeline
+
+from app.api.data.service import get_input_data
+from app.api.pipelines.service import _add_pipeline_to_db
+from app.singletons.db_service import DBServiceSingleton
 from utils import project_root
 
 
@@ -17,28 +18,30 @@ def create_default_pipelines():
 
     mock_list = []
 
-    mock_list.append(_create_custom_pipeline('best_scoring_pipeline', 'scoring', pipeline_mock('class')))
+    mock_list.append(
+        _create_custom_pipeline('best_scoring_pipeline', 'scoring', pipeline_mock('class'), 'classification'))
     pipeline_1 = Pipeline(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
                                                                            nodes_from=[PrimaryNode('scaling')]),
                                                              PrimaryNode('knn')]))
-    mock_list.append(_create_custom_pipeline('scoring_pipeline_1', 'scoring', pipeline_1))
+    mock_list.append(_create_custom_pipeline('scoring_pipeline_1', 'scoring', pipeline_1, 'classification'))
 
     pipeline_2 = Pipeline(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
                                                                            nodes_from=[PrimaryNode('scaling')]),
                                                              SecondaryNode('knn',
                                                                            nodes_from=[PrimaryNode('scaling')])]))
-    mock_list.append(_create_custom_pipeline('scoring_pipeline_2', 'scoring', pipeline_2))
-    mock_list.append(_create_custom_pipeline('scoring_baseline', 'scoring', get_baseline('class')))
+    mock_list.append(_create_custom_pipeline('scoring_pipeline_2', 'scoring', pipeline_2, 'classification'))
+    mock_list.append(_create_custom_pipeline('scoring_baseline', 'scoring', get_baseline('class'), 'classification'))
 
     ######
 
-    mock_list.append(_create_custom_pipeline('best_metocean_pipeline', 'metocean', pipeline_mock('ts')))
-    mock_list.append(_create_custom_pipeline('metocean_baseline', 'metocean', get_baseline('ts')))
+    mock_list.append(
+        _create_custom_pipeline('best_metocean_pipeline', 'metocean', pipeline_mock('ts'), 'ts_forecasting'))
+    mock_list.append(_create_custom_pipeline('metocean_baseline', 'metocean', get_baseline('ts'), 'ts_forecasting'))
 
     #######
 
-    mock_list.append(_create_custom_pipeline('best_oil_pipeline', 'oil', pipeline_mock('regr')))
-    mock_list.append(_create_custom_pipeline('oil_baseline', 'oil', get_baseline('regr')))
+    mock_list.append(_create_custom_pipeline('best_oil_pipeline', 'oil', pipeline_mock('regr'), 'regression'))
+    mock_list.append(_create_custom_pipeline('oil_baseline', 'oil', get_baseline('regr'), 'regression'))
 
     if not db_service.exists():
         mockup_pipelines(mock_list)
@@ -57,9 +60,9 @@ def mockup_pipelines(mock_list):
             print('dict_fitted_operations are mocked')
 
 
-def _create_custom_pipeline(pipeline_id, case_id, pipeline):
+def _create_custom_pipeline(pipeline_id: str, case_id: str, pipeline: Pipeline, task_type: str):
     uid = pipeline_id
-    data = get_input_data(dataset_name=case_id, sample_type='train')
+    data = get_input_data(dataset_name=case_id, sample_type='train', task_type=task_type)
     db_service = DBServiceSingleton()
     if not db_service.exists():
         data = data.subset_range(0, 500)
