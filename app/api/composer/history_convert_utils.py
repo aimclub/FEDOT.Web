@@ -166,7 +166,13 @@ def _init_operator_dict(ind, operator, o_id, gen_id):
     operator_node['full_name'] = operator.operator_name
 
     # temporary fields
-    operator_node['tmp_parent_pipelines'] = [c.uid for c in operator.parent_objects]
+    try:
+        # for pipeline
+        operator_node['tmp_parent_pipelines'] = [c.uid for c in operator.parent_objects]
+    except AttributeError:
+        # for pipeline template
+        operator_node['tmp_parent_pipelines'] = [c.unique_pipeline_id for c in operator.parent_objects]
+
     operator_node['tmp_next_pipeline'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
     return operator_node
 
