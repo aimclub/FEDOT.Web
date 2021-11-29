@@ -16,7 +16,7 @@ default_datasets = {
     'metocean': {
         'train': 'metocean/metocean_train.csv',
         'test': 'metocean/metocean_test.csv',
-        'data_type': DataTypesEnum.table
+        'data_type': DataTypesEnum.ts
     },
     'oil': {
         'train': 'oil/oil_train.csv',
