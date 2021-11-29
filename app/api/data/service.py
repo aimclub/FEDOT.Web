@@ -2,7 +2,7 @@ import os
 from typing import List, Optional, Tuple
 
 from fedot.core.data.data import DataTypesEnum, InputData
-from fedot.core.repository.tasks import Task
+from fedot.core.repository.tasks import Task, TsForecastingParams
 
 from app.api.meta.service import task_type_from_id
 from utils import project_root
@@ -32,6 +32,7 @@ data_types = {
     'text': DataTypesEnum.text,
 }
 
+
 def get_datasets_names() -> List[str]:
     return list(default_datasets)
 
@@ -57,6 +58,8 @@ def get_input_data(dataset_name: str, sample_type: str, task_type: str = None) -
         if dataset['data_type'] == DataTypesEnum.ts:
             data = InputData.from_csv_time_series(file_path=os.path.join(project_root(), 'data', data_path),
                                                   task=task, target_column='target')
+            if task.task_params is None:
+                task.task_params = TsForecastingParams(forecast_length=30)
         else:
             data = InputData.from_csv(file_path=os.path.join(project_root(), 'data', data_path),
                                       task=task,
