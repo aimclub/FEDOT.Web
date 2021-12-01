@@ -1,4 +1,3 @@
-import os
 import pickle
 from pathlib import Path
 from typing import List
@@ -45,19 +44,22 @@ class DatasetAddResource(Resource):
             return False
 
         data_path = Path(project_root(), 'data', dataset_name)
-        if not data_path.exists():
-            os.mkdir(data_path)
+        data_path.mkdir(exist_ok=True)
 
-        train_data = pickle.loads(bytes(data_json['content_train'], encoding='latin1'))
-        test_data = pickle.loads(bytes(data_json['content_test'], encoding='latin1'))
+        train_data, test_data = [
+            pickle.loads(bytes(data_json[content_label], encoding='latin1'))
+            for content_label in ('content_train', 'content_test')
+        ]
 
-        train_path = Path(project_root(), 'data', dataset_name, f'{dataset_name}_train.csv')
-        test_path = Path(project_root(), 'data', dataset_name, f'{dataset_name}_test.csv')
+        train_path, test_path = [
+            Path(project_root(), 'data', dataset_name, f'{dataset_name}_{sample_type}.csv')
+            for sample_type in ('train', 'test')
+        ]
 
         train_data.to_csv(train_path)
         test_data.to_csv(test_path)
 
-        # TODO refactor
+        # TODO refactor - move to database
         default_datasets[dataset_name] = {
             'train': str(train_path),
             'test': str(test_path),
