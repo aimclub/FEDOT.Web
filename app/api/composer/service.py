@@ -1,3 +1,4 @@
+import datetime
 import json
 import sys
 from os import PathLike
@@ -28,6 +29,8 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
     metric = case.metadata.metric_name
     dataset_name = case.metadata.dataset_name
 
+    saved_history = None
+
     db_service = DBServiceSingleton()
     if current_app.config['CONFIG_NAME'] == 'test':
         saved_history = db_service.try_find_one('history', {'history_id': case_id})
@@ -35,6 +38,8 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
         file = db_service.try_find_one_file({'filename': case_id, 'type': 'history'})
         if file is not None:
             saved_history = json_util.loads(file.read())
+            if not isinstance(saved_history, str):
+                saved_history = json.dumps(saved_history)
 
     history: OptHistory
     if not saved_history:
@@ -43,13 +48,11 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
     elif current_app.config['CONFIG_NAME'] == 'test':
         history = json.loads(saved_history['history_json'], object_hook=json_helpers.decoder)
     else:
-        import datetime
         print('start_des', datetime.datetime.now())
         history = json.loads(saved_history, object_hook=json_helpers.decoder)
         print('end_des', datetime.datetime.now())
 
     data = get_input_data(dataset_name=dataset_name, sample_type='train', task_type=task)
-    data.task = task
 
     if validate_history:
         # for i, pipeline_template in enumerate(history.historical_pipelines):
