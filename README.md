@@ -58,8 +58,7 @@ Open-source AutoML framework [FEDOT](https://github.com/nccr-itmo/FEDOT)
 ## Acknowledgments
 
 We acknowledge the contributors for their important impact and the participants of the numerous scientific conferences
-and workshops for their valuable advice and suggestions. The project is funded by ITMO University students R&D project
-№620175.
+and workshops for their valuable advice and suggestions.
 
 ## Contacts
 

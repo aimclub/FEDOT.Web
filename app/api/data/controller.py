@@ -47,7 +47,7 @@ class DatasetAddResource(Resource):
         data_path.mkdir(exist_ok=True)
 
         train_data, test_data = [
-            pickle.loads(bytes(data_json[content_label], encoding='latin1'))
+            pickle.loads(data_json[content_label], encoding='latin1')
             for content_label in ('content_train', 'content_test')
         ]
 
