@@ -55,16 +55,15 @@ def get_input_data(dataset_name: str, sample_type: str,
         dataset = default_datasets[dataset_name]
         data_path = dataset[sample_type]
 
-        task = Task(task_type_from_id(task_type)) if task_type is not None else None
-        if task:
-            task.task_params = task_params
+        if task_params is None and task_type == 'ts_forecasting':
+            # forecast_length should be defined
+            task_params = TsForecastingParams(forecast_length=30)
+
+        task = Task(task_type_from_id(task_type), task_params) if task_type is not None else None
 
         if dataset['data_type'] == DataTypesEnum.ts:
             data = InputData.from_csv_time_series(file_path=os.path.join(project_root(), 'data', data_path),
                                                   task=task, target_column='target')
-            if task.task_params is None:
-                # if forecast_length is not defined
-                task.task_params = TsForecastingParams(forecast_length=30)
         else:
             data = InputData.from_csv(file_path=os.path.join(project_root(), 'data', data_path),
                                       task=task,
