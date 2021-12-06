@@ -2,31 +2,34 @@ import os
 from typing import List, Optional, Tuple
 
 from fedot.core.data.data import DataTypesEnum, InputData
-from fedot.core.repository.tasks import (Task, TaskTypesEnum,
-                                         TsForecastingParams)
+from fedot.core.repository.tasks import Task, TsForecastingParams, TaskParams
 
+from app.api.meta.service import task_type_from_id
 from utils import project_root
 
 default_datasets = {
     'scoring': {
         'train': 'scoring/scoring_train.csv',
         'test': 'scoring/scoring_test.csv',
-        'task_type': Task(TaskTypesEnum.classification),
         'data_type': DataTypesEnum.table
     },
     'metocean': {
         'train': 'metocean/metocean_train.csv',
         'test': 'metocean/metocean_test.csv',
-        'task_type': Task(task_type=TaskTypesEnum.ts_forecasting,
-                          task_params=TsForecastingParams(forecast_length=30)),
-        'data_type': DataTypesEnum.table
+        'data_type': DataTypesEnum.ts
     },
     'oil': {
         'train': 'oil/oil_train.csv',
         'test': 'oil/oil_test.csv',
-        'task_type': Task(TaskTypesEnum.regression),
         'data_type': DataTypesEnum.table
     }
+}
+
+data_types = {
+    'ts': DataTypesEnum.ts,
+    'table': DataTypesEnum.table,
+    'image': DataTypesEnum.image,
+    'text': DataTypesEnum.text,
 }
 
 
@@ -45,17 +48,25 @@ def get_dataset_metadata(dataset_name: str, sample_type: str) -> Tuple[int, int]
     return n_features, n_rows
 
 
-def get_input_data(dataset_name: str, sample_type: str) -> Optional[InputData]:
+def get_input_data(dataset_name: str, sample_type: str,
+                   task_type: Optional[str] = None,
+                   task_params: Optional[TaskParams] = None) -> Optional[InputData]:
     try:
         dataset = default_datasets[dataset_name]
         data_path = dataset[sample_type]
 
-        if dataset['task_type'].task_type == TaskTypesEnum.ts_forecasting:
+        if task_params is None and task_type == 'ts_forecasting':
+            # forecast_length should be defined
+            task_params = TsForecastingParams(forecast_length=30)
+
+        task = Task(task_type_from_id(task_type), task_params) if task_type is not None else None
+
+        if dataset['data_type'] == DataTypesEnum.ts:
             data = InputData.from_csv_time_series(file_path=os.path.join(project_root(), 'data', data_path),
-                                                  task=dataset['task_type'], target_column='target')
+                                                  task=task, target_column='target')
         else:
             data = InputData.from_csv(file_path=os.path.join(project_root(), 'data', data_path),
-                                      task=dataset['task_type'],
+                                      task=task,
                                       data_type=dataset['data_type'])
         return data
     except KeyError as ex:

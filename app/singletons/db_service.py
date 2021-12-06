@@ -61,8 +61,11 @@ class DBServiceSingleton:
 
     def try_reinsert_one(self, collection: str, old_obj_query: Dict[str, Any], obj_to_add: Dict[str, Any]) -> None:
         if self.exists():
-            self._db[collection].remove(old_obj_query)
-            self._db[collection].insert_one(obj_to_add)
+            try:
+                self._db[collection].remove(old_obj_query)
+                self._db[collection].insert_one(obj_to_add)
+            except pymongo.errors.DuplicateKeyError:
+                print(f'{obj_to_add} already exists')
 
     def try_delete_one(self, collection: str, query: Dict[str, Any]) -> None:
         if self.exists():
