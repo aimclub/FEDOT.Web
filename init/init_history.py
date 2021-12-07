@@ -3,18 +3,18 @@ import os
 from pathlib import Path
 from typing import Optional, Union
 
-from bson import json_util
-from fedot.core.optimisers.opt_history import OptHistory
-from fedot.core.pipelines.pipeline import Pipeline
-from fedot.core.serializers import json_helpers
-from flask import current_app
-
 from app.api.composer.service import run_composer
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.singletons.db_service import DBServiceSingleton
-from init.init_pipelines import _extract_pipeline_with_fitted_operations
+from bson import json_util
+from fedot.core.optimisers.opt_history import OptHistory
+from fedot.core.pipelines.pipeline import Pipeline
+from fedot.core.serializers import Serializer
+from flask import current_app
 from utils import project_root
+
+from init.init_pipelines import _extract_pipeline_with_fitted_operations
 
 
 def create_default_history(opt_times=None):
@@ -80,7 +80,7 @@ def mockup_history(mock_list):
 def _save_history_to_path(history: OptHistory, path: Path) -> None:
     if not path.parent.exists():
         path.parent.mkdir()
-    path.write_text(json.dumps(history, default=json_helpers.encoder, indent=4))
+    path.write_text(json.dumps(history, cls=Serializer, indent=4))
 
 
 def _init_composer_history_for_case(history_id, task, metric, dataset_name, time,
@@ -93,16 +93,18 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     if external_history is None:
         # run composer in real-time
         history = run_composer(task, metric, dataset_name, time)
-        history_obj = json.dumps(history, default=json_helpers.encoder)
+        history_obj = json.dumps(history, cls=Serializer)
     elif isinstance(external_history, dict):
         # init from dict
         history_obj = external_history
-        history = json.loads(json.dumps(history_obj), object_hook=json_helpers.decoder)
+        history = json.loads(json.dumps(history_obj), cls=Serializer)
     else:
         # load from path
         history_path = Path(external_history)
         history = run_composer(task, metric, dataset_name, time, fitted_history_path=history_path)
-        history_obj = json.dumps(history, default=json_helpers.encoder)
+        print(type(history))
+        history_obj = json.dumps(history, cls=Serializer)
+        print(type(history))
 
     if history_path is None:
         history_path = Path(f'{project_root()}/data/{history_id}/{history_id}_{task}.json')
