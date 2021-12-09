@@ -80,7 +80,7 @@ def mockup_history(mock_list):
 def _save_history_to_path(history: OptHistory, path: Path) -> None:
     if not path.parent.exists():
         path.parent.mkdir()
-    path.write_text(json.dumps(history, cls=Serializer, indent=4))
+    path.write_text(history.dumps(indent=4))
 
 
 def _init_composer_history_for_case(history_id, task, metric, dataset_name, time,
@@ -93,17 +93,17 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     if external_history is None:
         # run composer in real-time
         history = run_composer(task, metric, dataset_name, time)
-        history_obj = json.dumps(history, cls=Serializer)
+        history_obj = history.dumps()
     elif isinstance(external_history, dict):
         # init from dict
         history_obj = external_history
-        history = json.loads(json.dumps(history_obj), cls=Serializer)
+        history = OptHistory.loads(json.dumps(history_obj))
     else:
         # load from path
         history_path = Path(external_history)
         history = run_composer(task, metric, dataset_name, time, fitted_history_path=history_path)
         print(type(history))
-        history_obj = json.dumps(history, cls=Serializer)
+        history_obj = history.dumps()
         print(type(history))
 
     if history_path is None:
