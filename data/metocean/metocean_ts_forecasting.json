@@ -9,10 +9,10 @@
             {
                 "parent_operators": [],
                 "fitness": 6.023117223204807,
-                "computation_time": 0.5673697349999998,
+                "computation_time": 0.7272016419999829,
                 "graph": {
                     "uid": {
-                        "hex": "5a5b88ae962841f3b9f1fc1a1e2a9f63",
+                        "hex": "e6573b4fd21541759cfe56e2b54510ed",
                         "_class_path": "uuid/UUID"
                     },
                     "nodes": [
@@ -54,18 +54,252 @@
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
                     ],
-                    "_serialization_id": "72fdeac629ae4355ad1e161755b8c3c7",
+                    "_serialization_id": "219c3d4de22047b5a55d959585548228",
                     "_class_path": "fedot.core.optimisers.graph/OptGraph"
                 },
                 "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
             },
             {
                 "parent_operators": [],
-                "fitness": 6.228330434394116,
-                "computation_time": 10.44357390399999,
+                "fitness": 6.023117223204807,
+                "computation_time": 0.5963880879999977,
                 "graph": {
                     "uid": {
-                        "hex": "329c1d7aa7164beca1a6781ba4420402",
+                        "hex": "3f98148bc7d64c1f8e9e9bce67e66719",
+                        "_class_path": "uuid/UUID"
+                    },
+                    "nodes": [
+                        {
+                            "nodes_from": [
+                                1
+                            ],
+                            "content": {
+                                "name": "ridge",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "_serialization_id": 0,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                2
+                            ],
+                            "content": {
+                                "name": "lagged",
+                                "params": {
+                                    "window_size": 9.922537368515526
+                                }
+                            },
+                            "rating": null,
+                            "_serialization_id": 1,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": null,
+                            "content": {
+                                "name": "simple_imputation",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "direct_set": false,
+                            "_serialization_id": 2,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        }
+                    ],
+                    "_serialization_id": "fe23f7b3103d4942be1289db94c7b72c",
+                    "_class_path": "fedot.core.optimisers.graph/OptGraph"
+                },
+                "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
+            },
+            {
+                "parent_operators": [],
+                "fitness": 6.023117223204807,
+                "computation_time": 0.12291820600000847,
+                "graph": {
+                    "uid": {
+                        "hex": "8d8e00909872489988b439ef98069dc9",
+                        "_class_path": "uuid/UUID"
+                    },
+                    "nodes": [
+                        {
+                            "nodes_from": [
+                                1
+                            ],
+                            "content": {
+                                "name": "ridge",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "_serialization_id": 0,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                2
+                            ],
+                            "content": {
+                                "name": "lagged",
+                                "params": {
+                                    "window_size": 10
+                                }
+                            },
+                            "rating": null,
+                            "_serialization_id": 1,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": null,
+                            "content": {
+                                "name": "simple_imputation",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "direct_set": false,
+                            "_serialization_id": 2,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        }
+                    ],
+                    "_serialization_id": "fc5851f118f44c5c89058eb13b9b23d8",
+                    "_class_path": "fedot.core.optimisers.graph/OptGraph"
+                },
+                "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
+            },
+            {
+                "parent_operators": [],
+                "fitness": 6.138390124752042,
+                "computation_time": 0.5913190779999979,
+                "graph": {
+                    "uid": {
+                        "hex": "e762ce27100c4895a2d3c75fe9dc75cd",
+                        "_class_path": "uuid/UUID"
+                    },
+                    "nodes": [
+                        {
+                            "nodes_from": [
+                                3
+                            ],
+                            "content": {
+                                "name": "ridge",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "_serialization_id": 0,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                2
+                            ],
+                            "content": {
+                                "name": "lagged",
+                                "params": {
+                                    "window_size": 10
+                                }
+                            },
+                            "rating": null,
+                            "_serialization_id": 1,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": null,
+                            "content": {
+                                "name": "simple_imputation",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "direct_set": false,
+                            "_serialization_id": 2,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                1
+                            ],
+                            "content": {
+                                "name": "scaling",
+                                "params": "default_params"
+                            },
+                            "_serialization_id": 3,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        }
+                    ],
+                    "_serialization_id": "219c3d4de22047b5a55d959585548228",
+                    "_class_path": "fedot.core.optimisers.graph/OptGraph"
+                },
+                "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
+            },
+            {
+                "parent_operators": [],
+                "fitness": 6.171313184515701,
+                "computation_time": 0.36343320199998175,
+                "graph": {
+                    "uid": {
+                        "hex": "707c33ea807d449aa4fae98e8e8769a0",
+                        "_class_path": "uuid/UUID"
+                    },
+                    "nodes": [
+                        {
+                            "nodes_from": [
+                                1
+                            ],
+                            "content": {
+                                "name": "ridge",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "_serialization_id": 0,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                3
+                            ],
+                            "content": {
+                                "name": "lagged",
+                                "params": {
+                                    "window_size": 10
+                                }
+                            },
+                            "rating": null,
+                            "_serialization_id": 1,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": null,
+                            "content": {
+                                "name": "simple_imputation",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "direct_set": false,
+                            "_serialization_id": 2,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                2
+                            ],
+                            "content": {
+                                "name": "cut",
+                                "params": "default_params"
+                            },
+                            "_serialization_id": 3,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        }
+                    ],
+                    "_serialization_id": "219c3d4de22047b5a55d959585548228",
+                    "_class_path": "fedot.core.optimisers.graph/OptGraph"
+                },
+                "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
+            },
+            {
+                "parent_operators": [],
+                "fitness": 5.710153529751485,
+                "computation_time": 10.540771034000016,
+                "graph": {
+                    "uid": {
+                        "hex": "7095dea08fbe4e3dada3f8efe1f0c5f9",
                         "_class_path": "uuid/UUID"
                     },
                     "nodes": [
@@ -145,18 +379,18 @@
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
                     ],
-                    "_serialization_id": "9faa20b8205345f9a1e7d703b7957061",
+                    "_serialization_id": "c96af025c53f4fa496d1a92a703fa544",
                     "_class_path": "fedot.core.optimisers.graph/OptGraph"
                 },
                 "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
             },
             {
                 "parent_operators": [],
-                "fitness": 6.0230387593918255,
-                "computation_time": 0.536520981999999,
+                "fitness": 6.023428103098352,
+                "computation_time": 0.5448172190000093,
                 "graph": {
                     "uid": {
-                        "hex": "ccb129968ee5410286003f43b0fd757d",
+                        "hex": "8aebf3b93e974189a303e9fb360e2a9d",
                         "_class_path": "uuid/UUID"
                     },
                     "nodes": [
@@ -167,7 +401,7 @@
                             "content": {
                                 "name": "ridge",
                                 "params": {
-                                    "alpha": 0.7850031841562973
+                                    "alpha": 1.8518367535845357
                                 }
                             },
                             "rating": null,
@@ -200,7 +434,7 @@
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
                     ],
-                    "_serialization_id": "87d504b534924c99ba7c5f5844b394d0",
+                    "_serialization_id": "971fc19f9a7c49f98a51eb54f5d9b2b8",
                     "_class_path": "fedot.core.optimisers.graph/OptGraph"
                 },
                 "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
@@ -208,10 +442,10 @@
             {
                 "parent_operators": [],
                 "fitness": 6.023117223204807,
-                "computation_time": 0.10827186100000574,
+                "computation_time": 0.11894542499999261,
                 "graph": {
                     "uid": {
-                        "hex": "a1f3f89020464841af00915b5e232ab4",
+                        "hex": "0d9848552e1a4605bd283f419b2d21f4",
                         "_class_path": "uuid/UUID"
                     },
                     "nodes": [
@@ -253,18 +487,18 @@
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
                     ],
-                    "_serialization_id": "ab7ee4fe2de147c2bd1fc398c73d092d",
+                    "_serialization_id": "219c3d4de22047b5a55d959585548228",
                     "_class_path": "fedot.core.optimisers.graph/OptGraph"
                 },
                 "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
             },
             {
                 "parent_operators": [],
-                "fitness": 7.402705586473097,
-                "computation_time": 2.5161221609999984,
+                "fitness": 7.093519812711692,
+                "computation_time": 2.999868139,
                 "graph": {
                     "uid": {
-                        "hex": "3946b83c4fae4403a01cc8ef8617c646",
+                        "hex": "dee7d293839d40959ad9048db477b17e",
                         "_class_path": "uuid/UUID"
                     },
                     "nodes": [
@@ -305,7 +539,7 @@
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
                     ],
-                    "_serialization_id": "ab7ee4fe2de147c2bd1fc398c73d092d",
+                    "_serialization_id": "219c3d4de22047b5a55d959585548228",
                     "_class_path": "fedot.core.optimisers.graph/OptGraph"
                 },
                 "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
@@ -317,10 +551,10 @@
             {
                 "parent_operators": [],
                 "fitness": 6.023117223204807,
-                "computation_time": 0.5673697349999998,
+                "computation_time": 0.7272016419999829,
                 "graph": {
                     "uid": {
-                        "hex": "3890d341c55b4e0f927780f57fa67223",
+                        "hex": "dba97fd27fa44387bb9b490aba642471",
                         "_class_path": "uuid/UUID"
                     },
                     "nodes": [
@@ -362,18 +596,252 @@
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
                     ],
-                    "_serialization_id": "72fdeac629ae4355ad1e161755b8c3c7",
+                    "_serialization_id": "219c3d4de22047b5a55d959585548228",
                     "_class_path": "fedot.core.optimisers.graph/OptGraph"
                 },
                 "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
             },
             {
                 "parent_operators": [],
-                "fitness": 6.228330434394116,
-                "computation_time": 10.44357390399999,
+                "fitness": 6.023117223204807,
+                "computation_time": 0.5963880879999977,
                 "graph": {
                     "uid": {
-                        "hex": "6d840b845b814aaba760e9010a68f69c",
+                        "hex": "65379f9257844b7c88e78f0e43cf657e",
+                        "_class_path": "uuid/UUID"
+                    },
+                    "nodes": [
+                        {
+                            "nodes_from": [
+                                1
+                            ],
+                            "content": {
+                                "name": "ridge",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "_serialization_id": 0,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                2
+                            ],
+                            "content": {
+                                "name": "lagged",
+                                "params": {
+                                    "window_size": 9.922537368515526
+                                }
+                            },
+                            "rating": null,
+                            "_serialization_id": 1,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": null,
+                            "content": {
+                                "name": "simple_imputation",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "direct_set": false,
+                            "_serialization_id": 2,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        }
+                    ],
+                    "_serialization_id": "fe23f7b3103d4942be1289db94c7b72c",
+                    "_class_path": "fedot.core.optimisers.graph/OptGraph"
+                },
+                "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
+            },
+            {
+                "parent_operators": [],
+                "fitness": 6.023117223204807,
+                "computation_time": 0.12291820600000847,
+                "graph": {
+                    "uid": {
+                        "hex": "eb41033c959848d7862b6e76756f4b53",
+                        "_class_path": "uuid/UUID"
+                    },
+                    "nodes": [
+                        {
+                            "nodes_from": [
+                                1
+                            ],
+                            "content": {
+                                "name": "ridge",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "_serialization_id": 0,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                2
+                            ],
+                            "content": {
+                                "name": "lagged",
+                                "params": {
+                                    "window_size": 10
+                                }
+                            },
+                            "rating": null,
+                            "_serialization_id": 1,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": null,
+                            "content": {
+                                "name": "simple_imputation",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "direct_set": false,
+                            "_serialization_id": 2,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        }
+                    ],
+                    "_serialization_id": "fc5851f118f44c5c89058eb13b9b23d8",
+                    "_class_path": "fedot.core.optimisers.graph/OptGraph"
+                },
+                "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
+            },
+            {
+                "parent_operators": [],
+                "fitness": 6.138390124752042,
+                "computation_time": 0.5913190779999979,
+                "graph": {
+                    "uid": {
+                        "hex": "06f643a90bed403081c9e3685220fac4",
+                        "_class_path": "uuid/UUID"
+                    },
+                    "nodes": [
+                        {
+                            "nodes_from": [
+                                3
+                            ],
+                            "content": {
+                                "name": "ridge",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "_serialization_id": 0,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                2
+                            ],
+                            "content": {
+                                "name": "lagged",
+                                "params": {
+                                    "window_size": 10
+                                }
+                            },
+                            "rating": null,
+                            "_serialization_id": 1,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": null,
+                            "content": {
+                                "name": "simple_imputation",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "direct_set": false,
+                            "_serialization_id": 2,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                1
+                            ],
+                            "content": {
+                                "name": "scaling",
+                                "params": "default_params"
+                            },
+                            "_serialization_id": 3,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        }
+                    ],
+                    "_serialization_id": "219c3d4de22047b5a55d959585548228",
+                    "_class_path": "fedot.core.optimisers.graph/OptGraph"
+                },
+                "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
+            },
+            {
+                "parent_operators": [],
+                "fitness": 6.171313184515701,
+                "computation_time": 0.36343320199998175,
+                "graph": {
+                    "uid": {
+                        "hex": "6254397783594eaa8661a4765c732ff2",
+                        "_class_path": "uuid/UUID"
+                    },
+                    "nodes": [
+                        {
+                            "nodes_from": [
+                                1
+                            ],
+                            "content": {
+                                "name": "ridge",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "_serialization_id": 0,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                3
+                            ],
+                            "content": {
+                                "name": "lagged",
+                                "params": {
+                                    "window_size": 10
+                                }
+                            },
+                            "rating": null,
+                            "_serialization_id": 1,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": null,
+                            "content": {
+                                "name": "simple_imputation",
+                                "params": "default_params"
+                            },
+                            "rating": null,
+                            "direct_set": false,
+                            "_serialization_id": 2,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        },
+                        {
+                            "nodes_from": [
+                                2
+                            ],
+                            "content": {
+                                "name": "cut",
+                                "params": "default_params"
+                            },
+                            "_serialization_id": 3,
+                            "_class_path": "fedot.core.optimisers.graph/OptNode"
+                        }
+                    ],
+                    "_serialization_id": "219c3d4de22047b5a55d959585548228",
+                    "_class_path": "fedot.core.optimisers.graph/OptGraph"
+                },
+                "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
+            },
+            {
+                "parent_operators": [],
+                "fitness": 5.710153529751485,
+                "computation_time": 10.540771034000016,
+                "graph": {
+                    "uid": {
+                        "hex": "180476d4fbd3405d97af4983fc2d908a",
                         "_class_path": "uuid/UUID"
                     },
                     "nodes": [
@@ -453,18 +921,18 @@
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
                     ],
-                    "_serialization_id": "9faa20b8205345f9a1e7d703b7957061",
+                    "_serialization_id": "c96af025c53f4fa496d1a92a703fa544",
                     "_class_path": "fedot.core.optimisers.graph/OptGraph"
                 },
                 "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
             },
             {
                 "parent_operators": [],
-                "fitness": 6.0230387593918255,
-                "computation_time": 0.536520981999999,
+                "fitness": 6.023428103098352,
+                "computation_time": 0.5448172190000093,
                 "graph": {
                     "uid": {
-                        "hex": "ebdd7b371f1547878a959747b6e6d2e4",
+                        "hex": "a643780d4f6743b09c44dddcab2a9677",
                         "_class_path": "uuid/UUID"
                     },
                     "nodes": [
@@ -475,7 +943,7 @@
                             "content": {
                                 "name": "ridge",
                                 "params": {
-                                    "alpha": 0.7850031841562973
+                                    "alpha": 1.8518367535845357
                                 }
                             },
                             "rating": null,
@@ -508,7 +976,7 @@
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
                     ],
-                    "_serialization_id": "87d504b534924c99ba7c5f5844b394d0",
+                    "_serialization_id": "971fc19f9a7c49f98a51eb54f5d9b2b8",
                     "_class_path": "fedot.core.optimisers.graph/OptGraph"
                 },
                 "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
@@ -516,10 +984,10 @@
             {
                 "parent_operators": [],
                 "fitness": 6.023117223204807,
-                "computation_time": 0.10827186100000574,
+                "computation_time": 0.11894542499999261,
                 "graph": {
                     "uid": {
-                        "hex": "cff58b1e9dde4396988d4af4c45f1f90",
+                        "hex": "4dcae8bfddfd460ea90c744b9a126b90",
                         "_class_path": "uuid/UUID"
                     },
                     "nodes": [
@@ -561,18 +1029,18 @@
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
                     ],
-                    "_serialization_id": "ab7ee4fe2de147c2bd1fc398c73d092d",
+                    "_serialization_id": "219c3d4de22047b5a55d959585548228",
                     "_class_path": "fedot.core.optimisers.graph/OptGraph"
                 },
                 "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
             },
             {
                 "parent_operators": [],
-                "fitness": 7.402705586473097,
-                "computation_time": 2.5161221609999984,
+                "fitness": 7.093519812711692,
+                "computation_time": 2.999868139,
                 "graph": {
                     "uid": {
-                        "hex": "05f86962abe04b70b1f6c622f349318d",
+                        "hex": "b12950140543446fb4f95f1c64cfccb5",
                         "_class_path": "uuid/UUID"
                     },
                     "nodes": [
@@ -613,13 +1081,13 @@
                             "_class_path": "fedot.core.optimisers.graph/OptNode"
                         }
                     ],
-                    "_serialization_id": "ab7ee4fe2de147c2bd1fc398c73d092d",
+                    "_serialization_id": "219c3d4de22047b5a55d959585548228",
                     "_class_path": "fedot.core.optimisers.graph/OptGraph"
                 },
                 "_class_path": "fedot.core.optimisers.gp_comp.individual/Individual"
             }
         ]
     ],
-    "save_folder": "composing_history_1639751230.497572",
+    "save_folder": "composing_history_1639978363.886946",
     "_class_path": "fedot.core.optimisers.opt_history/OptHistory"
 }
