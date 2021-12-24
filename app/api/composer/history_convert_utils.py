@@ -112,7 +112,7 @@ def _create_edges(all_nodes):
             if node['gen_id'] > 0:
                 # same inds from prev generation
                 parent_ind = [n for n in all_nodes if n['type'] == 'individual'
-                              and n['tmp_pipeline_uid'] == node['tmp_pipeline_uid'] and
+                              and n['pipeline_id'] in node['parent_ids'] and
                               n['gen_id'] == node['gen_id'] - 1]
 
                 if len(parent_ind) > 0:
@@ -162,16 +162,11 @@ def _init_operator_dict(ind, operator, o_id, gen_id):
     operator_node['next_gen_id'] = gen_id
     operator_node['operator_id'] = o_id
     operator_node['type'] = 'evo_operator'
-    operator_node['name'] = operator.operator_type,
+    operator_node['name'] = operator.operator_type
     operator_node['full_name'] = operator.operator_name
 
     # temporary fields
-    try:
-        # for pipeline
-        operator_node['tmp_parent_pipelines'] = [c.uid for c in operator.parent_objects]
-    except AttributeError:
-        # for pipeline template
-        operator_node['tmp_parent_pipelines'] = [c.unique_pipeline_id for c in operator.parent_objects]
+    operator_node['tmp_parent_pipelines'] = [c.graph.uid for c in operator.parent_objects]
 
     operator_node['tmp_next_pipeline'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
     return operator_node
@@ -186,6 +181,11 @@ def _init_pipeline_dict(ind, objs, uid, pipeline_id, gen_id, ind_id):
     pipeline['pipeline_id'] = pipeline_id
     pipeline['objs'] = objs
     pipeline['tmp_pipeline_uid'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
+    pipeline['parent_ids'] = [
+        op_obj.graph.uid
+        for po in ind.parent_operators
+        for op_obj in po.parent_objects
+    ]
     return pipeline
 
 
