@@ -28,7 +28,7 @@ def test_new_case_with_new_data(client):
 
     history = run_composer('classification', 'roc_auc', dataset_name='new_dataset', time=0.01)
 
-    history_json = history.dumps()
+    history_json = history.save()
 
     new_case = {
         'case': {

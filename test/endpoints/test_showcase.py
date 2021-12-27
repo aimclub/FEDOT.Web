@@ -24,7 +24,7 @@ def test_get_showcase_endpoint(client):
 def test_add_case_endpoint(client):
     history = run_composer('classification', 'roc_auc', dataset_name='scoring', time=0.01)
 
-    history_json = history.dumps()
+    history_json = history.save()
 
     existing_ids = all_showcase_items_ids(with_custom=True)
     assert 'new_case' not in existing_ids

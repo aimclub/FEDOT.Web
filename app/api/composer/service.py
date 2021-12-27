@@ -45,10 +45,10 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
         history = run_composer(task, metric, dataset_name, time=1.0)
         _save_to_db(case_id, history)
     elif current_app.config['CONFIG_NAME'] == 'test':
-        history = OptHistory.loads(saved_history['history_json'])
+        history = OptHistory.load(saved_history['history_json'])
     else:
         print('start_des', datetime.datetime.now())
-        history = OptHistory.loads(saved_history)
+        history = OptHistory.load(saved_history)
         print('end_des', datetime.datetime.now())
 
     data = get_input_data(dataset_name=dataset_name, sample_type='train', task_type=task)
@@ -76,7 +76,7 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
 def _save_to_db(history_id: str, history: OptHistory) -> None:
     history_obj = {
         'history_id': history_id,
-        'history_json': history.dumps()
+        'history_json': history.save()
     }
     DBServiceSingleton().try_reinsert_one('history', {'history_id': history_id}, history_obj)
 
@@ -86,7 +86,7 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
     checked_hist_path = Path(fitted_history_path) if fitted_history_path is not None else None
     if checked_hist_path is not None:
         if checked_hist_path.exists():
-            return OptHistory.loads(checked_hist_path.read_text())
+            return OptHistory.load(checked_hist_path.read_text())
         print(f'history_path={checked_hist_path} doesn\'t exist, trying to fit history from FEDOT', file=sys.stderr)
     pop_size = 10
     num_of_generations = 5

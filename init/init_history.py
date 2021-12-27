@@ -52,9 +52,11 @@ def create_default_history(opt_times=None):
 
 def mockup_history(mock_list):
     if len(mock_list) > 0:
-        history = [i['history'] for i in mock_list]
+        histories = [i['history'] for i in mock_list]
         with open(os.path.join(project_root(), 'test/fixtures/history.json'), 'w') as f:
-            f.write(json_util.dumps(history))
+            for history in histories:
+                history['history_json'] = json_util.loads(history['history_json'])
+            f.write(json_util.dumps(histories, indent=4))
             print('history are mocked')
 
         pipelines = [j for i in mock_list for j in i['pipelines_dict']]
@@ -64,7 +66,7 @@ def mockup_history(mock_list):
                 data = json_util.loads(f.read())
                 data.extend(pipelines)
                 f.seek(0)
-                f.write(json_util.dumps(data))
+                f.write(json_util.dumps(data, indent=4))
                 print('history pipelines are mocked')
 
         dicts_fitted_operations = [j for i in mock_list for j in i['dicts_fitted_operations']]
@@ -73,14 +75,14 @@ def mockup_history(mock_list):
                 data = json_util.loads(f.read())
                 data.extend(dicts_fitted_operations)
                 f.seek(0)
-                f.write(json_util.dumps(data))
+                f.write(json_util.dumps(data, indent=4))
                 print('history dict_fitted_operations are mocked')
 
 
 def _save_history_to_path(history: OptHistory, path: Path) -> None:
     if not path.parent.exists():
         path.parent.mkdir()
-    path.write_text(history.dumps(indent=4))
+    path.write_text(history.save())
 
 
 def _init_composer_history_for_case(history_id, task, metric, dataset_name, time,
@@ -93,17 +95,17 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     if external_history is None:
         # run composer in real-time
         history = run_composer(task, metric, dataset_name, time)
-        history_obj = history.dumps()
+        history_obj = history.save()
     elif isinstance(external_history, dict):
         # init from dict
         history_obj = external_history
-        history = OptHistory.loads(json.dumps(history_obj))
+        history = OptHistory.load(json.dumps(history_obj))
     else:
         # load from path
         history_path = Path(external_history)
         history = run_composer(task, metric, dataset_name, time, fitted_history_path=history_path)
         print(type(history))
-        history_obj = history.dumps()
+        history_obj = history.save()
         print(type(history))
 
     if history_path is None:
