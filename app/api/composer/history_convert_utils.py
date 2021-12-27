@@ -111,12 +111,12 @@ def _create_edges(all_nodes):
         if node['type'] == 'individual':
             if node['gen_id'] > 0:
                 # same inds from prev generation
-                parent_ind = [n for n in all_nodes if n['type'] == 'individual'
-                              and n['tmp_pipeline_uid'] == node['tmp_pipeline_uid'] and
-                              n['gen_id'] == node['gen_id'] - 1]
+                parent_ind = next((n for n in all_nodes if n['type'] == 'individual'
+                                   and n['tmp_pipeline_uid'] == node['tmp_pipeline_uid'] and
+                                   n['gen_id'] == node['gen_id'] - 1), None)
 
-                if len(parent_ind) > 0:
-                    edges = _add_edge(edges, parent_ind[0]['uid'], node['uid'])
+                if parent_ind is not None:
+                    edges = _add_edge(edges, parent_ind['uid'], node['uid'])
 
         elif node['type'] == 'evo_operator':
             # from pipeline to operator
@@ -124,9 +124,8 @@ def _create_edges(all_nodes):
             prev_pipelines = [n for n in all_nodes if n['type'] == 'individual'
                               and n['pipeline_id'] in operator_node['tmp_parent_pipelines']
                               and n['gen_id'] == operator_node['prev_gen_id']]
-            if len(prev_pipelines) > 0:
-                for prev_pipeline in prev_pipelines:
-                    edges = _add_edge(edges, prev_pipeline['uid'], operator_node['uid'])
+            for prev_pipeline in prev_pipelines:
+                edges = _add_edge(edges, prev_pipeline['uid'], operator_node['uid'])
 
             if 'parent_operator' in operator_node:
                 parent_operator = [n for n in all_nodes if n['type'] == 'evo_operator'
@@ -134,12 +133,12 @@ def _create_edges(all_nodes):
                 edges = _add_edge(edges, parent_operator['uid'], operator_node['uid'])
 
             # from operator to pipeline
-            next_pipelines = [n for n in all_nodes if n['type'] == 'individual'
-                              and n['pipeline_id'] == operator_node['tmp_next_pipeline_id']
-                              and n['gen_id'] == operator_node['next_gen_id']]
+            next_pipeline = next((n for n in all_nodes if n['type'] == 'individual'
+                                  and n['pipeline_id'] == operator_node['tmp_next_pipeline_id']
+                                  and n['gen_id'] == operator_node['next_gen_id']), None)
 
-            if len(next_pipelines) > 0:
-                edges = _add_edge(edges, operator_node['uid'], next_pipelines[0]['uid'])
+            if next_pipeline is not None:
+                edges = _add_edge(edges, operator_node['uid'], next_pipeline['uid'])
 
     return all_nodes, edges
 
