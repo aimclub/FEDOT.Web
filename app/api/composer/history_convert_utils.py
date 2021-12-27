@@ -112,7 +112,7 @@ def _create_edges(all_nodes):
             if node['gen_id'] > 0:
                 # same inds from prev generation
                 parent_ind = next((n for n in all_nodes if n['type'] == 'individual'
-                                   and n['tmp_pipeline_uid'] == node['tmp_pipeline_uid'] and
+                                   and n['pipeline_id'] == node['pipeline_id'] and
                                    n['gen_id'] == node['gen_id'] - 1), None)
 
                 if parent_ind is not None:
@@ -181,11 +181,6 @@ def _init_pipeline_dict(ind, objs, uid, pipeline_id, gen_id, ind_id):
     pipeline['pipeline_id'] = pipeline_id
     pipeline['objs'] = objs
     pipeline['tmp_pipeline_uid'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
-    pipeline['parent_ids'] = [
-        op_obj.graph.uid
-        for po in ind.parent_operators
-        for op_obj in po.parent_objects
-    ]
     return pipeline
 
 
