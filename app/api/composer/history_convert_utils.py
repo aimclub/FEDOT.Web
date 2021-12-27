@@ -112,7 +112,7 @@ def _create_edges(all_nodes):
             if node['gen_id'] > 0:
                 # same inds from prev generation
                 parent_ind = [n for n in all_nodes if n['type'] == 'individual'
-                              and n['pipeline_id'] in node['parent_ids'] and
+                              and n['tmp_pipeline_uid'] == node['tmp_pipeline_uid'] and
                               n['gen_id'] == node['gen_id'] - 1]
 
                 if len(parent_ind) > 0:
@@ -122,7 +122,7 @@ def _create_edges(all_nodes):
             # from pipeline to operator
             operator_node = node
             prev_pipelines = [n for n in all_nodes if n['type'] == 'individual'
-                              and n['tmp_pipeline_uid'] in operator_node['tmp_parent_pipelines']
+                              and n['pipeline_id'] in operator_node['tmp_parent_pipelines']
                               and n['gen_id'] == operator_node['prev_gen_id']]
             if len(prev_pipelines) > 0:
                 for prev_pipeline in prev_pipelines:
@@ -135,8 +135,8 @@ def _create_edges(all_nodes):
 
             # from operator to pipeline
             next_pipelines = [n for n in all_nodes if n['type'] == 'individual'
-                              and n['tmp_pipeline_uid'] == operator_node['tmp_next_pipeline']
-                              and (n['gen_id'] == operator_node['next_gen_id'])]
+                              and n['pipeline_id'] == operator_node['tmp_next_pipeline_id']
+                              and n['gen_id'] == operator_node['next_gen_id']]
 
             if len(next_pipelines) > 0:
                 edges = _add_edge(edges, operator_node['uid'], next_pipelines[0]['uid'])
@@ -169,6 +169,7 @@ def _init_operator_dict(ind, operator, o_id, gen_id):
     operator_node['tmp_parent_pipelines'] = [c.graph.uid for c in operator.parent_objects]
 
     operator_node['tmp_next_pipeline'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
+    operator_node['tmp_next_pipeline_id'] = ind.graph.uid
     return operator_node
 
 
