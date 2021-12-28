@@ -57,6 +57,8 @@ def mockup_history(mock_list):
             for history in histories:
                 history['history_json'] = json_util.loads(history['history_json'])
             f.write(json_util.dumps(histories, indent=4))
+            for history in histories:
+                history['history_json'] = json_util.dumps(history['history_json'])
             print('history are mocked')
 
         pipelines = [j for i in mock_list for j in i['pipelines_dict']]
@@ -104,9 +106,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
         # load from path
         history_path = Path(external_history)
         history = run_composer(task, metric, dataset_name, time, fitted_history_path=history_path)
-        print(type(history))
         history_obj = history.save()
-        print(type(history))
 
     if history_path is None:
         history_path = Path(f'{project_root()}/data/{history_id}/{history_id}_{task}.json')
