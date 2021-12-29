@@ -57,8 +57,6 @@ def mockup_history(mock_list):
             for history in histories:
                 history['history_json'] = json_util.loads(history['history_json'])
             f.write(json_util.dumps(histories, indent=4))
-            for history in histories:
-                history['history_json'] = json_util.dumps(history['history_json'])
             print('history are mocked')
 
         pipelines = [j for i in mock_list for j in i['pipelines_dict']]

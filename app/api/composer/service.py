@@ -32,21 +32,19 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
 
     db_service = DBServiceSingleton()
     if current_app.config['CONFIG_NAME'] == 'test':
-        saved_history = db_service.try_find_one('history', {'history_id': case_id})
+        saved_history = db_service.try_find_one('history', {'history_id': case_id})['history_json']
     else:
         file = db_service.try_find_one_file({'filename': case_id, 'type': 'history'})
         if file is not None:
             saved_history = json_util.loads(file.read())
-            if not isinstance(saved_history, str):
-                saved_history = json.dumps(saved_history)
+    if not isinstance(saved_history, str):
+        saved_history = json.dumps(saved_history)
 
     history: OptHistory
     if not saved_history:
         history = run_composer(task, metric, dataset_name, time=1.0)
         _save_to_db(case_id, history)
     elif current_app.config['CONFIG_NAME'] == 'test':
-        history = OptHistory.load(saved_history['history_json'])
-    else:
         print('start_des', datetime.datetime.now())
         history = OptHistory.load(saved_history)
         print('end_des', datetime.datetime.now())
