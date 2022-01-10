@@ -1,4 +1,4 @@
-https://github.com/nccr-itmo/FEDOT/archive/master.zip
+https://github.com/nccr-itmo/FEDOT/archive/hotfix-serialization.zip
 flask-socketio==5.0.1
 Flask==1.1.1
 flask-accepts==0.10.0
