@@ -98,10 +98,10 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
 
     if task == 'ts_forecasting':
         task_parameters = TsForecastingParams(forecast_length=30)
-        preset = 'ts_steady_state'
+        preset = 'ts_stable'
     else:
         task_parameters = None
-        preset = 'light_steady_state'
+        preset = 'best_quality_stable'
 
     auto_model = Fedot(problem=task, seed=42, preset=preset, verbose_level=4,
                        timeout=learning_time,
