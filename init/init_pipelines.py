@@ -20,27 +20,15 @@ def create_default_pipelines():
 
     mock_list.append(
         _create_custom_pipeline('best_scoring_pipeline', 'scoring', pipeline_mock('class'), 'classification'))
-    pipeline_1 = Pipeline(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
-                                                                           nodes_from=[PrimaryNode('scaling')]),
-                                                             PrimaryNode('knn')]))
-    mock_list.append(_create_custom_pipeline('scoring_pipeline_1', 'scoring', pipeline_1, 'classification'))
 
-    pipeline_2 = Pipeline(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
-                                                                           nodes_from=[PrimaryNode('scaling')]),
-                                                             SecondaryNode('knn',
-                                                                           nodes_from=[PrimaryNode('scaling')])]))
-    mock_list.append(_create_custom_pipeline('scoring_pipeline_2', 'scoring', pipeline_2, 'classification'))
     mock_list.append(_create_custom_pipeline('scoring_baseline', 'scoring', get_baseline('class'), 'classification'))
 
     ######
 
-    mock_list.append(
-        _create_custom_pipeline('best_metocean_pipeline', 'metocean', pipeline_mock('ts'), 'ts_forecasting'))
     mock_list.append(_create_custom_pipeline('metocean_baseline', 'metocean', get_baseline('ts'), 'ts_forecasting'))
 
     #######
 
-    mock_list.append(_create_custom_pipeline('best_oil_pipeline', 'oil', pipeline_mock('regr'), 'regression'))
     mock_list.append(_create_custom_pipeline('oil_baseline', 'oil', get_baseline('regr'), 'regression'))
 
     if not db_service.exists():

@@ -7,4 +7,4 @@ if __name__ == "__main__":
     DBServiceSingleton()
     create_default_cases()
     create_default_pipelines()
-    create_default_history(opt_times=[1, 0.25, 0.25])
+    create_default_history(opt_times=None)

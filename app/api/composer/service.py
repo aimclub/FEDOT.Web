@@ -5,17 +5,17 @@ from os import PathLike
 from pathlib import Path
 from typing import Optional
 
-from app.api.data.service import get_input_data
-from app.api.pipelines.service import create_pipeline, is_pipeline_exists
-from app.api.showcase.showcase_utils import showcase_item_from_db
-from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.api.main import Fedot
 from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.repository.tasks import TsForecastingParams
-from fedot.core.serializers import Serializer
 from flask import current_app
+
+from app.api.data.service import get_input_data
+from app.api.pipelines.service import create_pipeline, is_pipeline_exists
+from app.api.showcase.showcase_utils import showcase_item_from_db
+from app.singletons.db_service import DBServiceSingleton
 from utils import project_root
 
 
@@ -94,14 +94,24 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
                        'pop_size': pop_size,
                        'num_of_generations': num_of_generations,
                        'max_arity': 3,
-                       'max_depth': 5}
+                       'max_depth': 5,
+                       'with_tuning': True}
+
+    if time is None:  # test mode
+        composer_params = {'composer_metric': metric,
+                           'pop_size': 3,
+                           'num_of_generations': 2,
+                           'max_arity': 2,
+                           'max_depth': 2,
+                           'with_tuning': False}
+        learning_time = 1
 
     if task == 'ts_forecasting':
         task_parameters = TsForecastingParams(forecast_length=30)
-        preset = 'ts_stable'
     else:
         task_parameters = None
-        preset = 'best_quality_stable'
+
+    preset = 'fast_train'
 
     auto_model = Fedot(problem=task, seed=42, preset=preset, verbose_level=4,
                        timeout=learning_time,

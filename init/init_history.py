@@ -3,23 +3,23 @@ import os
 from pathlib import Path
 from typing import Optional, Union
 
+from bson import json_util
+from fedot.core.optimisers.opt_history import OptHistory
+from fedot.core.pipelines.pipeline import Pipeline
+from fedot.preprocessing.structure import PipelineStructureExplorer
+from flask import current_app
+
 from app.api.composer.service import run_composer
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.singletons.db_service import DBServiceSingleton
-from bson import json_util
-from fedot.core.optimisers.opt_history import OptHistory
-from fedot.core.pipelines.pipeline import Pipeline
-from fedot.core.serializers import Serializer
-from flask import current_app
-from utils import project_root
-
 from init.init_pipelines import _extract_pipeline_with_fitted_operations
+from utils import project_root
 
 
 def create_default_history(opt_times=None):
     if opt_times is None:
-        opt_times = [2, 1, 1]
+        opt_times = [None, None, None]
 
     cases = [
         {
@@ -151,6 +151,8 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
                 pipeline = Pipeline()
                 pipeline_template.convert_to_pipeline(pipeline)
                 pipeline.fit(data)
+                # workaround to reduce size
+                pipeline.preprocessor.structure_analysis = PipelineStructureExplorer()
                 if db_service.exists():
                     create_pipeline(uid=pipeline_uid, pipeline=pipeline, overwrite=True)
                 else:

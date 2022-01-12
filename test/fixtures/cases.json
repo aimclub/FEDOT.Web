@@ -1,36 +1,38 @@
 [
   {
-	"case_id": "scoring",
-	"title": "Credit scoring case",
-	"icon_path": "scoring_icon.png",
-	"description": "The purpose of credit scoring is to assess and possibly reduce the risk of a bank associated with lending clients. Risk minimization happens due to dividing potential borrowers into creditworthy and non-creditworthy borrowers.  Behavioural scoring involves an assessment of creditworthiness based on information about the borrower, characterizing his behaviour and habits and obtained from various sources.",
-	"pipeline_id": "best_scoring_pipeline",
-	"metadata": {
-	  "$binary": "gASVfgAAAAAAAACMF2FwcC5hcGkuc2hvd2Nhc2UubW9kZWxzlIwITWV0YWRhdGGUk5QpgZR9lCiMCXRhc2tfbmFtZZSMDmNsYXNzaWZpY2F0aW9ulIwLbWV0cmljX25hbWWUjAdyb2NfYXVjlIwMZGF0YXNldF9uYW1llIwHc2NvcmluZ5R1Yi4=",
-	  "$type": "00"
-	},
-	"details": {}
-  }, {
-  "case_id": "metocean",
-  "title": "Metocean forecasting case",
-  "icon_path": "metocean_icon.png",
-  "description": "Time series processing is widely used in engineering and scientific tasks. One of the most common cases with time series is forecasting, when we try to predict values in the future based on historical data. In this application example, we will demonstrate the capabilities of the FEDOT framework in time series forecasting",
-  "pipeline_id": "best_metocean_pipeline",
-  "metadata": {
-	"$binary": "gASVfAAAAAAAAACMF2FwcC5hcGkuc2hvd2Nhc2UubW9kZWxzlIwITWV0YWRhdGGUk5QpgZR9lCiMCXRhc2tfbmFtZZSMDnRzX2ZvcmVjYXN0aW5nlIwLbWV0cmljX25hbWWUjARybXNllIwMZGF0YXNldF9uYW1llIwIbWV0b2NlYW6UdWIu",
-	"$type": "00"
+    "case_id": "scoring",
+    "title": "Credit scoring case",
+    "icon_path": "scoring_icon.png",
+    "description": "The purpose of credit scoring is to assess and possibly reduce the risk of a bank associated with lending clients. Risk minimization happens due to dividing potential borrowers into creditworthy and non-creditworthy borrowers.  Behavioural scoring involves an assessment of creditworthiness based on information about the borrower, characterizing his behaviour and habits and obtained from various sources.",
+    "pipeline_id": "best_scoring_pipeline",
+    "metadata": {
+      "$binary": "gASVfgAAAAAAAACMF2FwcC5hcGkuc2hvd2Nhc2UubW9kZWxzlIwITWV0YWRhdGGUk5QpgZR9lCiMCXRhc2tfbmFtZZSMDmNsYXNzaWZpY2F0aW9ulIwLbWV0cmljX25hbWWUjAdyb2NfYXVjlIwMZGF0YXNldF9uYW1llIwHc2NvcmluZ5R1Yi4=",
+      "$type": "00"
+    },
+    "details": {}
   },
-  "details": {}
-}, {
-  "case_id": "oil",
-  "title": "Oil production prediction",
-  "icon_path": "oil_icon.png",
-  "description": "The purpose of the experiment was to determine in which case the regression will more correctly model oil production -sklearn library models or an auto-ml model automatically selected. In order to conduct an experiment using theframework, we took 13 models to compare the results obtained by each of the models and the optimal version built by AutoML.",
-  "pipeline_id": "best_oil_pipeline",
-  "metadata": {
-	"$binary": "gASVcwAAAAAAAACMF2FwcC5hcGkuc2hvd2Nhc2UubW9kZWxzlIwITWV0YWRhdGGUk5QpgZR9lCiMCXRhc2tfbmFtZZSMCnJlZ3Jlc3Npb26UjAttZXRyaWNfbmFtZZSMBHJtc2WUjAxkYXRhc2V0X25hbWWUjANvaWyUdWIu",
-	"$type": "00"
+  {
+    "case_id": "metocean",
+    "title": "Metocean forecasting case",
+    "icon_path": "metocean_icon.png",
+    "description": "Time series processing is widely used in engineering and scientific tasks. One of the most common cases with time series is forecasting, when we try to predict values in the future based on historical data. In this application example, we will demonstrate the capabilities of the FEDOT framework in time series forecasting",
+    "pipeline_id": "best_metocean_pipeline",
+    "metadata": {
+      "$binary": "gASVfAAAAAAAAACMF2FwcC5hcGkuc2hvd2Nhc2UubW9kZWxzlIwITWV0YWRhdGGUk5QpgZR9lCiMCXRhc2tfbmFtZZSMDnRzX2ZvcmVjYXN0aW5nlIwLbWV0cmljX25hbWWUjARybXNllIwMZGF0YXNldF9uYW1llIwIbWV0b2NlYW6UdWIu",
+      "$type": "00"
+    },
+    "details": {}
   },
-  "details": {}
-}
+  {
+    "case_id": "oil",
+    "title": "Oil production prediction",
+    "icon_path": "oil_icon.png",
+    "description": "The purpose of the experiment was to determine in which case the regression will more correctly model oil production -sklearn library models or an auto-ml model automatically selected. In order to conduct an experiment using theframework, we took 13 models to compare the results obtained by each of the models and the optimal version built by AutoML.",
+    "pipeline_id": "best_oil_pipeline",
+    "metadata": {
+      "$binary": "gASVcwAAAAAAAACMF2FwcC5hcGkuc2hvd2Nhc2UubW9kZWxzlIwITWV0YWRhdGGUk5QpgZR9lCiMCXRhc2tfbmFtZZSMCnJlZ3Jlc3Npb26UjAttZXRyaWNfbmFtZZSMBHJtc2WUjAxkYXRhc2V0X25hbWWUjANvaWyUdWIu",
+      "$type": "00"
+    },
+    "details": {}
+  }
 ]
