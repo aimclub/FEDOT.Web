@@ -2,13 +2,12 @@ import json
 import os
 
 import bson
-from bson import json_util
-from fedot.core.pipelines.node import PrimaryNode, SecondaryNode
-from fedot.core.pipelines.pipeline import Pipeline
-
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import _add_pipeline_to_db
 from app.singletons.db_service import DBServiceSingleton
+from bson import json_util
+from fedot.core.pipelines.node import PrimaryNode, SecondaryNode
+from fedot.core.pipelines.pipeline import Pipeline
 from utils import project_root
 
 
@@ -53,7 +52,8 @@ def _create_custom_pipeline(pipeline_id: str, case_id: str, pipeline: Pipeline, 
     data = get_input_data(dataset_name=case_id, sample_type='train', task_type=task_type)
     db_service = DBServiceSingleton()
     if not db_service.exists():
-        data = data.subset_range(0, 500)
+        data = data.subset_range(0, 50)
+    # print(data, [x for x in dir(data) if not x.startswith('_') or not x.endswith('_')])
     pipeline.fit(data)
     pipeline_dict, dict_fitted_operations = _extract_pipeline_with_fitted_operations(pipeline, uid)
     pipeline_dict['_id'] = uid
