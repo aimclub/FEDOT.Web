@@ -1,18 +1,18 @@
-import React, { FC, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
 import { IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import FormatColorResetIcon from "@material-ui/icons/FormatColorReset";
-
-import styles from "./HistoryGraph.module.scss";
-
+import React, { FC, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { IHistoryNodeIndividual } from "../../../API/composer/composerInterface";
 import AppLoader from "../../../components/UI/loaders/AppLoader";
 import CustomTooltip from "../../../components/UI/tooltip/CustomTooltip";
 import { openHistoryModal } from "../../../redux/history/history-actions";
 import { StateType } from "../../../redux/store";
 import { runHistory } from "../../../utils/historyGraphGenerator";
+import styles from "./HistoryGraph.module.scss";
+
+
+
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -61,7 +61,7 @@ const HistoryGraph: FC = () => {
   };
 
   useEffect(() => {
-    if (isLoadingHistory || !history || history.edges.length === 0) return;
+    if (isLoadingHistory || !history) return;
 
     const handlePipelineClick = (value: IHistoryNodeIndividual) => {
       let arr: string[] = [value.uid];
