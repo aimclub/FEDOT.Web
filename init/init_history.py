@@ -3,18 +3,18 @@ import os
 from pathlib import Path
 from typing import Optional, Union
 
+from app.api.composer.service import run_composer
+from app.api.data.service import get_input_data
+from app.api.pipelines.service import create_pipeline, is_pipeline_exists
+from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.core.optimisers.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.preprocessing.structure import PipelineStructureExplorer
 from flask import current_app
-
-from app.api.composer.service import run_composer
-from app.api.data.service import get_input_data
-from app.api.pipelines.service import create_pipeline, is_pipeline_exists
-from app.singletons.db_service import DBServiceSingleton
-from init.init_pipelines import _extract_pipeline_with_fitted_operations
 from utils import project_root
+
+from init.init_pipelines import _extract_pipeline_with_fitted_operations
 
 
 def create_default_history(opt_times=None):
@@ -94,7 +94,9 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
 
     if external_history is None:
         # run composer in real-time
-        history = run_composer(task, metric, dataset_name, time)
+        history = run_composer(
+            task, metric, dataset_name, time, Path(project_root(), 'data', history_id, f'{history_id}_{task}.json')
+        )
         history_obj = history.save()
     elif isinstance(external_history, dict):
         # init from dict
