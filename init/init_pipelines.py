@@ -15,20 +15,26 @@ def create_default_pipelines():
     db_service = DBServiceSingleton()
     db_service.try_create_collection('pipelines', '_id')
 
-    mock_list = []
+    cases = [
+        {
+            'pipeline_id': 'best_scoring_pipeline', 'case_id': 'scoring',
+            'pipeline': pipeline_mock('class'), 'task_type': 'classification'
+        },
+        {
+            'pipeline_id': 'scoring_baseline', 'case_id': 'scoring',
+            'pipeline': get_baseline('class'), 'task_type': 'classification'
+        },
+        {
+            'pipeline_id': 'metocean_baseline', 'case_id': 'metocean',
+            'pipeline': get_baseline('ts'), 'task_type': 'ts_forecasting'
+        },
+        {
+            'pipeline_id': 'oil_baseline', 'case_id': 'oil',
+            'pipeline': get_baseline('regr'), 'task_type': 'regression'
+        }
+    ]
 
-    mock_list.append(
-        _create_custom_pipeline('best_scoring_pipeline', 'scoring', pipeline_mock('class'), 'classification'))
-
-    mock_list.append(_create_custom_pipeline('scoring_baseline', 'scoring', get_baseline('class'), 'classification'))
-
-    ######
-
-    mock_list.append(_create_custom_pipeline('metocean_baseline', 'metocean', get_baseline('ts'), 'ts_forecasting'))
-
-    #######
-
-    mock_list.append(_create_custom_pipeline('oil_baseline', 'oil', get_baseline('regr'), 'regression'))
+    mock_list = [_create_custom_pipeline(**case) for case in cases]
 
     if not db_service.exists():
         mockup_pipelines(mock_list)
@@ -53,7 +59,6 @@ def _create_custom_pipeline(pipeline_id: str, case_id: str, pipeline: Pipeline, 
     db_service = DBServiceSingleton()
     if not db_service.exists():
         data = data.subset_range(0, 50)
-    # print(data, [x for x in dir(data) if not x.startswith('_') or not x.endswith('_')])
     pipeline.fit(data)
     pipeline_dict, dict_fitted_operations = _extract_pipeline_with_fitted_operations(pipeline, uid)
     pipeline_dict['_id'] = uid
