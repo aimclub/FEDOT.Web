@@ -61,10 +61,7 @@ def get_input_data(dataset_name: str, sample_type: str,
 
         task = Task(task_type_from_id(task_type), task_params) if task_type is not None else None
 
-        if current_app and current_app.config['CONFIG_NAME'] == 'test':
-            file_path = Path(project_root(), 'test', 'data', data_path)
-        else:
-            file_path = Path(project_root(), 'data', data_path)
+        file_path = Path(project_root(), 'data', data_path)
 
         if dataset['data_type'] == DataTypesEnum.ts:
             data = InputData.from_csv_time_series(file_path=file_path, task=task, target_column='target')
