@@ -1,10 +1,10 @@
-import os
+from pathlib import Path
 from typing import List, Optional, Tuple
 
-from fedot.core.data.data import DataTypesEnum, InputData
-from fedot.core.repository.tasks import Task, TsForecastingParams, TaskParams
-
 from app.api.meta.service import task_type_from_id
+from fedot.core.data.data import DataTypesEnum, InputData
+from fedot.core.repository.tasks import Task, TaskParams, TsForecastingParams
+from flask import current_app
 from utils import project_root
 
 default_datasets = {
@@ -61,13 +61,12 @@ def get_input_data(dataset_name: str, sample_type: str,
 
         task = Task(task_type_from_id(task_type), task_params) if task_type is not None else None
 
+        file_path = Path(project_root(), 'data', data_path)
+
         if dataset['data_type'] == DataTypesEnum.ts:
-            data = InputData.from_csv_time_series(file_path=os.path.join(project_root(), 'data', data_path),
-                                                  task=task, target_column='target')
+            data = InputData.from_csv_time_series(file_path=file_path, task=task, target_column='target')
         else:
-            data = InputData.from_csv(file_path=os.path.join(project_root(), 'data', data_path),
-                                      task=task,
-                                      data_type=dataset['data_type'])
+            data = InputData.from_csv(file_path=file_path, task=task, data_type=dataset['data_type'])
         return data
     except KeyError as ex:
         print(f'Dataset {dataset_name} has no data for {sample_type}: {ex}')

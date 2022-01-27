@@ -3,9 +3,8 @@ import pickle
 from pathlib import Path
 
 import pandas as pd
-from fedot.core.serializers import json_helpers
-
 from app.api.composer.service import run_composer
+from fedot.core.serializers import Serializer
 from utils import project_root
 
 
@@ -29,7 +28,7 @@ def test_new_case_with_new_data(client):
 
     history = run_composer('classification', 'roc_auc', dataset_name='new_dataset', time=0.01)
 
-    history_json = json.dumps(history, default=json_helpers.encoder)
+    history_json = history.save()
 
     new_case = {
         'case': {

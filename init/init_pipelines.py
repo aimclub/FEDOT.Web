@@ -2,13 +2,12 @@ import json
 import os
 
 import bson
-from bson import json_util
-from fedot.core.pipelines.node import PrimaryNode, SecondaryNode
-from fedot.core.pipelines.pipeline import Pipeline
-
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import _add_pipeline_to_db
 from app.singletons.db_service import DBServiceSingleton
+from bson import json_util
+from fedot.core.pipelines.node import PrimaryNode, SecondaryNode
+from fedot.core.pipelines.pipeline import Pipeline
 from utils import project_root
 
 
@@ -16,32 +15,26 @@ def create_default_pipelines():
     db_service = DBServiceSingleton()
     db_service.try_create_collection('pipelines', '_id')
 
-    mock_list = []
+    cases = [
+        {
+            'pipeline_id': 'best_scoring_pipeline', 'case_id': 'scoring',
+            'pipeline': pipeline_mock('class'), 'task_type': 'classification'
+        },
+        {
+            'pipeline_id': 'scoring_baseline', 'case_id': 'scoring',
+            'pipeline': get_baseline('class'), 'task_type': 'classification'
+        },
+        {
+            'pipeline_id': 'metocean_baseline', 'case_id': 'metocean',
+            'pipeline': get_baseline('ts'), 'task_type': 'ts_forecasting'
+        },
+        {
+            'pipeline_id': 'oil_baseline', 'case_id': 'oil',
+            'pipeline': get_baseline('regr'), 'task_type': 'regression'
+        }
+    ]
 
-    mock_list.append(
-        _create_custom_pipeline('best_scoring_pipeline', 'scoring', pipeline_mock('class'), 'classification'))
-    pipeline_1 = Pipeline(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
-                                                                           nodes_from=[PrimaryNode('scaling')]),
-                                                             PrimaryNode('knn')]))
-    mock_list.append(_create_custom_pipeline('scoring_pipeline_1', 'scoring', pipeline_1, 'classification'))
-
-    pipeline_2 = Pipeline(SecondaryNode('logit', nodes_from=[SecondaryNode('logit',
-                                                                           nodes_from=[PrimaryNode('scaling')]),
-                                                             SecondaryNode('knn',
-                                                                           nodes_from=[PrimaryNode('scaling')])]))
-    mock_list.append(_create_custom_pipeline('scoring_pipeline_2', 'scoring', pipeline_2, 'classification'))
-    mock_list.append(_create_custom_pipeline('scoring_baseline', 'scoring', get_baseline('class'), 'classification'))
-
-    ######
-
-    mock_list.append(
-        _create_custom_pipeline('best_metocean_pipeline', 'metocean', pipeline_mock('ts'), 'ts_forecasting'))
-    mock_list.append(_create_custom_pipeline('metocean_baseline', 'metocean', get_baseline('ts'), 'ts_forecasting'))
-
-    #######
-
-    mock_list.append(_create_custom_pipeline('best_oil_pipeline', 'oil', pipeline_mock('regr'), 'regression'))
-    mock_list.append(_create_custom_pipeline('oil_baseline', 'oil', get_baseline('regr'), 'regression'))
+    mock_list = [_create_custom_pipeline(**case) for case in cases]
 
     if not db_service.exists():
         mockup_pipelines(mock_list)
@@ -65,7 +58,7 @@ def _create_custom_pipeline(pipeline_id: str, case_id: str, pipeline: Pipeline, 
     data = get_input_data(dataset_name=case_id, sample_type='train', task_type=task_type)
     db_service = DBServiceSingleton()
     if not db_service.exists():
-        data = data.subset_range(0, 500)
+        data = data.subset_range(0, 50)
     pipeline.fit(data)
     pipeline_dict, dict_fitted_operations = _extract_pipeline_with_fitted_operations(pipeline, uid)
     pipeline_dict['_id'] = uid

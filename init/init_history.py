@@ -3,23 +3,23 @@ import os
 from pathlib import Path
 from typing import Optional, Union
 
-from bson import json_util
-from fedot.core.optimisers.opt_history import OptHistory
-from fedot.core.pipelines.pipeline import Pipeline
-from fedot.core.serializers import json_helpers
-from flask import current_app
-
 from app.api.composer.service import run_composer
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.singletons.db_service import DBServiceSingleton
-from init.init_pipelines import _extract_pipeline_with_fitted_operations
+from bson import json_util
+from fedot.core.optimisers.opt_history import OptHistory
+from fedot.core.pipelines.pipeline import Pipeline
+from fedot.preprocessing.structure import PipelineStructureExplorer
+from flask import current_app
 from utils import project_root
+
+from init.init_pipelines import _extract_pipeline_with_fitted_operations
 
 
 def create_default_history(opt_times=None):
     if opt_times is None:
-        opt_times = [2, 1, 1]
+        opt_times = [None, None, None]
 
     cases = [
         {
@@ -52,9 +52,11 @@ def create_default_history(opt_times=None):
 
 def mockup_history(mock_list):
     if len(mock_list) > 0:
-        history = [i['history'] for i in mock_list]
+        histories = [i['history'] for i in mock_list]
         with open(os.path.join(project_root(), 'test/fixtures/history.json'), 'w') as f:
-            f.write(json_util.dumps(history))
+            for history in histories:
+                history['history_json'] = json_util.loads(history['history_json'])
+            f.write(json_util.dumps(histories, indent=4))
             print('history are mocked')
 
         pipelines = [j for i in mock_list for j in i['pipelines_dict']]
@@ -64,7 +66,7 @@ def mockup_history(mock_list):
                 data = json_util.loads(f.read())
                 data.extend(pipelines)
                 f.seek(0)
-                f.write(json_util.dumps(data))
+                f.write(json_util.dumps(data, indent=4))
                 print('history pipelines are mocked')
 
         dicts_fitted_operations = [j for i in mock_list for j in i['dicts_fitted_operations']]
@@ -73,14 +75,14 @@ def mockup_history(mock_list):
                 data = json_util.loads(f.read())
                 data.extend(dicts_fitted_operations)
                 f.seek(0)
-                f.write(json_util.dumps(data))
+                f.write(json_util.dumps(data, indent=4))
                 print('history dict_fitted_operations are mocked')
 
 
 def _save_history_to_path(history: OptHistory, path: Path) -> None:
     if not path.parent.exists():
         path.parent.mkdir()
-    path.write_text(json.dumps(history, default=json_helpers.encoder, indent=4))
+    path.write_text(history.save())
 
 
 def _init_composer_history_for_case(history_id, task, metric, dataset_name, time,
@@ -92,17 +94,19 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
 
     if external_history is None:
         # run composer in real-time
-        history = run_composer(task, metric, dataset_name, time)
-        history_obj = json.dumps(history, default=json_helpers.encoder)
+        history = run_composer(
+            task, metric, dataset_name, time, Path(project_root(), 'data', history_id, f'{history_id}_{task}.json')
+        )
+        history_obj = history.save()
     elif isinstance(external_history, dict):
         # init from dict
         history_obj = external_history
-        history = json.loads(json.dumps(history_obj), object_hook=json_helpers.decoder)
+        history = OptHistory.load(json.dumps(history_obj))
     else:
         # load from path
         history_path = Path(external_history)
         history = run_composer(task, metric, dataset_name, time, fitted_history_path=history_path)
-        history_obj = json.dumps(history, default=json_helpers.encoder)
+        history_obj = history.save()
 
     if history_path is None:
         history_path = Path(f'{project_root()}/data/{history_id}/{history_id}_{task}.json')
@@ -149,6 +153,8 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
                 pipeline = Pipeline()
                 pipeline_template.convert_to_pipeline(pipeline)
                 pipeline.fit(data)
+                # workaround to reduce size
+                pipeline.preprocessor.structure_analysis = PipelineStructureExplorer()
                 if db_service.exists():
                     create_pipeline(uid=pipeline_uid, pipeline=pipeline, overwrite=True)
                 else:

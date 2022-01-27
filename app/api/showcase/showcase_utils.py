@@ -8,17 +8,13 @@ from .models import ShowcaseItem
 
 
 def showcase_item_from_db(case_id: str) -> Optional[ShowcaseItem]:
-    dumped_item: Optional[Dict[str, Any]] = DBServiceSingleton().try_find_one('cases', {'case_id': case_id})
+    dumped_item = DBServiceSingleton().try_find_one('cases', {'case_id': case_id})
     if dumped_item is None:
         return None
 
-    icon_path = prepare_icon_path(dumped_item)
-    item = ShowcaseItem(case_id=dumped_item['case_id'],
-                        title=dumped_item['title'],
-                        icon_path=icon_path,
-                        description=dumped_item['description'],
-                        pipeline_id=dumped_item['pipeline_id'],
-                        metadata=pickle.loads(dumped_item['metadata']))
+    dumped_item['metadata'] = pickle.loads(dumped_item['metadata'])
+    dumped_item['icon_path'] = prepare_icon_path(dumped_item)
+    item = ShowcaseItem(**{k: v for k, v in dumped_item.items() if k != '_id'})
     return item
 
 

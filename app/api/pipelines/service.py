@@ -61,7 +61,7 @@ def create_pipeline(uid: str, pipeline: Pipeline, overwrite: bool = False) -> Tu
     dumped_json, dict_fitted_operations = pipeline.save()
     if dict_fitted_operations:
         for key in dict_fitted_operations:
-            if key.find('operation') != -1:
+            if key.find('operation') != -1 or key == 'preprocessing':
                 dict_fitted_operations[key].seek(0)
                 saved_operation = dict_fitted_operations[key].read()
                 dict_fitted_operations[key] = saved_operation
