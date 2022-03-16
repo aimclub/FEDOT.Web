@@ -41,7 +41,7 @@ def _process_operator(all_nodes, operator, individual, o_id, gen_id, prev_operat
         operator_node['tmp_parent_pipelines'] = []
 
     if skip_next:
-        operator_node['tmp_next_pipeline'] = []
+        operator_node['tmp_next_pipeline_id'] = None
     if operator.uid \
             not in [n['tmp_operator_uid'] for n in all_nodes if n['type'] == 'evo_operator']:
         all_nodes.append(operator_node)
@@ -57,7 +57,7 @@ def _create_all_pipeline_nodes_for_pop(history, all_nodes, gen_id, local_id):
         individual = history.individuals[gen_id][ind_id]
 
         # add pipelines as node
-        pipeline_id = str(individual.graph.uid)
+        pipeline_id = str(individual.uid)
         uid = f'pipeline_{gen_id}_{ind_id}'
         objs = {}
         for metric in history.metrics:
@@ -165,10 +165,14 @@ def _init_operator_dict(ind, operator, o_id, gen_id):
     operator_node['full_name'] = operator.operator_name
 
     # temporary fields
-    operator_node['tmp_parent_pipelines'] = [c.graph.uid for c in operator.parent_objects]
+    try:
+        operator_node['tmp_parent_pipelines'] = [c.uid for c in operator.parent_individuals]
+    except:
+        # in case of incorrect ids
+        operator_node['tmp_parent_pipelines'] = []
 
-    operator_node['tmp_next_pipeline'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
-    operator_node['tmp_next_pipeline_id'] = ind.graph.uid
+    # operator_node['tmp_next_pipeline'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
+    operator_node['tmp_next_pipeline_id'] = ind.uid
     return operator_node
 
 
@@ -180,18 +184,18 @@ def _init_pipeline_dict(ind, objs, uid, pipeline_id, gen_id, ind_id):
     pipeline['type'] = 'individual'
     pipeline['pipeline_id'] = pipeline_id
     pipeline['objs'] = objs
-    pipeline['tmp_pipeline_uid'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
+    #pipeline['tmp_pipeline_uid'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
     return pipeline
 
 
 def _clear_tmp_fields(all_nodes):
     for node in all_nodes:
-        if 'tmp_pipeline_uid' in node:
-            del node['tmp_pipeline_uid']
+        # if 'tmp_pipeline_uid' in node:
+        #    del node['tmp_pipeline_uid']
         if 'tmp_parent_pipelines' in node:
             del node['tmp_parent_pipelines']
-        if 'tmp_next_pipeline' in node:
-            del node['tmp_next_pipeline']
+        # if 'tmp_next_pipeline' in node:
+        #    del node['tmp_next_pipeline']
         if 'source_pipeline' in node:
             del node['source_pipeline']
         if 'tmp_operator_uid' in node:

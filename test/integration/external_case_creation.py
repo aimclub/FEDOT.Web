@@ -3,8 +3,8 @@ import pickle
 from pathlib import Path
 
 import pandas as pd
+
 from app.api.composer.service import run_composer
-from fedot.core.serializers import Serializer
 from utils import project_root
 
 
@@ -45,7 +45,7 @@ def test_new_case_with_new_data(client):
 
     # check pipeline from new case history exists
 
-    uid = str(history.individuals[0][0].graph.uid)
+    uid = str(history.individuals[0][0].uid)
     pipeline_json = client.get(f'api/pipelines/{uid}').json
     assert pipeline_json['uid'] == uid
 
