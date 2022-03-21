@@ -167,11 +167,10 @@ def _init_operator_dict(ind, operator, o_id, gen_id):
     # temporary fields
     try:
         operator_node['tmp_parent_pipelines'] = [c.uid for c in operator.parent_individuals]
-    except:
+    except Exception as ex:
         # in case of incorrect ids
         operator_node['tmp_parent_pipelines'] = []
 
-    # operator_node['tmp_next_pipeline'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
     operator_node['tmp_next_pipeline_id'] = ind.uid
     return operator_node
 
@@ -184,18 +183,13 @@ def _init_pipeline_dict(ind, objs, uid, pipeline_id, gen_id, ind_id):
     pipeline['type'] = 'individual'
     pipeline['pipeline_id'] = pipeline_id
     pipeline['objs'] = objs
-    #pipeline['tmp_pipeline_uid'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
     return pipeline
 
 
 def _clear_tmp_fields(all_nodes):
     for node in all_nodes:
-        # if 'tmp_pipeline_uid' in node:
-        #    del node['tmp_pipeline_uid']
         if 'tmp_parent_pipelines' in node:
             del node['tmp_parent_pipelines']
-        # if 'tmp_next_pipeline' in node:
-        #    del node['tmp_next_pipeline']
         if 'source_pipeline' in node:
             del node['source_pipeline']
         if 'tmp_operator_uid' in node:
