@@ -72,16 +72,16 @@ def _create_all_pipeline_nodes_for_pop(history, all_nodes, gen_id, local_id):
 def _create_operators_and_nodes(history):
     all_nodes = []
     local_id = 0
-    for gen_id in range(len(history.archive_history)):
+    for gen_id in range(len(history.individuals)):
         o_id = 0
         all_nodes, local_id = _create_all_pipeline_nodes_for_pop(history, all_nodes, gen_id, local_id)
         if gen_id == 0:
             continue
-        for ind_id in range(len(history.archive_history[gen_id])):
-            individual = history.archive_history[gen_id][ind_id]
+        for ind_id in range(len(history.individuals[gen_id])):
+            individual = history.individuals[gen_id][ind_id]
 
             # add evo operators as nodes
-            operators = history.archive_history[gen_id][ind_id].parent_operators
+            operators = history.individuals[gen_id][ind_id].parent_operators
             operators = [operators] if not isinstance(operators, list) else operators
 
             for o_num, operator in enumerate(operators):
@@ -117,6 +117,8 @@ def _create_edges(all_nodes):
 
                 if parent_ind is not None:
                     edges = _add_edge(edges, parent_ind['uid'], node['uid'])
+                # else:
+                #    print(f'There is no parents for {node["uid"]}')
 
         elif node['type'] == 'evo_operator':
             # from pipeline to operator
