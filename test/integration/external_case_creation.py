@@ -45,7 +45,7 @@ def test_new_case_with_new_data(client):
 
     # check pipeline from new case history exists
 
-    uid = str(history.individuals[0][0].uid)
+    uid = history.individuals[0][0].uid
     pipeline_json = client.get(f'api/pipelines/{uid}').json
     assert pipeline_json['uid'] == uid
 

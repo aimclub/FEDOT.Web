@@ -1,5 +1,4 @@
 https://github.com/nccr-itmo/FEDOT/archive/master.zip
-scikit_learn>=0.2.4; python_version <= '3.6'
 scikit_learn>=1.0.0; python_version >= '3.7'
 flask-socketio==5.0.1
 Flask==1.1.1

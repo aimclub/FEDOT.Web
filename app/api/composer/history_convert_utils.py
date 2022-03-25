@@ -66,7 +66,7 @@ def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id)
         individual = history.individuals[gen_id][ind_id]
 
         # add pipelines as node
-        individual_id = str(individual.uid)
+        individual_id = individual.uid
         uid = f'ind_{gen_id}_{ind_id}'
         objs = {}
         for metric in history.metrics:
