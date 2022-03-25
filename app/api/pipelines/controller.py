@@ -84,7 +84,7 @@ class PipelinesAddResource(Resource):
 @cross_origin()
 @api.route("/image/<string:uid>")
 class PipelinesIdImage(Resource):
-    """Pipelines"""
+    """Visualisation of individual"""
 
     @responds(schema=PipelineImageSchema, many=False)
     def get(self, uid: str) -> PipelineImage:

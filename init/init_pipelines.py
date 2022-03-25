@@ -2,12 +2,13 @@ import json
 import os
 
 import bson
-from app.api.data.service import get_input_data
-from app.api.pipelines.service import _add_pipeline_to_db
-from app.singletons.db_service import DBServiceSingleton
 from bson import json_util
 from fedot.core.pipelines.node import PrimaryNode, SecondaryNode
 from fedot.core.pipelines.pipeline import Pipeline
+
+from app.api.data.service import get_input_data
+from app.api.pipelines.service import _add_pipeline_to_db
+from app.singletons.db_service import DBServiceSingleton
 from utils import project_root
 
 
@@ -17,19 +18,19 @@ def create_default_pipelines():
 
     cases = [
         {
-            'pipeline_id': 'best_scoring_pipeline', 'case_id': 'scoring',
+            'individual_id': 'best_scoring_pipeline', 'case_id': 'scoring',
             'pipeline': pipeline_mock('class'), 'task_type': 'classification'
         },
         {
-            'pipeline_id': 'scoring_baseline', 'case_id': 'scoring',
+            'individual_id': 'scoring_baseline', 'case_id': 'scoring',
             'pipeline': get_baseline('class'), 'task_type': 'classification'
         },
         {
-            'pipeline_id': 'metocean_baseline', 'case_id': 'metocean',
+            'individual_id': 'metocean_baseline', 'case_id': 'metocean',
             'pipeline': get_baseline('ts'), 'task_type': 'ts_forecasting'
         },
         {
-            'pipeline_id': 'oil_baseline', 'case_id': 'oil',
+            'individual_id': 'oil_baseline', 'case_id': 'oil',
             'pipeline': get_baseline('regr'), 'task_type': 'regression'
         }
     ]
@@ -53,8 +54,8 @@ def mockup_pipelines(mock_list):
             print('dict_fitted_operations are mocked')
 
 
-def _create_custom_pipeline(pipeline_id: str, case_id: str, pipeline: Pipeline, task_type: str):
-    uid = pipeline_id
+def _create_custom_pipeline(individual_id: str, case_id: str, pipeline: Pipeline, task_type: str):
+    uid = individual_id
     data = get_input_data(dataset_name=case_id, sample_type='train', task_type=task_type)
     db_service = DBServiceSingleton()
     if not db_service.exists():

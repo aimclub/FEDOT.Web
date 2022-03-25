@@ -59,7 +59,7 @@ def mockup_history(mock_list):
             f.write(json_util.dumps(histories, indent=4))
             print('history is mocked')
 
-        pipelines = [j for i in mock_list for j in i['pipelines_dict']]
+        pipelines = [i['pipelines_dict'].values() for i in mock_list]
 
         if len(pipelines) > 0:
             with open(os.path.join(project_root(), 'test/fixtures/pipelines.json'), 'r+') as f:
@@ -90,7 +90,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     mock_dct = {}
 
     db_service = DBServiceSingleton()
-    history_path = None
+    history_path = Path(f'{project_root()}/data/{history_id}/{history_id}_{task}.json')
 
     is_loaded_history = False
     if external_history is None:
@@ -111,8 +111,6 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
         is_loaded_history = True
 
     if not is_loaded_history:
-        if history_path is None:
-            history_path = Path(f'{project_root()}/data/{history_id}/{history_id}_{task}.json')
         _save_history_to_path(history, history_path)
 
     if db_service.exists():
@@ -127,7 +125,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
         }
 
     mock_dct['history'] = history_obj
-    mock_dct['pipelines_dict'] = []
+    mock_dct['pipelines_dict'] = {}
     mock_dct['dicts_fitted_operations'] = []
 
     data = get_input_data(dataset_name=dataset_name, sample_type='train', task_type=task)
@@ -139,7 +137,6 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     for pop_id in range(len(history.individuals)):
         pop = history.individuals[pop_id]
         for i, individual in enumerate(pop):
-            pipeline_uid = str(individual.uid)
             try:
                 pipeline_template = historical_pipelines[global_id]
                 fitness = history.all_historical_fitness[i]
@@ -148,28 +145,28 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
 
                     case = db_service.try_find_one('cases', {'case_id': history_id})
                     if case is not None:
-                        case['pipeline_id'] = pipeline_uid
+                        case['individual_id'] = individual.uid
                         db_service.try_reinsert_one('cases', {'case_id': history_id}, case)
 
-                is_existing_pipeline = is_pipeline_exists(pipeline_uid)
+                is_existing_pipeline = is_pipeline_exists(individual.uid)
                 if not is_existing_pipeline:
-                    print(f'Pipeline №{i} with id{pipeline_uid} added')
+                    print(f'Pipeline №{i} with id{individual.uid} added')
                     pipeline = Pipeline()
                     pipeline_template.convert_to_pipeline(pipeline)
                     pipeline.fit(data)
                     # workaround to reduce size
                     pipeline.preprocessor.structure_analysis = PipelineStructureExplorer()
                     if db_service.exists():
-                        create_pipeline(uid=pipeline_uid, pipeline=pipeline, overwrite=True)
+                        create_pipeline(uid=individual.uid, pipeline=pipeline, overwrite=True)
                     else:
                         pipeline_dict, dict_fitted_operations = \
-                            _extract_pipeline_with_fitted_operations(pipeline, pipeline_uid)
-                        existing_ids = [m['_id'] for m in mock_dct['pipelines_dict']]
-                        if pipeline_uid not in existing_ids:
-                            mock_dct['pipelines_dict'].append(pipeline_dict)
+                            _extract_pipeline_with_fitted_operations(pipeline, individual.uid)
+                        existing_ids = mock_dct['pipelines_dict'].keys()
+                        if individual.uid not in existing_ids:
+                            mock_dct['pipelines_dict'][individual.uid] = pipeline_dict
                             mock_dct['dicts_fitted_operations'].append(dict_fitted_operations)
-                if not is_pipeline_exists(pipeline_uid):
-                    print(f'Critical error: pipeline {pipeline_uid} not found after adding')
+                if not is_pipeline_exists(individual.uid):
+                    print(f'Critical error: pipeline for individual {individual.uid} not found after adding')
             except Exception as ex:
                 print(f'Pipeline processing exception: {ex}')
             global_id += 1

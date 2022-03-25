@@ -1,30 +1,24 @@
-import { analyticsAPI } from "../../API/analytics/analyticsAPI";
+import {analyticsAPI} from "../../API/analytics/analyticsAPI";
+import {GenerationType, IGeneration,} from "../../API/analytics/analyticsInterface";
+import {composerAPI} from "../../API/composer/composerAPI";
+import {IHistoryGraph, IHistoryNodeIndividual,} from "../../API/composer/composerInterface";
+import {pipelineAPI} from "../../API/pipeline/pipelineAPI";
+import {IPipelineImage} from "../../API/pipeline/pipelineInterface";
 import {
-  GenerationType,
-  IGeneration,
-} from "../../API/analytics/analyticsInterface";
-import { composerAPI } from "../../API/composer/composerAPI";
-import {
-  IHistoryGraph,
-  IHistoryNodeIndividual,
-} from "../../API/composer/composerInterface";
-import { pipelineAPI } from "../../API/pipeline/pipelineAPI";
-import { IPipelineImage } from "../../API/pipeline/pipelineInterface";
-import {
-  HistoryActionsEnum,
-  SetGenerationGeno,
-  SetGenerationGenoLoading,
-  SetGenerationPheno,
-  SetGenerationPhenoLoading,
-  SetGenerationType,
-  SetHistory,
-  SetHistoryLoading,
-  SetModalOpen,
-  SetModalPipeline,
-  SetModalPipelineImage,
-  SetModalPipelineImageLoading,
-  ThunkType,
-  ThunkTypeAsync,
+    HistoryActionsEnum,
+    SetGenerationGeno,
+    SetGenerationGenoLoading,
+    SetGenerationPheno,
+    SetGenerationPhenoLoading,
+    SetGenerationType,
+    SetHistory,
+    SetHistoryLoading,
+    SetModalOpen,
+    SetModalPipeline,
+    SetModalPipelineImage,
+    SetModalPipelineImageLoading,
+    ThunkType,
+    ThunkTypeAsync,
 } from "./history-types";
 
 const actionsHistory = {
@@ -85,17 +79,17 @@ export const closeHistoryModal = (): ThunkType => (dispatch) => {
 };
 
 export const openHistoryModal =
-  (pipeline: IHistoryNodeIndividual): ThunkTypeAsync =>
-  async (dispatch) => {
-    dispatch(actionsHistory.setModalPipeline(pipeline));
-    dispatch(actionsHistory.setModalPipelineImageLoading(true));
-    dispatch(actionsHistory.setModalOpen(true));
-    try {
-      const res = await pipelineAPI.getPipelineImage(pipeline.pipeline_id);
-      dispatch(actionsHistory.setModalPipelineImage(res));
-    } catch (error) {
-      dispatch(actionsHistory.setModalPipelineImage(null));
-      console.log(error);
+    (individual: IHistoryNodeIndividual): ThunkTypeAsync =>
+        async (dispatch) => {
+            dispatch(actionsHistory.setModalPipeline(individual));
+            dispatch(actionsHistory.setModalPipelineImageLoading(true));
+            dispatch(actionsHistory.setModalOpen(true));
+            try {
+                const res = await pipelineAPI.getPipelineImage(individual.individual_id);
+                dispatch(actionsHistory.setModalPipelineImage(res));
+            } catch (error) {
+                dispatch(actionsHistory.setModalPipelineImage(null));
+                console.log(error);
     } finally {
       dispatch(actionsHistory.setModalPipelineImageLoading(false));
     }

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class PipelineEpochMapping:
     epoch_num: int
-    pipeline_id: str
+    individual_id: str
 
 
 @dataclass

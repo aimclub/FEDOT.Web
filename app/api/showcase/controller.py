@@ -58,7 +58,7 @@ class ShowCaseItemAddResource(Resource):
         case = ShowcaseItem(
             case_id=case_id,
             title=case_id,
-            pipeline_id=None,
+            individual_id=None,
             description=case_id,
             icon_path='',
             details={},

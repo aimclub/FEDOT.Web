@@ -13,7 +13,7 @@ class Metadata:
 class ShowcaseItem:
     case_id: str
     title: str
-    pipeline_id: Optional[str]
+    individual_id: Optional[str]
     description: str
     icon_path: str
     metadata: Metadata

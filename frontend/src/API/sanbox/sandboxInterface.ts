@@ -5,6 +5,6 @@ export interface ICaseParams {
 }
 
 export interface IEpoch {
-  epoch_num: number;
-  pipeline_id: string;
+    epoch_num: number;
+    individual_id: string;
 }

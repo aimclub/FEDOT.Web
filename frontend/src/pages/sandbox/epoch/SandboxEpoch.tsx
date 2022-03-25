@@ -1,16 +1,13 @@
-import React, { FC, memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {FC, memo} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
-import { LinearProgress, Slider, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {LinearProgress, Slider, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 import TimelineIcon from "@material-ui/icons/Timeline";
 
-import {
-  actionsSandbox,
-  getResult,
-} from "../../../redux/sandbox/sandbox-actions";
-import { StateType } from "../../../redux/store";
-import { getPipeline } from "../../../redux/pipeline/pipeline-actions";
+import {actionsSandbox, getResult,} from "../../../redux/sandbox/sandbox-actions";
+import {StateType} from "../../../redux/store";
+import {getPipeline} from "../../../redux/pipeline/pipeline-actions";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -114,8 +111,8 @@ const SandboxEpoch: FC = () => {
     const selectedEpoch = epochs.find((epoch) => epoch.epoch_num === value)!;
 
     dispatch(actionsSandbox.selectEpoch(selectedEpoch));
-    dispatch(getPipeline(selectedEpoch.pipeline_id));
-    dispatch(getResult(showCase?.case_id!, selectedEpoch.pipeline_id));
+    dispatch(getPipeline(selectedEpoch.individual_id));
+    dispatch(getResult(showCase?.case_id!, selectedEpoch.individual_id));
   };
 
   return (

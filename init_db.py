@@ -17,4 +17,4 @@ if __name__ == "__main__":
     DBServiceSingleton(db)
     create_default_cases()
     create_default_pipelines()
-    create_default_history([2, 1, 1])
+    create_default_history([5, 3, 3])

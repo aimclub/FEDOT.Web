@@ -2,7 +2,7 @@ export interface ICaseItem {
   case_id: string;
   description: string;
   icon_path: string;
-  pipeline_id: string;
+  individual_id: string;
   title: string;
 }
 
@@ -10,7 +10,7 @@ export interface ICase {
   case_id: string;
   description: string;
   icon_path: string;
-  pipeline_id: string;
+  individual_id: string;
   title: string;
   details: {
     n_features: number;

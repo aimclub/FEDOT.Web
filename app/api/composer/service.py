@@ -104,6 +104,7 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
                            'max_arity': 2,
                            'max_depth': 2,
                            'with_tuning': False}
+
         if task == 'ts_forecasting':
             composer_params['available_operations'] = ['lagged', 'ridge', 'linear', 'scaling']
         elif task == 'classification':
