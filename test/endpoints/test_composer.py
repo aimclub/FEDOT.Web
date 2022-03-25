@@ -22,7 +22,7 @@ def test_composer_endpoint(client):
     assert len(nodes_ids) == len(set(nodes_ids))
 
     for node_id in nodes_ids:
-        assert node_id in targets or node_id in sources or 'pipeline_' in node_id
+        assert node_id in targets or node_id in sources or 'ind_' in node_id
 
     for edge in edges:
         assert edge['source'] in nodes_ids
