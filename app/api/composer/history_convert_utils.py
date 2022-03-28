@@ -38,64 +38,75 @@ def _process_operator(all_nodes, operator, individual, o_id, gen_id, prev_operat
     if prev_operator:
         # parent is operator, not individual
         operator_node['parent_operator'] = prev_operator.uid
-        operator_node['tmp_parent_pipelines'] = []
+        operator_node['tmp_parent_individuals'] = []
 
     if skip_next:
-        operator_node['tmp_next_pipeline'] = []
-    if operator.uid \
-            not in [n['tmp_operator_uid'] for n in all_nodes if n['type'] == 'evo_operator']:
+        # there is next operator, not individual
+        operator_node['tmp_next_individual_id'] = None
+
+    existing_operators = [n['tmp_operator_uid'] for n in all_nodes if n['type'] == 'evo_operator']
+    if operator.uid not in existing_operators:
         all_nodes.append(operator_node)
     else:
-        node_to_update = \
-            [n for n in all_nodes if n['type'] == 'evo_operator' and n['tmp_operator_uid'] == operator.uid][0]
-        node_to_update['tmp_parent_pipelines'].extend(operator_node['tmp_parent_pipelines'])
+        # find node that should be connected with operator
+        operator_to_update = next(
+            (n for n in all_nodes if n['type'] == 'evo_operator' and n['tmp_operator_uid'] == operator.uid),
+            None
+        )
+        if operator_to_update is not None:
+            parents_for_operator = operator_node['tmp_parent_individuals']
+            for parent in parents_for_operator:
+                if parent not in operator_to_update['tmp_parent_individuals']:
+                    operator_to_update['tmp_parent_individuals'].append(parents_for_operator)
     return all_nodes
 
 
-def _create_all_pipeline_nodes_for_pop(history, all_nodes, gen_id, local_id):
+def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id):
     for ind_id in range(len(history.individuals[gen_id])):
         individual = history.individuals[gen_id][ind_id]
 
         # add pipelines as node
-        pipeline_id = str(individual.graph.uid)
-        uid = f'pipeline_{gen_id}_{ind_id}'
+        individual_id = individual.uid
+        uid = f'ind_{gen_id}_{ind_id}'
         objs = {}
         for metric in history.metrics:
-            objs[str(metric)] = history.all_historical_fitness[local_id]
-        pipeline_node = _init_pipeline_dict(individual, objs, uid, pipeline_id, gen_id, ind_id)
+            objs[str(metric)] = history.all_historical_fitness[order_id]
+        pipeline_node = _init_pipeline_dict(individual, objs, uid, individual_id, gen_id, ind_id)
         all_nodes.append(pipeline_node)
-        local_id += 1
+        order_id += 1
 
-    return all_nodes, local_id
+    return all_nodes, order_id
 
 
 def _create_operators_and_nodes(history):
     all_nodes = []
-    local_id = 0
-    for gen_id in range(len(history.archive_history)):
+    current_order_id = 0
+    for gen_id in range(len(history.individuals)):
         o_id = 0
-        all_nodes, local_id = _create_all_pipeline_nodes_for_pop(history, all_nodes, gen_id, local_id)
+        all_nodes, current_order_id = _create_all_individuals_for_population(history, all_nodes, gen_id,
+                                                                             current_order_id)
         if gen_id == 0:
             continue
-        for ind_id in range(len(history.archive_history[gen_id])):
-            individual = history.archive_history[gen_id][ind_id]
+        for ind_id in range(len(history.individuals[gen_id])):
+            individual = history.individuals[gen_id][ind_id]
 
             # add evo operators as nodes
-            operators = history.archive_history[gen_id][ind_id].parent_operators
-            operators = [operators] if not isinstance(operators, list) else operators
+            parent_operators_for_ind = history.individuals[gen_id][ind_id].parent_operators
+            parent_operators_for_ind = [parent_operators_for_ind] if not isinstance(parent_operators_for_ind, list) \
+                else parent_operators_for_ind
 
-            for o_num, operator in enumerate(operators):
+            for o_num, operator in enumerate(parent_operators_for_ind):
                 if isinstance(operator, list) and len(operator) == 0:
                     continue
                 prev_operator = None
                 if operator.operator_type != 'selection':
                     # connect with previous operator (e.g. crossover -> mutation)
                     skip_next = False
-                    if len(operators) > 1:
+                    if len(parent_operators_for_ind) > 1:
                         # in several operator in a row
                         if o_num > 0:
-                            prev_operator = operators[o_num - 1]
-                        else:
+                            prev_operator = parent_operators_for_ind[o_num - 1]
+                        if o_num < len(parent_operators_for_ind) - 1:
                             skip_next = True
 
                     all_nodes = _process_operator(all_nodes, operator, individual, o_id, gen_id,
@@ -112,7 +123,7 @@ def _create_edges(all_nodes):
             if node['gen_id'] > 0:
                 # same inds from prev generation
                 parent_ind = next((n for n in all_nodes if n['type'] == 'individual'
-                                   and n['pipeline_id'] == node['pipeline_id'] and
+                                   and n['individual_id'] == node['individual_id'] and
                                    n['gen_id'] == node['gen_id'] - 1), None)
 
                 if parent_ind is not None:
@@ -122,23 +133,27 @@ def _create_edges(all_nodes):
             # from pipeline to operator
             operator_node = node
             prev_pipelines = [n for n in all_nodes if n['type'] == 'individual'
-                              and n['pipeline_id'] in operator_node['tmp_parent_pipelines']
+                              and n['individual_id'] in operator_node['tmp_parent_individuals']
                               and n['gen_id'] == operator_node['prev_gen_id']]
-            for prev_pipeline in prev_pipelines:
-                edges = _add_edge(edges, prev_pipeline['uid'], operator_node['uid'])
+
+            used_individuals_ids = []
+            for prev_individual in prev_pipelines:
+                if prev_individual['individual_id'] not in used_individuals_ids:
+                    edges = _add_edge(edges, prev_individual['uid'], operator_node['uid'])
+                    used_individuals_ids.append(prev_individual['individual_id'])
 
             if 'parent_operator' in operator_node:
                 parent_operator = [n for n in all_nodes if n['type'] == 'evo_operator'
                                    and n['tmp_operator_uid'] == operator_node['parent_operator']][0]
                 edges = _add_edge(edges, parent_operator['uid'], operator_node['uid'])
 
-            # from operator to pipeline
-            next_pipeline = next((n for n in all_nodes if n['type'] == 'individual'
-                                  and n['pipeline_id'] == operator_node['tmp_next_pipeline_id']
-                                  and n['gen_id'] == operator_node['next_gen_id']), None)
+            # from operator to individual
+            next_individual = next((n for n in all_nodes if n['type'] == 'individual'
+                                    and n['individual_id'] == operator_node['tmp_next_individual_id']
+                                    and n['gen_id'] == operator_node['next_gen_id']), None)
 
-            if next_pipeline is not None:
-                edges = _add_edge(edges, operator_node['uid'], next_pipeline['uid'])
+            if next_individual is not None:
+                edges = _add_edge(edges, operator_node['uid'], next_individual['uid'])
 
     return all_nodes, edges
 
@@ -165,43 +180,42 @@ def _init_operator_dict(ind, operator, o_id, gen_id):
     operator_node['full_name'] = operator.operator_name
 
     # temporary fields
-    operator_node['tmp_parent_pipelines'] = [c.graph.uid for c in operator.parent_objects]
+    try:
+        operator_node['tmp_parent_individuals'] = [c.uid for c in operator.parent_individuals]
+    except Exception as ex:
+        # in case of incorrect ids
+        print(f'Error: can not create tmp_parent_individuals: {ex}')
+        operator_node['tmp_parent_individuals'] = []
 
-    operator_node['tmp_next_pipeline'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
-    operator_node['tmp_next_pipeline_id'] = ind.graph.uid
+    operator_node['tmp_next_individual_id'] = ind.uid
     return operator_node
 
 
-def _init_pipeline_dict(ind, objs, uid, pipeline_id, gen_id, ind_id):
+def _init_pipeline_dict(ind, objs, uid, individual_id, gen_id, ind_id):
     pipeline = dict()
     pipeline['uid'] = uid
     pipeline['gen_id'] = gen_id
     pipeline['ind_id'] = ind_id
     pipeline['type'] = 'individual'
-    pipeline['pipeline_id'] = pipeline_id
+    pipeline['individual_id'] = individual_id
     pipeline['objs'] = objs
-    pipeline['tmp_pipeline_uid'] = ind.graph.root_node.descriptive_id if ind.graph.root_node else ''
     return pipeline
 
 
 def _clear_tmp_fields(all_nodes):
     for node in all_nodes:
-        if 'tmp_pipeline_uid' in node:
-            del node['tmp_pipeline_uid']
-        if 'tmp_parent_pipelines' in node:
-            del node['tmp_parent_pipelines']
-        if 'tmp_next_pipeline' in node:
-            del node['tmp_next_pipeline']
-        if 'source_pipeline' in node:
-            del node['source_pipeline']
+        if 'tmp_parent_individuals' in node:
+            del node['tmp_parent_individuals']
+        if 'source_individual' in node:
+            del node['source_individual']
         if 'tmp_operator_uid' in node:
             del node['tmp_operator_uid']
     return all_nodes
 
 
-def _move_pipeline_to_next_gen(pipeline, nodes, operator_node, generation_field_to_check):
-    if pipeline['gen_id'] < operator_node[generation_field_to_check]:
-        pipeline_copy = deepcopy(pipeline)
+def _move_individual_to_next_gen(individual, nodes, operator_node, generation_field_to_check):
+    if individual['gen_id'] < operator_node[generation_field_to_check]:
+        individual_copy = deepcopy(individual)
         gen_id = operator_node[generation_field_to_check]
         # increment index of individual in population
         try:
@@ -210,10 +224,10 @@ def _move_pipeline_to_next_gen(pipeline, nodes, operator_node, generation_field_
         except ValueError:
             new_ind_id = 0
 
-        pipeline_copy['gen_id'] = gen_id
-        pipeline_copy['ind_id'] = new_ind_id
-        pipeline_copy['uid'] = f'pipeline_{gen_id}_{new_ind_id}'
-        return pipeline_copy
+        individual_copy['gen_id'] = gen_id
+        individual_copy['ind_id'] = new_ind_id
+        individual_copy['uid'] = f'ind_{gen_id}_{new_ind_id}'
+        return individual_copy
     return None
 
 

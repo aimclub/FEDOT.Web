@@ -121,8 +121,8 @@ def get_image_url(filename: str, pipeline: Optional[Pipeline]) -> str:
     return url_for('static', filename=f'generated_images/{filename}')
 
 
-def get_pipeline_metadata(pipeline_id: str) -> Tuple[int, int]:
-    pipeline = pipeline_by_uid(pipeline_id)
+def get_pipeline_metadata(individual_id: str) -> Tuple[int, int]:
+    pipeline = pipeline_by_uid(individual_id)
     if not pipeline:
         return -1, -1
     return pipeline.length, pipeline.depth

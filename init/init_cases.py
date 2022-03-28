@@ -1,9 +1,10 @@
 import os
 import pickle
 
+from bson import json_util
+
 from app.api.showcase.models import Metadata, ShowcaseItem
 from app.singletons.db_service import DBServiceSingleton
-from bson import json_util
 from utils import project_root
 
 
@@ -23,7 +24,7 @@ def create_default_cases():
                          ' Behavioural scoring involves an assessment of creditworthiness based on information '
                          'about the borrower, characterizing his behaviour and habits and '
                          'obtained from various sources.'),
-            pipeline_id='best_scoring_pipeline',
+            individual_id='best_scoring_pipeline',
             metadata=Metadata(metric_name='roc_auc', task_name='classification', dataset_name='scoring')
         ),
         ShowcaseItem(
@@ -36,7 +37,7 @@ def create_default_cases():
                          'In this application example, we will demonstrate the capabilities of '
                          'the FEDOT framework '
                          'in time series forecasting'),
-            pipeline_id='best_metocean_pipeline',
+            individual_id='best_metocean_pipeline',
             metadata=Metadata(metric_name='rmse', task_name='ts_forecasting', dataset_name='metocean')
         ),
         ShowcaseItem(
@@ -49,7 +50,7 @@ def create_default_cases():
                          'In order to conduct an experiment using the'
                          'framework, we took 13 models to compare the results obtained by each of the '
                          'models and the optimal version built by AutoML.'),
-            pipeline_id='best_oil_pipeline',
+            individual_id='best_oil_pipeline',
             metadata=Metadata(metric_name='rmse', task_name='regression', dataset_name='oil')
         )
     ]
@@ -73,7 +74,7 @@ def add_case_to_db(case):
         'title': case.title,
         'icon_path': case.icon_path,
         'description': case.description,
-        'pipeline_id': case.pipeline_id,
+        'individual_id': case.individual_id,
         'metadata': pickle.dumps(case.metadata),
         'details': case.details
     }
