@@ -5,7 +5,7 @@ class PipelineEpochMappingSchema(Schema):
     """Pipeline-epoch mapping schema"""
 
     epoch_num = fields.Int(attribute='epoch_num')
-    pipeline_id = fields.String(attribute='pipeline_id')
+    individual_id = fields.String(attribute='individual_id')
 
 
 class SandboxDefaultParamsSchema(Schema):

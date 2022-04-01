@@ -1,17 +1,14 @@
-import React, { FC, memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {FC, memo} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
-import { Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {Button} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import AllInboxIcon from "@material-ui/icons/AllInbox";
 
-import {
-  actionsPipeline,
-  evaluatePipeline,
-} from "../../../../redux/pipeline/pipeline-actions";
-import { SandboxPointFormType } from "../../../../redux/pipeline/pipeline-types";
-import { StateType } from "../../../../redux/store";
+import {actionsPipeline, evaluatePipeline,} from "../../../../redux/pipeline/pipeline-actions";
+import {SandboxPointFormType} from "../../../../redux/pipeline/pipeline-types";
+import {StateType} from "../../../../redux/store";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -70,7 +67,7 @@ const SandboxPipelineButtons: FC = () => {
   const handleEvaluateClick = () => {
     if (showCase) {
       dispatch(
-        evaluatePipeline(showCase.pipeline_id, pipeline.nodes, pipeline.edges)
+          evaluatePipeline(showCase.individual_id, pipeline.nodes, pipeline.edges)
       );
     }
   };

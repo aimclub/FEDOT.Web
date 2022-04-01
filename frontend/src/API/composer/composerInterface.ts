@@ -11,7 +11,7 @@ export interface IHistoryEdge {
 export interface IHistoryNodeIndividual {
   uid: string;
   type: string;
-  pipeline_id: any;
+  individual_id: any;
   full_name?: any;
   objs?: any;
   gen_id: number;

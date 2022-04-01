@@ -18,13 +18,13 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
     icon_path = prepare_icon_path(dumped_item)
 
     case_metadata = pickle.loads(dumped_item['metadata'])
-    pipeline_id = dumped_item['pipeline_id']
+    individual_id = dumped_item['individual_id']
 
     details = dumped_item['details']
     is_updated = False
     if not details:
         n_features, n_rows = get_dataset_metadata(case_metadata.dataset_name, 'train')
-        n_models, n_levels = get_pipeline_metadata(pipeline_id)
+        n_models, n_levels = get_pipeline_metadata(individual_id)
         details = {
             'n_models': n_models,
             'n_levels': n_levels,
@@ -32,10 +32,10 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
             'n_rows': n_rows}
 
         case_id = dumped_item['case_id']
-        pipeline, case = pipeline_by_uid(pipeline_id), showcase_item_from_db(case_id)
+        pipeline, case = pipeline_by_uid(individual_id), showcase_item_from_db(case_id)
 
         if pipeline is None:
-            raise ValueError(f'Pipeline with id {pipeline_id} not exists.')
+            raise ValueError(f'Pipeline with id {individual_id} not exists.')
         if case is None:
             raise ValueError(f'Case with id {case_id} not exists.')
 
@@ -48,7 +48,7 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
                         title=dumped_item['title'],
                         icon_path=icon_path,
                         description=dumped_item['description'],
-                        pipeline_id=pipeline_id,
+                        individual_id=individual_id,
                         metadata=case_metadata,
                         details=details)
     if is_updated:
