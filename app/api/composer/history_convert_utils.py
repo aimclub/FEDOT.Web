@@ -57,7 +57,7 @@ def _process_operator(all_nodes, operator, individual, o_id, gen_id, prev_operat
             parents_for_operator = operator_node['tmp_parent_individuals']
             for parent in parents_for_operator:
                 if parent not in operator_to_update['tmp_parent_individuals']:
-                    operator_to_update['tmp_parent_individuals'].append(parents_for_operator)
+                    operator_to_update['tmp_parent_individuals'].append(parent)
     return all_nodes
 
 
@@ -92,8 +92,8 @@ def _create_operators_and_nodes(history):
 
             # add evo operators as nodes
             parent_operators_for_ind = history.individuals[gen_id][ind_id].parent_operators
-            parent_operators_for_ind = [parent_operators_for_ind] if not isinstance(parent_operators_for_ind, list) \
-                else parent_operators_for_ind
+            parent_operators_for_ind = parent_operators_for_ind if isinstance(parent_operators_for_ind, list) \
+                else [parent_operators_for_ind]
 
             for o_num, operator in enumerate(parent_operators_for_ind):
                 if isinstance(operator, list) and len(operator) == 0:

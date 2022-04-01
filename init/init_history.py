@@ -59,7 +59,7 @@ def mockup_history(mock_list):
             f.write(json_util.dumps(histories, indent=4))
             print('history is mocked')
 
-        pipelines = [i['pipelines_dict'].values() for i in mock_list]
+        pipelines = [j for i in mock_list for j in i['pipelines_dict'].values()]
 
         if len(pipelines) > 0:
             with open(os.path.join(project_root(), 'test/fixtures/pipelines.json'), 'r+') as f:
