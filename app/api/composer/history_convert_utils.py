@@ -132,12 +132,12 @@ def _create_edges(all_nodes):
         elif node['type'] == 'evo_operator':
             # from pipeline to operator
             operator_node = node
-            prev_pipelines = [n for n in all_nodes if n['type'] == 'individual'
+            prev_individuals = [n for n in all_nodes if n['type'] == 'individual'
                               and n['individual_id'] in operator_node['tmp_parent_individuals']
                               and n['gen_id'] == operator_node['prev_gen_id']]
 
             used_individuals_ids = []
-            for prev_individual in prev_pipelines:
+            for prev_individual in prev_individuals:
                 if prev_individual['individual_id'] not in used_individuals_ids:
                     edges = _add_edge(edges, prev_individual['uid'], operator_node['uid'])
                     used_individuals_ids.append(prev_individual['individual_id'])
