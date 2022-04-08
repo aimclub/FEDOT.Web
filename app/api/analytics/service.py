@@ -115,7 +115,7 @@ def get_population_analytics(case_id: str, analytic_type: str) -> BoxPlotData:
             for individual in generation:
                 pipeline = adapter.restore(individual.graph)
                 gen_distances += [
-                    pipeline.operator.distance_to_other(init_pipeline)
+                    pipeline.operator.distance_to(init_pipeline)
                     for init_pipeline in init_population
                 ]
             y_gen.append(gen_distances)
