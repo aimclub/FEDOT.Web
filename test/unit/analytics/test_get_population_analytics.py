@@ -18,7 +18,7 @@ POPULATION_ANALYTICS_TEST_CASES = [
     PopulationAnalyticsTestCase(
         analytic_type='geno',
         correct_x=[0, 1, 2],
-        correct_y=[[1, 4], [9], [25, 36, 100]]
+        correct_y=[[0, 1, 1, 0], [2, 1], [0, 1, 1, 1, 1, 2]]
     ),
     PopulationAnalyticsTestCase(
         analytic_type='exception',
