@@ -1,12 +1,29 @@
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, Dict, Iterable
 
 import numpy as np
+from fedot.core.utilities.data_structures import UniqueList
+from fedot.core.utils import DEFAULT_PARAMS_STUB
 
 
 @dataclass
 class MockIndividualGraph:
-    depth: int
+    nodes: List['MockNode']
+
+
+@dataclass
+class MockNode:
+    def __init__(self, name: str):
+        self.content: Dict[str, str] = {'name': name, 'params': DEFAULT_PARAMS_STUB}
+        self._nodes_from = []
+
+    @property
+    def nodes_from(self) -> List:
+        return self._nodes_from
+
+    @nodes_from.setter
+    def nodes_from(self, nodes: Optional[Iterable['MockNode']]):
+        self._nodes_from = UniqueList(nodes)
 
 
 @dataclass

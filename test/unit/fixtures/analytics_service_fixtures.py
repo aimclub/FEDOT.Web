@@ -8,7 +8,7 @@ from ..mocks.analytics_service_mocks import (MockIndividual,
                                              MockIndividualGraph,
                                              MockInputData, MockOptHistory,
                                              MockOutputData, MockPipeline,
-                                             MockShowcaseItem)
+                                             MockShowcaseItem, MockNode)
 
 
 @pytest.fixture
@@ -28,13 +28,13 @@ def plot_data_fixture(monkeypatch):
 def composer_history_for_case_fixture(monkeypatch):
     individuals = [
         [
-            MockIndividual(fitness, MockIndividualGraph(depth))
-            for fitness, depth in ind_lst
+            MockIndividual(fitness, MockIndividualGraph(nodes))
+            for fitness, nodes in ind_lst
         ]
         for ind_lst in [
-            [(1.1111, 1), (2.2229999, 4)],
-            [(3.3366, 9)],
-            [(5.54321, 25), (-6.123456, 36), (10.54346, 100)]
+            [(1.1111, [MockNode('a')]), (2.2229999, [MockNode('a'), MockNode('b')])],
+            [(3.3366, [MockNode('a'), MockNode('b'), MockNode('c')])],
+            [(5.54321, [MockNode('a')]), (-6.123456, [MockNode('b')]), (10.54346, [MockNode('c')])]
         ]
     ]
 

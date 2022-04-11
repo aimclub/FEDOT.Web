@@ -2,6 +2,7 @@ from typing import Dict, List, Optional, Tuple, Union
 
 import numpy as np
 from fedot.core.data.data import InputData, OutputData
+from fedot.core.optimisers.adapters import PipelineAdapter
 from fedot.core.pipelines.pipeline import Pipeline
 
 from app.api.composer.service import composer_history_for_case
@@ -104,9 +105,20 @@ def get_population_analytics(case_id: str, analytic_type: str) -> BoxPlotData:
 
     y_gen: List[List[Integral]]
     if analytic_type == 'pheno':
-        y_gen = [[abs(i.fitness) for i in gen] for gen in history.individuals]
+        y_gen = [[abs(i.fitness) for i in gen] for gen in history.individuals]  # noqa - assume that i.fitness is float
     elif analytic_type == 'geno':
-        y_gen = [[abs(i.graph.depth) for i in gen] for gen in history.individuals]
+        adapter = PipelineAdapter()
+        init_population = [adapter.restore(ind.graph) for ind in history.individuals[0]]
+        y_gen = []
+        for generation in history.individuals:
+            gen_distances = []
+            for individual in generation:
+                pipeline = adapter.restore(individual.graph)
+                gen_distances += [
+                    pipeline.operator.distance_to(init_pipeline)
+                    for init_pipeline in init_population
+                ]
+            y_gen.append(gen_distances)
     else:
         raise ValueError(f'Analytic type {analytic_type} not recognized')
 
