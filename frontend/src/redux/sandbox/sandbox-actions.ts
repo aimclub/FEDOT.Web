@@ -136,11 +136,11 @@ export const getModelNames =
   };
 
 export const getResult =
-  (caseId: string, pipelineId: string): ThunkTypeAsync =>
+  (caseId: string, individualId: string): ThunkTypeAsync =>
   async (dispatch) => {
     dispatch(actionsSandbox.setResultLoading(true));
     try {
-      const result = await analyticsAPI.getResults(caseId, pipelineId);
+      const result = await analyticsAPI.getResults(caseId, individualId);
       dispatch(actionsSandbox.setResult(result));
     } catch (error) {
       console.log(error);

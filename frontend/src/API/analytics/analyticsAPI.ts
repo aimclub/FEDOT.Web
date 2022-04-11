@@ -25,10 +25,10 @@ export const analyticsAPI = {
       return Promise.reject(error);
     }
   },
-  async getResults(caseId: string, pipelineId: string) {
+  async getResults(caseId: string, individualId: string) {
     try {
       const res = await instance.get<IResult>(
-        `/analytics/results/${caseId}/${pipelineId}`
+        `/analytics/results/${caseId}/${individualId}`
       );
       return res.data;
     } catch (error: any) {
