@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import List, Optional, Dict, Iterable
 
 import numpy as np
+from fedot.core.optimisers.fitness import SingleObjFitness
 from fedot.core.utilities.data_structures import UniqueList
 from fedot.core.utils import DEFAULT_PARAMS_STUB
 
@@ -28,7 +29,7 @@ class MockNode:
 
 @dataclass
 class MockIndividual:
-    fitness: float
+    fitness: SingleObjFitness
     graph: MockIndividualGraph
 
 

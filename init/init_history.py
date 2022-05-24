@@ -139,7 +139,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
         for i, individual in enumerate(pop):
             try:
                 pipeline_template = historical_pipelines[global_id]
-                fitness = history.all_historical_fitness[i]
+                fitness = history.all_historical_fitness[i].value
                 if best_fitness is None or fitness < best_fitness:
                     best_fitness = fitness
 

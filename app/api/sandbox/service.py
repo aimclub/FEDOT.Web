@@ -11,7 +11,7 @@ def pipelines_ids_for_epochs_in_case(case_id: str) -> List[PipelineEpochMapping]
     epochs = {}
 
     for epoch_id, epoch_inds in enumerate(history.individuals, start=1):
-        best_ind = min(epoch_inds, key=lambda ind: ind.fitness)
+        best_ind = min(epoch_inds, key=lambda ind: ind.fitness.value)
         epochs[epoch_id] = best_ind.uid
 
     return [PipelineEpochMapping(key, value) for key, value in epochs.items()]
