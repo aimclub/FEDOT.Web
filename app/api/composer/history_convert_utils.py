@@ -69,8 +69,8 @@ def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id)
         individual_id = individual.uid
         uid = f'ind_{gen_id}_{ind_id}'
         objs = {}
-        for metric in history.metrics:
-            objs[str(metric)] = history.all_historical_fitness[order_id]
+        for metric in history._objective.metric_names:
+            objs[metric] = history.all_historical_fitness[order_id]
         pipeline_node = _init_pipeline_dict(individual, objs, uid, individual_id, gen_id, ind_id)
         all_nodes.append(pipeline_node)
         order_id += 1

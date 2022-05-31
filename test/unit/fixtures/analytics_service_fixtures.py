@@ -3,6 +3,7 @@ from typing import Tuple
 
 import numpy as np
 import pytest
+from fedot.core.optimisers.fitness import SingleObjFitness as Fitness
 
 from ..mocks.analytics_service_mocks import (MockIndividual,
                                              MockIndividualGraph,
@@ -32,9 +33,11 @@ def composer_history_for_case_fixture(monkeypatch):
             for fitness, nodes in ind_lst
         ]
         for ind_lst in [
-            [(1.1111, [MockNode('a')]), (2.2229999, [MockNode('a'), MockNode('b')])],
-            [(3.3366, [MockNode('a'), MockNode('b'), MockNode('c')])],
-            [(5.54321, [MockNode('a')]), (-6.123456, [MockNode('b')]), (10.54346, [MockNode('c')])]
+            [(Fitness(-1.1111), [MockNode('a')]), (Fitness(-2.2229999), [MockNode('a'), MockNode('b')])],
+            [(Fitness(-3.3366), [MockNode('a'), MockNode('b'), MockNode('c')])],
+            [(Fitness(-5.54321), [MockNode('a')]),
+             (Fitness(-6.123456), [MockNode('b')]),
+             (Fitness(-10.54346), [MockNode('c')])]
         ]
     ]
 

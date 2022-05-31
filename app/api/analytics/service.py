@@ -85,7 +85,7 @@ def get_quality_analytics(case_id: str) -> PlotData:
     history = composer_history_for_case(case_id)
 
     y: List[Integral] = [
-        round(abs(min(i.fitness for i in gen)), 3)
+        round(abs(min(i.fitness.value for i in gen)), 3)
         for gen in history.individuals
     ]
     x: List[int] = [idx for idx, _ in enumerate(history.individuals)]
@@ -105,7 +105,7 @@ def get_population_analytics(case_id: str, analytic_type: str) -> BoxPlotData:
 
     y_gen: List[List[Integral]]
     if analytic_type == 'pheno':
-        y_gen = [[abs(i.fitness) for i in gen] for gen in history.individuals]  # noqa - assume that i.fitness is float
+        y_gen = [[abs(i.fitness.value) for i in gen] for gen in history.individuals]
     elif analytic_type == 'geno':
         adapter = PipelineAdapter()
         init_population = [adapter.restore(ind.graph) for ind in history.individuals[0]]

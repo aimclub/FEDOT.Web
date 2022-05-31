@@ -18,5 +18,5 @@ def test_get_quality_analytics(
     assert len(x) == len(y), 'x and y should have the same shape'
     correct_x = [0, 1, 2]
     assert_series_equal(Series(x), Series(correct_x), obj='x')
-    correct_y = [1.111, 3.337, 6.123]
+    correct_y = [2.223, 3.337, 10.543]
     assert_series_equal(Series(y), Series(correct_y), check_dtype=False, obj='y')
