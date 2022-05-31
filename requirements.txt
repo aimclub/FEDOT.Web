@@ -1,5 +1,5 @@
 # FEDOT
-https://github.com/nccr-itmo/FEDOT/archive/master.zip
+git+git://github.com/nccr-itmo/FEDOT.git@e925d80bd02eb3337418e942679918c56b69e912
 
 # Requirements that should use the same versions as FEDOT
 pandas
