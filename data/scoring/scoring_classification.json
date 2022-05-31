@@ -96,7 +96,7 @@
                             "0580ba6f-1fbc-495c-ad87-5695213614d4"
                         ],
                         "uid": "990c8faa-d684-4542-b98f-1dc8ce4efad3",
-                        "_class_path": "fedot.core.optimisers.opt_history/ParentOperator"
+                        "_class_path": "fedot.core.optimisers.gp_comp.individual/ParentOperator"
                     }
                 ],
                 "metadata": {
@@ -143,7 +143,7 @@
                             "0580ba6f-1fbc-495c-ad87-5695213614d4"
                         ],
                         "uid": "089ebadc-44fc-4fd5-a102-501ca6160bdd",
-                        "_class_path": "fedot.core.optimisers.opt_history/ParentOperator"
+                        "_class_path": "fedot.core.optimisers.gp_comp.individual/ParentOperator"
                     }
                 ],
                 "metadata": {
@@ -230,7 +230,7 @@
                             "0580ba6f-1fbc-495c-ad87-5695213614d4"
                         ],
                         "uid": "ebdf2788-44df-4c85-b521-8b1265464ea7",
-                        "_class_path": "fedot.core.optimisers.opt_history/ParentOperator"
+                        "_class_path": "fedot.core.optimisers.gp_comp.individual/ParentOperator"
                     },
                     {
                         "operator_name": "MutationTypesEnum.single_edge",
@@ -239,7 +239,7 @@
                             "35e591f4-1b3f-4e15-bbf0-b2f66365d04c"
                         ],
                         "uid": "e8949022-3d00-430b-95fb-a92c5a4f3ae2",
-                        "_class_path": "fedot.core.optimisers.opt_history/ParentOperator"
+                        "_class_path": "fedot.core.optimisers.gp_comp.individual/ParentOperator"
                     }
                 ],
                 "metadata": {
@@ -304,7 +304,7 @@
                             "0580ba6f-1fbc-495c-ad87-5695213614d4"
                         ],
                         "uid": "990c8faa-d684-4542-b98f-1dc8ce4efad3",
-                        "_class_path": "fedot.core.optimisers.opt_history/ParentOperator"
+                        "_class_path": "fedot.core.optimisers.gp_comp.individual/ParentOperator"
                     }
                 ],
                 "metadata": {
@@ -486,7 +486,7 @@
                             "0580ba6f-1fbc-495c-ad87-5695213614d4"
                         ],
                         "uid": "8c596770-9940-491a-a856-b59a3b3f9dd6",
-                        "_class_path": "fedot.core.optimisers.opt_history/ParentOperator"
+                        "_class_path": "fedot.core.optimisers.gp_comp.individual/ParentOperator"
                     }
                 ],
                 "metadata": {
@@ -533,7 +533,7 @@
                             "bbbe5831-003b-496a-982a-523e92c8b861"
                         ],
                         "uid": "62c04d57-6fac-4f13-a1c5-3857a1a3aa83",
-                        "_class_path": "fedot.core.optimisers.opt_history/ParentOperator"
+                        "_class_path": "fedot.core.optimisers.gp_comp.individual/ParentOperator"
                     }
                 ],
                 "metadata": {
@@ -602,7 +602,7 @@
                             "0580ba6f-1fbc-495c-ad87-5695213614d4"
                         ],
                         "uid": "990c8faa-d684-4542-b98f-1dc8ce4efad3",
-                        "_class_path": "fedot.core.optimisers.opt_history/ParentOperator"
+                        "_class_path": "fedot.core.optimisers.gp_comp.individual/ParentOperator"
                     }
                 ],
                 "metadata": {
@@ -669,7 +669,7 @@
                             "0580ba6f-1fbc-495c-ad87-5695213614d4"
                         ],
                         "uid": "990c8faa-d684-4542-b98f-1dc8ce4efad3",
-                        "_class_path": "fedot.core.optimisers.opt_history/ParentOperator"
+                        "_class_path": "fedot.core.optimisers.gp_comp.individual/ParentOperator"
                     }
                 ],
                 "metadata": {
@@ -736,7 +736,7 @@
                             "0580ba6f-1fbc-495c-ad87-5695213614d4"
                         ],
                         "uid": "990c8faa-d684-4542-b98f-1dc8ce4efad3",
-                        "_class_path": "fedot.core.optimisers.opt_history/ParentOperator"
+                        "_class_path": "fedot.core.optimisers.gp_comp.individual/ParentOperator"
                     }
                 ],
                 "metadata": {
