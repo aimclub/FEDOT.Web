@@ -1,6 +1,7 @@
 import datetime
 import json
 import sys
+from functools import lru_cache
 from os import PathLike
 from pathlib import Path
 from typing import Optional
@@ -16,9 +17,11 @@ from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.api.showcase.showcase_utils import showcase_item_from_db
 from app.singletons.db_service import DBServiceSingleton
-from utils import project_root
+from utils import project_root, threading_lock
 
 
+@threading_lock
+@lru_cache(maxsize=128)
 def composer_history_for_case(case_id: str, validate_history: bool = False) -> OptHistory:
     case = showcase_item_from_db(case_id)
     if case is None:
