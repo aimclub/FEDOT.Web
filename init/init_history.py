@@ -150,10 +150,11 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
 
                 is_existing_pipeline = is_pipeline_exists(individual.uid)
                 if not is_existing_pipeline:
-                    print(f'Pipeline №{i} with id{individual.uid} added')
+                    print(f'Pipeline №{i} with id {individual.uid} added')
                     pipeline = Pipeline()
                     pipeline_template.convert_to_pipeline(pipeline)
-                    pipeline.fit(data)
+                    if data is not None:
+                        pipeline.fit(data)
                     # workaround to reduce size
                     pipeline.preprocessor.structure_analysis = PipelineStructureExplorer()
                     if db_service.exists():

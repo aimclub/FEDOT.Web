@@ -146,7 +146,8 @@ def get_prediction_for_pipeline(
         )
         if not pipeline.is_fitted and train_data:
             pipeline.fit(train_data)
-        prediction = pipeline.predict(test_data)
+        if test_data:
+            prediction = pipeline.predict(test_data)
     return test_data, prediction
 
 

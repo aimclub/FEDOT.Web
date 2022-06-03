@@ -20,7 +20,7 @@ PIPELINE_PREDICTION_TEST_CASES = [
     PipelinePredictionTestCase(
         showcase=MockShowcaseItem(MockMetaData(dataset_name=None)),
         pipeline=MockPipeline(),
-        target='exception'
+        target=lambda test_data, prediction: test_data is None and prediction is None
     ),
     PipelinePredictionTestCase(
         showcase=MockShowcaseItem(MockMetaData(dataset_name=None)),
@@ -53,8 +53,4 @@ def test_get_prediction_for_pipeline(
     make_chart_dicts_fixture,
     input_output_data_fixture,
 ):
-    if type(case.target) is str and case.target == 'exception':
-        with pytest.raises(ValueError):
-            get_prediction_for_pipeline(case.showcase, case.pipeline)
-    else:
-        case.target(*get_prediction_for_pipeline(case.showcase, case.pipeline))
+    assert case.target(*get_prediction_for_pipeline(case.showcase, case.pipeline))
