@@ -81,23 +81,22 @@ def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id)
 def _create_operators_and_nodes(history):
     all_nodes = []
     current_order_id = 0
-    for gen_id in range(len(history.individuals)):
+    for gen_id, generation in enumerate(history.individuals):
         o_id = 0
         all_nodes, current_order_id = _create_all_individuals_for_population(history, all_nodes, gen_id,
                                                                              current_order_id)
         if gen_id == 0:
             continue
-        for ind_id in range(len(history.individuals[gen_id])):
-            individual = history.individuals[gen_id][ind_id]
+        for ind_id, individual in enumerate(generation):
+            if individual.native_generation != gen_id:
+                continue
 
             # add evo operators as nodes
-            parent_operators_for_ind = history.individuals[gen_id][ind_id].parent_operators
-            parent_operators_for_ind = parent_operators_for_ind if isinstance(parent_operators_for_ind, list) \
-                else [parent_operators_for_ind]
-
+            parent_operators_for_ind = individual.parent_operators
             for o_num, operator in enumerate(parent_operators_for_ind):
-                if isinstance(operator, list) and len(operator) == 0:
+                if len(operator.parent_individuals) == 0:
                     continue
+
                 prev_operator = None
                 if operator.operator_type != 'selection':
                     # connect with previous operator (e.g. crossover -> mutation)
