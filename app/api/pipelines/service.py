@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import pymongo
 from bson import json_util
 from fedot.core.pipelines.pipeline import Pipeline
-from fedot.core.pipelines.validation import validate
+from fedot.core.pipelines.verification import verify_pipeline as verify
 from flask import current_app, has_app_context, url_for
 from pymongo.errors import DuplicateKeyError
 
@@ -44,9 +44,9 @@ def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
     return pipeline
 
 
-def validate_pipeline(pipeline: Pipeline) -> Tuple[bool, str]:
+def verify_pipeline(pipeline: Pipeline) -> Tuple[bool, str]:
     try:
-        validate(pipeline)
+        verify(pipeline)
         return True, 'Correct pipeline'
     except ValueError as ex:
         return False, str(ex)
