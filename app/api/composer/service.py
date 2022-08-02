@@ -124,9 +124,9 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
 
     preset = 'fast_train'
 
-    auto_model = Fedot(problem=task, seed=42, preset=preset, verbose_level=4,
-                       timeout=learning_time,
-                       composer_params=composer_params, task_params=task_parameters, n_jobs=-1)
+    auto_model = Fedot(problem=task, seed=42, preset=preset, logging_level=4,
+                       timeout=learning_time, task_params=task_parameters, n_jobs=-1,
+                       **composer_params)
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history
