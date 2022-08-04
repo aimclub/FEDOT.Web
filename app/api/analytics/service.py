@@ -1,6 +1,7 @@
 from typing import Dict, List, Optional, Tuple, Union
 
 import numpy as np
+from fedot.core.dag.graph_operator import get_distance_between
 from fedot.core.data.data import InputData, OutputData
 from fedot.core.optimisers.adapters import PipelineAdapter
 from fedot.core.pipelines.pipeline import Pipeline
@@ -115,7 +116,7 @@ def get_population_analytics(case_id: str, analytic_type: str) -> BoxPlotData:
             for individual in generation:
                 pipeline = adapter.restore(individual.graph)
                 gen_distances += [
-                    pipeline._operator.distance_to(init_pipeline)
+                    get_distance_between(pipeline, init_pipeline)
                     for init_pipeline in init_population
                 ]
             y_gen.append(gen_distances)
