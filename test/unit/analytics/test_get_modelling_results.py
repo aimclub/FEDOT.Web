@@ -64,7 +64,7 @@ MODEL_RESULTS_TEST_CASES = [
     ),
     ModelResultsTestCase(
         task_name='regression',
-        pipeline=MockPipeline,
+        pipeline=MockPipeline(),
         baseline_pipeline=MockPipeline(should_return_baseline=True),
         correct_x=[0, 1, 2, 3, 4, 5],
         correct_y=[[1, 2, 3, 4, 5, 6], [22, 33, 44, 55, 66, 77]]

@@ -20,7 +20,7 @@ def test_correct_operator_ancestors_count(client):
             if operator_name == 'mutation':
                 test_status = len(sources) == 1
             elif operator_name == 'crossover':
-                test_status = len(sources) == 2
+                test_status = len(sources) == (2 if sources[0].startswith('ind') else 1)
             assert test_status, (
                 f'{operator_name} operators must have exactly '
                 f'{"one ancestor" if operator_name == "mutation" else "two ancestors"}: '
