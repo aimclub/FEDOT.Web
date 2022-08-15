@@ -1,33 +1,34 @@
 import * as d3 from "d3";
 import dagreD3 from "dagre-d3";
+import {
+  IHistoryEdge,
+  IHistoryNodeIndividual,
+  IHistoryNodeOperator,
+} from "../API/composer/composerInterface";
 
-export function runHistory(
-  container,
-  linksData,
-  nodesData,
-  highlightNodes,
-  onClickPipeline,
-  onDblClickPipeline,
-  { zoom, setZoom }
-) {
-  // nodeHoverTooltip,
+export type ZoomType = { x: number; y: number; k: number } | undefined;
 
-  const links = linksData.map((d) => Object.assign({}, d));
-
-  // let nodes = nodesData.map((d) => Object.assign({}, d));
+export const createHistoryGraph = (
+  container: HTMLDivElement,
+  linksData: IHistoryEdge[],
+  nodesData: (IHistoryNodeIndividual | IHistoryNodeOperator)[],
+  highlightNodes: string[],
+  onClickPipeline: (value: IHistoryNodeIndividual) => void,
+  onDblClickPipeline: (value: IHistoryNodeIndividual) => void,
+  { zoom, setZoom }: { zoom: ZoomType; setZoom: (v: ZoomType) => void }
+) => {
+  const links = linksData.map((d) => ({ ...d }));
   const nodesIndividual = nodesData.filter(
     (item) => item.type === "individual"
-  );
+  ) as IHistoryNodeIndividual[];
   const nodesOperator = nodesData.filter(
     (item) => item.type === "evo_operator"
+  ) as IHistoryNodeOperator[];
+
+  const uniqGenerations = Array.from(
+    new Set(nodesIndividual.map((item) => item.gen_id))
   );
 
-  let generations = [];
-  nodesIndividual.forEach((item) => generations.push(item.gen_id));
-  // оставляем уникальные значения
-  const uniqGenerations = Array.from(new Set(generations));
-
-  // размеры контейнера
   const { height, width } = container.getBoundingClientRect();
 
   const svg = d3
@@ -39,33 +40,31 @@ export function runHistory(
       d3.zoom().on("zoom", function (event) {
         svgGroup.attr("transform", event.transform);
         // console.log(event.transform);
-        setZoom(event.transform);
-      })
+        setZoom(event.transform as ZoomType);
+      }) as any
     );
 
-  // Set up an SVG group so that we can translate the final graph.
   const svgGroup = svg
     .append("g")
-    .on("click", (e, d) => {
-      // нажатие на pipeline
-      if (e.target && e.target.textContent.includes("pipeline")) {
-        e.stopPropagation();
-        onClickPipeline(
-          nodesIndividual.find((item) => item.uid === e.target.textContent)
+    .on("click", (event) => {
+      if (event.target) {
+        event.stopPropagation();
+        const node = nodesIndividual.find(
+          (item) => item.uid === event.target.textContent
         );
+        if (node) onClickPipeline(node);
       }
     })
-    .on("dblclick", (e, d) => {
-      // двойное нажатие на pipeline
-      if (e.target && e.target.textContent.includes("pipeline")) {
-        e.stopPropagation();
-        onDblClickPipeline(
-          nodesIndividual.find((item) => item.uid === e.target.textContent)
+    .on("dblclick", (event) => {
+      if (event.target) {
+        event.stopPropagation();
+        const node = nodesIndividual.find(
+          (item) => item.uid === event.target.textContent
         );
+        if (node) onDblClickPipeline(node);
       }
     });
 
-  // Create the input graph
   const g = new dagreD3.graphlib.Graph({ compound: true })
     .setGraph({
       rankdir: "TB",
@@ -74,29 +73,21 @@ export function runHistory(
     })
     .setDefaultEdgeLabel(() => ({}));
 
-  // Here we're setting nodeclass, which is used by our custom drawNodes function
-  // below.
-
-  //Кластеры поколений
-
   uniqGenerations.forEach((generation) => {
     const nameG = `Generation ${generation}`;
 
-    g.setNode(generation, {
+    g.setNode(`${generation}`, {
       label: generation,
       labelStyle: "cursor: default;",
       clusterLabelPos: "left",
       style: "fill: #d3d7e8; cursor: default;",
     });
-
-    //узел отображающий поколение
     g.setNode(nameG, {
       label: nameG,
     });
-    g.setParent(nameG, generation);
+    g.setParent(nameG, String(generation));
 
     nodesIndividual.forEach((item) => {
-      // console.log(`item`, item)
       if (generation === item.gen_id) {
         g.setNode(item.uid, {
           label: item.uid,
@@ -105,7 +96,7 @@ export function runHistory(
           shape: "rect",
         });
 
-        g.setParent(item.uid, generation);
+        g.setParent(item.uid, String(generation));
       }
     });
   });
@@ -150,11 +141,11 @@ export function runHistory(
   const render = new dagreD3.render();
 
   // Run the renderer. This is what draws the final graph.
-  render(svgGroup, g);
+  render(svgGroup as any, g as any);
 
   // Center the graph
-  const gHeight = g.graph().height;
-  const gWidth = g.graph().width;
+  const gHeight = (g.graph() as any).height;
+  const gWidth = (g.graph() as any).width;
 
   if (height < gHeight || width < gWidth) {
     const viewHeight = height < gHeight ? gHeight : height;
@@ -169,8 +160,8 @@ export function runHistory(
   }
 
   if (!zoom) {
-    const xCenterOffset = (svg.attr("width") - gWidth) / 2;
-    const yCenterOffset = (svg.attr("height") - gHeight) / 2;
+    const xCenterOffset = (+svg.attr("width") - gWidth) / 2;
+    const yCenterOffset = (+svg.attr("height") - gHeight) / 2;
 
     svgGroup.attr(
       "transform",
@@ -228,4 +219,4 @@ export function runHistory(
       return svg.node();
     },
   };
-}
+};

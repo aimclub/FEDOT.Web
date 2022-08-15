@@ -1,18 +1,21 @@
+import React, { FC, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { IconButton } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import FormatColorResetIcon from "@material-ui/icons/FormatColorReset";
-import React, { FC, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
+import styles from "./HistoryGraph.module.scss";
+
 import { IHistoryNodeIndividual } from "../../../API/composer/composerInterface";
 import AppLoader from "../../../components/UI/loaders/AppLoader";
 import CustomTooltip from "../../../components/UI/tooltip/CustomTooltip";
 import { openHistoryModal } from "../../../redux/history/history-actions";
 import { StateType } from "../../../redux/store";
-import { runHistory } from "../../../utils/historyGraphGenerator";
-import styles from "./HistoryGraph.module.scss";
-
-
-
+import {
+  createHistoryGraph,
+  ZoomType,
+} from "../../../utils/historyGraphGenerator";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -48,13 +51,13 @@ const useStyles = makeStyles(() => ({
 
 const HistoryGraph: FC = () => {
   const classes = useStyles();
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
   const { history, isLoadingHistory } = useSelector(
     (state: StateType) => state.history
   );
   const [highlightPipelines, setHighlightPipelines] = useState<string[]>([]);
-  const [zoom, setZoom] = useState<string | undefined>(undefined);
+  const [zoom, setZoom] = useState<ZoomType>(undefined);
 
   const handleSelectReset = () => {
     setHighlightPipelines([]);
@@ -89,7 +92,7 @@ const HistoryGraph: FC = () => {
     // }, []);
 
     if (containerRef.current) {
-      const { destroy } = runHistory(
+      const { destroy } = createHistoryGraph(
         containerRef.current,
         history.edges,
         history.nodes,
