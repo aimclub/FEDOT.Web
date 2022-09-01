@@ -69,10 +69,11 @@ def pipeline_to_graph(pipeline: Pipeline) -> PipelineGraph:
                     'target': node['id']
                 })
 
-            childs = pipeline._operator.node_children(node['pipeline_node'])
-            if childs is not None:
-                # fill childs field
-                for pipeline_node_child in childs:
+            children = pipeline._operator.node_children(node['pipeline_node']) if hasattr(pipeline, '_operator') \
+                else pipeline.node_children(node['pipeline_node'])  # TODO Temporary solution until FEDOT is updated
+            if children is not None:
+                # fill children field
+                for pipeline_node_child in children:
                     node['children'].append(pipeline_node_child.tmp_id)
         del node['pipeline_node']
 
