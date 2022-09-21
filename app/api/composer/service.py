@@ -93,7 +93,7 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
     num_of_generations = 5
     learning_time = time
 
-    composer_params = {'composer_metric': metric,
+    composer_params = {'metric': metric,
                        'pop_size': pop_size,
                        'num_of_generations': num_of_generations,
                        'max_arity': 3,
@@ -101,7 +101,7 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
                        'with_tuning': True}
 
     if time is None:  # test mode
-        composer_params = {'composer_metric': metric,
+        composer_params = {'metric': metric,
                            'pop_size': 3,
                            'num_of_generations': 2,
                            'max_arity': 2,
@@ -125,7 +125,7 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
     preset = 'fast_train'
 
     auto_model = Fedot(problem=task, seed=42, preset=preset, logging_level=4,
-                       timeout=learning_time, task_params=task_parameters, n_jobs=-1,
+                       timeout=learning_time, task_params=task_parameters, n_jobs=1,
                        **composer_params)
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
