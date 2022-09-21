@@ -35,11 +35,8 @@ def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
             dict_fitted_operations = json_util.loads(file.read())
 
     if dict_fitted_operations:
-        for key in dict_fitted_operations:
-            if key.find('operation') != -1:
-                bytes_container = BytesIO()
-                bytes_container.write(dict_fitted_operations[key])
-                dict_fitted_operations[key] = bytes_container
+        dict_fitted_operations = {key: BytesIO(operation) for key, operation in dict_fitted_operations.items()
+                                  if key not in ['individual_id', '_id']}
     pipeline.load(pipeline_dict, dict_fitted_operations)
     return pipeline
 
