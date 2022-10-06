@@ -35,7 +35,7 @@
     fill: #eba;
   }
   [class*="type-TK"] rect {
-    fill: #00ffd0;
+    fill: #9DE1F4;
   }
   [class*="type-TK highlight"] rect {
     fill: #ffd000;
@@ -68,7 +68,7 @@
 
   [class*="operator-C"] circle {
     cursor: default;
-    fill: #4a66c6;
+    fill: #B5F49D;
   }
 
   [class*="operator-C highlight"] circle {
@@ -77,9 +77,18 @@
 
   [class*="operator-M"] circle {
     cursor: default;
-    fill: rgba(229, 92, 222, 0.95);
+    fill: #DB9DF4;
   }
   [class*="operator-M highlight"] circle {
+    fill: #ffd000;
+  }
+
+  [class*="operator-S"] circle {
+    cursor: default;
+    fill: #F4B09D;
+  }
+
+  [class*="operator-S highlight"] circle {
     fill: #ffd000;
   }
 
