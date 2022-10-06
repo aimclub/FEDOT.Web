@@ -1,7 +1,7 @@
 #!/bin/bash
 cd ..
 # backend
-export MONGO_CONN_STRING="mongodb://127.0.0.1:27017/test_db?compressors=disabled"
+export MONGO_CONN_STRING="mongodb://127.0.0.1:27017/test_db?compressors=zlib"
 # sh ./scripts/start_mongo.sh
 
 ./venv/bin/python ./init_db.py
