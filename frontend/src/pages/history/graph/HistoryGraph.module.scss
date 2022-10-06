@@ -83,6 +83,15 @@
     fill: #ffd000;
   }
 
+  [class*="operator-S"] circle {
+    cursor: default;
+    fill: #00FF7F;
+  }
+
+  [class*="operator-S highlight"] circle {
+    fill: #ffd000;
+  }
+
   [class*="clusters"] rect {
     stroke: #263238;
     stroke-width: 1.5px;
