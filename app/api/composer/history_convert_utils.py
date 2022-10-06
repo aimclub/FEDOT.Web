@@ -81,37 +81,36 @@ def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id)
 def _create_operators_and_nodes(history):
     all_nodes = []
     current_order_id = 0
-    for gen_id in range(len(history.individuals)):
+    for gen_id, generation in enumerate(history.individuals):
         o_id = 0
         all_nodes, current_order_id = _create_all_individuals_for_population(history, all_nodes, gen_id,
                                                                              current_order_id)
         if gen_id == 0:
             continue
-        for ind_id in range(len(history.individuals[gen_id])):
-            individual = history.individuals[gen_id][ind_id]
+        for ind_id, individual in enumerate(generation):
+            if individual.native_generation != gen_id:
+                continue
 
             # add evo operators as nodes
-            parent_operators_for_ind = history.individuals[gen_id][ind_id].parent_operators
-            parent_operators_for_ind = parent_operators_for_ind if isinstance(parent_operators_for_ind, list) \
-                else [parent_operators_for_ind]
-
+            parent_operators_for_ind = individual.operators_from_prev_generation
             for o_num, operator in enumerate(parent_operators_for_ind):
-                if isinstance(operator, list) and len(operator) == 0:
+                if not operator.parent_individuals:
                     continue
-                prev_operator = None
-                if operator.operator_type != 'selection':
-                    # connect with previous operator (e.g. crossover -> mutation)
-                    skip_next = False
-                    if len(parent_operators_for_ind) > 1:
-                        # in several operator in a row
-                        if o_num > 0:
-                            prev_operator = parent_operators_for_ind[o_num - 1]
-                        if o_num < len(parent_operators_for_ind) - 1:
-                            skip_next = True
 
-                    all_nodes = _process_operator(all_nodes, operator, individual, o_id, gen_id,
-                                                  prev_operator, skip_next)
-                    o_id += 1
+                prev_operator = None
+                if operator.type_ == 'selection':
+                    continue
+                # connect with previous operator (e.g. crossover -> mutation)
+                skip_next = False
+                # in several operator in a row
+                if o_num > 0:
+                    prev_operator = parent_operators_for_ind[o_num - 1]
+                if o_num < len(parent_operators_for_ind) - 1:
+                    skip_next = True
+
+                all_nodes = _process_operator(all_nodes, operator, individual, o_id, gen_id,
+                                              prev_operator, skip_next)
+                o_id += 1
     return all_nodes
 
 
@@ -168,7 +167,7 @@ def _add_edge(edges, source, target):
 
 
 def _init_operator_dict(ind, operator, o_id, gen_id):
-    operator_id = f'evo_operator_{gen_id}_{o_id}_{operator.operator_type}'
+    operator_id = f'evo_operator_{gen_id}_{o_id}_{operator.type_}'
     operator_node = dict()
     operator_node['tmp_operator_uid'] = operator.uid
     operator_node['uid'] = operator_id
@@ -176,8 +175,8 @@ def _init_operator_dict(ind, operator, o_id, gen_id):
     operator_node['next_gen_id'] = gen_id
     operator_node['operator_id'] = o_id
     operator_node['type'] = 'evo_operator'
-    operator_node['name'] = operator.operator_type
-    operator_node['full_name'] = operator.operator_name
+    operator_node['name'] = operator.type_
+    operator_node['full_name'] = ', '.join(operator.operators)
 
     # temporary fields
     try:

@@ -12,7 +12,7 @@ from .pipeline_convert_utils import graph_to_pipeline, pipeline_to_graph
 from .schema import (PipelineGraphSchema, PipelineImageSchema,
                      PipelineResponseSchema, PipelineValidationResponseSchema)
 from .service import (create_pipeline, get_image_url, pipeline_by_uid,
-                      validate_pipeline)
+                      verify_pipeline)
 
 api = Namespace("Pipelines", description="Operations with pipelines")
 
@@ -47,7 +47,7 @@ class PipelinesValidateResource(Resource):
         try:
             graph_dict = request.parsed_obj
             pipeline = graph_to_pipeline(graph_dict)
-            is_valid, msg = validate_pipeline(pipeline)
+            is_valid, msg = verify_pipeline(pipeline)
         except Exception as _:
             is_valid = False
             msg = 'Incorrect pipeline'
@@ -68,7 +68,7 @@ class PipelinesAddResource(Resource):
 
         graph = request.parsed_obj
         pipeline = graph_to_pipeline(graph)
-        is_correct = validate_pipeline(pipeline)
+        is_correct = verify_pipeline(pipeline)
 
         new_uid = str(uuid4())
         if is_correct:

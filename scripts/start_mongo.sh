@@ -4,8 +4,9 @@ then
 	sudo systemctl start mongod
 	sudo systemctl status mongod
 else
+  sudo chown -R mongodb:mongodb  /home/user/mongodb
 	sudo service mongod start
 	sudo service mongod status
 fi
-sudo printf 'MONGO_CONN_STRING=mongodb://127.0.0.1:27017/test_db?compressors=disabled&gssapiServiceName=mongodb' > mongo_conn_string.env
+sudo printf 'MONGO_CONN_STRING=mongodb://127.0.0.1:27017/test_db?compressors=disabled' > mongo_conn_string.env
 mongo test_db

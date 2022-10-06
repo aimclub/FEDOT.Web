@@ -1,6 +1,7 @@
 import datetime
 import json
 import sys
+from functools import lru_cache
 from os import PathLike
 from pathlib import Path
 from typing import Optional
@@ -16,9 +17,11 @@ from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.api.showcase.showcase_utils import showcase_item_from_db
 from app.singletons.db_service import DBServiceSingleton
-from utils import project_root
+from utils import project_root, threading_lock
 
 
+@threading_lock
+@lru_cache(maxsize=128)
 def composer_history_for_case(case_id: str, validate_history: bool = False) -> OptHistory:
     case = showcase_item_from_db(case_id)
     if case is None:
@@ -90,7 +93,7 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
     num_of_generations = 5
     learning_time = time
 
-    composer_params = {'composer_metric': metric,
+    composer_params = {'metric': metric,
                        'pop_size': pop_size,
                        'num_of_generations': num_of_generations,
                        'max_arity': 3,
@@ -98,7 +101,7 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
                        'with_tuning': True}
 
     if time is None:  # test mode
-        composer_params = {'composer_metric': metric,
+        composer_params = {'metric': metric,
                            'pop_size': 3,
                            'num_of_generations': 2,
                            'max_arity': 2,
@@ -121,9 +124,9 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
 
     preset = 'fast_train'
 
-    auto_model = Fedot(problem=task, seed=42, preset=preset, verbose_level=4,
-                       timeout=learning_time,
-                       composer_params=composer_params, task_params=task_parameters, n_jobs=-1)
+    auto_model = Fedot(problem=task, seed=42, preset=preset, logging_level=4,
+                       timeout=learning_time, task_params=task_parameters, n_jobs=1,
+                       **composer_params)
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history

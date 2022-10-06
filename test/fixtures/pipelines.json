@@ -111,11 +111,11 @@
                 "operation_name": "PCAImplementation",
                 "custom_params": {
                     "svd_solver": "full",
-                    "n_components": "mle"
+                    "n_components": 0.7
                 },
                 "params": {
                     "svd_solver": "full",
-                    "n_components": "mle"
+                    "n_components": 0.7
                 },
                 "nodes_from": [],
                 "fitted_operation_path": [
@@ -167,9 +167,9 @@
             "preprocessing",
             "data_preprocessor.pkl"
         ],
-        "descriptive_id": "(((/n_knn_default_params;;/n_lda_default_params;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': -1};;/n_logit_default_params;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': -1};;(/n_logit_default_params;;/n_pca_{'svd_solver': 'full', 'n_components': 'mle'};)/n_knn_default_params;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': -1}",
+        "descriptive_id": "(((/n_knn_default_params;;/n_lda_default_params;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': -1};;/n_logit_default_params;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': -1};;(/n_logit_default_params;;/n_pca_{'svd_solver': 'full', 'n_components': 0.7};)/n_knn_default_params;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': -1}",
         "fitted_operation_path": "operation_0",
-        "_id": "best_scoring_pipeline"
+        "individual_id": "best_scoring_pipeline"
     },
     {
         "total_pipeline_operations": [
@@ -197,7 +197,7 @@
         ],
         "descriptive_id": "/n_logit_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "scoring_baseline"
+        "individual_id": "scoring_baseline"
     },
     {
         "total_pipeline_operations": [
@@ -245,7 +245,7 @@
         ],
         "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_linear_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "metocean_baseline"
+        "individual_id": "metocean_baseline"
     },
     {
         "total_pipeline_operations": [
@@ -273,21 +273,98 @@
         ],
         "descriptive_id": "/n_ridge_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "oil_baseline"
+        "individual_id": "oil_baseline"
     },
     {
         "total_pipeline_operations": [
+            "scaling",
+            "logit"
+        ],
+        "depth": 2,
+        "nodes": [
+            {
+                "operation_id": 1,
+                "operation_type": "scaling",
+                "operation_name": "ScalingImplementation",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_1.pkl"
+                ],
+                "rating": null
+            },
+            {
+                "operation_id": 0,
+                "operation_type": "logit",
+                "operation_name": "LogisticRegression",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [
+                    1
+                ],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_0.pkl"
+                ],
+                "rating": null
+            }
+        ],
+        "preprocessing": [
+            "preprocessing",
+            "data_preprocessor.pkl"
+        ],
+        "descriptive_id": "(/n_scaling_default_params;)/n_logit_default_params",
+        "fitted_operation_path": "operation_0",
+        "individual_id": "68893d7a-b86f-4129-a94e-d4b86e776f12"
+    },
+    {
+        "total_pipeline_operations": [
+            "scaling",
+            "logit",
             "dt"
         ],
-        "depth": 1,
+        "depth": 3,
         "nodes": [
+            {
+                "operation_id": 1,
+                "operation_type": "scaling",
+                "operation_name": "ScalingImplementation",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_1.pkl"
+                ],
+                "rating": null
+            },
+            {
+                "operation_id": 2,
+                "operation_type": "logit",
+                "operation_name": "LogisticRegression",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [
+                    1
+                ],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_2.pkl"
+                ],
+                "rating": null
+            },
             {
                 "operation_id": 0,
                 "operation_type": "dt",
                 "operation_name": "DecisionTreeClassifier",
                 "custom_params": "default_params",
                 "params": "default_params",
-                "nodes_from": [],
+                "nodes_from": [
+                    1,
+                    2
+                ],
                 "fitted_operation_path": [
                     "fitted_operations",
                     "operation_0.pkl"
@@ -299,21 +376,142 @@
             "preprocessing",
             "data_preprocessor.pkl"
         ],
-        "descriptive_id": "/n_dt_default_params",
+        "descriptive_id": "((/n_scaling_default_params;)/n_logit_default_params;;/n_scaling_default_params;)/n_dt_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "b7f7adb1-272d-4a9a-8022-767926bd2cad"
+        "individual_id": "622c7a28-6c58-42f6-86c2-1d5fe9a64ca3"
     },
     {
         "total_pipeline_operations": [
-            "dt",
+            "scaling",
+            "logit",
+            "dt"
+        ],
+        "depth": 3,
+        "nodes": [
+            {
+                "operation_id": 2,
+                "operation_type": "scaling",
+                "operation_name": "ScalingImplementation",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_2.pkl"
+                ],
+                "rating": null
+            },
+            {
+                "operation_id": 1,
+                "operation_type": "logit",
+                "operation_name": "LogisticRegression",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [
+                    2
+                ],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_1.pkl"
+                ],
+                "rating": null
+            },
+            {
+                "operation_id": 0,
+                "operation_type": "dt",
+                "operation_name": "DecisionTreeClassifier",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [
+                    1
+                ],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_0.pkl"
+                ],
+                "rating": null
+            }
+        ],
+        "preprocessing": [
+            "preprocessing",
+            "data_preprocessor.pkl"
+        ],
+        "descriptive_id": "((/n_scaling_default_params;)/n_logit_default_params;)/n_dt_default_params",
+        "fitted_operation_path": "operation_0",
+        "individual_id": "bbc001ec-eb86-4ab8-a158-7b70de7d90f7"
+    },
+    {
+        "total_pipeline_operations": [
+            "scaling",
+            "logit",
+            "dt"
+        ],
+        "depth": 3,
+        "nodes": [
+            {
+                "operation_id": 1,
+                "operation_type": "scaling",
+                "operation_name": "ScalingImplementation",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_1.pkl"
+                ],
+                "rating": null
+            },
+            {
+                "operation_id": 2,
+                "operation_type": "logit",
+                "operation_name": "LogisticRegression",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [
+                    1
+                ],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_2.pkl"
+                ],
+                "rating": null
+            },
+            {
+                "operation_id": 0,
+                "operation_type": "dt",
+                "operation_name": "DecisionTreeClassifier",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [
+                    1,
+                    2
+                ],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_0.pkl"
+                ],
+                "rating": null
+            }
+        ],
+        "preprocessing": [
+            "preprocessing",
+            "data_preprocessor.pkl"
+        ],
+        "descriptive_id": "((/n_scaling_default_params;)/n_logit_default_params;;/n_scaling_default_params;)/n_dt_default_params",
+        "fitted_operation_path": "operation_0",
+        "individual_id": "bd919c31-081d-4ea1-867d-e7735f3f5c59"
+    },
+    {
+        "total_pipeline_operations": [
+            "scaling",
             "logit"
         ],
         "depth": 2,
         "nodes": [
             {
                 "operation_id": 1,
-                "operation_type": "dt",
-                "operation_name": "DecisionTreeClassifier",
+                "operation_type": "scaling",
+                "operation_name": "ScalingImplementation",
                 "custom_params": "default_params",
                 "params": "default_params",
                 "nodes_from": [],
@@ -343,243 +541,9 @@
             "preprocessing",
             "data_preprocessor.pkl"
         ],
-        "descriptive_id": "(/n_dt_default_params;)/n_logit_default_params",
+        "descriptive_id": "(/n_scaling_default_params;)/n_logit_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "b01ffe16-32f8-46f9-a8b5-969f754517e2"
-    },
-    {
-        "total_pipeline_operations": [
-            "logit"
-        ],
-        "depth": 1,
-        "nodes": [
-            {
-                "operation_id": 0,
-                "operation_type": "logit",
-                "operation_name": "LogisticRegression",
-                "custom_params": "default_params",
-                "params": "default_params",
-                "nodes_from": [],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_0.pkl"
-                ],
-                "rating": null
-            }
-        ],
-        "preprocessing": [
-            "preprocessing",
-            "data_preprocessor.pkl"
-        ],
-        "descriptive_id": "/n_logit_default_params",
-        "fitted_operation_path": "operation_0",
-        "_id": "fef3a353-986b-4317-89a2-fe8c59f758ff"
-    },
-    {
-        "total_pipeline_operations": [
-            "dt",
-            "logit"
-        ],
-        "depth": 2,
-        "nodes": [
-            {
-                "operation_id": 1,
-                "operation_type": "dt",
-                "operation_name": "DecisionTreeClassifier",
-                "custom_params": {
-                    "max_depth": 3,
-                    "min_samples_split": 18,
-                    "min_samples_leaf": 20
-                },
-                "params": {
-                    "max_depth": 3,
-                    "min_samples_split": 18,
-                    "min_samples_leaf": 20
-                },
-                "nodes_from": [],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_1.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 0,
-                "operation_type": "logit",
-                "operation_name": "LogisticRegression",
-                "custom_params": "default_params",
-                "params": "default_params",
-                "nodes_from": [
-                    1
-                ],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_0.pkl"
-                ],
-                "rating": null
-            }
-        ],
-        "preprocessing": [
-            "preprocessing",
-            "data_preprocessor.pkl"
-        ],
-        "descriptive_id": "(/n_dt_{'max_depth': 3, 'min_samples_split': 18, 'min_samples_leaf': 20};)/n_logit_default_params",
-        "fitted_operation_path": "operation_0",
-        "_id": "9f7d4592-d8ea-466c-b78d-d306c0ce6843"
-    },
-    {
-        "total_pipeline_operations": [
-            "dt",
-            "logit"
-        ],
-        "depth": 2,
-        "nodes": [
-            {
-                "operation_id": 1,
-                "operation_type": "dt",
-                "operation_name": "DecisionTreeClassifier",
-                "custom_params": {
-                    "max_depth": 3,
-                    "min_samples_split": 18,
-                    "min_samples_leaf": 20
-                },
-                "params": {
-                    "max_depth": 3,
-                    "min_samples_split": 18,
-                    "min_samples_leaf": 20
-                },
-                "nodes_from": [],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_1.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 0,
-                "operation_type": "logit",
-                "operation_name": "LogisticRegression",
-                "custom_params": "default_params",
-                "params": "default_params",
-                "nodes_from": [
-                    1
-                ],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_0.pkl"
-                ],
-                "rating": null
-            }
-        ],
-        "preprocessing": [
-            "preprocessing",
-            "data_preprocessor.pkl"
-        ],
-        "descriptive_id": "(/n_dt_{'max_depth': 3, 'min_samples_split': 18, 'min_samples_leaf': 20};)/n_logit_default_params",
-        "fitted_operation_path": "operation_0",
-        "_id": "3bbe4253-9d55-4a3b-a813-6912e8c07f4b"
-    },
-    {
-        "total_pipeline_operations": [
-            "dt",
-            "logit"
-        ],
-        "depth": 2,
-        "nodes": [
-            {
-                "operation_id": 1,
-                "operation_type": "dt",
-                "operation_name": "DecisionTreeClassifier",
-                "custom_params": {
-                    "max_depth": 3,
-                    "min_samples_split": 18,
-                    "min_samples_leaf": 20
-                },
-                "params": {
-                    "max_depth": 3,
-                    "min_samples_split": 18,
-                    "min_samples_leaf": 20
-                },
-                "nodes_from": [],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_1.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 0,
-                "operation_type": "logit",
-                "operation_name": "LogisticRegression",
-                "custom_params": "default_params",
-                "params": "default_params",
-                "nodes_from": [
-                    1
-                ],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_0.pkl"
-                ],
-                "rating": null
-            }
-        ],
-        "preprocessing": [
-            "preprocessing",
-            "data_preprocessor.pkl"
-        ],
-        "descriptive_id": "(/n_dt_{'max_depth': 3, 'min_samples_split': 18, 'min_samples_leaf': 20};)/n_logit_default_params",
-        "fitted_operation_path": "operation_0",
-        "_id": "efe91400-141f-46d1-b944-01cd189a9543"
-    },
-    {
-        "total_pipeline_operations": [
-            "smoothing",
-            "ar"
-        ],
-        "depth": 2,
-        "nodes": [
-            {
-                "operation_id": 1,
-                "operation_type": "smoothing",
-                "operation_name": "TsSmoothingImplementation",
-                "custom_params": "default_params",
-                "params": "default_params",
-                "nodes_from": [],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_1.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 0,
-                "operation_type": "ar",
-                "operation_name": "AutoRegImplementation",
-                "custom_params": {
-                    "lag_1": 7,
-                    "lag_2": 12
-                },
-                "params": {
-                    "lag_1": 7,
-                    "lag_2": 12
-                },
-                "nodes_from": [
-                    1
-                ],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_0.pkl"
-                ],
-                "rating": null
-            }
-        ],
-        "preprocessing": [
-            "preprocessing",
-            "data_preprocessor.pkl"
-        ],
-        "descriptive_id": "(/n_smoothing_default_params;)/n_ar_{'lag_1': 7, 'lag_2': 12}",
-        "fitted_operation_path": "operation_0",
-        "_id": "e929b002-e4af-4f85-b0f7-516e72fe7331"
+        "individual_id": "994a74cb-7ce4-4d42-8bf2-b78366579bc8"
     },
     {
         "total_pipeline_operations": [
@@ -627,59 +591,27 @@
         ],
         "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "9109c418-32de-44c9-9a1d-be24a3b4aa13"
+        "individual_id": "befeea23-aba9-407a-8875-0bf77268ac09"
     },
     {
         "total_pipeline_operations": [
-            "polyfit",
             "lagged",
-            "ridge"
+            "ridge",
+            "linear"
         ],
         "depth": 3,
         "nodes": [
             {
-                "operation_id": 1,
-                "operation_type": "polyfit",
-                "operation_name": "PolyfitImplementation",
-                "custom_params": {
-                    "degree": 2
-                },
-                "params": {
-                    "degree": 2
-                },
-                "nodes_from": [],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_1.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 3,
+                "operation_id": 2,
                 "operation_type": "lagged",
                 "operation_name": "LaggedTransformationImplementation",
                 "custom_params": {
-                    "window_size": 10
+                    "window_size": 5.573012777051495
                 },
                 "params": {
-                    "window_size": 10
+                    "window_size": 5.573012777051495
                 },
                 "nodes_from": [],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_3.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 2,
-                "operation_type": "ridge",
-                "operation_name": "Ridge",
-                "custom_params": "default_params",
-                "params": "default_params",
-                "nodes_from": [
-                    3
-                ],
                 "fitted_operation_path": [
                     "fitted_operations",
                     "operation_2.pkl"
@@ -687,14 +619,28 @@
                 "rating": null
             },
             {
-                "operation_id": 0,
+                "operation_id": 1,
                 "operation_type": "ridge",
                 "operation_name": "Ridge",
                 "custom_params": "default_params",
                 "params": "default_params",
                 "nodes_from": [
-                    1,
                     2
+                ],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_1.pkl"
+                ],
+                "rating": null
+            },
+            {
+                "operation_id": 0,
+                "operation_type": "linear",
+                "operation_name": "LinearRegression",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [
+                    1
                 ],
                 "fitted_operation_path": [
                     "fitted_operations",
@@ -707,66 +653,31 @@
             "preprocessing",
             "data_preprocessor.pkl"
         ],
-        "descriptive_id": "((/n_lagged_{'window_size': 10};)/n_ridge_default_params;;/n_polyfit_{'degree': 2};)/n_ridge_default_params",
+        "descriptive_id": "((/n_lagged_{'window_size': 5.573012777051495};)/n_ridge_default_params;)/n_linear_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "48588026-8616-4450-b990-dc74c6b69a01"
+        "individual_id": "601cbe04-9007-4288-93dc-9ff6ad037147"
     },
     {
         "total_pipeline_operations": [
-            "glm",
             "lagged",
             "ridge"
         ],
-        "depth": 3,
+        "depth": 2,
         "nodes": [
             {
                 "operation_id": 1,
-                "operation_type": "glm",
-                "operation_name": "GLMImplementation",
+                "operation_type": "lagged",
+                "operation_name": "LaggedTransformationImplementation",
                 "custom_params": {
-                    "family": "gaussian",
-                    "link": "identity"
+                    "window_size": 5.573012777051495
                 },
                 "params": {
-                    "family": "gaussian",
-                    "link": "identity"
+                    "window_size": 5.573012777051495
                 },
                 "nodes_from": [],
                 "fitted_operation_path": [
                     "fitted_operations",
                     "operation_1.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 3,
-                "operation_type": "lagged",
-                "operation_name": "LaggedTransformationImplementation",
-                "custom_params": {
-                    "window_size": 10
-                },
-                "params": {
-                    "window_size": 10
-                },
-                "nodes_from": [],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_3.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 2,
-                "operation_type": "ridge",
-                "operation_name": "Ridge",
-                "custom_params": "default_params",
-                "params": "default_params",
-                "nodes_from": [
-                    3
-                ],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_2.pkl"
                 ],
                 "rating": null
             },
@@ -777,8 +688,7 @@
                 "custom_params": "default_params",
                 "params": "default_params",
                 "nodes_from": [
-                    1,
-                    2
+                    1
                 ],
                 "fitted_operation_path": [
                     "fitted_operations",
@@ -791,91 +701,9 @@
             "preprocessing",
             "data_preprocessor.pkl"
         ],
-        "descriptive_id": "((/n_lagged_{'window_size': 10};)/n_ridge_default_params;;/n_glm_{'family': 'gaussian', 'link': 'identity'};)/n_ridge_default_params",
+        "descriptive_id": "(/n_lagged_{'window_size': 5.573012777051495};)/n_ridge_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "2028176a-6399-47ab-ab7b-588be7d47de4"
-    },
-    {
-        "total_pipeline_operations": [
-            "polyfit",
-            "lagged",
-            "ridge"
-        ],
-        "depth": 3,
-        "nodes": [
-            {
-                "operation_id": 1,
-                "operation_type": "polyfit",
-                "operation_name": "PolyfitImplementation",
-                "custom_params": {
-                    "degree": 2
-                },
-                "params": {
-                    "degree": 2
-                },
-                "nodes_from": [],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_1.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 3,
-                "operation_type": "lagged",
-                "operation_name": "LaggedTransformationImplementation",
-                "custom_params": {
-                    "window_size": 10
-                },
-                "params": {
-                    "window_size": 10
-                },
-                "nodes_from": [],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_3.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 2,
-                "operation_type": "ridge",
-                "operation_name": "Ridge",
-                "custom_params": "default_params",
-                "params": "default_params",
-                "nodes_from": [
-                    3
-                ],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_2.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 0,
-                "operation_type": "ridge",
-                "operation_name": "Ridge",
-                "custom_params": "default_params",
-                "params": "default_params",
-                "nodes_from": [
-                    1,
-                    2
-                ],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_0.pkl"
-                ],
-                "rating": null
-            }
-        ],
-        "preprocessing": [
-            "preprocessing",
-            "data_preprocessor.pkl"
-        ],
-        "descriptive_id": "((/n_lagged_{'window_size': 10};)/n_ridge_default_params;;/n_polyfit_{'degree': 2};)/n_ridge_default_params",
-        "fitted_operation_path": "operation_0",
-        "_id": "6c30000c-e9d6-4bcc-adda-98aac0062272"
+        "individual_id": "5a2677ce-f293-40a4-904a-3d4674edfe49"
     },
     {
         "total_pipeline_operations": [
@@ -923,55 +751,7 @@
         ],
         "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "67bba288-8c3c-4d67-a312-92a8b4c10058"
-    },
-    {
-        "total_pipeline_operations": [
-            "lagged",
-            "ridge"
-        ],
-        "depth": 2,
-        "nodes": [
-            {
-                "operation_id": 1,
-                "operation_type": "lagged",
-                "operation_name": "LaggedTransformationImplementation",
-                "custom_params": {
-                    "window_size": 10
-                },
-                "params": {
-                    "window_size": 10
-                },
-                "nodes_from": [],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_1.pkl"
-                ],
-                "rating": null
-            },
-            {
-                "operation_id": 0,
-                "operation_type": "ridge",
-                "operation_name": "Ridge",
-                "custom_params": "default_params",
-                "params": "default_params",
-                "nodes_from": [
-                    1
-                ],
-                "fitted_operation_path": [
-                    "fitted_operations",
-                    "operation_0.pkl"
-                ],
-                "rating": null
-            }
-        ],
-        "preprocessing": [
-            "preprocessing",
-            "data_preprocessor.pkl"
-        ],
-        "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_ridge_default_params",
-        "fitted_operation_path": "operation_0",
-        "_id": "ef3d6fc7-01fe-494e-b69b-1c5067839ee2"
+        "individual_id": "e06ee528-cd6b-4a5c-9bf9-bc759b6a5cc4"
     },
     {
         "total_pipeline_operations": [
@@ -1015,22 +795,38 @@
         ],
         "descriptive_id": "(/n_scaling_default_params;)/n_ridge_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "8d2298eb-7bd9-4bdf-b873-1e7cee9a0e87"
+        "individual_id": "b103aa46-5a29-48c2-b20f-8e3860f64830"
     },
     {
         "total_pipeline_operations": [
             "scaling",
+            "linear",
             "ridge"
         ],
-        "depth": 2,
+        "depth": 3,
         "nodes": [
             {
-                "operation_id": 1,
+                "operation_id": 2,
                 "operation_type": "scaling",
                 "operation_name": "ScalingImplementation",
                 "custom_params": "default_params",
                 "params": "default_params",
                 "nodes_from": [],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_2.pkl"
+                ],
+                "rating": null
+            },
+            {
+                "operation_id": 1,
+                "operation_type": "linear",
+                "operation_name": "LinearRegression",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [
+                    2
+                ],
                 "fitted_operation_path": [
                     "fitted_operations",
                     "operation_1.pkl"
@@ -1057,24 +853,39 @@
             "preprocessing",
             "data_preprocessor.pkl"
         ],
-        "descriptive_id": "(/n_scaling_default_params;)/n_ridge_default_params",
+        "descriptive_id": "((/n_scaling_default_params;)/n_linear_default_params;)/n_ridge_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "c2929d68-c2b2-47c1-bba9-892465b976c2"
+        "individual_id": "962c2d81-23eb-4c4b-ad5f-f4379af10011"
     },
     {
         "total_pipeline_operations": [
             "scaling",
             "ridge"
         ],
-        "depth": 2,
+        "depth": 3,
         "nodes": [
             {
-                "operation_id": 1,
+                "operation_id": 2,
                 "operation_type": "scaling",
                 "operation_name": "ScalingImplementation",
                 "custom_params": "default_params",
                 "params": "default_params",
                 "nodes_from": [],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_2.pkl"
+                ],
+                "rating": null
+            },
+            {
+                "operation_id": 1,
+                "operation_type": "ridge",
+                "operation_name": "Ridge",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [
+                    2
+                ],
                 "fitted_operation_path": [
                     "fitted_operations",
                     "operation_1.pkl"
@@ -1101,24 +912,39 @@
             "preprocessing",
             "data_preprocessor.pkl"
         ],
-        "descriptive_id": "(/n_scaling_default_params;)/n_ridge_default_params",
+        "descriptive_id": "((/n_scaling_default_params;)/n_ridge_default_params;)/n_ridge_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "4e9167f3-03fa-44ba-a2c8-c13f784df0f6"
+        "individual_id": "759abf68-f026-4933-b951-f52b15554611"
     },
     {
         "total_pipeline_operations": [
             "scaling",
             "ridge"
         ],
-        "depth": 2,
+        "depth": 3,
         "nodes": [
             {
-                "operation_id": 1,
+                "operation_id": 2,
                 "operation_type": "scaling",
                 "operation_name": "ScalingImplementation",
                 "custom_params": "default_params",
                 "params": "default_params",
                 "nodes_from": [],
+                "fitted_operation_path": [
+                    "fitted_operations",
+                    "operation_2.pkl"
+                ],
+                "rating": null
+            },
+            {
+                "operation_id": 1,
+                "operation_type": "ridge",
+                "operation_name": "Ridge",
+                "custom_params": "default_params",
+                "params": "default_params",
+                "nodes_from": [
+                    2
+                ],
                 "fitted_operation_path": [
                     "fitted_operations",
                     "operation_1.pkl"
@@ -1145,8 +971,8 @@
             "preprocessing",
             "data_preprocessor.pkl"
         ],
-        "descriptive_id": "(/n_scaling_default_params;)/n_ridge_default_params",
+        "descriptive_id": "((/n_scaling_default_params;)/n_ridge_default_params;)/n_ridge_default_params",
         "fitted_operation_path": "operation_0",
-        "_id": "74503db8-5860-473c-8865-3311cf590470"
+        "individual_id": "081367fe-3c76-49e5-b081-aef68f59e5bc"
     }
 ]

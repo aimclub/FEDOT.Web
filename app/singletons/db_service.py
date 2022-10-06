@@ -44,7 +44,7 @@ class DBServiceSingleton:
         if self.exists():
             try:
                 self._db.create_collection(collection_name)
-                self._db[collection_name].create_index([(id_name, pymongo.TEXT)], unique=True)
+                self._db[collection_name].create_index(id_name, unique=True)
             except CollectionInvalid:
                 from sys import stderr
                 print(f'{collection_name} collection already exists', file=stderr)

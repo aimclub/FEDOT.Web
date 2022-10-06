@@ -22,7 +22,7 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
 
     details = dumped_item['details']
     is_updated = False
-    if not details:
+    if not details and case_metadata.dataset_name is not None:
         n_features, n_rows = get_dataset_metadata(case_metadata.dataset_name, 'train')
         n_models, n_levels = get_pipeline_metadata(individual_id)
         details = {

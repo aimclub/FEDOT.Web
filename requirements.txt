@@ -1,10 +1,5 @@
 # FEDOT
-git+https://github.com/nccr-itmo/FEDOT.git@e925d80bd02eb3337418e942679918c56b69e912
-
-# Requirements that should use the same versions as FEDOT
-pandas
-networkx
-pytest
+git+https://github.com/nccr-itmo/FEDOT.git@55e6528b3b3508380010eeeb66d7eca2ecd26e92
 
 # Unique requirements
 flask-socketio==5.0.1

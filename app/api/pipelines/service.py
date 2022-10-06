@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import pymongo
 from bson import json_util
 from fedot.core.pipelines.pipeline import Pipeline
-from fedot.core.pipelines.validation import validate
+from fedot.core.pipelines.verification import verify_pipeline as verify
 from flask import current_app, has_app_context, url_for
 from pymongo.errors import DuplicateKeyError
 
@@ -16,37 +16,34 @@ from utils import project_root
 
 
 def is_pipeline_exists(uid: str) -> bool:
-    return DBServiceSingleton().try_find_one('pipelines', {'_id': str(uid)}) is not None
+    return DBServiceSingleton().try_find_one('pipelines', {'individual_id': uid}) is not None
 
 
 def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
     db_service = DBServiceSingleton()
     pipeline = Pipeline()
-    pipeline_dict: Optional[Dict[str, Any]] = db_service.try_find_one('pipelines', {'_id': str(uid)})
+    pipeline_dict: Optional[Dict[str, Any]] = db_service.try_find_one('pipelines', {'individual_id': uid})
     if pipeline_dict is None:
         return None
 
     dict_fitted_operations: Optional[Dict[str, Any]] = None
     if current_app.config['CONFIG_NAME'] == 'test':
-        dict_fitted_operations = db_service.try_find_one('dict_fitted_operations', {'_id': uid})
+        dict_fitted_operations = db_service.try_find_one('dict_fitted_operations', {'individual_id': uid})
     else:
         file = db_service.try_find_one_file({'filename': str(uid), 'type': 'dict_fitted_operations'})
         if file is not None:
             dict_fitted_operations = json_util.loads(file.read())
 
     if dict_fitted_operations:
-        for key in dict_fitted_operations:
-            if key.find('operation') != -1:
-                bytes_container = BytesIO()
-                bytes_container.write(dict_fitted_operations[key])
-                dict_fitted_operations[key] = bytes_container
+        dict_fitted_operations = {key: BytesIO(operation) for key, operation in dict_fitted_operations.items()
+                                  if key not in ['individual_id', '_id']}
     pipeline.load(pipeline_dict, dict_fitted_operations)
     return pipeline
 
 
-def validate_pipeline(pipeline: Pipeline) -> Tuple[bool, str]:
+def verify_pipeline(pipeline: Pipeline) -> Tuple[bool, str]:
     try:
-        validate(pipeline)
+        verify(pipeline)
         return True, 'Correct pipeline'
     except ValueError as ex:
         return False, str(ex)
@@ -65,7 +62,7 @@ def create_pipeline(uid: str, pipeline: Pipeline, overwrite: bool = False) -> Tu
                 dict_fitted_operations[key].seek(0)
                 saved_operation = dict_fitted_operations[key].read()
                 dict_fitted_operations[key] = saved_operation
-        dict_fitted_operations['_id'] = str(uid)
+        dict_fitted_operations['individual_id'] = str(uid)
 
     if is_new:
         dict_pipeline = json.loads(dumped_json)
@@ -80,20 +77,15 @@ def _add_pipeline_to_db(
     uid: str, dict_pipeline: Dict, dict_fitted_operations: Dict,
     init_db: bool = False, overwrite: bool = False
 ) -> Optional[List[Dict]]:
-    dict_pipeline['_id'] = str(uid)
+    uid = uid
+    dict_pipeline['individual_id'] = uid
     db_service = DBServiceSingleton()
-    # if init_db:
-    #     db_service.try_delete_one('pipelines', {'_id': str(uid)})
-    # else:
-    #     is_exists = is_pipeline_exists(uid)
-    #     if is_exists or overwrite:
-    #         db_service.try_delete_one('pipelines', {'_id': str(uid)})
-    db_service.try_reinsert_one('pipelines', {'_id': str(uid)}, dict_pipeline)
+    db_service.try_reinsert_one('pipelines', {'individual_id': uid}, dict_pipeline)
 
     if dict_fitted_operations is not None:
         try:
             if has_app_context() and current_app.config['CONFIG_NAME'] == 'test':
-                dict_fitted_operations = db_service.try_find_one('dict_fitted_operations', {'_id': uid})
+                dict_fitted_operations = db_service.try_find_one('dict_fitted_operations', {'individual_id': uid})
             else:
                 db_service.try_reinsert_file(
                     {'filename': uid, 'type': 'dict_fitted_operations'}, dict_fitted_operations

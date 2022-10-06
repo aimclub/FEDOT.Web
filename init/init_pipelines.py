@@ -14,7 +14,7 @@ from utils import project_root
 
 def create_default_pipelines():
     db_service = DBServiceSingleton()
-    db_service.try_create_collection('pipelines', '_id')
+    db_service.try_create_collection('pipelines', 'individual_id')
 
     cases = [
         {
@@ -62,7 +62,7 @@ def _create_custom_pipeline(individual_id: str, case_id: str, pipeline: Pipeline
         data = data.subset_range(0, 50)
     pipeline.fit(data)
     pipeline_dict, dict_fitted_operations = _extract_pipeline_with_fitted_operations(pipeline, uid)
-    pipeline_dict['_id'] = uid
+    pipeline_dict['individual_id'] = uid
     if db_service.exists():
         _add_pipeline_to_db(uid, pipeline_dict, dict_fitted_operations)
 
@@ -76,8 +76,8 @@ def _extract_pipeline_with_fitted_operations(pipeline, uid):
     for i in dict_fitted_operations:
         data = dict_fitted_operations[i].getvalue()
         new_dct[i.replace(".", "-")] = bson.Binary(data)
-    new_dct['_id'] = uid
-    pipeline_json['_id'] = uid
+    new_dct['individual_id'] = uid
+    pipeline_json['individual_id'] = uid
     return pipeline_json, new_dct
 
 
