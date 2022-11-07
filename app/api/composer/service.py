@@ -1,4 +1,5 @@
 import datetime
+import itertools
 import json
 import sys
 from functools import lru_cache
@@ -8,8 +9,10 @@ from typing import Optional
 
 from bson import json_util
 from fedot.api.main import Fedot
-from fedot.core.optimisers.opt_history import OptHistory
+from fedot.core.optimisers.adapters import PipelineAdapter
+from fedot.core.optimisers.opt_history_objects.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
+from fedot.core.pipelines.template import PipelineTemplate
 from fedot.core.repository.tasks import TsForecastingParams
 from flask import current_app
 
@@ -57,12 +60,18 @@ def composer_history_for_case(case_id: str, validate_history: bool = False) -> O
     if validate_history:
         # for i, pipeline_template in enumerate(history.historical_pipelines):
         global_id = 0
+        adapter = PipelineAdapter()
+        historical_pipelines = [
+            PipelineTemplate(adapter.restore(ind))
+            for ind in itertools.chain(*history.individuals)
+        ]
+
         for pop_id in range(len(history.individuals)):
             pop = history.individuals[pop_id]
             for i, individual in enumerate(pop):
                 uid = individual.uid
                 existing_pipeline = is_pipeline_exists(uid)
-                pipeline_template = history.historical_pipelines[global_id]
+                pipeline_template = historical_pipelines[global_id]
                 if not existing_pipeline:
                     print(i)
                     pipeline = Pipeline()

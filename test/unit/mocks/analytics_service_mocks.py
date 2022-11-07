@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import List, Optional, Dict, Iterable
+from uuid import uuid4
 
 import numpy as np
 from fedot.core.optimisers.fitness import SingleObjFitness
@@ -15,6 +16,7 @@ class MockIndividualGraph:
 @dataclass
 class MockNode:
     def __init__(self, name: str):
+        self.uid = uuid4()
         self.content: Dict[str, str] = {'name': name, 'params': DEFAULT_PARAMS_STUB}
         self._nodes_from = []
 
@@ -25,6 +27,12 @@ class MockNode:
     @nodes_from.setter
     def nodes_from(self, nodes: Optional[Iterable['MockNode']]):
         self._nodes_from = UniqueList(nodes)
+
+    def __hash__(self) -> int:
+        return hash(self.uid)
+
+    def __str__(self) -> str:
+        return str(self.content['name'])
 
 
 @dataclass

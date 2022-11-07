@@ -1,5 +1,5 @@
 # FEDOT
-git+https://github.com/nccr-itmo/FEDOT.git@55e6528b3b3508380010eeeb66d7eca2ecd26e92
+git+https://github.com/nccr-itmo/FEDOT.git@e81f76547c7c1df123d21819f7ee45b4520c0aae
 
 # Unique requirements
 flask-socketio==5.0.1

@@ -2,7 +2,7 @@ from copy import deepcopy
 from typing import Any, Dict
 
 import networkx as nx
-from fedot.core.optimisers.opt_history import OptHistory
+from fedot.core.optimisers.opt_history_objects.opt_history import OptHistory
 from matplotlib import pyplot as plt
 
 
@@ -61,9 +61,11 @@ def _process_operator(all_nodes, operator, individual, o_id, gen_id, prev_operat
     return all_nodes
 
 
-def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id):
+def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id, uids_to_show):
     for ind_id in range(len(history.individuals[gen_id])):
         individual = history.individuals[gen_id][ind_id]
+        if individual.uid not in uids_to_show or gen_id > uids_to_show[individual.uid]:
+            continue
 
         # add pipelines as node
         individual_id = individual.uid
@@ -81,14 +83,37 @@ def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id)
 def _create_operators_and_nodes(history):
     all_nodes = []
     current_order_id = 0
+    if hasattr(history, 'final_choices') and history.final_choices:
+        final_choices = history.final_choices
+    elif len(history.individuals[-1]) == 1:
+        final_choices = history.individuals[-1]
+    else:
+        final_choices = [max(history.individuals[-1], key=lambda ind: ind.fitness)]
+
+    uid_to_last_generation_map = {ind.uid: len(history.individuals) for ind in final_choices}
+    current_inds = final_choices
+    for iteration in range(10_000):
+        next_inds = []
+        for ind in current_inds:
+            if not ind.parents:
+                continue
+            for parent in ind.parents_from_prev_generation:
+                next_inds.append(parent)
+                gen_id = max(uid_to_last_generation_map.get(parent.uid, 0), ind.native_generation - 1)
+                uid_to_last_generation_map[parent.uid] = gen_id
+        current_inds = next_inds
+
     for gen_id, generation in enumerate(history.individuals):
         o_id = 0
         all_nodes, current_order_id = _create_all_individuals_for_population(history, all_nodes, gen_id,
-                                                                             current_order_id)
+                                                                             current_order_id,
+                                                                             uid_to_last_generation_map)
         if gen_id == 0:
             continue
         for ind_id, individual in enumerate(generation):
             if individual.native_generation != gen_id:
+                continue
+            if individual.uid not in uid_to_last_generation_map or gen_id > uid_to_last_generation_map[individual.uid]:
                 continue
 
             # add evo operators as nodes

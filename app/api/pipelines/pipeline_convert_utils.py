@@ -45,7 +45,7 @@ def pipeline_to_graph(pipeline: Pipeline) -> PipelineGraph:
             'id': local_id,
             'display_name': pipeline_node.operation.operation_type,
             'model_name': str(pipeline_node.operation),
-            'params': pipeline_node.custom_params
+            'params': pipeline_node.parameters
         })
         pipeline_node.tmp_id = local_id
         node['pipeline_node'] = pipeline_node
@@ -116,7 +116,7 @@ def _graph_node_to_pipeline_node(
         pipeline_node = SecondaryNode(graph_node['model_name'], nodes_from=parent_pipeline_nodes)
 
     if graph_node['params'] != 'default_params':
-        pipeline_node.custom_params = graph_node['params']
+        pipeline_node.parameters = graph_node['params']
 
     return pipeline_node
 

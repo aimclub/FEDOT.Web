@@ -1,11 +1,14 @@
+import itertools
 import json
 import os
 from pathlib import Path
 from typing import Optional, Union
 
 from bson import json_util
-from fedot.core.optimisers.opt_history import OptHistory
+from fedot.core.optimisers.adapters import PipelineAdapter
+from fedot.core.optimisers.opt_history_objects.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
+from fedot.core.pipelines.template import PipelineTemplate
 from fedot.preprocessing.structure import PipelineStructureExplorer
 from flask import current_app
 
@@ -133,7 +136,11 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     best_fitness = None
 
     global_id = 0
-    historical_pipelines = history.historical_pipelines
+    adapter = PipelineAdapter()
+    historical_pipelines = [
+        PipelineTemplate(adapter.restore(ind))
+        for ind in itertools.chain(*history.individuals)
+    ]
     for pop_id in range(len(history.individuals)):
         pop = history.individuals[pop_id]
         for i, individual in enumerate(pop):
