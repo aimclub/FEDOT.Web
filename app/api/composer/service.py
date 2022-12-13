@@ -9,7 +9,7 @@ from typing import Optional
 
 from bson import json_util
 from fedot.api.main import Fedot
-from fedot.core.optimisers.adapters import PipelineAdapter
+from fedot.core.pipelines.adapters import PipelineAdapter
 from fedot.core.optimisers.opt_history_objects.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.pipelines.template import PipelineTemplate

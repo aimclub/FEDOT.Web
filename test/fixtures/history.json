@@ -2,21 +2,7 @@
     {
         "history_id": "scoring",
         "history_json": {
-            "_default_save_dir": "C:\\Users\\petro\\AppData\\Local\\Temp\\FEDOT",
             "_is_multi_objective": false,
-            "_objective": {
-                "is_multi_objective": false,
-                "metrics": [
-                    {
-                        "_class_path": "fedot.core.composer.metrics/QualityMetric.get_value"
-                    },
-                    {
-                        "value": "node_number",
-                        "_class_path": "fedot.core.repository.quality_metrics_repository/ComplexityMetricsEnum"
-                    }
-                ],
-                "_class_path": "fedot.core.optimisers.objective.objective/Objective"
-            },
             "archive_history": [
                 [
                     "b36b553a-9b23-4b6d-a730-a752f7c258d1"
@@ -29,23 +15,40 @@
                 ]
             ],
             "individuals": [
-                [
-                    "b36b553a-9b23-4b6d-a730-a752f7c258d1"
-                ],
-                [
-                    "7bc65aba-5e69-4a37-867d-2464965fcdad",
-                    "c6779e55-e630-4638-9b4d-b4a8b82be22d",
-                    "b36b553a-9b23-4b6d-a730-a752f7c258d1"
-                ],
-                [
-                    "b36b553a-9b23-4b6d-a730-a752f7c258d1",
-                    "7bc65aba-5e69-4a37-867d-2464965fcdad",
-                    "7a5a62c1-1fe8-4f9e-8060-befcacc07eb4",
-                    "b36b553a-9b23-4b6d-a730-a752f7c258d1",
-                    "c6779e55-e630-4638-9b4d-b4a8b82be22d"
-                ]
+                {
+                    "data": [
+                        "b36b553a-9b23-4b6d-a730-a752f7c258d1"
+                    ],
+                    "generation_num": 0,
+                    "label": "",
+                    "metadata": {},
+                    "_class_path": "fedot.core.optimisers.opt_history_objects.generation/Generation"
+                },
+                {
+                    "data": [
+                        "7bc65aba-5e69-4a37-867d-2464965fcdad",
+                        "c6779e55-e630-4638-9b4d-b4a8b82be22d",
+                        "b36b553a-9b23-4b6d-a730-a752f7c258d1"
+                    ],
+                    "generation_num": 1,
+                    "label": "",
+                    "metadata": {},
+                    "_class_path": "fedot.core.optimisers.opt_history_objects.generation/Generation"
+                },
+                {
+                    "data": [
+                        "b36b553a-9b23-4b6d-a730-a752f7c258d1",
+                        "7bc65aba-5e69-4a37-867d-2464965fcdad",
+                        "7a5a62c1-1fe8-4f9e-8060-befcacc07eb4",
+                        "b36b553a-9b23-4b6d-a730-a752f7c258d1",
+                        "c6779e55-e630-4638-9b4d-b4a8b82be22d"
+                    ],
+                    "generation_num": 2,
+                    "label": "",
+                    "metadata": {},
+                    "_class_path": "fedot.core.optimisers.opt_history_objects.generation/Generation"
+                }
             ],
-            "_class_path": "fedot.core.optimisers.opt_history_objects.opt_history/OptHistory",
             "individuals_pool": [
                 {
                     "fitness": {
@@ -402,27 +405,14 @@
                     "uid": "7a5a62c1-1fe8-4f9e-8060-befcacc07eb4",
                     "_class_path": "fedot.core.optimisers.opt_history_objects.individual/Individual"
                 }
-            ]
+            ],
+            "_class_path": "fedot.core.optimisers.opt_history_objects.opt_history/OptHistory"
         }
     },
     {
         "history_id": "metocean",
         "history_json": {
-            "_default_save_dir": "C:\\Users\\petro\\AppData\\Local\\Temp\\FEDOT",
             "_is_multi_objective": false,
-            "_objective": {
-                "is_multi_objective": false,
-                "metrics": [
-                    {
-                        "_class_path": "fedot.core.composer.metrics/QualityMetric.get_value"
-                    },
-                    {
-                        "value": "node_number",
-                        "_class_path": "fedot.core.repository.quality_metrics_repository/ComplexityMetricsEnum"
-                    }
-                ],
-                "_class_path": "fedot.core.optimisers.objective.objective/Objective"
-            },
             "archive_history": [
                 [
                     "79b9c2c7-22ce-432f-bd18-604fedd013be"
@@ -435,23 +425,40 @@
                 ]
             ],
             "individuals": [
-                [
-                    "79b9c2c7-22ce-432f-bd18-604fedd013be"
-                ],
-                [
-                    "b338c647-479e-4ccd-975b-7e4b1cdebdbc",
-                    "810db636-1ed7-421b-a8c7-bfd667ea850c",
-                    "79b9c2c7-22ce-432f-bd18-604fedd013be"
-                ],
-                [
-                    "79b9c2c7-22ce-432f-bd18-604fedd013be",
-                    "810db636-1ed7-421b-a8c7-bfd667ea850c",
-                    "79b9c2c7-22ce-432f-bd18-604fedd013be",
-                    "b338c647-479e-4ccd-975b-7e4b1cdebdbc",
-                    "9a02834a-e77c-4c4c-8118-74e608c96dd1"
-                ]
+                {
+                    "data": [
+                        "79b9c2c7-22ce-432f-bd18-604fedd013be"
+                    ],
+                    "generation_num": 0,
+                    "label": "",
+                    "metadata": {},
+                    "_class_path": "fedot.core.optimisers.opt_history_objects.generation/Generation"
+                },
+                {
+                    "data": [
+                        "b338c647-479e-4ccd-975b-7e4b1cdebdbc",
+                        "810db636-1ed7-421b-a8c7-bfd667ea850c",
+                        "79b9c2c7-22ce-432f-bd18-604fedd013be"
+                    ],
+                    "generation_num": 1,
+                    "label": "",
+                    "metadata": {},
+                    "_class_path": "fedot.core.optimisers.opt_history_objects.generation/Generation"
+                },
+                {
+                    "data": [
+                        "79b9c2c7-22ce-432f-bd18-604fedd013be",
+                        "810db636-1ed7-421b-a8c7-bfd667ea850c",
+                        "79b9c2c7-22ce-432f-bd18-604fedd013be",
+                        "b338c647-479e-4ccd-975b-7e4b1cdebdbc",
+                        "9a02834a-e77c-4c4c-8118-74e608c96dd1"
+                    ],
+                    "generation_num": 2,
+                    "label": "",
+                    "metadata": {},
+                    "_class_path": "fedot.core.optimisers.opt_history_objects.generation/Generation"
+                }
             ],
-            "_class_path": "fedot.core.optimisers.opt_history_objects.opt_history/OptHistory",
             "individuals_pool": [
                 {
                     "fitness": {
@@ -833,27 +840,14 @@
                     "uid": "9a02834a-e77c-4c4c-8118-74e608c96dd1",
                     "_class_path": "fedot.core.optimisers.opt_history_objects.individual/Individual"
                 }
-            ]
+            ],
+            "_class_path": "fedot.core.optimisers.opt_history_objects.opt_history/OptHistory"
         }
     },
     {
         "history_id": "oil",
         "history_json": {
-            "_default_save_dir": "C:\\Users\\petro\\AppData\\Local\\Temp\\FEDOT",
             "_is_multi_objective": false,
-            "_objective": {
-                "is_multi_objective": false,
-                "metrics": [
-                    {
-                        "_class_path": "fedot.core.composer.metrics/QualityMetric.get_value"
-                    },
-                    {
-                        "value": "node_number",
-                        "_class_path": "fedot.core.repository.quality_metrics_repository/ComplexityMetricsEnum"
-                    }
-                ],
-                "_class_path": "fedot.core.optimisers.objective.objective/Objective"
-            },
             "archive_history": [
                 [
                     "a45d94bb-f32a-4a38-9937-9432b755c1d3"
@@ -866,23 +860,40 @@
                 ]
             ],
             "individuals": [
-                [
-                    "a45d94bb-f32a-4a38-9937-9432b755c1d3"
-                ],
-                [
-                    "50a0e465-62a1-4685-9795-e320846f9a39",
-                    "1e802401-6695-4cee-83de-ea0cb86ae66d",
-                    "a45d94bb-f32a-4a38-9937-9432b755c1d3"
-                ],
-                [
-                    "a45d94bb-f32a-4a38-9937-9432b755c1d3",
-                    "7311c7a3-091d-49c6-a50f-2718845d0540",
-                    "50a0e465-62a1-4685-9795-e320846f9a39",
-                    "a45d94bb-f32a-4a38-9937-9432b755c1d3",
-                    "1e802401-6695-4cee-83de-ea0cb86ae66d"
-                ]
+                {
+                    "data": [
+                        "a45d94bb-f32a-4a38-9937-9432b755c1d3"
+                    ],
+                    "generation_num": 0,
+                    "label": "",
+                    "metadata": {},
+                    "_class_path": "fedot.core.optimisers.opt_history_objects.generation/Generation"
+                },
+                {
+                    "data": [
+                        "50a0e465-62a1-4685-9795-e320846f9a39",
+                        "1e802401-6695-4cee-83de-ea0cb86ae66d",
+                        "a45d94bb-f32a-4a38-9937-9432b755c1d3"
+                    ],
+                    "generation_num": 1,
+                    "label": "",
+                    "metadata": {},
+                    "_class_path": "fedot.core.optimisers.opt_history_objects.generation/Generation"
+                },
+                {
+                    "data": [
+                        "a45d94bb-f32a-4a38-9937-9432b755c1d3",
+                        "7311c7a3-091d-49c6-a50f-2718845d0540",
+                        "50a0e465-62a1-4685-9795-e320846f9a39",
+                        "a45d94bb-f32a-4a38-9937-9432b755c1d3",
+                        "1e802401-6695-4cee-83de-ea0cb86ae66d"
+                    ],
+                    "generation_num": 2,
+                    "label": "",
+                    "metadata": {},
+                    "_class_path": "fedot.core.optimisers.opt_history_objects.generation/Generation"
+                }
             ],
-            "_class_path": "fedot.core.optimisers.opt_history_objects.opt_history/OptHistory",
             "individuals_pool": [
                 {
                     "fitness": {
@@ -1256,7 +1267,8 @@
                     "uid": "7311c7a3-091d-49c6-a50f-2718845d0540",
                     "_class_path": "fedot.core.optimisers.opt_history_objects.individual/Individual"
                 }
-            ]
+            ],
+            "_class_path": "fedot.core.optimisers.opt_history_objects.opt_history/OptHistory"
         }
     }
 ]

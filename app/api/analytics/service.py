@@ -3,7 +3,7 @@ from typing import Dict, List, Optional, Tuple, Union
 import numpy as np
 from fedot.core.dag.linked_graph import get_distance_between
 from fedot.core.data.data import InputData, OutputData
-from fedot.core.optimisers.adapters import PipelineAdapter
+from fedot.core.pipelines.adapters import PipelineAdapter
 from fedot.core.pipelines.pipeline import Pipeline
 
 from app.api.composer.service import composer_history_for_case
