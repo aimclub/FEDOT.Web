@@ -71,7 +71,12 @@ def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id,
         individual_id = individual.uid
         uid = f'ind_{gen_id}_{ind_id}'
         objs = {}
-        for metric in history._objective.metric_names:
+        if hasattr(history, 'metric_names'):
+            metric_names = history.metric_names
+        else:
+            metrics_num = len(history.individuals[0][0].fitness.values)
+            metric_names = [f'metric_{n}' for n in range(metrics_num)]
+        for metric in metric_names:
             objs[metric] = history.all_historical_fitness[order_id]
         pipeline_node = _init_pipeline_dict(individual, objs, uid, individual_id, gen_id, ind_id)
         all_nodes.append(pipeline_node)
@@ -85,10 +90,14 @@ def _create_operators_and_nodes(history):
     current_order_id = 0
     if hasattr(history, 'final_choices') and history.final_choices:
         final_choices = history.final_choices
-    elif len(history.individuals[-1]) == 1:
-        final_choices = history.individuals[-1]
+    elif len(history.archive_history[-1]) == 1:
+        final_choices = history.archive_history[-1]
     else:
-        final_choices = [max(history.individuals[-1], key=lambda ind: ind.fitness)]
+        final_choices = [max(history.archive_history[-1], key=lambda ind: ind.fitness)]
+
+    for ind in final_choices:
+        if ind.native_generation is None:
+            ind.set_native_generation(len(history.individuals) - 1)
 
     uid_to_last_generation_map = {ind.uid: len(history.individuals) for ind in final_choices}
     current_inds = final_choices
