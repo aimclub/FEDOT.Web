@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,6 +10,7 @@ import { AppRoutesEnum } from "../../routes";
 import SandboxCharts from "./charts/SandboxCharts";
 import SandboxEpoch from "./epoch/SandboxEpoch";
 import SandboxPipeline from "./pipeline/SandboxPipeline";
+import { StateType } from "../../redux/store";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,11 +24,13 @@ const useStyles = makeStyles(() => ({
 const SandboxPage: FC = () => {
   const classes = useStyles();
   const { caseId } = useAppParams();
+  const { isFromHistory } = useSelector((state: StateType) => state.pipeline);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCase(caseId));
-  }, [dispatch, caseId]);
+    if (!isFromHistory) dispatch(getCase(caseId));
+  }, [dispatch, caseId, isFromHistory]);
 
   return caseId ? (
     <div className={classes.root}>
