@@ -1,23 +1,23 @@
-import {analyticsAPI} from "../../API/analytics/analyticsAPI";
-import {IMetric, IResult} from "../../API/analytics/analyticsInterface";
-import {metaAPI} from "../../API/meta/metaAPI";
-import {IModelName} from "../../API/meta/metaInterface";
-import {sandboxAPI} from "../../API/sanbox/sandboxAPI";
-import {ICaseParams, IEpoch} from "../../API/sanbox/sandboxInterface";
-import {getPipeline, resetPipeline} from "../pipeline/pipeline-actions";
-import {getShowCase} from "../showCase/showCase-actions";
+import { analyticsAPI } from "../../API/analytics/analyticsAPI";
+import { IMetric, IResult } from "../../API/analytics/analyticsInterface";
+import { metaAPI } from "../../API/meta/metaAPI";
+import { IModelName } from "../../API/meta/metaInterface";
+import { sandboxAPI } from "../../API/sanbox/sandboxAPI";
+import { ICaseParams, IEpoch } from "../../API/sanbox/sandboxInterface";
+import { getPipeline, resetPipeline } from "../pipeline/pipeline-actions";
+import { getShowCase } from "../showCase/showCase-actions";
 import {
-    SandboxActionsEnum,
-    SetCaseParams,
-    SetEpochs,
-    SetEpochSelected,
-    SetEpochsLoading,
-    SetMetric,
-    SetMetricLoading,
-    SetModelNames,
-    SetResult,
-    SetResultLoading,
-    ThunkTypeAsync,
+  SandboxActionsEnum,
+  SetCaseParams,
+  SetEpochs,
+  SetEpochSelected,
+  SetEpochsLoading,
+  SetMetric,
+  SetMetricLoading,
+  SetModelNames,
+  SetResult,
+  SetResultLoading,
+  ThunkTypeAsync,
 } from "./sandbox-types";
 
 export const actionsSandbox = {
@@ -112,10 +112,10 @@ export const getCase =
       const { showCase } = getState().showCase;
       // console.log("case id", showCase?.case_id);
       if (showCase?.case_id) {
-          dispatch(getPipeline(showCase.individual_id));
+        dispatch(getPipeline(showCase.individual_id));
         if (!isFromHistory) {
-            dispatch(actionsSandbox.getEpochs(showCase.case_id));
-            dispatch(getResult(showCase.case_id, showCase.individual_id));
+          dispatch(actionsSandbox.getEpochs(showCase.case_id));
+          dispatch(getResult(showCase.case_id, showCase.individual_id));
         }
         dispatch(actionsSandbox.getMetric(showCase.case_id));
         dispatch(actionsSandbox.getCaseParams(showCase.case_id));
