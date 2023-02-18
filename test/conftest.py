@@ -10,7 +10,8 @@ def app(mongodb):
     app = create_app('test')
     storage.db = mongodb
     DBServiceSingleton(storage.db)
-    db.create_all(app=app)
+    with app.app_context():
+        db.create_all()
     return app
 
 
