@@ -23,8 +23,11 @@ def graph_to_pipeline(graph: dict) -> Pipeline:
         parent_id = edge['source']
         child_id = edge['target']
 
-        graph_nodes[child_id]['parents'].append(parent_id)
-        graph_nodes[parent_id]['children'].append(child_id)
+        for graph_node in graph_nodes:
+            if graph_node['id'] == child_id:
+                graph_node['parents'].append(parent_id)
+            elif graph_node['id'] == child_id:
+                graph_node['children'].append(child_id)
 
     for graph_node in graph_nodes:
         pipeline_node = _graph_node_to_pipeline_node(graph_node, graph_nodes, pipeline_nodes)
