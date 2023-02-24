@@ -1,11 +1,14 @@
 import pickle
 from typing import Any, Dict, List, Optional
 
+from fedot.core.pipelines.pipeline import Pipeline
+
 from app.api.data.service import get_dataset_metadata
 from app.api.pipelines.service import get_pipeline_metadata, pipeline_by_uid
 from app.singletons.db_service import DBServiceSingleton
 from init.init_cases import add_case_to_db
-from .models import ShowcaseItem
+
+from .models import ShowcaseItem, Metadata
 from .showcase_utils import prepare_icon_path, showcase_item_from_db
 from ..analytics.pipeline_analytics import get_metrics_for_pipeline
 
@@ -62,3 +65,32 @@ def all_showcase_items_ids(with_custom: bool = False) -> List[str]:
     if not with_custom:
         ids = [ind for ind in ids if 'custom_' not in ind]
     return ids
+
+
+def create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None):
+    from init.init_history import _init_composer_history_for_case
+    case = ShowcaseItem(
+        case_id=case_id,
+        title=case_id,
+        individual_id=None,
+        description=case_id,
+        icon_path='',
+        details={},
+        metadata=Metadata(task_name=case_meta_json.get('task'),
+                          metric_name=case_meta_json.get('metric_name'),
+                          dataset_name=case_meta_json.get('dataset_name'))
+    )
+
+    add_case_to_db(case)
+
+    _init_composer_history_for_case(history_id=case_id,
+                                    task=case_meta_json.get('task'),
+                                    metric=case_meta_json.get('metric_name'),
+                                    dataset_name=case_meta_json.get('dataset_name'),
+                                    time=None,
+                                    external_history=opt_history_json,
+                                    initial_pipeline=initial_pipeline)
+
+
+async def create_new_case_async(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None):
+    create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline)

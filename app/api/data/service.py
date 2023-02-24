@@ -1,3 +1,6 @@
+import glob
+import json
+import os
 from pathlib import Path
 from typing import List, Optional, Tuple
 
@@ -7,22 +10,22 @@ from fedot.core.repository.tasks import Task, TaskParams, TsForecastingParams
 from flask import current_app
 from utils import project_root
 
-default_datasets = {
-    'scoring': {
-        'train': 'scoring/scoring_train.csv',
-        'test': 'scoring/scoring_test.csv',
-        'data_type': DataTypesEnum.table
-    },
-    'metocean': {
-        'train': 'metocean/metocean_train.csv',
-        'test': 'metocean/metocean_test.csv',
-        'data_type': DataTypesEnum.ts
-    },
-    'oil': {
-        'train': 'oil/oil_train.csv',
-        'test': 'oil/oil_test.csv',
-        'data_type': DataTypesEnum.table
-    }
+datasets = {
+    # 'scoring': {
+    #     'train': 'scoring/scoring_train.csv',
+    #     'test': 'scoring/scoring_test.csv',
+    #     'data_type': DataTypesEnum.table
+    # },
+    # 'metocean': {
+    #     'train': 'metocean/metocean_train.csv',
+    #     'test': 'metocean/metocean_test.csv',
+    #     'data_type': DataTypesEnum.ts
+    # },
+    # 'oil': {
+    #     'train': 'oil/oil_train.csv',
+    #     'test': 'oil/oil_test.csv',
+    #     'data_type': DataTypesEnum.table
+    # }
 }
 
 data_types = {
@@ -34,7 +37,16 @@ data_types = {
 
 
 def get_datasets_names() -> List[str]:
-    return list(default_datasets)
+    datasets_folder_path = Path(project_root(), 'data')
+
+    for file in glob.glob(f'{datasets_folder_path}/*/meta.json', recursive=True):
+        name = os.path.basename(os.path.dirname(file))
+        with open(file, 'r') as f:
+            dataset = json.load(f)
+            datasets[name] = dataset
+            datasets[name]['data_type'] = data_types[datasets[name]['data_type']]
+
+    return list(datasets)
 
 
 def get_dataset_metadata(dataset_name: str, sample_type: str) -> Tuple[int, int]:
@@ -52,7 +64,7 @@ def get_input_data(dataset_name: str, sample_type: str,
                    task_type: Optional[str] = None,
                    task_params: Optional[TaskParams] = None) -> Optional[InputData]:
     try:
-        dataset = default_datasets[dataset_name]
+        dataset = datasets[dataset_name]
         data_path = dataset[sample_type]
 
         if task_params is None and task_type == 'ts_forecasting':
@@ -61,7 +73,8 @@ def get_input_data(dataset_name: str, sample_type: str,
 
         task = Task(task_type_from_id(task_type), task_params) if task_type is not None else None
 
-        file_path = Path(project_root(), 'data', data_path)
+        file_path = Path(project_root(), data_path)
+        print(file_path)
 
         if dataset['data_type'] == DataTypesEnum.ts:
             data = InputData.from_csv_time_series(file_path=file_path, task=task, target_column='target')

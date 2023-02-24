@@ -1,3 +1,5 @@
+import json
+import os.path
 import pickle
 from pathlib import Path
 from typing import List
@@ -10,7 +12,7 @@ from flask_restx import Namespace, Resource
 from utils import project_root
 from .models import Dataset
 from .schema import DatasetAddingScheme, DatasetSchema
-from .service import data_types, default_datasets, get_datasets_names
+from .service import data_types, datasets, get_datasets_names
 
 api = Namespace("Data", description="Operations with experiments data")
 
@@ -38,7 +40,6 @@ class DatasetAddResource(Resource):
         data_json = request.parsed_obj
 
         dataset_name = data_json['dataset_name']
-        data_type = data_types[data_json['data_type']]
 
         if dataset_name in get_datasets_names():
             return False
@@ -51,20 +52,24 @@ class DatasetAddResource(Resource):
             for content_label in ('content_train', 'content_test')
         ]
 
+        dataset_folder_path = Path(project_root(), 'data', dataset_name)
+
         train_path, test_path = [
-            Path(project_root(), 'data', dataset_name, f'{dataset_name}_{sample_type}.csv')
+            Path(dataset_folder_path, f'{dataset_name}_{sample_type}.csv')
             for sample_type in ('train', 'test')
         ]
 
         train_data.to_csv(train_path)
         test_data.to_csv(test_path)
 
-        # TODO refactor - move to database
-        default_datasets[dataset_name] = {
-            'train': str(train_path),
-            'test': str(test_path),
-            'data_type': data_type
+        meta = {
+            'train': str(os.path.relpath(train_path, project_root())),
+            'test': str(os.path.relpath(test_path, project_root())),
+            'data_type': data_json['data_type']
         }
+
+        with open(Path(dataset_folder_path, 'meta.json'), 'w') as f:
+            json.dump(meta, f)
 
         return True
 
