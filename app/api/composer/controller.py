@@ -1,6 +1,6 @@
 from typing import Any, Dict
 
-from flask import redirect, url_for, request, jsonify
+from flask import redirect, url_for, request, jsonify, Blueprint
 from flask_accepts import responds, accepts
 from flask_restx import Namespace, Resource
 
@@ -10,10 +10,11 @@ from .service import composer_history_for_case
 from ..pipelines.service import pipeline_by_uid
 from ..showcase.service import create_new_case_async
 from ..showcase.showcase_utils import showcase_item_from_db
-from ... import app
 
 api = Namespace("Composer",
                 description="Operations with evolutionary composer")
+
+async_composer = Blueprint('async_composer', __name__, url_prefix='/async_composer')
 
 
 @api.route("/<string:case_id>")
@@ -35,10 +36,10 @@ class ComposerRestartResource(Resource):
     def post(self):
         """Restart composer for the specific pipeline"""
 
-        return redirect(url_for('start_async'), code=307)
+        return redirect(url_for('async_composer.start_async'), code=307)
 
 
-@app.route('/start_async', methods=['POST'])
+@async_composer.route('/start_async', methods=['POST'])
 async def start_async():
     data = request.get_json()
     case_id = data['case_id']
