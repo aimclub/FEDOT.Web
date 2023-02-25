@@ -26,7 +26,7 @@ def graph_to_pipeline(graph: dict) -> Pipeline:
         for graph_node in graph_nodes:
             if graph_node['id'] == child_id:
                 graph_node['parents'].append(parent_id)
-            elif graph_node['id'] == child_id:
+            elif graph_node['id'] == parent_id:
                 graph_node['children'].append(child_id)
 
     for graph_node in graph_nodes:
