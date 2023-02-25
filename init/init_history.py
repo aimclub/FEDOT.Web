@@ -104,7 +104,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
             Path(project_root(), 'data', history_id, f'{history_id}_{task}.json'),
             initial_pipeline=initial_pipeline
         )
-        history_obj = history.save()
+        history_obj = json.loads(history.save())
     elif isinstance(external_history, dict):
         # init from dict
         history_obj = external_history
