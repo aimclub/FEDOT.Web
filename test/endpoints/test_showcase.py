@@ -1,7 +1,11 @@
 import json
+from pathlib import Path
+
+from golem.core.optimisers.opt_history_objects.opt_history import OptHistory
 
 from app.api.composer.service import run_composer
 from app.api.showcase.service import all_showcase_items_ids
+from utils import project_root
 
 
 def test_get_showcase_item_endpoint(client):
@@ -21,7 +25,7 @@ def test_get_showcase_endpoint(client):
 
 
 def test_add_case_endpoint(client):
-    history = run_composer('classification', 'roc_auc', dataset_name='scoring', time=1)
+    history = OptHistory().load(Path(project_root(), 'test', 'data', 'add_case_history.json'))
 
     history_json = history.save()
 
