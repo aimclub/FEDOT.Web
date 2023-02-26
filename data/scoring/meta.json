@@ -1,0 +1,5 @@
+{
+  "train": "data/scoring/scoring_train.csv",
+  "test": "data/scoring/scoring_test.csv",
+  "data_type": "table"
+}
