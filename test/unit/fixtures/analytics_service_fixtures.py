@@ -3,7 +3,7 @@ from typing import Tuple
 
 import numpy as np
 import pytest
-from fedot.core.optimisers.fitness import SingleObjFitness as Fitness
+from golem.core.optimisers.fitness import SingleObjFitness as Fitness
 
 from ..mocks.analytics_service_mocks import (MockIndividual,
                                              MockIndividualGraph,

@@ -15,7 +15,7 @@ class DevelopmentConfig(BaseConfig):
     SECRET_KEY = os.getenv("DEV_SECRET_KEY", "Dev secret")
     DEBUG = True
     TESTING = True
-    DATABASE_URI = "sqlite:///{0}/app-dev.sqlite".format(basedir)
+    SQLALCHEMY_DATABASE_URI = "sqlite:///{0}/app-dev.sqlite".format(basedir)
     MONGO_URI = os.getenv("MONGO_CONN_STRING")
 
 class TestingConfig(BaseConfig):

@@ -1,6 +1,6 @@
 import os
 
-from fedot.core.optimisers.opt_history_objects.opt_history import OptHistory
+from golem.core.optimisers.opt_history_objects.opt_history import OptHistory
 
 from app.api.composer.history_convert_utils import history_to_graph
 from utils import project_root

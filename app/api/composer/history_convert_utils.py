@@ -2,7 +2,7 @@ from copy import deepcopy
 from typing import Any, Dict
 
 import networkx as nx
-from fedot.core.optimisers.opt_history_objects.opt_history import OptHistory
+from golem.core.optimisers.opt_history_objects.opt_history import OptHistory
 from matplotlib import pyplot as plt
 
 
