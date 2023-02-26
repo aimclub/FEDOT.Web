@@ -89,19 +89,22 @@ def _save_history_to_path(history: OptHistory, path: Path) -> None:
 
 
 def _init_composer_history_for_case(history_id, task, metric, dataset_name, time,
-                                    external_history: Optional[Union[dict, os.PathLike]] = None):
+                                    external_history: Optional[Union[dict, os.PathLike]] = None,
+                                    initial_pipeline: Pipeline = None):
     mock_dct = {}
 
     db_service = DBServiceSingleton()
     history_path = Path(f'{project_root()}/data/{history_id}/{history_id}_{task}.json')
 
     is_loaded_history = False
-    if external_history is None:
+    if external_history is None or not external_history:
         # run composer in real-time
         history = run_composer(
-            task, metric, dataset_name, time, Path(project_root(), 'data', history_id, f'{history_id}_{task}.json')
+            task, metric, dataset_name, time,
+            Path(project_root(), 'data', history_id, f'{history_id}_{task}.json'),
+            initial_pipeline=initial_pipeline
         )
-        history_obj = history.save()
+        history_obj = json.loads(history.save())
     elif isinstance(external_history, dict):
         # init from dict
         history_obj = external_history
@@ -109,7 +112,9 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     else:
         # load from path
         history_path = Path(external_history)
-        history = run_composer(task, metric, dataset_name, time, fitted_history_path=history_path)
+        history = run_composer(task, metric, dataset_name, time,
+                               fitted_history_path=history_path,
+                               initial_pipeline=initial_pipeline)
         history_obj = history.save()
         is_loaded_history = True
 

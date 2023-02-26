@@ -5,16 +5,16 @@ from flask_cors import CORS, cross_origin
 from flask_login import LoginManager
 from flask_pymongo import PyMongo
 from flask_restx import Api
-from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
+
+from app.api.data.service import load_datasets_from_file_system
 
 db = SQLAlchemy()
 
 storage = PyMongo()
 
-socketio = SocketIO()
-
 login_manager = LoginManager()
+
 
 def create_app(env=None):
     print('Create app')
@@ -31,8 +31,6 @@ def create_app(env=None):
 
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
     api = Api(api_blueprint, title="Fedot Web API", version="0.1.0")
-
-    socketio.init_app(app)
 
     db.init_app(app)
 
@@ -72,5 +70,7 @@ def create_app(env=None):
     from app.api.routes import register_routes
     register_routes(api, app)
     app.register_blueprint(api_blueprint)
+
+    load_datasets_from_file_system()
 
     return app

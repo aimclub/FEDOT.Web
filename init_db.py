@@ -3,6 +3,7 @@ import os
 import pymongo
 from dotenv import load_dotenv
 
+from app import load_datasets_from_file_system
 from app.singletons.db_service import DBServiceSingleton
 from init.init_cases import create_default_cases
 from init.init_history import create_default_history
@@ -14,6 +15,7 @@ if __name__ == "__main__":
     print(env)
     client = pymongo.MongoClient(env)
     db = client.get_default_database()
+    load_datasets_from_file_system()
     DBServiceSingleton(db)
     create_default_cases()
     create_default_pipelines()

@@ -92,7 +92,8 @@ def _save_to_db(history_id: str, history: OptHistory) -> None:
 
 
 def run_composer(task: str, metric: str, dataset_name: str, time: float,
-                 fitted_history_path: Optional[PathLike] = None) -> OptHistory:
+                 fitted_history_path: Optional[PathLike] = None,
+                 initial_pipeline: Pipeline = None) -> OptHistory:
     checked_hist_path = Path(fitted_history_path) if fitted_history_path is not None else None
     if checked_hist_path is not None:
         if checked_hist_path.exists():
@@ -135,7 +136,7 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
 
     auto_model = Fedot(problem=task, seed=42, preset=preset, logging_level=4,
                        timeout=learning_time, task_params=task_parameters, n_jobs=1,
-                       **composer_params)
+                       initial_assumption=initial_pipeline, **composer_params)
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history
