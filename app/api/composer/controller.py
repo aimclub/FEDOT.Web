@@ -51,7 +51,7 @@ async def start_async():
 
     pipeline = pipeline_by_uid(initial_uid)
 
-    new_case_id = f'{case_id}-{initial_uid}'
+    new_case_id = f'restart_{case_id}-{initial_uid}'
 
     case_meta = {
         'task': case.metadata.task_name,

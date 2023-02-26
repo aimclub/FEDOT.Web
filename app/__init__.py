@@ -7,7 +7,7 @@ from flask_pymongo import PyMongo
 from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
-from app.api.data.service import get_datasets_names
+from app.api.data.service import load_datasets_from_file_system
 
 db = SQLAlchemy()
 
@@ -71,6 +71,6 @@ def create_app(env=None):
     register_routes(api, app)
     app.register_blueprint(api_blueprint)
 
-    get_datasets_names()
+    load_datasets_from_file_system()
 
     return app
