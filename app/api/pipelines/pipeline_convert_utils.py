@@ -1,7 +1,7 @@
 import json
 from typing import Dict, List, Optional, Union
 
-from fedot.core.pipelines.node import Node, PrimaryNode, SecondaryNode
+from fedot.core.pipelines.node import PipelineNode, PrimaryNode, SecondaryNode
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.repository.operation_types_repository import \
     OperationTypesRepository
@@ -12,7 +12,7 @@ from .models import PipelineGraph
 def graph_to_pipeline(graph: dict) -> Pipeline:
     graph_nodes = graph['nodes']
 
-    pipeline_nodes: List[Node] = []
+    pipeline_nodes: List[PipelineNode] = []
 
     # all parents should be taken from edges dict
     for graph_node in graph_nodes:
@@ -94,7 +94,7 @@ def replace_deprecated_values(graph_node: dict, depr_values: tuple = ('Infinity'
 
 
 def _graph_node_to_pipeline_node(
-        graph_node: dict, existing_graph_nodes: List[Dict], pipeline_nodes: List[Node]
+        graph_node: dict, existing_graph_nodes: List[Dict], pipeline_nodes: List[PipelineNode]
 ) -> Union[PrimaryNode, SecondaryNode]:
     if not graph_node['parents']:
         pipeline_node = PrimaryNode(graph_node['model_name'])
@@ -124,13 +124,13 @@ def _graph_node_to_pipeline_node(
     return pipeline_node
 
 
-def _add_to_pipeline_if_necessary(new_node: Node, pipeline_nodes: List[Node]) -> List[Node]:
+def _add_to_pipeline_if_necessary(new_node: PipelineNode, pipeline_nodes: List[PipelineNode]) -> List[PipelineNode]:
     if new_node.descriptive_id not in [_.descriptive_id for _ in pipeline_nodes]:
         pipeline_nodes.append(new_node)
     return pipeline_nodes
 
 
-def _get_identical_pipeline_node(node: Node, pipeline_nodes: List[Node]) -> Optional[Node]:
+def _get_identical_pipeline_node(node: PipelineNode, pipeline_nodes: List[PipelineNode]) -> Optional[PipelineNode]:
     return next((_ for _ in pipeline_nodes if _.descriptive_id == node.descriptive_id), None)
 
 

@@ -3,8 +3,8 @@ from typing import List, Optional, Dict, Iterable
 from uuid import uuid4
 
 import numpy as np
-from fedot.core.optimisers.fitness import SingleObjFitness
-from fedot.core.utilities.data_structures import UniqueList
+from golem.core.optimisers.fitness import SingleObjFitness
+from golem.core.utilities.data_structures import UniqueList
 from fedot.core.utils import DEFAULT_PARAMS_STUB
 
 
