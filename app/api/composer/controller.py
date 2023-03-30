@@ -61,6 +61,7 @@ async def start_async():
         'metric_name': case.metadata.metric_name,
         'dataset_name': case.metadata.dataset_name
     }
+
     if original_uid:
         original_history = composer_history_for_case(case_id)
     else:
