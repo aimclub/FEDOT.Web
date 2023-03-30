@@ -67,12 +67,13 @@ class PipelinesAddResource(Resource):
         """Preserve new pipeline"""
 
         graph = request.parsed_obj
+        is_new = graph.get('is_new', True)
         pipeline = graph_to_pipeline(graph)
         is_correct = verify_pipeline(pipeline)
 
         new_uid = str(uuid4())
         if is_correct:
-            uid, is_exists = create_pipeline(new_uid, pipeline)
+            uid, is_exists = create_pipeline(new_uid, pipeline, is_new_pipelene=is_new)
             return PipelineResponse(uid, is_exists)
         else:
             return PipelineResponse(None, False)

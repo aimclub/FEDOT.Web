@@ -9,6 +9,7 @@ class PipelineGraphSchema(Schema):
                         attribute='nodes')
     edges = fields.List(cls_or_instance=fields.Dict,
                         attribute='edges')
+    is_new = fields.Boolean(attribute='is_new', default=False)
 
 
 class PipelineValidationResponseSchema(Schema):

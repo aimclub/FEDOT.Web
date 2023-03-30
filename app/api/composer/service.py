@@ -23,8 +23,8 @@ from app.singletons.db_service import DBServiceSingleton
 from utils import project_root, threading_lock
 
 
-@threading_lock
-@lru_cache(maxsize=128)
+# @threading_lock
+# @lru_cache(maxsize=128) #CHEC
 def composer_history_for_case(case_id: str, validate_history: bool = False) -> OptHistory:
     case = showcase_item_from_db(case_id)
     if case is None:

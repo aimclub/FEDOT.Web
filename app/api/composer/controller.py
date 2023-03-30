@@ -3,6 +3,7 @@ from typing import Any, Dict
 from flask import redirect, url_for, request, jsonify, Blueprint
 from flask_accepts import responds, accepts
 from flask_restx import Namespace, Resource
+from golem.core.optimisers.opt_history_objects.opt_history import OptHistory
 
 from .history_convert_utils import history_to_graph
 from .schema import ComposingHistoryGraphSchema, ComposingStartSchema
@@ -44,6 +45,8 @@ async def start_async():
     data = request.get_json()
     case_id = data['case_id']
     initial_uid = data['initial_uid']
+    gen_index = data.get('gen_index', None)
+    original_uid = data.get('original_uid', None)
 
     case = showcase_item_from_db(case_id)
     if case is None:
@@ -58,6 +61,12 @@ async def start_async():
         'metric_name': case.metadata.metric_name,
         'dataset_name': case.metadata.dataset_name
     }
-    await create_new_case_async(new_case_id, case_meta, None, initial_pipeline=pipeline)
+    if original_uid:
+        original_history = composer_history_for_case(case_id)
+    else:
+        original_history = None
+    await create_new_case_async(new_case_id, case_meta, None, initial_pipeline=pipeline,
+                                original_history=original_history, modifed_generation_index=gen_index,
+                                original_uid=original_uid)
 
     return jsonify(success=True)

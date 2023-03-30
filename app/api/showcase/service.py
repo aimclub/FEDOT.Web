@@ -67,7 +67,8 @@ def all_showcase_items_ids(with_custom: bool = False) -> List[str]:
     return ids
 
 
-def create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None):
+def create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None, original_history=None,
+                    modifed_generation_index=None, original_uid=None):
     from init.init_history import _init_composer_history_for_case
     case = ShowcaseItem(
         case_id=case_id,
@@ -89,8 +90,13 @@ def create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline:
                                     dataset_name=case_meta_json.get('dataset_name'),
                                     time=None,
                                     external_history=opt_history_json,
-                                    initial_pipeline=initial_pipeline)
+                                    initial_pipeline=initial_pipeline,
+                                    original_history=original_history,
+                                    modifed_generation_index=modifed_generation_index,
+                                    original_uid=original_uid)
 
 
-async def create_new_case_async(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None):
-    create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline)
+async def create_new_case_async(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None,
+                                original_history=None, modifed_generation_index=None, original_uid=None):
+    create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline, original_history=original_history,
+                    modifed_generation_index=modifed_generation_index, original_uid=original_uid)

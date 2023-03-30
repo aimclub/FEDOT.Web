@@ -61,22 +61,15 @@ def _process_operator(all_nodes, operator, individual, o_id, gen_id, prev_operat
     return all_nodes
 
 
-def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id, uids_to_show):
+def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id):
     for ind_id in range(len(history.individuals[gen_id])):
         individual = history.individuals[gen_id][ind_id]
-        if individual.uid not in uids_to_show or gen_id > uids_to_show[individual.uid]:
-            continue
 
         # add pipelines as node
         individual_id = individual.uid
         uid = f'ind_{gen_id}_{ind_id}'
         objs = {}
-        if hasattr(history, 'metric_names'):
-            metric_names = history.metric_names
-        else:
-            metrics_num = len(history.individuals[0][0].fitness.values)
-            metric_names = [f'metric_{n}' for n in range(metrics_num)]
-        for metric in metric_names:
+        for metric in history._objective.metric_names:
             objs[metric] = history.all_historical_fitness[order_id]
         pipeline_node = _init_pipeline_dict(individual, objs, uid, individual_id, gen_id, ind_id)
         all_nodes.append(pipeline_node)
@@ -88,41 +81,14 @@ def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id,
 def _create_operators_and_nodes(history):
     all_nodes = []
     current_order_id = 0
-    if hasattr(history, 'final_choices') and history.final_choices:
-        final_choices = history.final_choices
-    elif len(history.archive_history[-1]) == 1:
-        final_choices = history.archive_history[-1]
-    else:
-        final_choices = [max(history.archive_history[-1], key=lambda ind: ind.fitness)]
-
-    for ind in final_choices:
-        if ind.native_generation is None:
-            ind.set_native_generation(len(history.individuals) - 1)
-
-    uid_to_last_generation_map = {ind.uid: len(history.individuals) for ind in final_choices}
-    current_inds = final_choices
-    for iteration in range(10_000):
-        next_inds = []
-        for ind in current_inds:
-            if not ind.parents:
-                continue
-            for parent in ind.parents_from_prev_generation:
-                next_inds.append(parent)
-                gen_id = max(uid_to_last_generation_map.get(parent.uid, 0), ind.native_generation - 1)
-                uid_to_last_generation_map[parent.uid] = gen_id
-        current_inds = next_inds
-
     for gen_id, generation in enumerate(history.individuals):
         o_id = 0
         all_nodes, current_order_id = _create_all_individuals_for_population(history, all_nodes, gen_id,
-                                                                             current_order_id,
-                                                                             uid_to_last_generation_map)
+                                                                             current_order_id)
         if gen_id == 0:
             continue
         for ind_id, individual in enumerate(generation):
             if individual.native_generation != gen_id:
-                continue
-            if individual.uid not in uid_to_last_generation_map or gen_id > uid_to_last_generation_map[individual.uid]:
                 continue
 
             # add evo operators as nodes
