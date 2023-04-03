@@ -1,5 +1,6 @@
 import os
 
+from fedot.core.repository.operation_types_repository import OperationTypesRepository
 from flask import Flask, jsonify, Blueprint
 from flask_cors import CORS, cross_origin
 from flask_login import LoginManager
@@ -17,6 +18,7 @@ login_manager = LoginManager()
 
 
 def create_app(env=None):
+    OperationTypesRepository()
     print('Create app')
     from app.config import config_by_name
 
