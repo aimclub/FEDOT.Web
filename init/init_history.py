@@ -1,6 +1,7 @@
 import itertools
 import json
 import os
+from multiprocessing import Queue, Process
 from pathlib import Path
 from typing import Optional, Union
 
@@ -149,11 +150,16 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     is_loaded_history = False
     if external_history is None or not external_history:
         # run composer in real-time
-        history = run_composer(
-            task, metric, dataset_name, time,
-            Path(project_root(), 'data', history_id, f'{history_id}_{task}.json'),
-            initial_pipeline=initial_pipeline
-        )
+        result_queue = Queue()
+        composer_process = Process(target=run_composer,
+                                   args=(task, metric, dataset_name, time,
+                                         Path(project_root(), 'data', history_id,
+                                              f'{history_id}_{task}.json')),
+                                   kwargs={'initial_pipeline': initial_pipeline,
+                                           'result_queue': result_queue})
+        composer_process.start()
+        composer_process.join()
+        history = result_queue.get()
         history_obj = json.loads(history.save())
     elif isinstance(external_history, dict):
         # init from dict
@@ -162,9 +168,14 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     else:
         # load from path
         history_path = Path(external_history)
-        history = run_composer(task, metric, dataset_name, time,
-                               fitted_history_path=history_path,
-                               initial_pipeline=initial_pipeline)
+        result_queue = Queue()
+        composer_process = Process(target=run_composer,
+                                   args=(task, metric, dataset_name, time, history_path),
+                                   kwargs={'initial_pipeline': initial_pipeline,
+                                           'result_queue': result_queue})
+        composer_process.start()
+        composer_process.join()
+        history = result_queue.get()
         history_obj = history.save()
         is_loaded_history = True
 
