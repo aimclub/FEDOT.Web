@@ -111,6 +111,9 @@ def get_image_url(filename: str, pipeline: Optional[Pipeline]) -> str:
     image_path = f'{project_root()}/frontend/build/static/generated_images/{filename}'
     image = Path(image_path)
     if not image.exists():
+
+        print('filename', filename)
+        print('pipeline', pipeline)
         dir_path = Path(f'{project_root()}/frontend/build/static/generated_images/')
         if not dir_path.exists():
             dir_path.mkdir()

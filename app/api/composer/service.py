@@ -144,8 +144,9 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history
-
+    print("Finish", preset, time, result_queue)
     if result_queue:
+        print('put')
         result_queue.put(history)
 
     return history

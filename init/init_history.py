@@ -157,8 +157,9 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
                                               f'{history_id}_{task}.json')),
                                    kwargs={'initial_pipeline': initial_pipeline,
                                            'result_queue': result_queue})
+
+        composer_process.daemon = True
         composer_process.start()
-        composer_process.join()
         history = result_queue.get()
         history_obj = json.loads(history.save())
     elif isinstance(external_history, dict):
@@ -173,8 +174,8 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
                                    args=(task, metric, dataset_name, time, history_path),
                                    kwargs={'initial_pipeline': initial_pipeline,
                                            'result_queue': result_queue})
+        composer_process.daemon = True
         composer_process.start()
-        composer_process.join()
         history = result_queue.get()
         history_obj = history.save()
         is_loaded_history = True
@@ -203,27 +204,45 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
 
     data = get_input_data(dataset_name=dataset_name, sample_type='train', task_type=task)
 
-    best_fitness = None
-
     global_id = 0
     adapter = PipelineAdapter()
     historical_pipelines = [
         PipelineTemplate(adapter.restore(ind))
         for ind in itertools.chain(*history.individuals)
     ]
+
+    is_golem_history = isinstance(history.all_historical_fitness[0], list)
+
+    case = db_service.try_find_one('cases', {'case_id': history_id})
+
+    if is_golem_history:
+        best_individual = None
+        max_fitness = -9999
+        for ind in history.final_choices:
+            ind: Individual
+            fitness = ind.fitness.values[0] # sp_adj
+            if fitness > max_fitness:
+                max_fitness = fitness
+                best_individual = ind
+
+        if best_individual and case:
+            if case is not None:
+                case['individual_id'] = best_individual.uid
+                db_service.try_reinsert_one('cases', {'case_id': history_id}, case)
+
+    if not is_golem_history:
+        final_choices = history.final_choices
+        if final_choices is None:
+            final_choices = history.individuals[-1]
+        individual = final_choices[0]
+        if case is not None:
+            case['individual_id'] = individual.uid
+            db_service.try_reinsert_one('cases', {'case_id': history_id}, case)
+
     for pop_id in range(len(history.individuals)):
         pop = history.individuals[pop_id]
         for i, individual in enumerate(pop):
             pipeline_template = historical_pipelines[global_id]
-            fitness = history.all_historical_fitness[i]
-            if best_fitness is None or fitness < best_fitness:
-                best_fitness = fitness
-
-                case = db_service.try_find_one('cases', {'case_id': history_id})
-                if case is not None:
-                    case['individual_id'] = individual.uid
-                    db_service.try_reinsert_one('cases', {'case_id': history_id}, case)
-
             is_existing_pipeline = is_pipeline_exists(individual.uid)
             if not is_existing_pipeline:
                 print(f'Pipeline №{i} with id {individual.uid} added')

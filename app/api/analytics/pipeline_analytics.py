@@ -2,10 +2,27 @@ from typing import Dict
 
 from fedot.core.composer.metrics import MAE, MAPE, RMSE, ROCAUC
 from fedot.core.pipelines.pipeline import Pipeline
+from golem.core.optimisers.opt_history_objects.individual import Individual
 
 from app.api.analytics.service import get_prediction_for_pipeline
 from app.api.showcase.models import ShowcaseItem
 from .service import Integral
+from ..composer.service import composer_history_for_case
+
+
+def get_metrics_for_golem_individual(case_id, individual_id):
+    history = composer_history_for_case(case_id)
+    metric_names = history.objective.metric_names
+    metrics = {}
+    best_fitness = None
+    for ind in history.final_choices:
+        ind: Individual
+        if ind.uid == individual_id:
+            best_fitness = ind.fitness.values
+            break
+    for i in range(len(best_fitness)):
+        metrics[metric_names[i]] = best_fitness[i]
+    return metrics
 
 
 def get_metrics_for_pipeline(case: ShowcaseItem, pipeline: Pipeline) -> Dict[str, Integral]:

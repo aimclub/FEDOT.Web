@@ -3,7 +3,6 @@ from typing import Any, Dict
 from flask import redirect, url_for, request, jsonify, Blueprint
 from flask_accepts import responds, accepts
 from flask_restx import Namespace, Resource
-from golem.core.optimisers.opt_history_objects.opt_history import OptHistory
 
 from .history_convert_utils import history_to_graph
 from .schema import ComposingHistoryGraphSchema, ComposingStartSchema
