@@ -1,4 +1,5 @@
 import os
+from multiprocessing import set_start_method
 
 from dotenv import load_dotenv
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -7,6 +8,8 @@ from app import create_app, db, storage
 from app.singletons.db_service import DBServiceSingleton
 
 if __name__ == "__main__":
+    set_start_method("spawn")
+
     load_dotenv("oauth.env")
     load_dotenv("mongo_conn_string.env")
 
