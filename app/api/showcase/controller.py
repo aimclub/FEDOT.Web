@@ -53,7 +53,12 @@ class ShowCaseItemAddResource(Resource):
         if case_id in all_showcase_items_ids():
             return False
 
-        create_new_case(case_id, case_meta_json, opt_history_json)
+        if case_meta_json['task'] == 'golem':
+            is_golem_history = True
+        else:
+            is_golem_history = False
+
+        create_new_case(case_id, case_meta_json, opt_history_json, is_golem_history=is_golem_history)
 
         return True
 

@@ -61,12 +61,17 @@ async def start_async():
         'dataset_name': case.metadata.dataset_name
     }
 
+    if case.metadata.task_name == 'golem':
+        is_golem_history = True
+    else:
+        is_golem_history = False
+
     if original_uid:
         original_history = composer_history_for_case(case_id)
     else:
         original_history = None
     await create_new_case_async(new_case_id, case_meta, None, initial_pipeline=pipeline,
                                 original_history=original_history, modifed_generation_index=gen_index,
-                                original_uid=original_uid)
+                                original_uid=original_uid, is_golem_history=is_golem_history)
 
     return jsonify(success=True)

@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Optional
 from fedot.core.pipelines.pipeline import Pipeline
 
 from app.api.data.service import get_dataset_metadata
-from app.api.pipelines.service import get_pipeline_metadata, pipeline_by_uid
+from app.api.pipelines.service import get_pipeline_metadata, pipeline_by_uid, graph_by_uid
 from app.singletons.db_service import DBServiceSingleton
 from init.init_cases import add_case_to_db
 
@@ -28,14 +28,10 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
     is_golem_case = False
 
     if not details and case_metadata.dataset_name is not None:
-        n_models, n_levels = get_pipeline_metadata(individual_id)
         if case_metadata.task_name == 'golem':
-            details = {
-                'n_models': n_models,
-                'n_levels': n_levels
-            }
             is_golem_case = True
         else:
+            n_models, n_levels = get_pipeline_metadata(individual_id)
             n_features, n_rows = get_dataset_metadata(case_metadata.dataset_name, 'train')
             details = {
                 'n_models': n_models,
@@ -45,7 +41,11 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
             }
 
         case_id = dumped_item['case_id']
-        pipeline, case = pipeline_by_uid(individual_id), showcase_item_from_db(case_id)
+
+        if is_golem_case:
+            pipeline, case = graph_by_uid(individual_id), showcase_item_from_db(case_id)
+        else:
+            pipeline, case = pipeline_by_uid(individual_id), showcase_item_from_db(case_id)
 
         if pipeline is None:
             raise ValueError(f'Pipeline with id {individual_id} not exists.')
@@ -81,7 +81,7 @@ def all_showcase_items_ids(with_custom: bool = False) -> List[str]:
 
 
 def create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None, original_history=None,
-                    modifed_generation_index=None, original_uid=None):
+                    modifed_generation_index=None, original_uid=None, is_golem_history=False):
     from init.init_history import _init_composer_history_for_case
     case = ShowcaseItem(
         case_id=case_id,
@@ -106,10 +106,11 @@ def create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline:
                                     initial_pipeline=initial_pipeline,
                                     original_history=original_history,
                                     modifed_generation_index=modifed_generation_index,
-                                    original_uid=original_uid)
+                                    original_uid=original_uid,
+                                    is_golem_history=is_golem_history)
 
 
 async def create_new_case_async(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None,
-                                original_history=None, modifed_generation_index=None, original_uid=None):
+                                original_history=None, modifed_generation_index=None, original_uid=None, is_golem_history=False):
     create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline, original_history=original_history,
-                    modifed_generation_index=modifed_generation_index, original_uid=original_uid)
+                    modifed_generation_index=modifed_generation_index, original_uid=original_uid, is_golem_history=is_golem_history)

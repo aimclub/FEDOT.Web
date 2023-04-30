@@ -141,7 +141,8 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
                                     initial_pipeline: Pipeline = None,
                                     original_history: OptHistory = None,
                                     modifed_generation_index=None,
-                                    original_uid=None):
+                                    original_uid=None,
+                                    is_golem_history=False):
     mock_dct = {}
 
     db_service = DBServiceSingleton()
@@ -205,13 +206,6 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     data = get_input_data(dataset_name=dataset_name, sample_type='train', task_type=task)
 
     global_id = 0
-    adapter = PipelineAdapter()
-    historical_pipelines = [
-        PipelineTemplate(adapter.restore(ind))
-        for ind in itertools.chain(*history.individuals)
-    ]
-
-    is_golem_history = isinstance(history.all_historical_fitness[0], list)
 
     case = db_service.try_find_one('cases', {'case_id': history_id})
 
@@ -230,7 +224,23 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
                 case['individual_id'] = best_individual.uid
                 db_service.try_reinsert_one('cases', {'case_id': history_id}, case)
 
+        for pop_id in range(len(history.individuals)):
+            pop = history.individuals[pop_id]
+            for i, individual in enumerate(pop):
+                individual: Individual
+                is_existing_graph = is_pipeline_exists(individual.uid)
+                if not is_existing_graph:
+                    if db_service.exists():
+                        create_pipeline(uid=individual.uid, pipeline=individual, overwrite=True, is_graph=is_golem_history)
+
+
     if not is_golem_history:
+        adapter = PipelineAdapter()
+        historical_pipelines = [
+            PipelineTemplate(adapter.restore(ind))
+            for ind in itertools.chain(*history.individuals)
+        ]
+
         final_choices = history.final_choices
         if final_choices is None:
             final_choices = history.individuals[-1]
@@ -239,30 +249,30 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
             case['individual_id'] = individual.uid
             db_service.try_reinsert_one('cases', {'case_id': history_id}, case)
 
-    for pop_id in range(len(history.individuals)):
-        pop = history.individuals[pop_id]
-        for i, individual in enumerate(pop):
-            pipeline_template = historical_pipelines[global_id]
-            is_existing_pipeline = is_pipeline_exists(individual.uid)
-            if not is_existing_pipeline:
-                print(f'Pipeline №{i} with id {individual.uid} added')
-                pipeline = Pipeline()
-                pipeline_template.convert_to_pipeline(pipeline)
-                if data is not None:
-                    pipeline.fit(data)
-                # workaround to reduce size
-                pipeline.preprocessor.structure_analysis = PipelineStructureExplorer()
-                if db_service.exists():
-                    create_pipeline(uid=individual.uid, pipeline=pipeline, overwrite=True)
-                else:
-                    pipeline_dict, dict_fitted_operations = \
-                        _extract_pipeline_with_fitted_operations(pipeline, individual.uid)
-                    existing_ids = mock_dct['pipelines_dict'].keys()
-                    if individual.uid not in existing_ids:
-                        mock_dct['pipelines_dict'][individual.uid] = pipeline_dict
-                        mock_dct['dicts_fitted_operations'].append(dict_fitted_operations)
-            if not is_pipeline_exists(individual.uid):
-                print(f'Critical error: pipeline for individual {individual.uid} not found after adding')
-            global_id += 1
+        for pop_id in range(len(history.individuals)):
+            pop = history.individuals[pop_id]
+            for i, individual in enumerate(pop):
+                pipeline_template = historical_pipelines[global_id]
+                is_existing_pipeline = is_pipeline_exists(individual.uid)
+                if not is_existing_pipeline:
+                    print(f'Pipeline №{i} with id {individual.uid} added')
+                    pipeline = Pipeline()
+                    pipeline_template.convert_to_pipeline(pipeline)
+                    if data is not None:
+                        pipeline.fit(data)
+                    # workaround to reduce size
+                    pipeline.preprocessor.structure_analysis = PipelineStructureExplorer()
+                    if db_service.exists():
+                        create_pipeline(uid=individual.uid, pipeline=pipeline, overwrite=True)
+                    else:
+                        pipeline_dict, dict_fitted_operations = \
+                            _extract_pipeline_with_fitted_operations(pipeline, individual.uid)
+                        existing_ids = mock_dct['pipelines_dict'].keys()
+                        if individual.uid not in existing_ids:
+                            mock_dct['pipelines_dict'][individual.uid] = pipeline_dict
+                            mock_dct['dicts_fitted_operations'].append(dict_fitted_operations)
+                if not is_pipeline_exists(individual.uid):
+                    print(f'Critical error: pipeline for individual {individual.uid} not found after adding')
+                global_id += 1
 
     return mock_dct
