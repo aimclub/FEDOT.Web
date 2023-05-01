@@ -32,7 +32,7 @@ class PipelinesIdResource(Resource):
             pipeline_graph = pipeline_to_graph(pipeline)
             pipeline_graph.uid = uid
             return pipeline_graph
-        except:
+        except KeyError:
             golem_graph = graph_by_uid(uid)
             if golem_graph is None:
                 return None
@@ -101,7 +101,7 @@ class PipelinesIdImage(Resource):
             pipeline = pipeline_by_uid(uid)
             filename = f'{uid}.png'
             image_url = get_image_url(filename, pipeline)
-        except:
+        except KeyError:
             golem_graph = graph_by_uid(uid)
             filename = f'{uid}.png'
             image_url = get_image_url(filename, golem_graph.graph)
