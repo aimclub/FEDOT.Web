@@ -145,10 +145,11 @@ def get_prediction_for_pipeline(
             dataset_name=case.metadata.dataset_name, sample_type='train',
             task_type=case.metadata.task_name
         )
-        if not pipeline.is_fitted and train_data:
-            pipeline.fit(train_data)
-        if test_data:
-            prediction = pipeline.predict(test_data)
+        if hasattr(pipeline, 'is_fitted'):
+            if not pipeline.is_fitted and train_data:
+                pipeline.fit(train_data)
+            if test_data:
+                prediction = pipeline.predict(test_data)
     return test_data, prediction
 
 

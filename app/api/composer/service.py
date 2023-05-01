@@ -1,6 +1,7 @@
 import datetime
 import itertools
 import json
+import multiprocessing
 import sys
 from functools import lru_cache
 from os import PathLike
@@ -23,8 +24,8 @@ from app.singletons.db_service import DBServiceSingleton
 from utils import project_root, threading_lock
 
 
-@threading_lock
-@lru_cache(maxsize=128)
+# @threading_lock
+# @lru_cache(maxsize=128) #CHEC
 def composer_history_for_case(case_id: str, validate_history: bool = False) -> OptHistory:
     case = showcase_item_from_db(case_id)
     if case is None:
@@ -93,11 +94,14 @@ def _save_to_db(history_id: str, history: OptHistory) -> None:
 
 def run_composer(task: str, metric: str, dataset_name: str, time: float,
                  fitted_history_path: Optional[PathLike] = None,
-                 initial_pipeline: Pipeline = None) -> OptHistory:
+                 initial_pipeline: Pipeline = None, result_queue: multiprocessing.Queue = None) -> OptHistory:
     checked_hist_path = Path(fitted_history_path) if fitted_history_path is not None else None
     if checked_hist_path is not None:
         if checked_hist_path.exists():
-            return OptHistory.load(checked_hist_path.read_text())
+            existed_history = OptHistory.load(checked_hist_path.read_text())
+            if result_queue:
+                result_queue.put(existed_history)
+            return existed_history
         print(f'history_path={checked_hist_path} doesn\'t exist, trying to fit history from FEDOT', file=sys.stderr)
     pop_size = 10
     num_of_generations = 5
@@ -140,4 +144,9 @@ def run_composer(task: str, metric: str, dataset_name: str, time: float,
     auto_model.fit(features=f'{project_root()}/data/{dataset_name}/{dataset_name}_train.csv',
                    target='target')
     history: OptHistory = auto_model.history
+    print("Finish", preset, time, result_queue)
+    if result_queue:
+        print('put')
+        result_queue.put(history)
+
     return history

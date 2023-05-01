@@ -5,9 +5,7 @@ from flask_accepts import accepts, responds
 from flask_cors import cross_origin
 from flask_restx import Namespace, Resource
 
-from init.init_cases import add_case_to_db
-from init.init_history import _init_composer_history_for_case
-from .models import Metadata, ShowcaseItem
+from .models import ShowcaseItem
 from .schema import ShowcaseItemAddingSchema, ShowcaseItemSchema
 from .service import all_showcase_items_ids, showcase_full_item_by_uid, create_new_case
 from .showcase_utils import showcase_item_from_db
@@ -55,7 +53,12 @@ class ShowCaseItemAddResource(Resource):
         if case_id in all_showcase_items_ids():
             return False
 
-        create_new_case(case_id, case_meta_json, opt_history_json)
+        if case_meta_json['task'] == 'golem':
+            is_golem_history = True
+        else:
+            is_golem_history = False
+
+        create_new_case(case_id, case_meta_json, opt_history_json, is_golem_history=is_golem_history)
 
         return True
 

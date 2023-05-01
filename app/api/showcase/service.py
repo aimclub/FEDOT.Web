@@ -4,13 +4,13 @@ from typing import Any, Dict, List, Optional
 from fedot.core.pipelines.pipeline import Pipeline
 
 from app.api.data.service import get_dataset_metadata
-from app.api.pipelines.service import get_pipeline_metadata, pipeline_by_uid
+from app.api.pipelines.service import get_pipeline_metadata, pipeline_by_uid, graph_by_uid
 from app.singletons.db_service import DBServiceSingleton
 from init.init_cases import add_case_to_db
 
 from .models import ShowcaseItem, Metadata
 from .showcase_utils import prepare_icon_path, showcase_item_from_db
-from ..analytics.pipeline_analytics import get_metrics_for_pipeline
+from ..analytics.pipeline_analytics import get_metrics_for_pipeline, get_metrics_for_golem_individual
 
 
 def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
@@ -25,24 +25,37 @@ def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
 
     details = dumped_item['details']
     is_updated = False
+    is_golem_case = False
+
     if not details and case_metadata.dataset_name is not None:
-        n_features, n_rows = get_dataset_metadata(case_metadata.dataset_name, 'train')
-        n_models, n_levels = get_pipeline_metadata(individual_id)
-        details = {
-            'n_models': n_models,
-            'n_levels': n_levels,
-            'n_features': n_features,
-            'n_rows': n_rows}
+        if case_metadata.task_name == 'golem':
+            is_golem_case = True
+        else:
+            n_models, n_levels = get_pipeline_metadata(individual_id)
+            n_features, n_rows = get_dataset_metadata(case_metadata.dataset_name, 'train')
+            details = {
+                'n_models': n_models,
+                'n_levels': n_levels,
+                'n_features': n_features,
+                'n_rows': n_rows
+            }
 
         case_id = dumped_item['case_id']
-        pipeline, case = pipeline_by_uid(individual_id), showcase_item_from_db(case_id)
+
+        if is_golem_case:
+            pipeline, case = graph_by_uid(individual_id), showcase_item_from_db(case_id)
+        else:
+            pipeline, case = pipeline_by_uid(individual_id), showcase_item_from_db(case_id)
 
         if pipeline is None:
             raise ValueError(f'Pipeline with id {individual_id} not exists.')
         if case is None:
             raise ValueError(f'Case with id {case_id} not exists.')
 
-        metrics = get_metrics_for_pipeline(case, pipeline)
+        if is_golem_case:
+            metrics = get_metrics_for_golem_individual(case_id, individual_id)
+        else:
+            metrics = get_metrics_for_pipeline(case, pipeline)
         for metric_id, metric_val in metrics.items():
             details[metric_id] = metric_val
         is_updated = True
@@ -67,7 +80,8 @@ def all_showcase_items_ids(with_custom: bool = False) -> List[str]:
     return ids
 
 
-def create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None):
+def create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None, original_history=None,
+                    modifed_generation_index=None, original_uid=None, is_golem_history=False):
     from init.init_history import _init_composer_history_for_case
     case = ShowcaseItem(
         case_id=case_id,
@@ -89,8 +103,14 @@ def create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline:
                                     dataset_name=case_meta_json.get('dataset_name'),
                                     time=None,
                                     external_history=opt_history_json,
-                                    initial_pipeline=initial_pipeline)
+                                    initial_pipeline=initial_pipeline,
+                                    original_history=original_history,
+                                    modifed_generation_index=modifed_generation_index,
+                                    original_uid=original_uid,
+                                    is_golem_history=is_golem_history)
 
 
-async def create_new_case_async(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None):
-    create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline)
+async def create_new_case_async(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None,
+                                original_history=None, modifed_generation_index=None, original_uid=None, is_golem_history=False):
+    create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline, original_history=original_history,
+                    modifed_generation_index=modifed_generation_index, original_uid=original_uid, is_golem_history=is_golem_history)

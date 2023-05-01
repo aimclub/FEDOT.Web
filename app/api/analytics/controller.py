@@ -1,7 +1,7 @@
 from flask_accepts import responds
 from flask_restx import Namespace, Resource
 
-from app.api.pipelines.service import pipeline_by_uid
+from app.api.pipelines.service import pipeline_by_uid, graph_by_uid
 from app.api.showcase.showcase_utils import showcase_item_from_db
 from .models import BoxPlotData, PlotData
 from .schema import BoxPlotDataSchema, PlotDataSchema
@@ -40,9 +40,16 @@ class ResultsPlotResource(Resource):
     @responds(schema=PlotDataSchema, many=False)
     def get(self, case_id: str, individual_id: str) -> PlotData:
         """Get all lines for results plot"""
-        pipeline, case = pipeline_by_uid(individual_id), showcase_item_from_db(case_id)
+        case = showcase_item_from_db(case_id)
+        if case.metadata.task_name == 'golem':
+            pipeline = graph_by_uid(individual_id)
+        else:
+            pipeline = pipeline_by_uid(individual_id)
         if pipeline is None:
             raise ValueError(f'Pipeline with id {individual_id} not exists.')
-        baseline = pipeline_by_uid(f'{case_id}_baseline')
+        if case.metadata.task_name == 'golem':
+            baseline = graph_by_uid(f'{case_id}_baseline')
+        else:
+            baseline = pipeline_by_uid(f'{case_id}_baseline')
         results_plot = get_modelling_results(case, pipeline, baseline)
         return results_plot

@@ -44,6 +44,8 @@ async def start_async():
     data = request.get_json()
     case_id = data['case_id']
     initial_uid = data['initial_uid']
+    gen_index = data.get('gen_index', None)
+    original_uid = data.get('original_uid', None)
 
     case = showcase_item_from_db(case_id)
     if case is None:
@@ -58,6 +60,18 @@ async def start_async():
         'metric_name': case.metadata.metric_name,
         'dataset_name': case.metadata.dataset_name
     }
-    await create_new_case_async(new_case_id, case_meta, None, initial_pipeline=pipeline)
+
+    if case.metadata.task_name == 'golem':
+        is_golem_history = True
+    else:
+        is_golem_history = False
+
+    if original_uid:
+        original_history = composer_history_for_case(case_id)
+    else:
+        original_history = None
+    await create_new_case_async(new_case_id, case_meta, None, initial_pipeline=pipeline,
+                                original_history=original_history, modifed_generation_index=gen_index,
+                                original_uid=original_uid, is_golem_history=is_golem_history)
 
     return jsonify(success=True)

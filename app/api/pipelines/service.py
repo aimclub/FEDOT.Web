@@ -3,12 +3,14 @@ import warnings
 from io import BytesIO
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
+from uuid import uuid4
 
 import pymongo
 from bson import json_util
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.pipelines.verification import verify_pipeline as verify
 from flask import current_app, has_app_context, url_for
+from golem.core.optimisers.opt_history_objects.individual import Individual
 from pymongo.errors import DuplicateKeyError
 
 from app.singletons.db_service import DBServiceSingleton
@@ -41,6 +43,17 @@ def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
     return pipeline
 
 
+def graph_by_uid(uid: str) -> Optional[Individual]:
+    db_service = DBServiceSingleton()
+
+    individual_dict: Optional[Dict[str, Any]] = db_service.try_find_one('pipelines', {'individual_id': uid})
+    if individual_dict:
+        del individual_dict['_id']
+        graph_individual = Individual.load(json.dumps(individual_dict))
+
+        return graph_individual
+
+
 def verify_pipeline(pipeline: Pipeline) -> Tuple[bool, str]:
     try:
         verify(pipeline)
@@ -49,13 +62,19 @@ def verify_pipeline(pipeline: Pipeline) -> Tuple[bool, str]:
         return False, str(ex)
 
 
-def create_pipeline(uid: str, pipeline: Pipeline, overwrite: bool = False) -> Tuple[str, bool]:
+def create_pipeline(uid: str, pipeline: Pipeline, overwrite: bool = False, is_new_pipelene: bool = False,
+                    is_graph: bool = False) -> Tuple[
+    str, bool]:
     is_new = True
     existing_uid = is_pipeline_exists(uid)
     if existing_uid and not overwrite:
         is_new = False
 
-    dumped_json, dict_fitted_operations = pipeline.save()
+    dict_fitted_operations = None
+    if is_graph:
+        dumped_json = pipeline.save()
+    else:
+        dumped_json, dict_fitted_operations = pipeline.save()
     if dict_fitted_operations:
         for key in dict_fitted_operations:
             if key.find('operation') != -1 or key == 'preprocessing':
@@ -63,6 +82,10 @@ def create_pipeline(uid: str, pipeline: Pipeline, overwrite: bool = False) -> Tu
                 saved_operation = dict_fitted_operations[key].read()
                 dict_fitted_operations[key] = saved_operation
         dict_fitted_operations['individual_id'] = str(uid)
+
+    if is_new_pipelene:
+        is_new = True
+        uid = str(uuid4())
 
     if is_new:
         dict_pipeline = json.loads(dumped_json)
@@ -74,8 +97,8 @@ def create_pipeline(uid: str, pipeline: Pipeline, overwrite: bool = False) -> Tu
 
 
 def _add_pipeline_to_db(
-    uid: str, dict_pipeline: Dict, dict_fitted_operations: Dict,
-    init_db: bool = False, overwrite: bool = False
+        uid: str, dict_pipeline: Dict, dict_fitted_operations: Dict,
+        init_db: bool = False, overwrite: bool = False
 ) -> Optional[List[Dict]]:
     uid = uid
     dict_pipeline['individual_id'] = uid
@@ -105,6 +128,9 @@ def get_image_url(filename: str, pipeline: Optional[Pipeline]) -> str:
     image_path = f'{project_root()}/frontend/build/static/generated_images/{filename}'
     image = Path(image_path)
     if not image.exists():
+
+        print('filename', filename)
+        print('pipeline', pipeline)
         dir_path = Path(f'{project_root()}/frontend/build/static/generated_images/')
         if not dir_path.exists():
             dir_path.mkdir()

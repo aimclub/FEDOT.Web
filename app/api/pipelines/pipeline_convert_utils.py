@@ -5,6 +5,7 @@ from fedot.core.pipelines.node import PipelineNode, PrimaryNode, SecondaryNode
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.repository.operation_types_repository import \
     OperationTypesRepository
+from golem.core.optimisers.opt_history_objects.individual import Individual
 
 from .models import PipelineGraph
 
@@ -78,6 +79,46 @@ def pipeline_to_graph(pipeline: Pipeline) -> PipelineGraph:
                 # fill children field
                 for pipeline_node_child in children:
                     node['children'].append(pipeline_node_child.tmp_id)
+        del node['pipeline_node']
+
+    output_graph = PipelineGraph(uid='', nodes=nodes, edges=edges)
+
+    return output_graph
+
+
+def golem_to_graph(graph_individual: Individual) -> PipelineGraph:
+    nodes = []
+    edges = []
+
+    local_id = 0
+    for graph_node in graph_individual.graph.nodes:
+        node = replace_deprecated_values({
+            'id': local_id,
+            'display_name': graph_node.name,
+            'model_name': str(graph_node.name),
+            'params': graph_node.description()
+        })
+        graph_node.tmp_id = local_id
+        node['pipeline_node'] = graph_node
+        node['type'] = 'graph_node'
+
+        nodes.append(node)
+        local_id += 1
+
+    for node in nodes:
+        node['parents'] = []
+        node['children'] = []
+        nodes_from_pipeline = node['pipeline_node'].nodes_from
+        if nodes_from_pipeline is not None:
+            for pipeline_node_parent in nodes_from_pipeline:
+                # fill parents field
+                node['parents'].append(pipeline_node_parent.tmp_id)
+
+                # create edge
+                edges.append({
+                    'source': pipeline_node_parent.tmp_id,
+                    'target': node['id']
+                })
         del node['pipeline_node']
 
     output_graph = PipelineGraph(uid='', nodes=nodes, edges=edges)

@@ -8,11 +8,11 @@ from flask_restx import Namespace, Resource
 
 from .models import (PipelineGraph, PipelineImage, PipelineResponse,
                      PipelineValidationResponse)
-from .pipeline_convert_utils import graph_to_pipeline, pipeline_to_graph
+from .pipeline_convert_utils import graph_to_pipeline, pipeline_to_graph, golem_to_graph
 from .schema import (PipelineGraphSchema, PipelineImageSchema,
                      PipelineResponseSchema, PipelineValidationResponseSchema)
 from .service import (create_pipeline, get_image_url, pipeline_by_uid,
-                      verify_pipeline)
+                      verify_pipeline, graph_by_uid)
 
 api = Namespace("Pipelines", description="Operations with pipelines")
 
@@ -25,13 +25,20 @@ class PipelinesIdResource(Resource):
     @responds(schema=PipelineGraphSchema, many=False)
     def get(self, uid: str) -> Optional[PipelineGraph]:
         """Get pipeline with specific UID"""
-        pipeline = pipeline_by_uid(uid)
-        if pipeline is None:
-            return None
-        pipeline_graph = pipeline_to_graph(pipeline)
-        pipeline_graph.uid = uid
-
-        return pipeline_graph
+        try:
+            pipeline = pipeline_by_uid(uid)
+            if pipeline is None:
+                return None
+            pipeline_graph = pipeline_to_graph(pipeline)
+            pipeline_graph.uid = uid
+            return pipeline_graph
+        except KeyError:
+            golem_graph = graph_by_uid(uid)
+            if golem_graph is None:
+                return None
+            golem_graph = golem_to_graph(golem_graph)
+            golem_graph.uid = uid
+            return golem_graph
 
 
 @cross_origin()
@@ -67,12 +74,13 @@ class PipelinesAddResource(Resource):
         """Preserve new pipeline"""
 
         graph = request.parsed_obj
+        is_new = graph.get('is_new', True)
         pipeline = graph_to_pipeline(graph)
         is_correct = verify_pipeline(pipeline)
 
         new_uid = str(uuid4())
         if is_correct:
-            uid, is_exists = create_pipeline(new_uid, pipeline)
+            uid, is_exists = create_pipeline(new_uid, pipeline, is_new_pipelene=is_new)
             return PipelineResponse(uid, is_exists)
         else:
             return PipelineResponse(None, False)
@@ -89,9 +97,13 @@ class PipelinesIdImage(Resource):
     @responds(schema=PipelineImageSchema, many=False)
     def get(self, uid: str) -> PipelineImage:
         """Get image of pipeline with specific UID"""
-
-        pipeline = pipeline_by_uid(uid)
-        filename = f'{uid}.png'
-        image_url = get_image_url(filename, pipeline)
+        try:
+            pipeline = pipeline_by_uid(uid)
+            filename = f'{uid}.png'
+            image_url = get_image_url(filename, pipeline)
+        except KeyError:
+            golem_graph = graph_by_uid(uid)
+            filename = f'{uid}.png'
+            image_url = get_image_url(filename, golem_graph.graph)
 
         return PipelineImage(uid, image_url)

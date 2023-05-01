@@ -17,3 +17,5 @@ class ComposingStartSchema(Schema):
 
     case_id = fields.String(attribute='case_id')
     initial_uid = fields.String(attribute='initial_uid')
+    original_uid = fields.String(attribute='original_uid')
+    gen_index = fields.Int(attribute='gen_index')

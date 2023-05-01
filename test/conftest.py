@@ -1,8 +1,11 @@
+import multiprocessing
 import os
 
 import pytest
 from app import create_app, db, storage
 from app.singletons.db_service import DBServiceSingleton
+
+multiprocessing.set_start_method('spawn')
 
 
 @pytest.fixture
