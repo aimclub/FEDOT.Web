@@ -1,7 +1,6 @@
 import itertools
 import json
 import os
-from multiprocessing import Queue, Process
 from pathlib import Path
 from typing import Optional, Union
 
@@ -151,17 +150,9 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     is_loaded_history = False
     if external_history is None or not external_history:
         # run composer in real-time
-        result_queue = Queue()
-        composer_process = Process(target=run_composer,
-                                   args=(task, metric, dataset_name, time,
-                                         Path(project_root(), 'data', history_id,
-                                              f'{history_id}_{task}.json')),
-                                   kwargs={'initial_pipeline': initial_pipeline,
-                                           'result_queue': result_queue})
-
-        composer_process.daemon = True
-        composer_process.start()
-        history = result_queue.get()
+        history = run_composer(task, metric, dataset_name, time,
+                               Path(project_root(), 'data', history_id, f'{history_id}_{task}.json'),
+                               initial_pipeline=initial_pipeline)
         history_obj = json.loads(history.save())
     elif isinstance(external_history, dict):
         # init from dict
@@ -170,14 +161,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
     else:
         # load from path
         history_path = Path(external_history)
-        result_queue = Queue()
-        composer_process = Process(target=run_composer,
-                                   args=(task, metric, dataset_name, time, history_path),
-                                   kwargs={'initial_pipeline': initial_pipeline,
-                                           'result_queue': result_queue})
-        composer_process.daemon = True
-        composer_process.start()
-        history = result_queue.get()
+        history = run_composer(task, metric, dataset_name, time, history_path, initial_pipeline=initial_pipeline)
         history_obj = history.save()
         is_loaded_history = True
 
@@ -214,7 +198,7 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
         max_fitness = -9999
         for ind in history.final_choices:
             ind: Individual
-            fitness = ind.fitness.values[0] # sp_adj
+            fitness = ind.fitness.values[0]  # sp_adj
             if fitness > max_fitness:
                 max_fitness = fitness
                 best_individual = ind
@@ -231,8 +215,8 @@ def _init_composer_history_for_case(history_id, task, metric, dataset_name, time
                 is_existing_graph = is_pipeline_exists(individual.uid)
                 if not is_existing_graph:
                     if db_service.exists():
-                        create_pipeline(uid=individual.uid, pipeline=individual, overwrite=True, is_graph=is_golem_history)
-
+                        create_pipeline(uid=individual.uid, pipeline=individual, overwrite=True,
+                                        is_graph=is_golem_history)
 
     if not is_golem_history:
         adapter = PipelineAdapter()
