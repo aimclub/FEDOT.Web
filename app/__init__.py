@@ -1,5 +1,6 @@
 import os
 
+import matplotlib
 from fedot.core.repository.operation_types_repository import OperationTypesRepository
 from flask import Flask, jsonify, Blueprint
 from flask_cors import CORS, cross_origin
@@ -9,6 +10,8 @@ from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
 from app.api.data.service import load_datasets_from_file_system
+
+matplotlib.use('agg')
 
 db = SQLAlchemy()
 
