@@ -1,107 +1,77 @@
-import React, { FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import scss from "./sandboxPipelineMenu.module.scss";
 
+import { FC, memo, useCallback, useMemo } from "react";
+
+import Button from "@mui/material/Button";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Paper from "@mui/material/Paper";
+
+import { useAppDispatch } from "../../../../hooks/redux";
 import {
-  Button,
-  ClickAwayListener,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+  deletePipelineNode,
+  setPipelineNodeEdgesType,
+  setPipelineNodeParamsOpen,
+} from "../../../../redux/sandbox/sandboxSlice";
+import { cl } from "../../../../utils/classnames";
 
-import { useStyles } from "./SandboxPipelineMenuStyle";
+const SandboxPipelineMenu: FC<{
+  pos: Record<"x" | "y", number> | null;
+  onClose(): void;
+}> = ({ pos, onClose }) => {
+  const dispatch = useAppDispatch();
 
-import { INodeData } from "../../../../API/pipeline/pipelineInterface";
-import { actionsPipeline } from "../../../../redux/pipeline/pipeline-actions";
-import { StateType } from "../../../../redux/store";
-import { SandboxPointFormType } from "../../../../redux/pipeline/pipeline-types";
+  const handleEdgesEdit = useCallback(() => {
+    dispatch(setPipelineNodeEdgesType("edit"));
 
-interface IButton {
-  name: string;
-  action: () => void;
-}
+    onClose();
+  }, [dispatch, onClose]);
 
-const SandboxPipelineMenu: FC = () => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const { isOpen, position, nodeId } = useSelector(
-    (state: StateType) => state.pipeline.menu
+  const handleNodeParamsEdit = useCallback(() => {
+    dispatch(setPipelineNodeParamsOpen(true));
+
+    onClose();
+  }, [dispatch, onClose]);
+
+  const handleNodeDelete = useCallback(() => {
+    dispatch(deletePipelineNode());
+
+    onClose();
+  }, [onClose, dispatch]);
+
+  const buttons = useMemo<
+    { name: string; action(): void; disabled?: boolean }[]
+  >(
+    () => [
+      { name: "edit edges", action: handleEdgesEdit },
+      { name: "edit params", action: handleNodeParamsEdit },
+      { name: "delete", action: handleNodeDelete },
+    ],
+    [handleEdgesEdit, handleNodeDelete, handleNodeParamsEdit]
   );
-  const { nodes } = useSelector((state: StateType) => state.pipeline.pipeline);
-  const { nodeEdit, pointEdit } = useSelector(
-    (state: StateType) => state.pipeline
-  );
 
-  const handleClickAway = () => {
-    dispatch(actionsPipeline.setMenuClose());
-  };
-
-  const handleEdgesEdit = () => {
-    dispatch(actionsPipeline.closeAllModals());
-
-    const node = nodes.find((item) => +(nodeId as number) === item.id);
-
-    setTimeout(() => {
-      dispatch(
-        actionsPipeline.openPointEdit({
-          type: SandboxPointFormType.EDIT,
-          node,
-        })
-      );
-    }, 300);
-  };
-
-  const handleNodeParamsEdit = () => {
-    dispatch(actionsPipeline.closeAllModals());
-
-    const node = nodes.find((item) => +(nodeId as number) === item.id);
-
-    dispatch(actionsPipeline.setNodeEditData(node as INodeData));
-
-    setTimeout(() => {
-      dispatch(actionsPipeline.setNodeEditOpen(true));
-    }, 300);
-  };
-
-  const handleNodeDelete = () => {
-    dispatch(actionsPipeline.setMenuClose());
-    dispatch(actionsPipeline.deletePipelineNode(nodeId as number));
-    console.log(nodeEdit);
-
-    if (nodeEdit.isOpen && nodeEdit.node?.id === +(nodeId as number)) {
-      dispatch(actionsPipeline.setNodeEditOpen(false));
-    }
-
-    if (pointEdit.isOpen && pointEdit.node?.id === +(nodeId as number)) {
-      dispatch(actionsPipeline.closePointEdit());
-    }
-  };
-
-  const buttons: IButton[] = [
-    { name: "edit edges", action: handleEdgesEdit },
-    { name: "edit params", action: handleNodeParamsEdit },
-    { name: "delete", action: handleNodeDelete },
-  ];
-
-  return isOpen ? (
-    <ClickAwayListener onClickAway={handleClickAway}>
+  return (
+    <ClickAwayListener onClickAway={onClose}>
       <Paper
-        className={classes.root}
-        style={{ top: `${position.y}px`, left: position.x }}
+        style={{ top: `${pos?.y || 0}px`, left: `${pos?.x || 0}px` }}
+        className={cl(scss.root, pos && scss.visible)}
         elevation={3}
       >
-        <Typography className={classes.title}>point menu</Typography>
-        <div className={classes.content}>
-          {buttons.map((b) => (
-            <Button key={b.name} onClick={b.action} className={classes.item}>
-              {b.name}
+        <p className={scss.title}>point menu</p>
+        <div className={scss.menu}>
+          {buttons.map((item) => (
+            <Button
+              key={item.name}
+              onClick={item.action}
+              className={scss.item}
+              disabled={item.disabled}
+            >
+              {item.name}
             </Button>
           ))}
         </div>
       </Paper>
     </ClickAwayListener>
-  ) : (
-    <></>
   );
 };
 
-export default SandboxPipelineMenu;
+export default memo(SandboxPipelineMenu);

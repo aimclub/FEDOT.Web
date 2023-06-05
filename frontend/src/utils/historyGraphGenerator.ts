@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// TODO: any in createHistoryGraph
+
 import * as d3 from "d3";
 import dagreD3 from "dagre-d3";
 import {
@@ -5,6 +8,8 @@ import {
   IHistoryNodeIndividual,
   IHistoryNodeOperator,
 } from "../API/composer/composerInterface";
+
+// TODO: refactor createHistoryGraph
 
 export type ZoomType = { x: number; y: number; k: number } | undefined;
 
@@ -34,7 +39,7 @@ export const createHistoryGraph = (
   const svg = d3
     .select(container)
     .append("svg")
-    .attr("id", "graphSvg")
+    .attr("class", "history-graph")
     .attr("viewBox", [-width / 2, -height / 2, width, height])
     .call(
       d3.zoom().on("zoom", function (event) {

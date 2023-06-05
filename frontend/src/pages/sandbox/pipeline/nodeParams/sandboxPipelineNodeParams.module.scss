@@ -1,0 +1,44 @@
+.root {
+  width: 280px;
+  max-height: 460px;
+
+  border-radius: 4px;
+
+  position: absolute;
+  top: 32px;
+  right: 24px;
+  z-index: 10;
+
+  overflow: auto;
+}
+
+.header {
+  margin: 0;
+  padding: 8px 12px;
+
+  border-radius: 4px 4px 0 0;
+
+  background: #b0bec5;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .close {
+    padding: 0;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.title {
+  margin: 0;
+
+  font-family: "Open sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #4f4f4f;
+}

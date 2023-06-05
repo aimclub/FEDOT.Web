@@ -1,21 +1,15 @@
-import { instance } from "../baseURL";
+import { commonApi } from "../baseURL";
 import { ICase, ICaseItem } from "./showcaseInterface";
 
-export const showCasesAPI = {
-  async getAllShowCases() {
-    try {
-      const res = await instance.get<ICaseItem[]>(`/showcase/`);
-      return res.data;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-  async getShowCase(caseId: string) {
-    try {
-      const res = await instance.get<ICase>(`/showcase/items/${caseId}`);
-      return res.data;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-};
+export const showcaseAPI = commonApi.injectEndpoints({
+  endpoints: (build) => ({
+    getAllShowcases: build.query<ICaseItem[], undefined>({
+      query: () => ({ url: "showcase/" }),
+    }),
+    getShowcase: build.query<ICase, { caseId: string }>({
+      query: ({ caseId }) => ({
+        url: `/showcase/items/${caseId}`,
+      }),
+    }),
+  }),
+});

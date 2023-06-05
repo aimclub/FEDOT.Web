@@ -1,4 +1,4 @@
-import { instance } from "../baseURL";
+import { commonApi } from "../baseURL";
 import {
   GenerationType,
   IGeneration,
@@ -6,33 +6,28 @@ import {
   IResult,
 } from "./analyticsInterface";
 
-export const analyticsAPI = {
-  async getGenerations(caseId: string, type: GenerationType) {
-    try {
-      const res = await instance.get<IGeneration>(
-        `/analytics/generations/${caseId}/${type}`
-      );
-      return res.data;
-    } catch (error: any) {
-      return Promise.reject(error);
-    }
-  },
-  async getMetrics(caseId: string) {
-    try {
-      const res = await instance.get<IMetric>(`/analytics/quality/${caseId}`);
-      return res.data;
-    } catch (error: any) {
-      return Promise.reject(error);
-    }
-  },
-  async getResults(caseId: string, individualId: string) {
-    try {
-      const res = await instance.get<IResult>(
-        `/analytics/results/${caseId}/${individualId}`
-      );
-      return res.data;
-    } catch (error: any) {
-      return Promise.reject(error);
-    }
-  },
-};
+export const analyticsAPI = commonApi.injectEndpoints({
+  endpoints: (build) => ({
+    getCaseMetric: build.query<IMetric, { caseId: string }>({
+      query: ({ caseId }) => ({
+        url: `/analytics/quality/${caseId}`,
+      }),
+    }),
+    getPipelineResult: build.query<
+      IResult,
+      { caseId: string; pipeline_uid: string }
+    >({
+      query: ({ caseId, pipeline_uid }) => ({
+        url: `/analytics/results/${caseId}/${pipeline_uid}`,
+      }),
+    }),
+    getGenerations: build.query<
+      IGeneration,
+      { caseId: string; type: GenerationType }
+    >({
+      query: ({ caseId, type }) => ({
+        url: `/analytics/generations/${caseId}/${type}`,
+      }),
+    }),
+  }),
+});

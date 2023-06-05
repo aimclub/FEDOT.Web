@@ -1,0 +1,8 @@
+.root {
+  display: grid;
+  // grid-template-columns: auto 1fr;
+  grid-auto-flow: column;
+  grid-template-columns: auto;
+  grid-auto-columns: 1fr;
+  align-items: flex-start;
+}

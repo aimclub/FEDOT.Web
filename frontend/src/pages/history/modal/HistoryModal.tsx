@@ -1,170 +1,70 @@
-import React, { FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import scss from "./historyModal.module.scss";
 
-import { Button, Dialog, IconButton } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import CloseIcon from "@material-ui/icons/Close";
+import { FC, useCallback } from "react";
+
+import CloseIcon from "@mui/icons-material/Close";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import IconButton from "@mui/material/IconButton";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { staticAPI } from "../../../API/baseURL";
-import AppLoader from "../../../components/UI/loaders/AppLoader";
-import { closeHistoryModal } from "../../../redux/history/history-actions";
-import { getResult } from "../../../redux/sandbox/sandbox-actions";
-import { StateType } from "../../../redux/store";
-import { AppRoutesEnum } from "../../../routes";
-import {
-  actionsPipeline,
-  getPipeline,
-} from "../../../redux/pipeline/pipeline-actions";
-import { useAppParams } from "../../../hooks/useAppParams";
+import { IHistoryNodeIndividual } from "../../../API/composer/composerInterface";
+import { pipelineAPI } from "../../../API/pipeline/pipelineAPI";
+import AppLoader from "../../../components/UI/loaders/app/AppLoader";
+import { setPipelineUid } from "../../../redux/sandbox/sandboxSlice";
+import { cl } from "../../../utils/classnames";
 
-const useStyles = makeStyles(() => ({
-  header: {
-    margin: 0,
-    padding: "6px 12px",
-
-    background: "#B0BEC5",
-
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  title: {
-    fontFamily: "'Open Sans'",
-    fontStyle: "normal",
-    fontWeight: 400,
-    fontSize: 16,
-    lineHeight: "22px",
-
-    color: "#4f4f4f",
-  },
-  closeButton: {
-    padding: 2,
-  },
-  content: {
-    padding: 14,
-
-    minWidth: 200,
-    minHeight: 200,
-
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    height: "100%",
-    width: "100%",
-
-    objectFit: "contain",
-    objectPosition: "center",
-  },
-  buttonGroup: {
-    margin: "0 14px 20px 0",
-
-    display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  button: {
-    padding: "4px 16px",
-
-    fontFamily: "'Open Sans'",
-    fontStyle: "normal",
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: "24px",
-    letterSpacing: "0.1px",
-    textTransform: "uppercase",
-
-    borderRadius: 4,
-  },
-  cancelButton: {
-    color: "#828282",
-    background: "#F4F5F6",
-    "&:hover": {
-      background: "#CFD8DC",
-    },
-  },
-  submitButton: {
-    marginLeft: 20,
-    color: "#ffffff",
-    background: "#828282",
-
-    "&:disabled": {
-      opacity: 0.5,
-      background: "#ECEFF1",
-    },
-    "&:hover": {
-      background: "#515B5F",
-    },
-  },
-  empty: {
-    fontFamily: "'Open Sans'",
-    fontStyle: "normal",
-    fontWeight: 300,
-    fontSize: 24,
-    lineHeight: "100%",
-    textAlign: "center",
-
-    color: "#cfd8dc",
-  },
-}));
-
-const HistoryModal: FC = () => {
-  const classes = useStyles();
-  const history = useHistory();
-  const { caseId } = useAppParams();
+const HistoryModal: FC<{
+  node: IHistoryNodeIndividual | null;
+  onClose: () => void;
+}> = ({ node, onClose }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isOpen, pipeline, pipelineImage, isLoadingPipelineImage } =
-    useSelector((state: StateType) => state.history.modal);
 
-  const handleClose = () => {
-    if (isLoadingPipelineImage) return;
-    dispatch(closeHistoryModal());
-  };
+  const handleEditPipeline = useCallback(() => {
+    dispatch(setPipelineUid(node?.individual_id));
+    navigate("..");
+  }, [dispatch, navigate, node?.individual_id]);
 
-  const handleEditPipeline = () => {
-    if (pipelineImage?.uid) {
-      dispatch(actionsPipeline.setPipelineFromHistory(true));
-      dispatch(getPipeline(pipelineImage.uid, true));
-      dispatch(getResult(caseId, pipelineImage.uid));
-      history.push(`${AppRoutesEnum.TO_SANDBOX}${caseId}`);
-      handleClose();
-    }
-  };
+  const { isFetching, data } = pipelineAPI.useGetPipelineImageQuery(
+    {
+      uid: node?.individual_id,
+    },
+    { skip: !node }
+  );
 
   return (
-    <Dialog open={isOpen} onClose={handleClose}>
-      <div className={classes.header}>
-        <p>{pipeline?.uid}</p>
-        <IconButton onClick={handleClose} className={classes.closeButton}>
+    <Dialog open={!!node} onClose={onClose}>
+      <div className={scss.header}>
+        <p className={scss.title}>{node?.uid}</p>
+        <IconButton onClick={onClose} className={"scss.closeButton"}>
           <CloseIcon />
         </IconButton>
       </div>
-      <div className={classes.content}>
-        {isLoadingPipelineImage ? (
+
+      <div className={scss.content}>
+        {isFetching ? (
           <AppLoader />
-        ) : !!pipelineImage ? (
+        ) : data ? (
           <img
-            className={classes.image}
-            src={staticAPI.getImage(pipelineImage.image_url)}
-            alt={pipeline?.uid}
+            className={scss.image}
+            src={staticAPI.getImage(data.image_url)}
+            alt={data.uid}
           />
         ) : (
-          <p className={classes.empty}>no data</p>
+          <p className={scss.empty}>no data</p>
         )}
       </div>
-      <div className={classes.buttonGroup}>
-        <Button
-          className={`${classes.button} ${classes.cancelButton}`}
-          onClick={handleClose}
-        >
+      <div className={scss.bottom}>
+        <Button className={cl(scss.button, scss.cancel)} onClick={onClose}>
           cancel
         </Button>
         <Button
-          className={`${classes.button} ${classes.submitButton}`}
+          className={cl(scss.button, scss.submit)}
           onClick={handleEditPipeline}
-          disabled={!pipelineImage || isLoadingPipelineImage}
+          disabled={!data || isFetching}
         >
           edit
         </Button>

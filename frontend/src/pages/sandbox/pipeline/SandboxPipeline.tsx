@@ -1,47 +1,72 @@
-import React, { FC } from "react";
-import { useSelector } from "react-redux";
+import { useCallback, useEffect } from "react";
+import { pipelineAPI } from "../../../API/pipeline/pipelineAPI";
 
-import { makeStyles } from "@material-ui/core/styles";
+import scss from "./sandboxPipeline.module.scss";
 
-import AppLoader from "../../../components/UI/loaders/AppLoader";
-import { StateType } from "../../../redux/store";
+import AppLoader from "../../../components/UI/loaders/app/AppLoader";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import {
+  setPipeline,
+  setPipelineUid,
+} from "../../../redux/sandbox/sandboxSlice";
 import SandboxPipelineButtons from "./buttons/SandboxPipelineButtons";
 import SandboxPipelineGraph from "./graph/SandboxPipelineGraph";
-import SandboxPipelineNodeEdit from "./nodeEdit/SandboxPipelineNodeEdit";
-import SandboxPipelinePointEdit from "./pointEdit/SandboxPipelinePointEdit";
+import SandboxPipelineNodeEdges from "./nodeEdges/SandboxPipelineNodeEdges";
+import SandboxPipelineNodeParams from "./nodeParams/SandboxPipelineNodeParams";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: 32,
-    height: 522,
-    boxSizing: "border-box",
+const SandboxPipeline = () => {
+  const dispatch = useAppDispatch();
+  const { pipeline_uid, pipeline } = useAppSelector((state) => state.sandbox);
 
-    borderRadius: 8,
-    background: "#FFFFFF",
-
-    position: "relative",
-  },
-  graph: {
-    height: "100%",
-    overflow: "auto",
-  },
-}));
-
-const SandboxPipeline: FC = () => {
-  const classes = useStyles();
-  const { isEvaluatingPipeline } = useSelector(
-    (state: StateType) => state.pipeline
+  const { isFetching, data } = pipelineAPI.useGetPipelineQuery(
+    { uid: pipeline_uid },
+    { skip: !pipeline_uid }
   );
 
+  const [validatePipeline, { isLoading: isValidate }] =
+    pipelineAPI.useValidatePipelineMutation();
+  const [addPipeline, { isLoading: isAdding, data: addData }] =
+    pipelineAPI.useAddPipelineMutation();
+
+  const handleEvaluatePipeline = useCallback(() => {
+    if (!pipeline) return;
+    validatePipeline(pipeline).then((res) => {
+      const checkIsError = (res: unknown): res is { error: unknown } =>
+        !!res && !!(res as { error: unknown }).error;
+
+      if (!checkIsError(res)) {
+        alert("Graph is valid. Added.");
+        addPipeline(pipeline);
+      } else {
+        alert(res.error);
+      }
+    });
+  }, [addPipeline, pipeline, validatePipeline]);
+
+  useEffect(() => {
+    dispatch(setPipeline(data));
+  }, [dispatch, data]);
+
+  useEffect(() => {
+    if (addData) {
+      dispatch(setPipelineUid(addData?.uid));
+    }
+  }, [dispatch, addData]);
+
   return (
-    <section className={classes.root}>
-      {isEvaluatingPipeline && <AppLoader hasBlackout={true} />}
-      <SandboxPipelineButtons />
-      <div className={classes.graph}>
+    <section className={scss.root}>
+      <div className={scss.graph}>
         <SandboxPipelineGraph />
       </div>
-      <SandboxPipelinePointEdit />
-      <SandboxPipelineNodeEdit />
+      <SandboxPipelineButtons
+        disabled={!data || isFetching || isValidate || isAdding}
+        onEvaluate={handleEvaluatePipeline}
+      />
+      <SandboxPipelineNodeEdges />
+      <SandboxPipelineNodeParams />
+      {(isFetching || isValidate || isAdding) && (
+        <AppLoader hasBlackout={true} />
+      )}
     </section>
   );
 };

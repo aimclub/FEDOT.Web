@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
   title: {
     margin: 0,
 
-    fontFamily: "'Open Sans'",
+    fontFamily: "'Open sans'",
     fontStyle: "normal",
     fontWeight: 700,
     fontSize: 18,

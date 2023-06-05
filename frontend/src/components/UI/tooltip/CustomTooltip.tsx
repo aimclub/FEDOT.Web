@@ -1,11 +1,10 @@
-import { withStyles } from "@material-ui/core/styles";
+import Tooltip from "@mui/material/Tooltip";
+import { styled } from "@mui/material/styles";
 
-import Tooltip from "@material-ui/core/Tooltip";
-
-const CustomTooltip = withStyles((theme) => ({
+const CustomTooltip = styled(Tooltip)({
   tooltip: {
     margin: "30px 0 0",
   },
-}))(Tooltip);
+});
 
 export default CustomTooltip;

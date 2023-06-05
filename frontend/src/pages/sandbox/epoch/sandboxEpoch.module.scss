@@ -1,0 +1,73 @@
+.root {
+  padding: 8px 20px;
+  min-height: 88px;
+
+  border-radius: 8px;
+  background-color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .icon {
+    height: 24px;
+    width: 24px;
+  }
+}
+
+.title {
+  margin: 0;
+  font-family: "Open sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 150%;
+  letter-spacing: 0.15px;
+
+  color: #263238;
+}
+
+.content {
+  padding: 0 20px;
+  flex: 1;
+}
+
+//
+//  .slider {
+//     width:100%;
+//     color:#263238;
+
+//     "& .MuiSlider-rail" {
+//       width:calc(100% + 8px);
+//       height: 8,
+//       border-radius:5em;
+//
+//  .  "& .MuiSlider-track" {
+//       height: 8,
+//       border-radius:5em;
+//
+//  .  "& .MuiSlider-mark" {
+//       marginTop: -1,
+//       height: 8,
+//       width: 8,
+
+//       backgroundolor:#ffffff;
+//       border:1px solid #000;
+//       border-radius:99em;
+//
+//  .  "& .MuiSlider-thumb" {
+//       marginTop: -8,
+//       marginLeft: -12,
+//       height: 24,
+//       width: 24,
+
+//       backgroundolor:#ffffff;
+//       border:2px solid currentColor;
+//       "&:focus, &:hover, &:active" {
+//         boxShadow:inherit;
+//
+//  .  "& .MuiSlider-valueLabel" {
+//       left:calc(-50% + 4px);
+//
+//  .},
+// }));

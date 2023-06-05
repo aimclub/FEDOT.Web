@@ -1,28 +1,27 @@
-import { AxiosError } from "axios";
-import { instance } from "../baseURL";
-import { IAuth, IResRegister } from "./authInterface";
+import { commonApi } from "../baseURL";
+import { IAuth, IToken } from "./authInterface";
 
-export const authAPI = {
-  async signIn(email: string, password: string) {
-    try {
-      const res = await instance.post<IAuth>(`/token/get_token`, {
-        email,
-        password,
-      });
-      return res.data;
-    } catch (error) {
-      return Promise.reject((error as AxiosError).response?.data || error);
-    }
-  },
-  async signUp(email: string, password: string) {
-    try {
-      const res = await instance.post<IResRegister>(`/token/signup`, {
-        email,
-        password,
-      });
-      return res.data;
-    } catch (error) {
-      return Promise.reject((error as AxiosError).response?.data || error);
-    }
-  },
-};
+export const authAPI = commonApi.injectEndpoints({
+  endpoints: (build) => ({
+    signin: build.mutation<IToken, IAuth>({
+      query: (data) => ({
+        url: "/token/get_token",
+        method: "POST",
+        body: {
+          email: data.email,
+          password: data.password,
+        },
+      }),
+    }),
+    register: build.mutation<{ message: string }, IAuth>({
+      query: (data) => ({
+        url: "/token/signup",
+        method: "POST",
+        body: {
+          email: data.email,
+          password: data.password,
+        },
+      }),
+    }),
+  }),
+});

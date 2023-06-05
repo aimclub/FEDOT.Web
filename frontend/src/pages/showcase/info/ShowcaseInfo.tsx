@@ -1,88 +1,71 @@
-import React, { FC, memo } from "react";
-import { useSelector } from "react-redux";
+import scss from "./showcaseInfo.module.scss";
+
+import { useEffect } from "react";
+
+import Fade from "@mui/material/Fade";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { Fade, Grid, Typography } from "@material-ui/core";
-
-import { useStyles } from "./ShowcaseInfoStyle";
-
 import { staticAPI } from "../../../API/baseURL";
-import Title from "../../../components/Title/Title";
-import CustomTooltip from "../../../components/UI/tooltip/CustomTooltip";
-import { StateType } from "../../../redux/store";
-import { AppRoutesEnum } from "../../../routes";
+import { showcaseAPI } from "../../../API/showcase/showcaseAPI";
+import { useAppSelector } from "../../../hooks/redux";
+import { setSelectedShowcase } from "../../../redux/showCase/showcaseSlice";
+import { goToPage } from "../../../router/routes";
+import { cl } from "../../../utils/classnames";
+import ShowcaseInfoDetails from "./details/ShowcaseInfoDetails";
 
-const ShowcaseInfo: FC = () => {
-  const classes = useStyles();
+const ShowcaseInfo = () => {
+  const dispatch = useDispatch();
+  const { selected_showcase_id } = useAppSelector((state) => state.showcase);
 
-  const { showCase, isLoadingCase } = useSelector(
-    (state: StateType) => state.showCase
+  const {
+    data: showcase,
+    isFetching,
+    isError,
+  } = showcaseAPI.useGetShowcaseQuery(
+    { caseId: selected_showcase_id },
+    { skip: !selected_showcase_id }
   );
 
-  return !isLoadingCase ? (
-    <Fade in={showCase !== null} mountOnEnter unmountOnExit timeout={1000}>
-      <section className={classes.root}>
-        <Title type="h2" name={showCase?.title || ""} />
-        <div className={classes.content}>
-          <Grid container spacing={2}>
-            <Grid item xs={9}>
-              <Typography className={classes.title}>Model structure</Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography className={classes.title}>Model details</Typography>
-            </Grid>
-            <Grid item xs={9}>
+  useEffect(() => {
+    if (isError) dispatch(setSelectedShowcase({ caseId: "" }));
+  }, [dispatch, isError]);
+
+  return (
+    <section className={cl(scss.root, !selected_showcase_id && scss.hidden)}>
+      {!isFetching ? (
+        <Fade in={!isFetching} timeout={1000}>
+          <div className={scss.paper}>
+            <h2 className={scss.title}>{showcase?.title}</h2>
+            <div className={scss.info}>
+              <p className={scss.subTitle}>Model structure</p>
+              <p className={scss.subTitle}>Model details</p>
               <img
-                src={staticAPI.getImage(showCase?.icon_path || "")}
-                alt={showCase?.title}
-                className={classes.image}
+                src={staticAPI.getImage(showcase?.icon_path || "")}
+                alt={showcase?.title}
+                className={scss.image}
               />
-            </Grid>
-            <Grid item xs={3}>
-              <div className={classes.details}>
-                {Object.entries(showCase?.details as object).map((metric) => (
-                  <CustomTooltip
-                    key={metric[0]}
-                    title={`${metric[0]}: ${metric[1]}`}
-                    placement="top"
-                    arrow
-                  >
-                    <Grid container spacing={2}>
-                      <Grid item xs={8}>
-                        <Typography className={classes.metric}>
-                          {metric[0]}
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={4}>
-                        <Typography className={classes.value}>
-                          {metric[1]}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </CustomTooltip>
-                ))}
+
+              <ShowcaseInfoDetails details={showcase?.details || {}} />
+
+              <p className={scss.description}>{showcase?.description}</p>
+
+              <div className={scss.bottom}>
+                <Link
+                  to={goToPage.sandbox(selected_showcase_id)}
+                  className={scss.link}
+                >
+                  Edit in Sandbox
+                </Link>
               </div>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography className={classes.description}>
-                {showCase?.description}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} className={classes.item}>
-              <Link
-                to={`${AppRoutesEnum.TO_SANDBOX}${showCase?.case_id}`}
-                className={classes.link}
-              >
-                Edit in Sandbox
-              </Link>
-            </Grid>
-          </Grid>
-        </div>
-      </section>
-    </Fade>
-  ) : (
-    <div></div>
+            </div>
+          </div>
+        </Fade>
+      ) : (
+        <></>
+      )}
+    </section>
   );
 };
 
-export default memo(ShowcaseInfo);
+export default ShowcaseInfo;

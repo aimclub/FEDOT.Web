@@ -1,30 +1,14 @@
+import { FC, memo } from "react";
+
 import { ApexOptions } from "apexcharts";
-import React, { FC, memo } from "react";
 import ReactApexChart from "react-apexcharts";
-import { useSelector } from "react-redux";
-import { StateType } from "../../../../../redux/store";
 
-const styles = {
-  axis: {
-    fontWeight: 700,
-    fontFamily: "'Open Sans'",
-    fontSize: "12px",
-  },
-  mark: {
-    fontWeight: 400,
-    fontFamily: "'Open Sans'",
-    fontSize: "10px",
-  },
-  legend: {
-    fontWeight: 400,
-    fontFamily: "'Open Sans'",
-    fontSize: "12px",
-  },
-};
+import { IResult } from "../../../../../API/analytics/analyticsInterface";
 
-const SandboxChartsResultScatter: FC = () => {
-  const { result } = useSelector((state: StateType) => state.sandbox);
-
+const SandboxChartsResultScatter: FC<{
+  result: IResult<"scatter">;
+  classes: Record<"axis" | "mark", string>;
+}> = ({ result, classes }) => {
   const options: ApexOptions = {
     chart: {
       type: "scatter",
@@ -33,7 +17,11 @@ const SandboxChartsResultScatter: FC = () => {
         type: "xy",
       },
     },
-    legend: styles.legend,
+    legend: {
+      fontWeight: 400,
+      fontFamily: "'Open sans'",
+      fontSize: "12px",
+    },
     colors: ["#2196F3", "#94CE45", "#FF9800", "#464646"], // цвета линий
     grid: {
       row: {
@@ -45,10 +33,10 @@ const SandboxChartsResultScatter: FC = () => {
       ...result?.options.xaxis,
       title: {
         ...result?.options.xaxis.title,
-        style: styles.axis, // стиль названия оси X
+        style: { cssClass: classes.axis }, // стиль названия оси X
       },
       labels: {
-        style: styles.mark, // стиль меток оси X
+        style: { cssClass: classes.mark }, // стиль меток оси X
       },
     },
     yaxis: [
@@ -56,10 +44,10 @@ const SandboxChartsResultScatter: FC = () => {
         ...result?.options.yaxis,
         title: {
           ...result?.options?.yaxis?.title,
-          style: styles.axis, // стиль названия оси Y
+          style: { cssClass: classes.axis }, // стиль названия оси Y
         },
         labels: {
-          style: styles.mark, // стиль меток оси Y
+          style: { cssClass: classes.mark }, // стиль меток оси Y
         },
       },
     ],

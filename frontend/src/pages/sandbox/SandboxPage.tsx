@@ -1,45 +1,41 @@
-import React, { FC, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router";
+import scss from "./sandboxPage.module.scss";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { useEffect } from "react";
 
+import { showcaseAPI } from "../../API/showcase/showcaseAPI";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useAppParams } from "../../hooks/useAppParams";
-import { getCase } from "../../redux/sandbox/sandbox-actions";
-import { AppRoutesEnum } from "../../routes";
+import { setPipelineUid } from "../../redux/sandbox/sandboxSlice";
 import SandboxCharts from "./charts/SandboxCharts";
 import SandboxEpoch from "./epoch/SandboxEpoch";
 import SandboxPipeline from "./pipeline/SandboxPipeline";
-import { StateType } from "../../redux/store";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    marginBottom: 40,
-    display: "grid",
-    gap: 20,
-    gridTemplateColumns: "100%",
-  },
-}));
-
-const SandboxPage: FC = () => {
-  const classes = useStyles();
+const SandboxPage = () => {
   const { caseId } = useAppParams();
-  const { isFromHistory } = useSelector((state: StateType) => state.pipeline);
+  const { pipeline_uid } = useAppSelector((state) => state.sandbox);
+  const { data: showcase } = showcaseAPI.useGetShowcaseQuery(
+    { caseId: caseId || "" },
+    { skip: !!pipeline_uid || !caseId }
+  );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!isFromHistory) dispatch(getCase(caseId));
-  }, [dispatch, caseId, isFromHistory]);
+    return () => {
+      dispatch(setPipelineUid(""));
+    };
+  }, [dispatch]);
 
-  return caseId ? (
-    <div className={classes.root}>
+  useEffect(() => {
+    showcase && dispatch(setPipelineUid(showcase.individual_id));
+  }, [dispatch, showcase]);
+
+  return (
+    <div className={scss.root}>
       <SandboxPipeline />
       <SandboxEpoch />
       <SandboxCharts />
     </div>
-  ) : (
-    <Redirect to={AppRoutesEnum.SHOWCASE} />
   );
 };
 

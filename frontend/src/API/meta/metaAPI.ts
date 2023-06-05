@@ -1,29 +1,18 @@
-import { instance } from "../baseURL";
-import { IMetricName, IModelName, ITask } from "./metaInterface";
+import { commonApi } from "../baseURL";
+import { IModelName } from "./metaInterface";
 
-export const metaAPI = {
-  async getAllMetricName(taskId: string) {
-    try {
-      const res = await instance.get<IMetricName[]>(`/meta/metrics/${taskId}`);
-      return res.data;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-  async getAllModelName(taskId: string) {
-    try {
-      const res = await instance.get<IModelName[]>(`/meta/models/${taskId}`);
-      return res.data;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-  async getAllTask() {
-    try {
-      const res = await instance.get<ITask[]>(`/meta/tasks`);
-      return res.data;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-};
+export const metaAPI = commonApi.injectEndpoints({
+  endpoints: (build) => ({
+    // getAllMetricName: build.query<IMetricName[], { taskId: string }>({
+    //   query: ({ taskId }) => ({ url: `/meta/metrics/${taskId}` }),
+    // }),
+
+    getAllModelName: build.query<IModelName[], { taskId: string }>({
+      query: ({ taskId }) => ({ url: `/meta/models/${taskId}` }),
+    }),
+
+    // getAllTask: build.query<ITask[], undefined>({
+    //   query: () => ({ url: `/meta/tasks` }),
+    // }),
+  }),
+});

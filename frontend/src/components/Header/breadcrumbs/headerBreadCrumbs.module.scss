@@ -1,0 +1,34 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+
+    color: #263238;
+  }
+}
+
+.text {
+  padding-left: 4px;
+
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.15px;
+  text-decoration: none;
+
+  color: #263238;
+}
+
+.link {
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    opacity: 0.6;
+  }
+}

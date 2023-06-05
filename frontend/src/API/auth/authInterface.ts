@@ -1,7 +1,8 @@
 export interface IAuth {
-  token_value: string;
+  email: string;
+  password: string;
 }
 
-export interface IResRegister {
-  message: string;
+export interface IToken {
+  token_value: string;
 }

@@ -1,4 +1,4 @@
-import { instance } from "../baseURL";
+import { commonApi } from "../baseURL";
 import {
   IAdd,
   IPipeline,
@@ -6,37 +6,41 @@ import {
   IValidate,
 } from "./pipelineInterface";
 
-export const pipelineAPI = {
-  async getPipeline(uid: string) {
-    try {
-      const res = await instance.get<IPipeline>(`/pipelines/${uid}`);
-      return res.data;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-  async getPipelineImage(uid: string) {
-    try {
-      const res = await instance.get<IPipelineImage>(`/pipelines/image/${uid}`);
-      return res.data;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-  async validatePipeline(data: IPipeline) {
-    try {
-      const res = await instance.post<IValidate>(`/pipelines/validate`, data);
-      return res.data;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-  async postPipeline(data: IPipeline) {
-    try {
-      const res = await instance.post<IAdd>(`/pipelines/add`, data);
-      return res.data;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  },
-};
+export const pipelineAPI = commonApi.injectEndpoints({
+  endpoints: (build) => ({
+    getPipeline: build.query<IPipeline, { uid: string }>({
+      query: ({ uid }) => ({
+        url: `/pipelines/${uid}`,
+      }),
+      providesTags: ["case"],
+    }),
+    validatePipeline: build.mutation<IValidate, IPipeline>({
+      query: (pipeline) => ({
+        url: `/pipelines/validate`,
+        method: "POST",
+        body: {
+          uid: pipeline.uid,
+          nodes: pipeline.nodes,
+          edges: pipeline.edges,
+        },
+      }),
+    }),
+    addPipeline: build.mutation<IAdd, IPipeline>({
+      query: (pipeline) => ({
+        url: `/pipelines/add`,
+        method: "POST",
+        body: {
+          uid: pipeline.uid,
+          nodes: pipeline.nodes,
+          edges: pipeline.edges,
+        },
+      }),
+    }),
+    getPipelineImage: build.query<IPipelineImage, { uid: string }>({
+      query: ({ uid }) => ({
+        url: `/pipelines/image/${uid}`,
+      }),
+      providesTags: ["case"],
+    }),
+  }),
+});

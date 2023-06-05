@@ -1,0 +1,44 @@
+.root {
+  margin-left: 10px;
+
+  .button {
+    padding: 4px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    color: #4f4f4f;
+  }
+}
+
+.menu {
+  min-width: 230px;
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  z-index: 200;
+}
+
+.menuPaper {
+  background: #b0bec5;
+
+  .menuItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &:hover {
+      background: #f2f2f2;
+    }
+  }
+}
+
+.menuLabel {
+  font-family: "Open sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0.15px;
+  color: #4f4f4f;
+}
