@@ -1,5 +1,5 @@
 # FEDOT
-fedot==0.7.0
+fedot==0.7.1
 
 # Unique requirements
 flask-socketio==5.3.2
