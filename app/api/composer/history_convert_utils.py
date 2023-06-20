@@ -233,7 +233,7 @@ def _init_operator_dict(ind, operator, o_id, gen_id):
     operator_node['operator_id'] = o_id
     operator_node['type'] = 'evo_operator'
     operator_node['name'] = operator.type_
-    operator_node['full_name'] = ', '.join(operator.operators)
+    operator_node['full_name'] = ', '.join(map(str, operator.operators))
 
     # temporary fields
     try:
