@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+!/build
 !/build/static/cases_icons/*
 !/build/favicon.ico
 !/build/logo192.png
