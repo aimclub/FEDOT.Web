@@ -1,23 +1,28 @@
 .root {
+  min-height: 100vh;
   margin-right: 20px;
+
   display: grid;
   grid-template-areas:
     "left head"
     "left content";
-  grid-template-columns: 73px 1fr;
+  grid-template-columns: 72px 1fr;
   grid-template-rows: auto 1fr;
   grid-gap: 20px;
+
+  position: relative;
 }
 
 .leftMenu {
-  min-height: 100vh;
   grid-area: left;
 }
 
 .header {
+  margin-top: 12px;
   grid-area: head;
 }
 
 .content {
   grid-area: content;
+  margin-bottom: 20px;
 }

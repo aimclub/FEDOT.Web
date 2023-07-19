@@ -5,11 +5,11 @@ export function runDirectedGraph(
   container,
   linksData,
   nodesData,
-  onContextMenuNode,
-  onContextMenuEdge,
-  onMouseDownNode,
-  onMouseUpNode,
-  onMouseUpSvg
+  onContextMenuNode
+  // onContextMenuEdge,
+  // onMouseDownNode,
+  // onMouseUpNode,
+  // onMouseUpSvg
 ) {
   let links = linksData.map((d) => Object.assign({}, d));
   let nodes = nodesData.map((d) => Object.assign({}, d));

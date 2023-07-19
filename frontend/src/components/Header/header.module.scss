@@ -1,6 +1,5 @@
 .root {
-  margin-top: 8px;
-  padding: 12px 23px;
+  padding: 8px 24px;
 
   display: flex;
   flex-direction: row;
@@ -11,33 +10,20 @@
   background: #ffffff;
 
   position: relative;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+
+    color: #263238;
+  }
 }
 
-.container {
+.title {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
-.line {
-  margin-left: 20px;
-  width: 1px;
-  height: 26px;
-
-  background: #c4c4c4;
-}
-
-.nav {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.icon {
-  width: 18px;
-  height: 18px;
-
-  color: #263238;
+  gap: 4px;
 }
 
 .text {
@@ -52,4 +38,18 @@
   text-decoration: none;
 
   color: #263238;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.line {
+  margin-left: 20px;
+  width: 1px;
+  height: 24px;
+
+  background: #c4c4c4;
 }

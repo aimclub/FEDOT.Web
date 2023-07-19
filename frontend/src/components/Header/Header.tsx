@@ -1,49 +1,47 @@
-import React, { FC } from "react";
-import { useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
-
-import GradientIcon from "@material-ui/icons/Gradient";
-import SettingsIcon from "@material-ui/icons/Settings";
-import TerrainIcon from "@material-ui/icons/Terrain";
-
 import scss from "./header.module.scss";
 
-import { StateType } from "../../redux/store";
-import { AppRoutesEnum } from "../../routes";
-import HeaderHistory from "./HeaderHistory";
-import HeaderMenu from "./HeaderMenu";
+import { FC } from "react";
 
-const Header: FC = () => {
-  const { isAuth } = useSelector((state: StateType) => state.auth);
+import SettingsIcon from "@mui/icons-material/Settings";
+import TerrainIcon from "@mui/icons-material/Terrain";
+import { Route, Routes } from "react-router-dom";
+
+import { useAppSelector } from "../../hooks/redux";
+import { AppRoutesEnum } from "../../router/routes";
+import { cl } from "../../utils/classnames";
+import HeaderMenu from "./menu/HeaderMenu";
+import HeaderBreadCrumbs from "./breadcrumbs/HeaderBreadCrumbs";
+
+const Header: FC<{ className?: string }> = ({ className }) => {
+  const { isAuth } = useAppSelector((state) => state.auth);
+
   return (
-    <div className={scss.root}>
-      <Switch>
-        <Route exact path={AppRoutesEnum.SHOWCASE}>
-          <div className={scss.nav}>
-            <GradientIcon className={scss.icon} />
-            <p className={scss.text}>Showcase</p>
-          </div>
+    <header className={cl(scss.root, className)}>
+      <Routes>
+        <Route
+          path={AppRoutesEnum.SHOWCASE}
+          element={<HeaderBreadCrumbs name="Showcase" />}
+        />
+        <Route path={`${AppRoutesEnum.SANDBOX}/${AppRoutesEnum.CASE}`}>
+          <Route
+            index
+            element={<HeaderBreadCrumbs name="Sanbox" Icon={TerrainIcon} />}
+          />
+          <Route
+            path={AppRoutesEnum.HISTORY}
+            element={
+              <HeaderBreadCrumbs
+                name="History"
+                crumbs={[{ name: "Sandbox", path: ".." }]}
+              />
+            }
+          />
         </Route>
-
-        <Route exact path={AppRoutesEnum.SANDBOX}>
-          <div className={scss.nav}>
-            <TerrainIcon className={scss.icon} />
-
-            <p className={scss.text}>Sandbox</p>
-          </div>
-        </Route>
-
-        <Route exact path={AppRoutesEnum.HISTORY}>
-          <HeaderHistory />
-        </Route>
-
-        <Route exact path={AppRoutesEnum.SETTING}>
-          <div className={scss.nav}>
-            <SettingsIcon className={scss.icon} />
-            <p className={scss.text}>Setting</p>
-          </div>
-        </Route>
-      </Switch>
+        <Route
+          path={AppRoutesEnum.SETTING}
+          element={<HeaderBreadCrumbs name="Setting" Icon={SettingsIcon} />}
+        />
+      </Routes>
 
       <div className={scss.container}>
         {/*<AddButton>Submit New Model</AddButton>*/}
@@ -51,7 +49,7 @@ const Header: FC = () => {
         <div className={scss.line} />
         <HeaderMenu />
       </div>
-    </div>
+    </header>
   );
 };
 

@@ -1,0 +1,16 @@
+.root {
+  padding-inline: 12px;
+  padding-block: 32px 24px;
+  height: 520px;
+  box-sizing: border-box;
+
+  border-radius: 8px;
+  background: #ffffff;
+
+  position: relative;
+}
+
+.graph {
+  height: 100%;
+  overflow: auto;
+}

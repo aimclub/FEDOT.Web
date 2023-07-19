@@ -1,13 +1,13 @@
-import { instance } from "../baseURL";
+import { commonApi } from "../baseURL";
 import { IHistoryGraph } from "./composerInterface";
 
-export const composerAPI = {
-  async getHistoryGraph(caseId: string) {
-    try {
-      const res = await instance.get<IHistoryGraph>(`/composer/${caseId}`);
-      return res.data;
-    } catch (err) {
-      return Promise.reject(err);
-    }
-  },
-};
+export const composerAPI = commonApi.injectEndpoints({
+  endpoints: (build) => ({
+    getHistoryGraph: build.query<IHistoryGraph, { caseId: string }>({
+      query: ({ caseId }) => ({
+        url: `/composer/${caseId}`,
+      }),
+      providesTags: ["case"],
+    }),
+  }),
+});

@@ -12,11 +12,12 @@ export interface ICase {
   icon_path: string;
   individual_id: string;
   title: string;
-  details: {
-    n_features: number;
-    n_levels: number;
-    n_models: number;
-    n_rows: number;
-    [key: string]: number;
-  };
+  details: Record<string, number>;
+  // {
+  //   n_features: number;
+  //   n_levels: number;
+  //   n_models: number;
+  //   n_rows: number;
+  //   [key: string]: number;
+  // };
 }

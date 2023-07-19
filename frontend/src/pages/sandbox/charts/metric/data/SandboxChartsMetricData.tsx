@@ -1,26 +1,14 @@
+import { FC, memo } from "react";
+
 import { ApexOptions } from "apexcharts";
-import React, { FC, memo } from "react";
 import ReactApexChart from "react-apexcharts";
-import { useSelector } from "react-redux";
 
-import { StateType } from "../../../../../redux/store";
+import { IMetric } from "../../../../../API/analytics/analyticsInterface";
 
-const styles = {
-  axis: {
-    fontWeight: 700,
-    fontFamily: "'Open Sans'",
-    fontSize: "12px",
-  },
-  mark: {
-    fontWeight: 400,
-    fontFamily: "'Open Sans'",
-    fontSize: "10px",
-  },
-};
-
-const SandboxChartsMetricData: FC = () => {
-  const { metric } = useSelector((state: StateType) => state.sandbox);
-
+const SandboxChartsMetricData: FC<{
+  metric: IMetric;
+  classes: Record<"axis" | "mark", string>;
+}> = ({ metric, classes }) => {
   const options: ApexOptions = {
     chart: {
       type: "line",
@@ -45,10 +33,10 @@ const SandboxChartsMetricData: FC = () => {
       ...metric?.options.xaxis,
       title: {
         ...metric?.options.xaxis.title,
-        style: styles.axis, // стиль названия оси X
+        style: { cssClass: classes.axis }, // стиль названия оси X
       },
       labels: {
-        style: styles.mark, // стиль меток оси X
+        style: { cssClass: classes.mark }, // стиль меток оси X
       },
     },
     yaxis: [
@@ -56,10 +44,10 @@ const SandboxChartsMetricData: FC = () => {
         ...metric?.options?.yaxis,
         title: {
           ...metric?.options?.yaxis?.title,
-          style: styles.axis, // стиль названия оси Y
+          style: { cssClass: classes.axis }, // стиль названия оси Y
         },
         labels: {
-          style: styles.mark, // стиль меток оси Y
+          style: { cssClass: classes.mark }, // стиль меток оси Y
         },
       },
     ],

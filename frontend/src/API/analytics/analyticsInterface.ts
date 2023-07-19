@@ -5,9 +5,18 @@ export interface IGeneration {
 }
 
 export interface IGenerationSeries {
-  y: number;
+  y:
+    | Int8Array
+    | Uint8Array
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Uint8ClampedArray
+    | Float32Array
+    | Float64Array;
   x: number[];
-  type: string;
+  type: "box";
   name: number | string;
 }
 
@@ -36,10 +45,12 @@ export interface IMetric {
   }[];
 }
 
-export interface IResult {
+export interface IResult<
+  ChartType extends "line" | "scatter" = "line" | "scatter"
+> {
   options: {
     chart: {
-      type: "line" | "scatter";
+      type: ChartType;
     };
     xaxis: {
       categories: number[];

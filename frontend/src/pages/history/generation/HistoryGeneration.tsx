@@ -1,64 +1,57 @@
-import React, { FC, memo } from "react";
-import { useSelector } from "react-redux";
+import scss from "./historyGeneration.module.scss";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { useState } from "react";
 
-import AppLoader from "../../../components/UI/loaders/AppLoader";
-import { StateType } from "../../../redux/store";
+import { analyticsAPI } from "../../../API/analytics/analyticsAPI";
+import { GenerationType } from "../../../API/analytics/analyticsInterface";
+import AppLoader from "../../../components/UI/loaders/app/AppLoader";
+import { useAppParams } from "../../../hooks/useAppParams";
+import { cl } from "../../../utils/classnames";
 import HistoryGenerationBoxplot from "./boxplot/HistoryGenerationBoxplot";
-import HistoryGenerationType from "./type/HistoryGenerationType";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: 25,
-    width: 420,
-    boxSizing: "border-box",
-
-    background: "#FFFFFF",
-    borderRadius: 8,
+const BUTTONS: { name: string; type: GenerationType }[] = [
+  {
+    name: "Phenothypic convergence",
+    type: "pheno",
   },
-  content: {
-    minHeight: 200,
-    height: "calc(100% - 70px)",
+  { name: "Genotypic convergence", type: "geno" },
+];
 
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-}));
-
-const HistoryGeneration: FC = () => {
-  const classes = useStyles();
-
-  const {
-    isLoadingGenerationGeno,
-    isLoadingGenerationPheno,
-    generationType,
-    generationGeno,
-    generationPheno,
-  } = useSelector((state: StateType) => state.history);
+const HistoryGeneration = () => {
+  const [generationType, setGenerationType] = useState<GenerationType>("pheno");
+  const { caseId } = useAppParams();
+  const { isFetching, data, isError } = analyticsAPI.useGetGenerationsQuery(
+    { caseId: caseId || "", type: generationType },
+    { skip: !caseId }
+  );
 
   return (
-    <section className={classes.root}>
-      <HistoryGenerationType />
-      <div className={classes.content}>
-        {(generationType === "geno" && isLoadingGenerationGeno) ||
-        (generationType === "pheno" && isLoadingGenerationPheno) ? (
+    <section className={scss.root}>
+      <div className={scss.tabs}>
+        {BUTTONS.map((item) => (
+          <button
+            type="button"
+            key={item.type}
+            className={cl(
+              scss.tab,
+              item.type === generationType && scss.active
+            )}
+            onClick={() => setGenerationType(item.type)}
+          >
+            <span>{item.name}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className={scss.content}>
+        {isFetching ? (
           <AppLoader />
         ) : (
-          <HistoryGenerationBoxplot
-            generation={
-              generationType === "geno"
-                ? generationGeno
-                : generationType === "pheno"
-                ? generationPheno
-                : null
-            }
-          />
+          <HistoryGenerationBoxplot generation={isError ? undefined : data} />
         )}
       </div>
     </section>
   );
 };
 
-export default memo(HistoryGeneration);
+export default HistoryGeneration;

@@ -1,0 +1,6 @@
+.root {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: flex-start;
+  gap: 20px;
+}

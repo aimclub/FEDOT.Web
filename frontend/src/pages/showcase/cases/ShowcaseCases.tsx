@@ -1,43 +1,20 @@
-import { Fade } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import React, { FC, memo } from "react";
-import { useSelector } from "react-redux";
-import Title from "../../../components/Title/Title";
-import { StateType } from "../../../redux/store";
-import ShowcaseCasesCard from "./ShowcaseCasesCard";
+import scss from "./showcaseCases.module.scss";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: 24,
+import Fade from "@mui/material/Fade";
 
-    borderRadius: 8,
-    backgroundColor: "#ffffff",
+import { showcaseAPI } from "../../../API/showcase/showcaseAPI";
+import ShowcaseCasesCard from "./card/ShowcaseCasesCard";
 
-    transition: "all 3s",
-  },
-  cases: {
-    marginTop: 20,
-
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(388px, 1fr))",
-    gap: 16,
-    alignItems: "center",
-    justifyItems: "center",
-  },
-}));
-
-const ShowcaseCases: FC = () => {
-  const classes = useStyles();
-
-  const { allCases } = useSelector((state: StateType) => state.showCase);
+const ShowcaseCases = () => {
+  const { data: cases } = showcaseAPI.useGetAllShowcasesQuery(undefined);
 
   return (
-    <Fade in={!!allCases} mountOnEnter unmountOnExit timeout={2000}>
-      <section className={classes.root}>
-        <Title name="Case" type="h2" />
-        <div className={classes.cases}>
-          {allCases.map((caseItem) => (
-            <ShowcaseCasesCard key={caseItem.case_id} data={caseItem} />
+    <Fade in={!!cases} mountOnEnter unmountOnExit timeout={2000}>
+      <section className={scss.root}>
+        <h2 className={scss.title}>Case</h2>
+        <div className={scss.cases}>
+          {cases?.map((showcase) => (
+            <ShowcaseCasesCard key={showcase.case_id} showcase={showcase} />
           ))}
         </div>
       </section>
@@ -45,4 +22,4 @@ const ShowcaseCases: FC = () => {
   );
 };
 
-export default memo(ShowcaseCases);
+export default ShowcaseCases;

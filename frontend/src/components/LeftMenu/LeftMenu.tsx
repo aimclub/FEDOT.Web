@@ -1,131 +1,77 @@
-import React, { FC } from "react";
-import { NavLink } from "react-router-dom";
-
-import { createStyles, makeStyles } from "@material-ui/core/styles";
-import AccountTreeIcon from "@material-ui/icons/AccountTree";
-import GradientIcon from "@material-ui/icons/Gradient";
-import MenuIcon from "@material-ui/icons/Menu";
-// import SettingsIcon from "@material-ui/icons/Settings";
-import TerrainIcon from "@material-ui/icons/Terrain";
-
 import scss from "./leftMenu.module.scss";
 
-// import LogoMenu from "../../data/images/LogoMenu.png";
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
+import GradientIcon from "@mui/icons-material/Gradient";
+import MenuIcon from "@mui/icons-material/Menu";
+// import SettingsIcon from "@mui/icons-material/Settings";
+import TerrainIcon from "@mui/icons-material/Terrain";
+import { FC, useMemo } from "react";
+import { NavLink } from "react-router-dom";
+
 import Logo from "../../images/LogoMonochrome.svg";
-import { AppRoutesEnum, GITHUB_LINK } from "../../routes";
-import { useSelector } from "react-redux";
-import { StateType } from "../../redux/store";
+import { GITHUB_LINK, goToPage } from "../../router/routes";
+import { cl } from "../../utils/classnames";
+import { useAppSelector } from "../../hooks/redux";
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    icon: {
-      width: 20,
-      height: 20,
+const LeftMenu: FC<{ className?: string }> = ({ className }) => {
+  const { selected_showcase_id } = useAppSelector((state) => state.showcase);
+  const navLinks = useMemo<
+    {
+      to: string;
+      title: string;
+      Icon: React.ComponentType<{ className: string }>;
+      disabled?: boolean;
+      target?: React.HTMLAttributeAnchorTarget;
+      rel?: string;
+    }[]
+  >(
+    () => [
+      { to: goToPage.showcase, title: "Showcase", Icon: GradientIcon },
 
-      color: "#FFFFFF",
-    },
-    button: {
-      padding: "4px",
-      width: "100%",
-      boxSizing: "border-box",
-
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-
-      textTransform: "none",
-      textDecoration: "none",
-      borderRadius: 0,
-      color: "rgba(0, 0, 0, 0.87)",
-
-      "&:disabled": {
-        background: "#ECEFF1",
+      {
+        to: goToPage.sandbox(selected_showcase_id),
+        title: "Sandbox",
+        Icon: TerrainIcon,
       },
-      "&:hover": {
-        background: "#B0BEC5",
+      // { to: GITHUB_LINK, title: "Settings", disabled: true },
+      {
+        to: GITHUB_LINK,
+        title: "FEDOT",
+        Icon: AccountTreeIcon,
+        target: "_blank",
+        rel: "noreferrer",
       },
-    },
-    selected: {
-      background: "#4F5B62",
-    },
-    text: {
-      paddingLeft: 15,
-
-      fontFamily: "Open Sans",
-
-      fontSize: "14px",
-      lineHeight: "150%",
-      letterSpacing: "0.15px",
-
-      transition: "all 1s",
-      color: "#FFFFFF",
-    },
-    textHiden: {
-      display: "hidden",
-
-      transition: "all 1s",
-    },
-  })
-);
-
-const LeftMenu: FC = () => {
-  const classes = useStyles();
-  const { showCase } = useSelector((state: StateType) => state.showCase);
+    ],
+    [selected_showcase_id]
+  );
 
   return (
-    <section className={scss.root}>
-      <div style={{ marginTop: 26 }}>
-        <MenuIcon className={classes.icon} />
+    <section className={cl(className, scss.root)}>
+      <div className={scss.head}>
+        <MenuIcon className={scss.icon} />
       </div>
-      <div className={scss.line} />
-      <img src={Logo} alt="Fedot" className={scss.logo} />
-      <div className={scss.buttonsPosition}>
-        <div className={scss.buttonWidth}>
-          <NavLink
-            className={classes.button}
-            activeClassName={classes.selected}
-            to={AppRoutesEnum.SHOWCASE}
-          >
-            <GradientIcon className={classes.icon} />
-            <p className={scss.buttonText}>Showcase</p>
-          </NavLink>
-        </div>
-
-        <div className={scss.buttonWidth}>
-          <NavLink
-            className={classes.button}
-            activeClassName={classes.selected}
-            to={`${AppRoutesEnum.TO_SANDBOX}${showCase?.case_id}`}
-          >
-            <TerrainIcon className={classes.icon} />
-            <p className={scss.buttonText}>Sandbox</p>
-          </NavLink>
-        </div>
-
-        <div className={scss.buttonWidth}>
-          <a
-            className={classes.button}
-            href={GITHUB_LINK}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <AccountTreeIcon className={classes.icon} />
-            <p className={scss.buttonText}>FEDOT</p>
-          </a>
-        </div>
-
-        {/* <div className={scss.buttonWidth}>
-          <NavLink
-            className={classes.button}
-            activeClassName={classes.selected}
-            to={AppRoutesEnum.SETTING}
-          >
-            <SettingsIcon className={classes.icon} />
-            <p className={scss.buttonText}>Settings</p>
-          </NavLink>
-        </div> */}
+      <div className={scss.menu}>
+        <Logo className={scss.logo} />
+        <ul className={scss.list}>
+          {navLinks.map(({ title, to, Icon, disabled, ...props }, index) => (
+            <NavLink
+              {...props}
+              to={to}
+              key={index}
+              className={({ isActive }) =>
+                cl(
+                  scss.link,
+                  isActive && scss.active,
+                  disabled && scss.disabled
+                )
+              }
+            >
+              <Icon className={scss.icon} />
+              <span className={scss.title}>{title}</span>
+            </NavLink>
+          ))}
+        </ul>
       </div>
-      <div className={scss.line} />
     </section>
   );
 };

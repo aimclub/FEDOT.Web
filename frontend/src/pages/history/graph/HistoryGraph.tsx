@@ -1,123 +1,88 @@
-import React, { FC, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import scss from "./HistoryGraph.module.scss";
 
-import { IconButton } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import FormatColorResetIcon from "@material-ui/icons/FormatColorReset";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import styles from "./HistoryGraph.module.scss";
+import FormatColorResetIcon from "@mui/icons-material/FormatColorReset";
+import IconButton from "@mui/material/IconButton";
 
+import { composerAPI } from "../../../API/composer/composerAPI";
 import { IHistoryNodeIndividual } from "../../../API/composer/composerInterface";
-import AppLoader from "../../../components/UI/loaders/AppLoader";
+import AppLoader from "../../../components/UI/loaders/app/AppLoader";
 import CustomTooltip from "../../../components/UI/tooltip/CustomTooltip";
-import { openHistoryModal } from "../../../redux/history/history-actions";
-import { StateType } from "../../../redux/store";
+import { useAppParams } from "../../../hooks/useAppParams";
+import { cl } from "../../../utils/classnames";
 import {
-  createHistoryGraph,
   ZoomType,
+  createHistoryGraph,
 } from "../../../utils/historyGraphGenerator";
+import HistoryModal from "../modal/HistoryModal";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: 8,
-    height: "calc(100vh - 110px)",
-    boxSizing: "border-box",
-
-    background: "#FFFFFF",
-    borderRadius: 8,
-    position: "relative",
-  },
-  empty: {
-    fontFamily: "'Open Sans'",
-    fontStyle: "normal",
-    fontWeight: 300,
-    fontSize: 24,
-    lineHeight: "100%",
-    textAlign: "center",
-
-    color: "#cfd8dc",
-  },
-  resetSelect: {
-    padding: 4,
-
-    color: "#263238",
-
-    position: "absolute",
-    top: 15,
-    left: 15,
-    zIndex: 200,
-  },
-}));
-
-const HistoryGraph: FC = () => {
-  const classes = useStyles();
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const dispatch = useDispatch();
-  const { history, isLoadingHistory } = useSelector(
-    (state: StateType) => state.history
+const HistoryGraph = () => {
+  const graphRef = useRef<HTMLDivElement | null>(null);
+  const { caseId } = useAppParams();
+  const { isFetching, data, isError } = composerAPI.useGetHistoryGraphQuery(
+    { caseId: caseId || "" },
+    { skip: !caseId }
   );
   const [highlightPipelines, setHighlightPipelines] = useState<string[]>([]);
-  const [zoom, setZoom] = useState<ZoomType>(undefined);
+  const [nodeModal, setNodeModal] = useState<IHistoryNodeIndividual | null>(
+    null
+  );
+  const zoom = useRef<ZoomType>();
 
-  const handleSelectReset = () => {
+  const handleSelectReset = useCallback(() => {
     setHighlightPipelines([]);
-  };
+  }, []);
+
+  const handleModalClose = useCallback(() => {
+    setNodeModal(null);
+  }, []);
 
   useEffect(() => {
-    if (isLoadingHistory || !history) return;
+    if (!graphRef.current || isFetching || !data) return;
 
     const handlePipelineClick = (value: IHistoryNodeIndividual) => {
-      let arr: string[] = [value.uid];
-
+      const arr: string[] = [value.uid];
       const fun = (pipelineUid: string) => {
-        const t = history.edges
+        const t = data.edges
           .filter((i) => i.target === pipelineUid)
           .map((i) => i.source);
         arr.push(...t);
         t.forEach((i) => fun(i));
       };
-
       fun(value.uid);
       setHighlightPipelines(arr);
     };
 
-    const handlePipelineDblClick = (value: IHistoryNodeIndividual) => {
-      dispatch(openHistoryModal(value));
-    };
-
-    // const nodeHoverTooltip = useCallback((node) => {
-    //   return `<div>
-    //       <p >${node}</p>
-    //     </div>`;
-    // }, []);
-
-    if (containerRef.current) {
-      const { destroy } = createHistoryGraph(
-        containerRef.current,
-        history.edges,
-        history.nodes,
-        highlightPipelines,
-        handlePipelineClick,
-        handlePipelineDblClick,
-        { zoom, setZoom }
-      );
-      return destroy;
-    }
-
-    return undefined;
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history, isLoadingHistory, dispatch, highlightPipelines]);
+    const { destroy } = createHistoryGraph(
+      graphRef.current,
+      data.edges,
+      data.nodes,
+      highlightPipelines,
+      handlePipelineClick,
+      (node) => {
+        setNodeModal(node);
+      },
+      { zoom: zoom.current, setZoom: (v) => (zoom.current = v) }
+    );
+    return destroy;
+  }, [data, highlightPipelines, isFetching]);
 
   return (
-    <section className={classes.root}>
-      {!!history && !isLoadingHistory && (
+    <section className={scss.root}>
+      <div ref={graphRef} className={scss.graph} />
+
+      {isFetching ? (
+        <AppLoader className={scss.center} />
+      ) : !data || isError ? (
+        <p className={cl(scss.empty, scss.center)}>no data</p>
+      ) : (
         <CustomTooltip title="reset select" placement="top-start">
-          <span>
+          <span className={scss.tools}>
             <IconButton
-              className={classes.resetSelect}
-              disabled={highlightPipelines.length === 0}
               onClick={handleSelectReset}
+              className={scss.button}
+              disabled={highlightPipelines.length === 0}
             >
               <FormatColorResetIcon />
             </IconButton>
@@ -125,12 +90,7 @@ const HistoryGraph: FC = () => {
         </CustomTooltip>
       )}
 
-      <div ref={containerRef} className={styles.container}>
-        {isLoadingHistory && <AppLoader />}
-        {!history && !isLoadingHistory && (
-          <p className={classes.empty}>no data</p>
-        )}
-      </div>
+      <HistoryModal node={nodeModal} onClose={handleModalClose} />
     </section>
   );
 };

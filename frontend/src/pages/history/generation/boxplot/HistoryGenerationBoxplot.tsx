@@ -1,48 +1,42 @@
-import React, { FC, memo, useEffect, useState } from "react";
+import scss from "./historyGenerationBoxplot.module.scss";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { FC, memo, useMemo } from "react";
 
-import {
-  IGeneration,
-  IGenerationSeries,
-} from "../../../../API/analytics/analyticsInterface";
-import HistoryPageChartBoxplot from "../../../../components/JS/HistoryPageChartBoxplot/HistoryPageChartBoxplot";
+import type { BoxPlotData } from "plotly.js";
+import Plot from "react-plotly.js";
 
-const useStyles = makeStyles(() => ({
-  empty: {
-    fontFamily: "'Open Sans'",
-    fontStyle: "normal",
-    fontWeight: 300,
-    fontSize: 24,
-    lineHeight: "100%",
-    textAlign: "center",
+import { IGeneration } from "../../../../API/analytics/analyticsInterface";
 
-    color: "#cfd8dc",
-  },
-}));
+const HistoryGenerationBoxplot: FC<{
+  generation?: IGeneration;
+}> = ({ generation }) => {
+  const data = useMemo<Partial<BoxPlotData>[]>(
+    () =>
+      generation?.series
+        .slice()
+        .reverse()
+        .map((i) => ({ ...i, name: `${i.name} epoch` })) || [],
 
-export const editArr = (arr: IGenerationSeries[]) =>
-  arr.map((item) => ({ ...item, name: `${+item.name} epoch` }));
+    [generation]
+  );
 
-interface I {
-  generation: IGeneration | null;
-}
-
-const HistoryGenerationBoxplot: FC<I> = ({ generation }) => {
-  const classes = useStyles();
-
-  const [data, setData] = useState<IGenerationSeries[]>([]);
-
-  useEffect(() => {
-    if (!!generation) {
-      setData(editArr(generation.series));
-    }
-  }, [generation]);
-
-  return !!generation ? (
-    <HistoryPageChartBoxplot data={data} />
+  return generation ? (
+    <Plot
+      data={data}
+      layout={{
+        margin: { t: 20, b: 40, l: 80, r: 24 },
+        width: 412,
+        height: 150 + 40 * data.length,
+        showlegend: false,
+        yaxis: { fixedrange: true },
+        xaxis: { fixedrange: true, rangemode: "normal" },
+      }}
+      config={{
+        displayModeBar: false,
+      }}
+    />
   ) : (
-    <p className={classes.empty}>no data</p>
+    <p className={scss.empty}>no data</p>
   );
 };
 
