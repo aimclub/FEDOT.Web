@@ -4,6 +4,7 @@ from golem.core.optimisers.opt_history_objects.opt_history import OptHistory
 
 from .models import PipelineEpochMapping, SandboxDefaultParams
 from ..composer.service import composer_history_for_case
+from ..showcase.service import showcase_full_item_by_uid
 
 
 def pipelines_ids_for_epochs_in_case(case_id: str) -> List[PipelineEpochMapping]:
@@ -18,7 +19,8 @@ def pipelines_ids_for_epochs_in_case(case_id: str) -> List[PipelineEpochMapping]
 
 
 def default_params_for_case(case_id: str) -> SandboxDefaultParams:
-    params = SandboxDefaultParams(task_id='classification',
-                                  dataset_name='scoring',
-                                  metric_id='roc_auc')
+    item = showcase_full_item_by_uid(case_id)
+    params = SandboxDefaultParams(task_id=item.metadata.task_name,
+                                  dataset_name=item.metadata.dataset_name,
+                                  metric_id=item.metadata.metric_name)
     return params
