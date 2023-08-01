@@ -12,9 +12,11 @@ from init.init_pipelines import create_default_pipelines
 if __name__ == "__main__":
     load_dotenv("mongo_conn_string.env")
     env = os.getenv('MONGO_CONN_STRING')
-    print(env)
+    print("Connection string:", env)
     client = pymongo.MongoClient(env)
+    print("Database names:", client.list_database_names())
     db = client.get_default_database()
+    print("Default database name:", db.name)
     load_datasets_from_file_system()
     DBServiceSingleton(db)
     create_default_cases()

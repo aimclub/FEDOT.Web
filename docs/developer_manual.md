@@ -45,6 +45,10 @@ from console.
 
 Run init_db.py to pre-initialise the database with default cases.
 
+## Run MongoDB server
+
+Run mongo command to start the database server.
+
 ## Run server
 
 Run main.py script to start the server.
