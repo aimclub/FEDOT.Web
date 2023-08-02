@@ -128,6 +128,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+mongo_conn_string.env
+/frontend/.env
 
 # Spyder project settings
 .spyderproject

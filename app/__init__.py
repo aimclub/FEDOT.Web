@@ -37,8 +37,6 @@ def create_app(env=None):
     api_blueprint = Blueprint("api", __name__, url_prefix="/api")
     api = Api(api_blueprint, title="Fedot Web API", version="0.1.0")
 
-    app.config['MONGO_URI'] = 'mongodb://127.0.0.1:27017/test_db?compressors=zlib'
-
     db.init_app(app)
 
     storage.init_app(app)

@@ -22,7 +22,6 @@ def is_pipeline_exists(uid: str) -> bool:
 
 
 def pipeline_by_uid(uid: str) -> Optional[Pipeline]:
-    print(f'PIPELINE UID {uid}')
     db_service = DBServiceSingleton()
     pipeline = Pipeline()
     pipeline_dict: Optional[Dict[str, Any]] = db_service.try_find_one('pipelines', {'individual_id': uid})
