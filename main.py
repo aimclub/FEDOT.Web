@@ -6,48 +6,10 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 
 from app import create_app, db, storage
 from app.singletons.db_service import DBServiceSingleton
-from app.api.pipelines.service import pipeline_by_uid
 
-from flask import request, send_file, current_app, jsonify
-
-import json
-
+from app.api.sandbox.download import download_pipeline
+from app.api.auth.test_mongo import check_mongo_connection
 import pymongo
-
-def check_mongo_connection():
-    conn_string = os.getenv('MONGO_CONN_STRING')
-    try:
-        client = pymongo.MongoClient(conn_string)
-        db_names = client.list_database_names()
-        if 'test_db' in db_names:  # Замените 'test_db' на имя вашей базы данных
-            return True
-        else:
-            return False
-    except pymongo.errors.ConnectionFailure as e:
-        return False
-
-def check_existing_pipelines():
-    pipeline_collection = db["pipelines"]
-    pipelines = pipeline_collection.find()
-    existing_uids = []
-    for pipeline in pipelines:
-        uid = pipeline["uid"]
-        existing_uids.append(uid)
-    return existing_uids
-
-def download_pipeline():
-    uid = request.json['uid']
-
-    print('Received uid:', uid, 'Type:', type(uid))
-    pipeline = pipeline_by_uid(uid) 
-    if pipeline is None:
-        return "Pipeline not found", 404
-    
-    # Сохранение пайплайна в формате JSON
-    pipeline_json, _ = pipeline.save() 
-    pipeline_data = json.loads(pipeline_json)
-
-    return jsonify(pipeline_data)
 
 if __name__ == "__main__":
     set_start_method("spawn")
