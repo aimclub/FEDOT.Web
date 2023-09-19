@@ -14,4 +14,3 @@ def check_mongo_connection(db_name):
             return False
     except pymongo.errors.ConnectionFailure as e:
         return False
-    
