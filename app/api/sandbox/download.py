@@ -15,16 +15,17 @@ def check_existing_pipelines():
         existing_uids.append(uid)
     return existing_uids
 
+
 def download_pipeline():
     uid = request.json['uid']
 
     print('Received uid:', uid, 'Type:', type(uid))
-    pipeline = pipeline_by_uid(uid) 
+    pipeline = pipeline_by_uid(uid)
     if pipeline is None:
         return "Pipeline not found", 404
-    
-    # Сохранение пайплайна в формате JSON
-    pipeline_json, _ = pipeline.save() 
+
+    # Saving pipeline in JSON format
+    pipeline_json, _ = pipeline.save()
     pipeline_data = json.loads(pipeline_json)
 
     return jsonify(pipeline_data)
