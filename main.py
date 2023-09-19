@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     app = create_app(os.getenv("FLASK_ENV") or "dev")
     app.add_url_rule('/download_pipeline', 'download_pipeline',
-        download_pipeline, methods=['POST'])  # Route registration
+                        download_pipeline, methods=['POST'])  # Route registration
 
     app.wsgi_app = ProxyFix(app.wsgi_app)
 
