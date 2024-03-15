@@ -6,7 +6,8 @@ from flask_restx import Namespace, Resource
 
 from .history_convert_utils import history_to_graph
 from .schema import ComposingHistoryGraphSchema, ComposingStartSchema
-from .service import composer_history_for_case, clean_case_id
+from .service import composer_history_for_case
+from utils import clean_case_id
 from ..pipelines.service import pipeline_by_uid
 from ..showcase.service import create_new_case_async
 from ..showcase.showcase_utils import showcase_item_from_db

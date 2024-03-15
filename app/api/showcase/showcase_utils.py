@@ -5,7 +5,7 @@ from app.singletons.db_service import DBServiceSingleton
 from flask import url_for
 
 from .models import ShowcaseItem
-from ..composer.service import clean_case_id
+from utils import clean_case_id
 
 
 def showcase_item_from_db(case_id: str) -> Optional[ShowcaseItem]:

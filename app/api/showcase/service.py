@@ -11,7 +11,7 @@ from init.init_cases import add_case_to_db
 from .models import ShowcaseItem, Metadata
 from .showcase_utils import prepare_icon_path, showcase_item_from_db
 from ..analytics.pipeline_analytics import get_metrics_for_pipeline, get_metrics_for_golem_individual
-from ..composer.service import clean_case_id
+from utils import clean_case_id
 
 
 def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:

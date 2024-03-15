@@ -19,12 +19,7 @@ from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.api.showcase.showcase_utils import showcase_item_from_db
 from app.singletons.db_service import DBServiceSingleton
-from utils import project_root
-
-
-def clean_case_id(case_id: str):
-    case_id = case_id.replace('_full', '')
-    return case_id
+from utils import project_root, clean_case_id
 
 
 def composer_history_for_case(case_id: str, validate_history: bool = False) -> OptHistory:
