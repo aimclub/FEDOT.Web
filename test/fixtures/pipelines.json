@@ -54,11 +54,15 @@
                 "operation_name": "XGBClassifier",
                 "custom_params": {
                     "eval_metric": "mlogloss",
-                    "nthread": -1
+                    "nthread": 1,
+                    "n_jobs": 1,
+                    "verbose": 0
                 },
                 "params": {
                     "eval_metric": "mlogloss",
-                    "nthread": -1
+                    "nthread": 1,
+                    "n_jobs": 1,
+                    "verbose": 0
                 },
                 "nodes_from": [
                     4,
@@ -76,11 +80,15 @@
                 "operation_name": "XGBClassifier",
                 "custom_params": {
                     "eval_metric": "mlogloss",
-                    "nthread": -1
+                    "nthread": 1,
+                    "n_jobs": 1,
+                    "verbose": 0
                 },
                 "params": {
                     "eval_metric": "mlogloss",
-                    "nthread": -1
+                    "nthread": 1,
+                    "n_jobs": 1,
+                    "verbose": 0
                 },
                 "nodes_from": [
                     2,
@@ -146,11 +154,15 @@
                 "operation_name": "XGBClassifier",
                 "custom_params": {
                     "eval_metric": "mlogloss",
-                    "nthread": -1
+                    "nthread": 1,
+                    "n_jobs": 1,
+                    "verbose": 0
                 },
                 "params": {
                     "eval_metric": "mlogloss",
-                    "nthread": -1
+                    "nthread": 1,
+                    "n_jobs": 1,
+                    "verbose": 0
                 },
                 "nodes_from": [
                     1,
@@ -167,7 +179,7 @@
             "preprocessing",
             "data_preprocessor.pkl"
         ],
-        "descriptive_id": "(((/n_knn;;/n_lda;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': -1};;/n_logit;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': -1};;(/n_logit;;/n_pca_{'svd_solver': 'full', 'n_components': 0.7};)/n_knn;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': -1}",
+        "descriptive_id": "(((/n_knn;;/n_lda;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': 1, 'n_jobs': 1, 'verbose': 0};;/n_logit;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': 1, 'n_jobs': 1, 'verbose': 0};;(/n_logit;;/n_pca_{'svd_solver': 'full', 'n_components': 0.7};)/n_knn;)/n_xgboost_{'eval_metric': 'mlogloss', 'nthread': 1, 'n_jobs': 1, 'verbose': 0}",
         "fitted_operation_path": "operation_0",
         "individual_id": "best_scoring_pipeline"
     },
@@ -211,10 +223,10 @@
                 "operation_type": "lagged",
                 "operation_name": "LaggedTransformationImplementation",
                 "custom_params": {
-                    "window_size": 10
+                    "window_size": 12
                 },
                 "params": {
-                    "window_size": 10
+                    "window_size": 12
                 },
                 "nodes_from": [],
                 "fitted_operation_path": [
@@ -243,7 +255,7 @@
             "preprocessing",
             "data_preprocessor.pkl"
         ],
-        "descriptive_id": "(/n_lagged_{'window_size': 10};)/n_linear",
+        "descriptive_id": "(/n_lagged_{'window_size': 12};)/n_linear",
         "fitted_operation_path": "operation_0",
         "individual_id": "metocean_baseline"
     },

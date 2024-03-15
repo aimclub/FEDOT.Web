@@ -10,7 +10,23 @@ from fedot.core.data.data import DataTypesEnum, InputData
 from fedot.core.repository.tasks import Task, TaskParams, TsForecastingParams
 from utils import project_root
 
-datasets = {}
+datasets = {
+    'scoring': {
+        'train': 'data/scoring/scoring_train.csv',
+        'test': 'data/scoring/scoring_test.csv',
+        'data_type': DataTypesEnum.table
+    },
+    'metocean': {
+        'train': 'data/metocean/metocean_train.csv',
+        'test': 'data/metocean/metocean_test.csv',
+        'data_type': DataTypesEnum.ts
+    },
+    'oil': {
+        'train': 'data/oil/oil_train.csv',
+        'test': 'data/oil/oil_test.csv',
+        'data_type': DataTypesEnum.table
+    }
+}
 
 data_types = {
     'ts': DataTypesEnum.ts,
