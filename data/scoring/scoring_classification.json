@@ -7,7 +7,7 @@
             },
             {
                 "value": "node_number",
-                "_class_path": "fedot.core.repository.quality_metrics_repository/ComplexityMetricsEnum"
+                "_class_path": "fedot.core.repository.metrics_repository/ComplexityMetricsEnum"
             }
         ],
         "_class_path": "fedot.core.optimisers.objective.objective/Objective"

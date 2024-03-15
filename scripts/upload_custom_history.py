@@ -6,8 +6,8 @@ from uuid import uuid4
 
 DOMAIN = 'https://fedot.onti.actcognitive.org'
 # DOMAIN = 'http://127.0.0.1:5000'
-BASE_PATH = Path(r"...")
-FILE_NAME = '... .json'
+BASE_PATH = Path(r".")
+FILE_NAME = 'ind_history.json'
 
 if __name__ == '__main__':
     case_id = FILE_NAME.replace('.json', '') + str(uuid4())
@@ -18,6 +18,7 @@ if __name__ == '__main__':
     new_case = {
             'case': {
                 'case_id': case_id,
+                'task': 'fedot'
             },
             'history': history_json
     }
