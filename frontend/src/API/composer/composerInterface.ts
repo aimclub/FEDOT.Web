@@ -8,7 +8,7 @@ export interface IHistoryEdge {
   target: string;
 }
 
-export interface   {
+export interface IHistoryNodeIndividual{
   uid: string;
   type: string;
   individual_id: any;
