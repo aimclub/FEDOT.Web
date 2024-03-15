@@ -6,7 +6,7 @@ from golem.core.optimisers.opt_history_objects.opt_history import OptHistory
 from matplotlib import pyplot as plt
 
 
-def history_to_graph(history: OptHistory, show_all: bool = True) -> Dict[str, Any]:
+def history_to_graph(history: OptHistory, show_all: bool = False) -> Dict[str, Any]:
     all_nodes = _create_operators_and_nodes(history, show_all)
 
     all_nodes, edges = _create_edges(all_nodes)
