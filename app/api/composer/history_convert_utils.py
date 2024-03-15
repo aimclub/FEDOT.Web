@@ -127,7 +127,8 @@ def _create_operators_and_nodes(history, show_all):
         for ind_id, individual in enumerate(generation):
             if individual.native_generation != gen_id:
                 continue
-            if not show_all and (individual.uid not in uid_to_last_generation_map or gen_id > uid_to_last_generation_map[individual.uid]):
+            if not show_all and (individual.uid not in uid_to_last_generation_map or
+                                 gen_id > uid_to_last_generation_map[individual.uid]):
                 continue
 
             # add evo operators as nodes
