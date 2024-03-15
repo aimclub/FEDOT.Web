@@ -5,9 +5,12 @@ from app.singletons.db_service import DBServiceSingleton
 from flask import url_for
 
 from .models import ShowcaseItem
+from ..composer.service import clean_case_id
 
 
 def showcase_item_from_db(case_id: str) -> Optional[ShowcaseItem]:
+    case_id = clean_case_id(case_id)
+
     dumped_item = DBServiceSingleton().try_find_one('cases', {'case_id': case_id})
     if dumped_item is None:
         return None

@@ -6,8 +6,8 @@ from golem.core.optimisers.opt_history_objects.opt_history import OptHistory
 from matplotlib import pyplot as plt
 
 
-def history_to_graph(history: OptHistory) -> Dict[str, Any]:
-    all_nodes = _create_operators_and_nodes(history)
+def history_to_graph(history: OptHistory, show_all: bool = True) -> Dict[str, Any]:
+    all_nodes = _create_operators_and_nodes(history, show_all)
 
     all_nodes, edges = _create_edges(all_nodes)
     all_nodes = _clear_tmp_fields(all_nodes)
@@ -61,10 +61,10 @@ def _process_operator(all_nodes, operator, individual, o_id, gen_id, prev_operat
     return all_nodes
 
 
-def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id, uids_to_show):
+def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id, uids_to_show, show_all):
     for ind_id in range(len(history.individuals[gen_id])):
         individual = history.individuals[gen_id][ind_id]
-        if individual.uid not in uids_to_show or gen_id > uids_to_show[individual.uid]:
+        if not show_all and (individual.uid not in uids_to_show or gen_id > uids_to_show[individual.uid]):
             continue
 
         # add pipelines as node
@@ -90,7 +90,7 @@ def _create_all_individuals_for_population(history, all_nodes, gen_id, order_id,
     return all_nodes, order_id
 
 
-def _create_operators_and_nodes(history):
+def _create_operators_and_nodes(history, show_all):
     all_nodes = []
     current_order_id = 0
     if hasattr(history, 'final_choices') and history.final_choices:
@@ -121,13 +121,13 @@ def _create_operators_and_nodes(history):
         o_id = 0
         all_nodes, current_order_id = _create_all_individuals_for_population(history, all_nodes, gen_id,
                                                                              current_order_id,
-                                                                             uid_to_last_generation_map)
+                                                                             uid_to_last_generation_map, show_all)
         if gen_id == 0:
             continue
         for ind_id, individual in enumerate(generation):
             if individual.native_generation != gen_id:
                 continue
-            if individual.uid not in uid_to_last_generation_map or gen_id > uid_to_last_generation_map[individual.uid]:
+            if not show_all and (individual.uid not in uid_to_last_generation_map or gen_id > uid_to_last_generation_map[individual.uid]):
                 continue
 
             # add evo operators as nodes
