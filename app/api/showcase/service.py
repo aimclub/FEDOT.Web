@@ -11,9 +11,12 @@ from init.init_cases import add_case_to_db
 from .models import ShowcaseItem, Metadata
 from .showcase_utils import prepare_icon_path, showcase_item_from_db
 from ..analytics.pipeline_analytics import get_metrics_for_pipeline, get_metrics_for_golem_individual
+from utils import clean_case_id
 
 
 def showcase_full_item_by_uid(case_id: str) -> Optional[ShowcaseItem]:
+    case_id = clean_case_id(case_id)
+
     dumped_item: Optional[Dict[str, Any]] = DBServiceSingleton().try_find_one('cases', {'case_id': case_id})
     if dumped_item is None:
         return None
@@ -83,6 +86,8 @@ def all_showcase_items_ids(with_custom: bool = False) -> List[str]:
 def create_new_case(case_id, case_meta_json, opt_history_json, initial_pipeline: Pipeline = None, original_history=None,
                     modifed_generation_index=None, original_uid=None, is_golem_history=False):
     from init.init_history import _init_composer_history_for_case
+    case_id = clean_case_id(case_id)
+
     case = ShowcaseItem(
         case_id=case_id,
         title=case_id,

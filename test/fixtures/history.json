@@ -2,31 +2,7 @@
     {
         "history_id": "scoring",
         "history_json": {
-            "_objective": {
-                "is_multi_objective": false,
-                "metrics": [
-                    {
-                        "_class_path": "fedot.core.composer.metrics/QualityMetric.get_value"
-                    },
-                    {
-                        "value": "node_number",
-                        "_class_path": "fedot.core.repository.quality_metrics_repository/ComplexityMetricsEnum"
-                    }
-                ],
-                "_class_path": "fedot.core.optimisers.objective.metrics_objective/MetricsObjective"
-            },
-            "archive_history": [
-                [
-                    "b36b553a-9b23-4b6d-a730-a752f7c258d1"
-                ],
-                [
-                    "b36b553a-9b23-4b6d-a730-a752f7c258d1"
-                ],
-                [
-                    "b36b553a-9b23-4b6d-a730-a752f7c258d1"
-                ]
-            ],
-            "individuals": [
+            "_generations": [
                 {
                     "data": [
                         "b36b553a-9b23-4b6d-a730-a752f7c258d1"
@@ -60,6 +36,30 @@
                     "metadata": {},
                     "_class_path": "golem.core.optimisers.opt_history_objects.generation/Generation"
                 }
+            ],
+            "_objective": {
+                "is_multi_objective": false,
+                "metrics": [
+                    {
+                        "_class_path": "fedot.core.composer.metrics/QualityMetric.get_value"
+                    },
+                    {
+                        "value": "node_number",
+                        "_class_path": "fedot.core.repository.metrics_repository/ComplexityMetricsEnum"
+                    }
+                ],
+                "_class_path": "fedot.core.optimisers.objective.metrics_objective/MetricsObjective"
+            },
+            "archive_history": [
+                [
+                    "b36b553a-9b23-4b6d-a730-a752f7c258d1"
+                ],
+                [
+                    "b36b553a-9b23-4b6d-a730-a752f7c258d1"
+                ],
+                [
+                    "b36b553a-9b23-4b6d-a730-a752f7c258d1"
+                ]
             ],
             "individuals_pool": [
                 {
@@ -424,31 +424,7 @@
     {
         "history_id": "metocean",
         "history_json": {
-            "_objective": {
-                "is_multi_objective": false,
-                "metrics": [
-                    {
-                        "_class_path": "fedot.core.composer.metrics/QualityMetric.get_value"
-                    },
-                    {
-                        "value": "node_number",
-                        "_class_path": "fedot.core.repository.quality_metrics_repository/ComplexityMetricsEnum"
-                    }
-                ],
-                "_class_path": "fedot.core.optimisers.objective.metrics_objective/MetricsObjective"
-            },
-            "archive_history": [
-                [
-                    "79b9c2c7-22ce-432f-bd18-604fedd013be"
-                ],
-                [
-                    "79b9c2c7-22ce-432f-bd18-604fedd013be"
-                ],
-                [
-                    "79b9c2c7-22ce-432f-bd18-604fedd013be"
-                ]
-            ],
-            "individuals": [
+            "_generations": [
                 {
                     "data": [
                         "79b9c2c7-22ce-432f-bd18-604fedd013be"
@@ -482,6 +458,30 @@
                     "metadata": {},
                     "_class_path": "golem.core.optimisers.opt_history_objects.generation/Generation"
                 }
+            ],
+            "_objective": {
+                "is_multi_objective": false,
+                "metrics": [
+                    {
+                        "_class_path": "fedot.core.composer.metrics/QualityMetric.get_value"
+                    },
+                    {
+                        "value": "node_number",
+                        "_class_path": "fedot.core.repository.metrics_repository/ComplexityMetricsEnum"
+                    }
+                ],
+                "_class_path": "fedot.core.optimisers.objective.metrics_objective/MetricsObjective"
+            },
+            "archive_history": [
+                [
+                    "79b9c2c7-22ce-432f-bd18-604fedd013be"
+                ],
+                [
+                    "79b9c2c7-22ce-432f-bd18-604fedd013be"
+                ],
+                [
+                    "79b9c2c7-22ce-432f-bd18-604fedd013be"
+                ]
             ],
             "individuals_pool": [
                 {
@@ -871,31 +871,7 @@
     {
         "history_id": "oil",
         "history_json": {
-            "_objective": {
-                "is_multi_objective": false,
-                "metrics": [
-                    {
-                        "_class_path": "fedot.core.composer.metrics/QualityMetric.get_value"
-                    },
-                    {
-                        "value": "node_number",
-                        "_class_path": "fedot.core.repository.quality_metrics_repository/ComplexityMetricsEnum"
-                    }
-                ],
-                "_class_path": "fedot.core.optimisers.objective.metrics_objective/MetricsObjective"
-            },
-            "archive_history": [
-                [
-                    "a45d94bb-f32a-4a38-9937-9432b755c1d3"
-                ],
-                [
-                    "a45d94bb-f32a-4a38-9937-9432b755c1d3"
-                ],
-                [
-                    "a45d94bb-f32a-4a38-9937-9432b755c1d3"
-                ]
-            ],
-            "individuals": [
+            "_generations": [
                 {
                     "data": [
                         "a45d94bb-f32a-4a38-9937-9432b755c1d3"
@@ -929,6 +905,30 @@
                     "metadata": {},
                     "_class_path": "golem.core.optimisers.opt_history_objects.generation/Generation"
                 }
+            ],
+            "_objective": {
+                "is_multi_objective": false,
+                "metrics": [
+                    {
+                        "_class_path": "fedot.core.composer.metrics/QualityMetric.get_value"
+                    },
+                    {
+                        "value": "node_number",
+                        "_class_path": "fedot.core.repository.metrics_repository/ComplexityMetricsEnum"
+                    }
+                ],
+                "_class_path": "fedot.core.optimisers.objective.metrics_objective/MetricsObjective"
+            },
+            "archive_history": [
+                [
+                    "a45d94bb-f32a-4a38-9937-9432b755c1d3"
+                ],
+                [
+                    "a45d94bb-f32a-4a38-9937-9432b755c1d3"
+                ],
+                [
+                    "a45d94bb-f32a-4a38-9937-9432b755c1d3"
+                ]
             ],
             "individuals_pool": [
                 {

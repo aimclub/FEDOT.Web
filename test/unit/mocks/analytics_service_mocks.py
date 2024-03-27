@@ -4,7 +4,7 @@ from uuid import uuid4
 
 import numpy as np
 from golem.core.optimisers.fitness import SingleObjFitness
-from golem.core.utilities.data_structures import UniqueList
+from golem.utilities.data_structures import UniqueList
 from fedot.core.utils import DEFAULT_PARAMS_STUB
 
 

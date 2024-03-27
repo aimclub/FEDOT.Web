@@ -7,6 +7,7 @@ from flask_restx import Namespace, Resource
 from .history_convert_utils import history_to_graph
 from .schema import ComposingHistoryGraphSchema, ComposingStartSchema
 from .service import composer_history_for_case
+from utils import clean_case_id
 from ..pipelines.service import pipeline_by_uid
 from ..showcase.service import create_new_case_async
 from ..showcase.showcase_utils import showcase_item_from_db
@@ -24,7 +25,9 @@ class ComposerHistoryResource(Resource):
     @responds(schema=ComposingHistoryGraphSchema, many=False)
     def get(self, case_id: str) -> Dict[str, Any]:
         """Get history of the composer for the specific dataset"""
-        graph_dict = history_to_graph(composer_history_for_case(case_id))
+        show_full = '_full' in case_id
+        case_id = clean_case_id(case_id)
+        graph_dict = history_to_graph(composer_history_for_case(case_id), show_full)
         return graph_dict
 
 
@@ -43,6 +46,7 @@ class ComposerRestartResource(Resource):
 async def start_async():
     data = request.get_json()
     case_id = data['case_id']
+    case_id = clean_case_id(case_id)
     initial_uid = data['initial_uid']
     gen_index = data.get('gen_index', None)
     original_uid = data.get('original_uid', None)

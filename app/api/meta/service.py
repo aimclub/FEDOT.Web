@@ -2,7 +2,7 @@ from typing import List
 
 from fedot.core.repository.operation_types_repository import \
     OperationTypesRepository
-from fedot.core.repository.quality_metrics_repository import (
+from fedot.core.repository.metrics_repository import (
     ClassificationMetricsEnum, ClusteringMetricsEnum, RegressionMetricsEnum)
 from fedot.core.repository.tasks import TaskTypesEnum
 

@@ -27,3 +27,8 @@ def threading_lock(function):
      if callable(getattr(function, method)) and not method.startswith("__")]
 
     return wrapper
+
+
+def clean_case_id(case_id: str):
+    case_id = case_id.replace('_full', '')
+    return case_id

@@ -1,9 +1,7 @@
 import datetime
 import itertools
 import json
-import multiprocessing
 import sys
-from functools import lru_cache
 from os import PathLike
 from pathlib import Path
 from typing import Optional
@@ -11,22 +9,21 @@ from typing import Optional
 from bson import json_util
 from fedot.api.main import Fedot
 from fedot.core.pipelines.adapters import PipelineAdapter
-from golem.core.optimisers.opt_history_objects.opt_history import OptHistory
 from fedot.core.pipelines.pipeline import Pipeline
 from fedot.core.pipelines.template import PipelineTemplate
 from fedot.core.repository.tasks import TsForecastingParams
 from flask import current_app
+from golem.core.optimisers.opt_history_objects.opt_history import OptHistory
 
 from app.api.data.service import get_input_data
 from app.api.pipelines.service import create_pipeline, is_pipeline_exists
 from app.api.showcase.showcase_utils import showcase_item_from_db
 from app.singletons.db_service import DBServiceSingleton
-from utils import project_root, threading_lock
+from utils import project_root, clean_case_id
 
 
-# @threading_lock
-# @lru_cache(maxsize=128) #CHEC
 def composer_history_for_case(case_id: str, validate_history: bool = False) -> OptHistory:
+    case_id = clean_case_id(case_id)
     case = showcase_item_from_db(case_id)
     if case is None:
         raise ValueError(f'Showcase item for case_id={case_id} is None but should exist')
