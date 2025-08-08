@@ -1,0 +1,28 @@
+name: fedot
+
+services:
+
+  front:
+    build: frontend/.
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      REACT_APP_BASE_URL: http://0.0.0.0:3000      
+    stdin_open: true
+    tty: true
+    command: npm start
+
+  mongo:
+    image: mongo:8
+    restart: always 
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: fedot
+      MONGO_INITDB_ROOT_PASSWORD: netot
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:        
