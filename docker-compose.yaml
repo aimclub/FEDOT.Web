@@ -9,9 +9,7 @@ services:
     environment:
       NODE_ENV: development
       REACT_APP_BASE_URL: http://0.0.0.0:3000      
-    stdin_open: true
-    tty: true
-    command: npm start
+
 
   mongo:
     image: mongo:8
