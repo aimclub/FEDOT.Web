@@ -1,0 +1,12 @@
+
+scripts
+.dockerignore
+.git
+.github
+.gitignore
+.env
+
+npm-debug.log
+
+Dockerfile
+.dockerignore

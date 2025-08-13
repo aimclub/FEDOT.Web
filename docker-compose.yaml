@@ -2,18 +2,23 @@ name: fedot
 
 services:
 
-  front:
-    build: frontend/.
+  app:
+    build:
+      context: .
+      args:
+        - REACT_APP_BASE_URL=http://0.0.0.0:5000   
     ports:
-      - "3000:3000"
+      - 5000:5000
     environment:
-      NODE_ENV: development
-      REACT_APP_BASE_URL: http://0.0.0.0:3000      
-
+      FLASK_HOST: 0.0.0.0
+      FLASK_PORT: 5000
+      REACT_APP_BASE_URL: http://0.0.0.0:5000 
+      MONGO_CONN_STRING: mongodb://fedot:netot@mongo:27017/admin?compressors=zlib
+      
 
   mongo:
     image: mongo:8
-    restart: always 
+    restart: always
     ports:
       - 27017:27017
     environment:
@@ -23,4 +28,4 @@ services:
       - mongo-data:/data/db
 
 volumes:
-  mongo-data:        
+  mongo-data:
