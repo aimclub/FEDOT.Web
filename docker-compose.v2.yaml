@@ -1,0 +1,17 @@
+services:
+  fedot-web:
+    build:
+      context: .
+      dockerfile: Dockerfile.v2
+    ports:
+      - "8000:8000"
+    volumes:
+      # Datasets, saved pipelines and run artefacts survive a rebuild.
+      - fedot-web-data:/data
+    environment:
+      FEDOTWEB_MAX_CONCURRENT_RUNS: "2"
+      FEDOTWEB_MAX_RUN_TIMEOUT_MINUTES: "240"
+    restart: unless-stopped
+
+volumes:
+  fedot-web-data:

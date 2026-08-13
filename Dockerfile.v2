@@ -1,0 +1,44 @@
+# Build the frontend, then serve it from the API container.
+FROM node:22-slim AS ui
+
+WORKDIR /ui
+COPY ui/package*.json ./
+RUN npm ci --no-audit --no-fund
+
+COPY ui/ ./
+RUN npm run build
+
+
+FROM python:3.10-slim
+
+# FEDOT pulls in scientific wheels that need a toolchain for the few sdists.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends build-essential libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY backend/pyproject.toml backend/pyproject.toml
+COPY backend/fedotweb backend/fedotweb
+
+# The published 0.7.5 wheel pins an incompatible GOLEM and kills a run on the
+# first badly-scoring pipeline; master has the fix.
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install "fedot @ git+https://github.com/aimclub/FEDOT.git@master" \
+    && pip install ./backend
+
+COPY --from=ui /ui/dist /app/ui/dist
+
+ENV FEDOTWEB_HOST=0.0.0.0 \
+    FEDOTWEB_PORT=8000 \
+    FEDOTWEB_WORKSPACE=/data \
+    FEDOTWEB_STATIC_DIR=/app/ui/dist \
+    PYTHONUNBUFFERED=1
+
+VOLUME ["/data"]
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=40s \
+    CMD python -c "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/api/health')"
+
+CMD ["python", "-m", "fedotweb"]
