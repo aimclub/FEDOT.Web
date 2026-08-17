@@ -43,19 +43,26 @@ export interface VisibleParam {
  *
  * Values the user (or evolution) changed away from the default come first —
  * those are what make one node differ from another in a composed pipeline.
+ * A node with nothing set still runs with FEDOT's defaults (from
+ * `default_operation_params.json`), so those are shown rather than a bare
+ * "default hyperparameters" label that says nothing.
  */
 export function selectVisibleParams(node: Pick<GraphNode, 'params' | 'defaults'>): {
   visible: VisibleParam[]
   hidden: number
   total: number
+  /** True when the rows shown are FEDOT's defaults, not values set on the node. */
+  fromDefaults: boolean
 } {
   const defaults = node.defaults ?? {}
-  const entries = Object.entries(node.params ?? {})
+  const params = node.params ?? {}
+  const hasOwn = Object.keys(params).length > 0
+  const source = hasOwn ? params : defaults
 
-  const annotated: VisibleParam[] = entries.map(([name, value]) => ({
+  const annotated: VisibleParam[] = Object.entries(source).map(([name, value]) => ({
     name,
     value,
-    changed: isChanged(name, value, defaults),
+    changed: hasOwn ? isChanged(name, value, defaults) : false,
   }))
 
   annotated.sort((a, b) => {
@@ -67,6 +74,7 @@ export function selectVisibleParams(node: Pick<GraphNode, 'params' | 'defaults'>
     visible: annotated.slice(0, MAX_VISIBLE_PARAMS),
     hidden: Math.max(0, annotated.length - MAX_VISIBLE_PARAMS),
     total: annotated.length,
+    fromDefaults: !hasOwn && annotated.length > 0,
   }
 }
 

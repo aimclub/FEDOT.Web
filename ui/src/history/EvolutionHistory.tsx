@@ -256,7 +256,7 @@ export default function EvolutionHistory({
                 {pipeline && (
                   <Typography variant="caption" color="text.secondary">
                     generation {pipeline.generation} · fitness{' '}
-                    {pipeline.fitness === null ? '—' : Number(pipeline.fitness.toFixed(5))}
+                    {pipeline.fitness === null ? '—' : Number(pipeline.fitness.toFixed(4))}
                   </Typography>
                 )}
               </Box>

@@ -7,10 +7,17 @@ export const INDIVIDUAL_HEIGHT = 54
 export const OPERATOR_SIZE = 34
 
 /** Vertical distance between one generation's row and the next. */
-const LAYER_GAP = 96
+const LAYER_GAP = 110
 
 /** Horizontal distance between neighbours in the same row. */
-const COLUMN_GAP = 26
+const COLUMN_GAP = 32
+
+/**
+ * Width of the label column to the left of the rows. Labels used to sit inside
+ * the lane band, where a row wide enough to reach the left edge ran straight
+ * under them; giving them their own gutter means nodes can never overlap text.
+ */
+export const LANE_LABEL_GUTTER = 176
 
 /** Sweeps of the barycentre heuristic used to reduce edge crossings. */
 const ORDERING_PASSES = 6

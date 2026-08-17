@@ -37,6 +37,10 @@ export interface OperatorNodeData extends Record<string, unknown> {
   operatorType: string
   label: string
   onWinningPath: boolean
+  /** Operation lists of the pipelines this operator consumed. */
+  parentOps: string[][]
+  /** Operation list of the pipeline it produced, when known. */
+  childOps: string[] | null
 }
 
 export type IndividualFlowNode = Node<IndividualNodeData, 'lineageIndividual'>
@@ -44,7 +48,7 @@ export type OperatorFlowNode = Node<OperatorNodeData, 'lineageOperator'>
 
 const formatFitness = (value: number | null): string => {
   if (value === null || value === undefined) return 'not evaluated'
-  return Number(value.toFixed(5)).toString()
+  return Number(value.toFixed(4)).toString()
 }
 
 /**
@@ -132,13 +136,73 @@ export function LineageIndividualNode({ data }: NodeProps<IndividualFlowNode>) {
   )
 }
 
+/** Multiset difference: items of `left` not covered by `right`. */
+const missingFrom = (left: string[], right: string[]): string[] => {
+  const counts = new Map<string, number>()
+  for (const item of right) counts.set(item, (counts.get(item) ?? 0) + 1)
+  const result: string[] = []
+  for (const item of left) {
+    const available = counts.get(item) ?? 0
+    if (available > 0) counts.set(item, available - 1)
+    else result.push(item)
+  }
+  return result
+}
+
+/** What one application of the operator actually did, for the hover card. */
+function describeChange(data: OperatorNodeData): { text: string; dim?: boolean }[] {
+  const child = data.childOps
+  const lines: { text: string; dim?: boolean }[] = []
+
+  for (const parent of data.parentOps) {
+    lines.push({ text: `from: ${parent.join(' → ') || '—'}` })
+  }
+  if (data.parentOps.length === 0) {
+    lines.push({ text: 'applied to the previous operator’s result', dim: true })
+  }
+  if (child) {
+    lines.push({ text: `to:   ${child.join(' → ')}` })
+  }
+
+  // A structural diff is only unambiguous with a single parent; a crossover
+  // recombines, so its parents and child are simply listed side by side.
+  if (child && data.parentOps.length === 1) {
+    const added = missingFrom(child, data.parentOps[0])
+    const removed = missingFrom(data.parentOps[0], child)
+    if (added.length || removed.length) {
+      lines.push({
+        text: [...added.map((op) => `+ ${op}`), ...removed.map((op) => `− ${op}`)].join('   '),
+      })
+    } else {
+      lines.push({ text: 'same structure — hyperparameters changed', dim: true })
+    }
+  }
+  return lines
+}
+
 /** A mutation or crossover, drawn as the junction it is. */
 export function LineageOperatorNode({ data }: NodeProps<OperatorFlowNode>) {
   const color = operatorColor(data.operatorType)
   const initial = (data.operatorType?.[0] ?? '?').toUpperCase()
+  const change = describeChange(data)
 
   return (
-    <Tooltip title={`${data.operatorType}: ${data.label}`} placement="right">
+    <Tooltip
+      placement="right"
+      title={
+        <Box sx={{ fontFamily: '"JetBrains Mono", monospace', fontSize: '0.72rem' }}>
+          <Box sx={{ fontWeight: 700, fontFamily: 'inherit' }}>
+            {data.operatorType}
+            {data.label && data.label !== data.operatorType ? ` — ${data.label}` : ''}
+          </Box>
+          {change.map((line, index) => (
+            <Box key={index} sx={{ opacity: line.dim ? 0.65 : 1, whiteSpace: 'pre-wrap' }}>
+              {line.text}
+            </Box>
+          ))}
+        </Box>
+      }
+    >
       <Box
         sx={{
           width: '100%',

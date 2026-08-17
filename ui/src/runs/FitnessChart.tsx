@@ -89,8 +89,11 @@ export default function FitnessChart({ generations, height = 260 }: Props) {
             }}
             labelFormatter={(label) => `Generation ${label}`}
             formatter={(value: unknown, key: string) => {
-              if (Array.isArray(value)) return [`${value[0]} … ${value[1]}`, 'population range']
-              return [typeof value === 'number' ? Number(value.toFixed(5)) : String(value), key]
+              if (Array.isArray(value)) {
+                const [low, high] = value as [number, number]
+                return [`${Number(low.toFixed(4))} … ${Number(high.toFixed(4))}`, 'population range']
+              }
+              return [typeof value === 'number' ? Number(value.toFixed(4)) : String(value), key]
             }}
           />
           <Area

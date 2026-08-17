@@ -86,7 +86,11 @@ export default function EditorPage() {
   }, [stored, setGraph, setTask])
 
   useEffect(() => {
-    if (!uid) reset()
+    // "Open in editor" sets the store first and navigates here after, so a
+    // blind reset on mount would wipe exactly what was handed over — and a
+    // route change must not destroy unsaved work either. Only a clean store
+    // is cleared.
+    if (!uid && !useEditorStore.getState().dirty) reset()
   }, [uid, reset])
 
   const selectedNode = useMemo(

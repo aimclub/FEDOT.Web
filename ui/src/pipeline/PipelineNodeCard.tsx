@@ -26,6 +26,8 @@ export interface PipelineNodeData extends Record<string, unknown> {
   isRoot: boolean
   /** Rows displayed on the card; precomputed so layout can size the node. */
   visibleParams: { name: string; value: unknown; changed: boolean }[]
+  /** The rows are FEDOT's defaults because nothing is set on the node itself. */
+  paramsFromDefaults: boolean
   paramCount: number
   hiddenParamCount: number
   problem?: string | null
@@ -133,6 +135,19 @@ export default function PipelineNodeCard({ data, selected }: NodeProps<PipelineF
 
         {data.visibleParams.length > 0 && (
           <Stack sx={{ mt: 0.7, gap: 0.15 }}>
+            {data.paramsFromDefaults && (
+              <Tooltip
+                title={`FEDOT applies these when the node is created (default_operation_params.json): ${data.visibleParams
+                  .map((param) => `${param.name} = ${formatParamValue(param.value)}`)
+                  .join(', ')}`}
+              >
+                <Typography
+                  sx={{ fontSize: '0.6rem', color: 'text.disabled', fontStyle: 'italic' }}
+                >
+                  FEDOT defaults
+                </Typography>
+              </Tooltip>
+            )}
             {data.visibleParams.map((param) => (
               <Stack key={param.name} direction="row" spacing={0.5} sx={{ minWidth: 0 }}>
                 <Typography
@@ -154,7 +169,11 @@ export default function PipelineNodeCard({ data, selected }: NodeProps<PipelineF
                     textAlign: 'right',
                     fontFamily: '"JetBrains Mono", monospace',
                     fontWeight: param.changed ? 700 : 400,
-                    color: param.changed ? accent : 'text.primary',
+                    color: param.changed
+                      ? accent
+                      : data.paramsFromDefaults
+                        ? 'text.secondary'
+                        : 'text.primary',
                   }}
                 >
                   {formatParamValue(param.value)}
@@ -171,7 +190,7 @@ export default function PipelineNodeCard({ data, selected }: NodeProps<PipelineF
 
         {data.visibleParams.length === 0 && (
           <Typography sx={{ mt: 0.6, fontSize: '0.68rem', color: 'text.disabled' }}>
-            default hyperparameters
+            no hyperparameters
           </Typography>
         )}
       </Box>

@@ -51,7 +51,7 @@ function Canvas({
 
   const flowNodes = useMemo<PipelineFlowNode[]>(() => {
     const nodes = graph.nodes.map((node) => {
-      const { visible, hidden, total } = selectVisibleParams(node)
+      const { visible, hidden, total, fromDefaults } = selectVisibleParams(node)
       return {
         id: node.id,
         type: 'pipelineNode' as const,
@@ -68,7 +68,9 @@ function Canvas({
           isPrimary: node.is_primary,
           isRoot: node.is_root,
           visibleParams: visible,
-          paramCount: total,
+          paramsFromDefaults: fromDefaults,
+          // The caption row above default values needs its own line of height.
+          paramCount: total + (fromDefaults ? 1 : 0),
           hiddenParamCount: hidden,
           problem: problems?.[node.id] ?? null,
           readOnly,

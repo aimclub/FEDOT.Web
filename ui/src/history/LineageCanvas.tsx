@@ -21,7 +21,7 @@ import {
   LineageOperatorNode,
   operatorColor,
 } from './LineageNodes'
-import { layoutLineage } from './lineageLayout'
+import { LANE_LABEL_GUTTER, layoutLineage } from './lineageLayout'
 
 const nodeTypes = {
   lineageIndividual: LineageIndividualNode,
@@ -37,6 +37,30 @@ function GenerationLane({
 }) {
   const theme = useTheme()
 
+  // The label occupies a dedicated gutter to the left of the band, right-aligned
+  // against the row it names, so cards and edges can never run underneath it.
+  const label = (
+    <Box
+      sx={{
+        width: LANE_LABEL_GUTTER - 14,
+        flexShrink: 0,
+        textAlign: 'right',
+        pr: 1.5,
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: '0.65rem',
+          color: 'text.disabled',
+          fontWeight: data.isEvolutionary && !data.isEmpty ? 700 : 500,
+          fontStyle: data.isEvolutionary && !data.isEmpty ? 'normal' : 'italic',
+        }}
+      >
+        {data.label}
+      </Typography>
+    </Box>
+  )
+
   if (data.isEmpty) {
     // Nothing shown from this generation. Drawing the row anyway keeps the
     // numbering continuous, so the absence reads as information rather than as a
@@ -49,13 +73,10 @@ function GenerationLane({
           display: 'flex',
           alignItems: 'center',
           gap: 1,
-          pl: 1,
           pointerEvents: 'none',
         }}
       >
-        <Typography sx={{ fontSize: '0.62rem', color: 'text.disabled', fontWeight: 700 }}>
-          {data.label}
-        </Typography>
+        {label}
         <Box sx={{ flexGrow: 1, borderTop: '1px dashed', borderColor: 'divider' }} />
         <Typography sx={{ fontSize: '0.6rem', color: 'text.disabled', pr: 1, fontStyle: 'italic' }}>
           {data.emptyReason}
@@ -69,28 +90,25 @@ function GenerationLane({
       sx={{
         width: '100%',
         height: '100%',
-        borderRadius: 1,
-        // The seed populations and the final choice are not rounds of evolution,
-        // so their bands are dimmer than the generations that did the work.
-        bgcolor: alpha(theme.palette.text.primary, data.isEvolutionary ? 0.045 : 0.02),
-        border: '1px dashed',
-        borderColor: theme.palette.divider,
         display: 'flex',
         alignItems: 'center',
-        pl: 1,
         pointerEvents: 'none',
       }}
     >
-      <Typography
+      {label}
+      <Box
         sx={{
-          fontSize: '0.65rem',
-          color: 'text.disabled',
-          fontWeight: data.isEvolutionary ? 700 : 500,
-          fontStyle: data.isEvolutionary ? 'normal' : 'italic',
+          flexGrow: 1,
+          height: '100%',
+          borderRadius: 1,
+          // The seed populations and the final choice are not rounds of
+          // evolution, so their bands are dimmer than the generations that did
+          // the work.
+          bgcolor: alpha(theme.palette.text.primary, data.isEvolutionary ? 0.045 : 0.02),
+          border: '1px dashed',
+          borderColor: theme.palette.divider,
         }}
-      >
-        {data.label}
-      </Typography>
+      />
     </Box>
   )
 }
@@ -137,14 +155,56 @@ function Canvas({ graph, selectedUid, onSelectIndividual }: Props) {
     return 1 - (fitness - min) / (max - min)
   }
 
+  // What each operator actually did: the pipelines it consumed and the one it
+  // produced, so the hover card can show the change rather than just a name.
+  const operatorContext = useMemo(() => {
+    const byId = new Map(graph.nodes.map((node) => [node.id, node]))
+    const context = new Map<string, { parentOps: string[][]; childOps: string[] | null }>()
+
+    for (const node of graph.nodes) {
+      if (node.kind !== 'operator') continue
+
+      const parentOps = graph.edges
+        .filter((edge) => edge.target === node.id)
+        .map((edge) => byId.get(edge.source))
+        .filter((parent) => parent?.kind === 'individual')
+        .map((parent) => parent!.operations)
+
+      // Chained operators (crossover then mutation) hand off through `chain`
+      // edges; the produced individual hangs off the last link.
+      let cursor = node.id
+      let childOps: string[] | null = null
+      const seen = new Set<string>()
+      while (!seen.has(cursor)) {
+        seen.add(cursor)
+        const onward = graph.edges.find(
+          (edge) => edge.source === cursor && (edge.kind === 'produces' || edge.kind === 'chain'),
+        )
+        if (!onward) break
+        const target = byId.get(onward.target)
+        if (!target) break
+        if (target.kind === 'individual') {
+          childOps = target.operations
+          break
+        }
+        cursor = target.id
+      }
+
+      context.set(node.id, { parentOps, childOps })
+    }
+    return context
+  }, [graph])
+
   const flowNodes = useMemo<Node[]>(() => {
     const lanes: Node[] = layout.lanes.map((lane) => {
       const info = graph.generation_meta.find((entry) => entry.index === lane.generation)
       return {
         id: `lane:${lane.generation}`,
         type: 'generationLane',
-        position: { x: -LANE_PADDING, y: lane.y },
-        width: layout.width + LANE_PADDING * 2,
+        // The label lives in its own gutter left of the rows, so no card can
+        // ever sit on top of it.
+        position: { x: -LANE_PADDING - LANE_LABEL_GUTTER, y: lane.y },
+        width: layout.width + LANE_PADDING * 2 + LANE_LABEL_GUTTER,
         height: lane.height,
         data: {
           label: info?.label ?? `gen ${lane.generation}`,
@@ -196,12 +256,14 @@ function Canvas({ graph, selectedUid, onSelectIndividual }: Props) {
               operatorType: node.operator_type ?? 'operator',
               label: node.label ?? '',
               onWinningPath: node.on_winning_path,
+              parentOps: operatorContext.get(node.id)?.parentOps ?? [],
+              childOps: operatorContext.get(node.id)?.childOps ?? null,
             },
           },
     )
 
     return [...lanes, ...elements]
-  }, [layout, selectedUid, fitnessRange, graph.generation_meta, graph.only_winning_path])
+  }, [layout, selectedUid, fitnessRange, graph.generation_meta, graph.only_winning_path, operatorContext])
 
   const flowEdges = useMemo<Edge[]>(
     () =>
@@ -214,8 +276,11 @@ function Canvas({ graph, selectedUid, onSelectIndividual }: Props) {
           id: edge.id,
           source: edge.source,
           target: edge.target,
-          type: 'smoothstep',
-          zIndex: 1,
+          // Bezier rather than smoothstep: orthogonal edges from neighbouring
+          // sources produce coincident vertical segments that read as one line;
+          // curves separate naturally.
+          type: 'default',
+          zIndex: 0,
           style: {
             stroke,
             strokeWidth: survival ? 1.1 : 1.6,
