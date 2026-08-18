@@ -449,4 +449,6 @@ export interface Capabilities {
   presets: PresetInfo[]
   max_run_timeout_minutes: number
   max_concurrent_runs: number
+  /** True when the optional EPDE equation-discovery module is mounted. */
+  epde_module: boolean
 }

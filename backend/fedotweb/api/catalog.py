@@ -64,6 +64,8 @@ def capabilities(
     except Exception:
         golem_version = None
 
+    from ..epde_module import is_mounted
+
     return CapabilitiesResponse(
         fedot_version=getattr(fedot, "__version__", "unknown"),
         golem_version=golem_version,
@@ -72,6 +74,7 @@ def capabilities(
         presets=PRESETS,
         max_run_timeout_minutes=settings.max_run_timeout_minutes,
         max_concurrent_runs=settings.max_concurrent_runs,
+        epde_module=is_mounted(),
     )
 
 

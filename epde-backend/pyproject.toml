@@ -1,0 +1,57 @@
+[project]
+name = "epde-web-backend"
+version = "0.1.0"
+description = "Web GUI for the EPDE data-driven partial differential equation discovery framework"
+# Same floor as the FEDOT.Web backend: pydantic evaluates the PEP 604
+# annotations in `schemas.py` at runtime.
+requires-python = ">=3.10"
+license = { text = "BSD-3-Clause" }
+
+# EPDE itself is deliberately *not* a dependency. The server, its storage and
+# its API run without it; only the run worker imports epde, and the API reports
+# `available: false` until it is installed. That keeps a FEDOT.Web instance that
+# never opens the EPDE screens free of torch, sklearn and the rest of the
+# discovery stack.
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "pydantic>=2.9.0",
+    "pydantic-settings>=2.6.0",
+    "python-multipart>=0.0.12",
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+epde = ["epde>=1.2.17"]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "httpx>=0.27.0",
+    "ruff>=0.7.0",
+]
+
+[project.scripts]
+epde-web = "epdeweb.__main__:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["epdeweb*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B008"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning"]
+# The end-to-end tests run a real search and take minutes; everything else is
+# fast enough to run on every save. Deselect them with -m "not slow".
+markers = ["slow: runs a real EPDE search"]

@@ -9,10 +9,11 @@ GOLEM 0.4.2**, starts without any external database, and can drive the framework
 than only display pre-baked results.
 
 ```
-backend/    FastAPI service (fedotweb package)
-ui/         Vite + React 19 + TypeScript frontend
-app/        legacy Flask backend  (unchanged)
-frontend/   legacy CRA frontend   (unchanged)
+backend/      FastAPI service (fedotweb package)
+epde-backend/ optional equation-discovery module (epdeweb package)
+ui/           Vite + React 19 + TypeScript frontend
+app/          legacy Flask backend  (unchanged)
+frontend/     legacy CRA frontend   (unchanged)
 ```
 
 ## Quick start
@@ -64,6 +65,43 @@ that differ from the default are marked, and can be reset individually.
 
 Nested search spaces — `glm`, where `family` and `link` are chosen together — are decoded
 into variant selectors rather than shown as opaque text.
+
+### Discovering differential equations
+
+A second mode drives [EPDE](https://github.com/ITMO-NSS-team/EPDE), which searches for
+the differential equation a field obeys instead of the pipeline that predicts it. It is a
+separate distribution with its own dependencies, its own workspace and its own database —
+FEDOT.Web mounts it at `/api/epde` when it is installed and does not depend on it, so an
+installation that only wants AutoML never pulls in torch. The navigation entry appears
+only when the server reports the module as present.
+
+```bash
+pip install -e epde-backend
+pip install epde        # or from source, see epde-backend/README.md
+```
+
+The screens mirror the AutoML ones — upload data, configure a search, watch it live,
+read the genealogy — but two things underneath are genuinely different, and
+`epde-backend/README.md` is where they are explained:
+
+* **EPDE does not use GOLEM.** Everything the history view gets for free from GOLEM —
+  an individual with a uid, its parents, the operator that produced it, a
+  per-generation callback, a saved `OptHistory` — has no counterpart in EPDE, whose
+  optimisers pass bare systems around and keep only the current population. The
+  adapters in `epdeweb/adapters/` supply each of those: identity survives the
+  `deepcopy` EPDE breeds with, the per-generation hook is recovered by counting
+  MOEA/D sector runs against its weight vectors, and the module writes its own
+  history file because there is none to load.
+* **There is no single best.** EPDE minimises a vector — the discrepancy of each
+  equation against its complexity, or against the stability of its coefficients — so
+  every place the AutoML history takes a minimum, this takes a Pareto front. The
+  genealogy draws the ancestry of the whole final front, because the interesting
+  candidate is often the one slightly worse and much simpler.
+
+The result screen shows the equation typeset (`∂²u/∂x² = −9.849·u`), the trade-off
+front, and a per-term ablation: how much of the left-hand side would be left
+unexplained with each term removed. That last one needs no refit — an equation is
+linear in its coefficients — which is why it is exact rather than sampled.
 
 ### The evolution history as a graph — live
 
@@ -292,6 +330,12 @@ file.
 pytest backend/tests
 ```
 
+The optional EPDE module has its own suite, which runs without EPDE installed:
+
+```bash
+pytest epde-backend/tests -m "not slow"
+```
+
 `test_catalog.py` and `test_convert.py` are fast unit tests. `test_run_flow.py` is an
 end-to-end test that uploads a dataset and runs a real (short) composition; it takes
 about a minute.
@@ -320,6 +364,7 @@ cd ui && npm run typecheck && npm run build
 | Preprocessing | invisible | per-column source and final types, and every decision behind a change |
 | Sensitivity | not exposed | GOLEM's structural analysis on demand, per node and edge |
 | FEDOT | pinned to 0.7.3.1 | master, current node API |
+| Equation discovery | not supported | optional EPDE module, with its own adapters in place of GOLEM |
 
 ### Notes on the port
 

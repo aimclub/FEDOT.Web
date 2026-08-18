@@ -10,6 +10,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { alpha, useTheme } from '@mui/material/styles'
 import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
+import FunctionsRoundedIcon from '@mui/icons-material/FunctionsRounded'
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded'
@@ -25,6 +26,15 @@ const NAV = [
   { to: '/editor', label: 'Pipeline editor', icon: <SchemaRoundedIcon fontSize="small" /> },
   { to: '/pipelines', label: 'Saved pipelines', icon: <AccountTreeRoundedIcon fontSize="small" /> },
   { to: '/datasets', label: 'Datasets', icon: <StorageRoundedIcon fontSize="small" /> },
+]
+
+/**
+ * Shown only when the server reports the optional EPDE module as mounted.
+ * Offering the screens otherwise would mean every request from them 404s, which
+ * looks like a broken application rather than an absent module.
+ */
+const EPDE_NAV = [
+  { to: '/epde/runs', label: 'Equations', icon: <FunctionsRoundedIcon fontSize="small" /> },
 ]
 
 export default function AppShell() {
@@ -55,7 +65,7 @@ export default function AppShell() {
           </Typography>
 
           <Stack direction="row" spacing={0.5}>
-            {NAV.map((item) => (
+            {[...NAV, ...(capabilities?.epde_module ? EPDE_NAV : [])].map((item) => (
               <Box
                 key={item.to}
                 component={NavLink}
@@ -88,12 +98,19 @@ export default function AppShell() {
 
           {capabilities && (
             <Stack direction="row" spacing={0.75} alignItems="center">
-              <Tooltip title="Version of the FEDOT framework this server drives">
-                <Chip size="small" variant="outlined" label={`FEDOT ${capabilities.fedot_version}`} />
-              </Tooltip>
+              {capabilities.fedot_version && (
+                <Tooltip title="Version of the FEDOT framework this server drives">
+                  <Chip size="small" variant="outlined" label={`FEDOT ${capabilities.fedot_version}`} />
+                </Tooltip>
+              )}
               {capabilities.golem_version && (
                 <Tooltip title="Version of the GOLEM optimiser used for evolution">
                   <Chip size="small" variant="outlined" label={`GOLEM ${capabilities.golem_version}`} />
+                </Tooltip>
+              )}
+              {capabilities.epde_module && (
+                <Tooltip title="The equation-discovery module is mounted. EPDE does not use GOLEM; it runs its own evolutionary search.">
+                  <Chip size="small" variant="outlined" color="secondary" label="EPDE" />
                 </Tooltip>
               )}
             </Stack>

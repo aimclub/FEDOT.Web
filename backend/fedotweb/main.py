@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
+from . import epde_module
 from .api import analysis, catalog, datasets, pipelines, runs
 from .api.deps import build_state
 from .settings import get_settings
@@ -26,6 +27,11 @@ and the [GOLEM](https://github.com/aimclub/GOLEM) optimiser.
 * **Pipelines** — build, validate, store and export pipelines.
 * **Datasets** — upload a CSV and choose a target column.
 * **Runs** — launch a composition, follow the evolution live, stop it, inspect the result.
+
+When the optional [EPDE](https://github.com/ITMO-NSS-team/EPDE) module is installed, a second
+mode is served under `/api/epde`: discovery of differential equations from field data, with
+its own datasets, runs and evolution history. `GET /api/capabilities` reports whether it is
+present.
 """
 
 
@@ -60,6 +66,10 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     finally:
         await app.state.container.manager.shutdown()
         await app.state.container.analyses.shutdown()
+        # The EPDE module runs worker processes of its own; a custom lifespan
+        # makes Starlette skip the shutdown events a mounted module could
+        # otherwise register for itself.
+        await epde_module.shutdown()
 
 
 def create_app() -> FastAPI:
@@ -86,6 +96,12 @@ def create_app() -> FastAPI:
     app.include_router(datasets.router, prefix=api_prefix)
     app.include_router(runs.router, prefix=api_prefix)
     app.include_router(analysis.router, prefix=api_prefix)
+
+    # The equation-discovery mode, when its package is installed. It is a
+    # separate distribution with separate dependencies and a separate workspace;
+    # see fedotweb/epde_module.py. Mounted before the SPA fallback, which
+    # swallows every unclaimed path.
+    epde_module.mount(app)
 
     @app.get("/api/health", tags=["meta"])
     def health() -> JSONResponse:

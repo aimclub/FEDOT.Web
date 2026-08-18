@@ -493,3 +493,7 @@ class CapabilitiesResponse(BaseModel):
     presets: list[PresetInfo] = Field(default_factory=list)
     max_run_timeout_minutes: float = 240.0
     max_concurrent_runs: int = 2
+    #: True when the optional EPDE module is installed and its routes are
+    #: mounted at ``/api/epde``. The frontend hides the whole mode when it is
+    #: not, rather than offering screens whose every request would 404.
+    epde_module: bool = False
