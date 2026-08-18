@@ -21,10 +21,12 @@ import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded'
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 import NoteAddRoundedIcon from '@mui/icons-material/NoteAddRounded'
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded'
+import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded'
 import SwapHorizRoundedIcon from '@mui/icons-material/SwapHorizRounded'
 import SwapVertRoundedIcon from '@mui/icons-material/SwapVertRounded'
 import UploadFileRoundedIcon from '@mui/icons-material/UploadFileRounded'
 
+import SensitivityPanel from '../analysis/SensitivityPanel'
 import { api } from '../api/client'
 import type { OperationSummary } from '../api/types'
 import NodeInspector from '../pipeline/NodeInspector'
@@ -46,6 +48,7 @@ export default function EditorPage() {
   const fileInput = useRef<HTMLInputElement>(null)
 
   const [direction, setDirection] = useState<LayoutDirection>('LR')
+  const [sensitivityOpen, setSensitivityOpen] = useState(false)
   const [toast, setToast] = useState<{ message: string; severity: 'success' | 'error' | 'info' } | null>(
     null,
   )
@@ -258,6 +261,19 @@ export default function EditorPage() {
             </IconButton>
           </Tooltip>
 
+          <Tooltip title="Fit this pipeline on a dataset and measure how much the score rests on each node and edge">
+            <span>
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<ScienceRoundedIcon fontSize="small" />}
+                onClick={() => setSensitivityOpen(true)}
+                disabled={graph.nodes.length === 0}
+              >
+                Sensitivity
+              </Button>
+            </span>
+          </Tooltip>
           <Button
             size="small"
             variant="outlined"
@@ -334,6 +350,12 @@ export default function EditorPage() {
           </Stack>
         )}
       </Paper>
+
+      <SensitivityPanel
+        standalone={{ graph, task }}
+        open={sensitivityOpen}
+        onClose={() => setSensitivityOpen(false)}
+      />
 
       <Snackbar
         open={Boolean(toast)}

@@ -9,7 +9,7 @@ implementations that drift apart.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Any
 
 #: Selection is bookkeeping rather than a transformation, so it is not drawn.
@@ -284,6 +284,41 @@ class LineageBuilder:
                     self._add_edge(previous_node_id, child_node_id, "produces")
 
 
+def _without_plateau_tail(
+    generations: list[LineageGeneration],
+) -> tuple[list[LineageGeneration], int]:
+    """Drop the evolutionary generations after the best fitness last improved.
+
+    In the winning-path view those generations only repeat the same leader as a
+    chain of survival edges, which reads as content while saying nothing. The
+    bookkeeping generations (seeds and the final choice) always stay, and the
+    kept generations are re-indexed to stay contiguous because the layout draws
+    a placeholder row for every missing generation number.
+    """
+    best: float | None = None
+    last_improvement: int | None = None
+    for generation in generations:
+        values = [ind.fitness for ind in generation.individuals if ind.fitness is not None]
+        if not values:
+            continue
+        generation_best = min(values)
+        if best is None or generation_best < best:
+            best = generation_best
+            if generation.raw_label not in GENERATION_LABELS:
+                last_improvement = generation.index
+
+    kept = [
+        generation
+        for generation in generations
+        if generation.raw_label in GENERATION_LABELS
+        or (last_improvement is not None and generation.index <= last_improvement)
+    ]
+    hidden = len(generations) - len(kept)
+    if hidden == 0:
+        return generations, 0
+    return [replace(generation, index=index) for index, generation in enumerate(kept)], hidden
+
+
 def build_lineage(
     generations: list[LineageGeneration],
     *,
@@ -292,6 +327,11 @@ def build_lineage(
     max_individuals: int = DEFAULT_MAX_INDIVIDUALS,
 ) -> dict[str, Any]:
     """Build the genealogy graph from normalised generations."""
-    return LineageBuilder(
+    hidden_plateau = 0
+    if only_winning_path:
+        generations, hidden_plateau = _without_plateau_tail(generations)
+    payload = LineageBuilder(
         generations, final_uids=final_uids, max_individuals=max_individuals
     ).build(only_winning_path=only_winning_path)
+    payload["hidden_plateau_generations"] = hidden_plateau
+    return payload

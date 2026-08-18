@@ -9,7 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from ..analysis import AnalysisError, AnalysisManager
 from ..history import individual_pipeline, live_individual_pipeline
 from ..runs.manager import RunManager
-from ..schemas import AnalysisRecord, StartAnalysisRequest
+from ..schemas import AnalysisRecord, StandaloneAnalysisRequest, StartAnalysisRequest
 from ..storage.sqlite import Store
 from .deps import get_analysis_manager, get_manager, get_store
 
@@ -102,6 +102,51 @@ async def start_analysis(
             spec=spec,
             pipeline_uid=pipeline_uid,
             options=request.model_dump(),
+        )
+    except AnalysisError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+    record = store.get_analysis(analysis_uid)
+    if record is None:  # pragma: no cover
+        raise HTTPException(status_code=500, detail="The analysis could not be created")
+    return AnalysisRecord(**record)
+
+
+@router.post("/analyses", response_model=AnalysisRecord, status_code=202)
+async def start_standalone_analysis(
+    request: StandaloneAnalysisRequest,
+    store: Store = Depends(get_store),
+    analyses: AnalysisManager = Depends(get_analysis_manager),
+) -> AnalysisRecord:
+    """Analyse a pipeline that belongs to no run - one drawn in the editor.
+
+    The pipeline is fitted on the chosen dataset as part of the analysis, so
+    this costs the same as the run-scoped variant plus nothing: that one refits
+    too, it merely knows the dataset without being told.
+    """
+    dataset = store.get_dataset(request.dataset_uid)
+    if dataset is None:
+        raise HTTPException(status_code=404, detail=f"Unknown dataset: {request.dataset_uid}")
+
+    spec: dict[str, Any] = {
+        "graph": request.graph.model_dump(),
+        "dataset_path": dataset["filename"],
+        "target": request.target or dataset.get("target"),
+        "problem": request.problem or dataset.get("task") or "classification",
+        "metric": request.metric,
+        "cv_folds": request.cv_folds,
+        "seed": request.seed,
+        "replacements": request.replacements,
+        "analyse_edges": request.analyse_edges,
+    }
+
+    try:
+        analysis_uid = await analyses.start(
+            run_uid="",
+            kind=request.kind,
+            spec=spec,
+            pipeline_uid=None,
+            options=request.model_dump(exclude={"graph"}),
         )
     except AnalysisError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc

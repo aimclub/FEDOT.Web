@@ -283,6 +283,8 @@ export interface LineageGraph {
   evolution_generations: number
   generation_meta: GenerationInfo[]
   only_winning_path: boolean
+  /** Winning-path view: trailing generations dropped because nothing improved in them. */
+  hidden_plateau_generations: number
   truncated: boolean
   metric_names: string[]
   /** `history` for a finished run, `live` when assembled from progress events. */

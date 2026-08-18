@@ -152,6 +152,15 @@ export const api = {
     runUid: string,
     body: { kind: AnalysisKind; pipeline_uid?: string; individual_uid?: string; replacements?: number },
   ) => request<AnalysisRecord>(`/runs/${runUid}/analyses`, json(body)),
+  /** Analyse a pipeline that belongs to no run, e.g. one drawn in the editor. */
+  startStandaloneAnalysis: (body: {
+    kind: AnalysisKind
+    graph: PipelineGraph
+    dataset_uid: string
+    target?: string | null
+    problem?: string | null
+    replacements?: number
+  }) => request<AnalysisRecord>('/analyses', json(body)),
 
   preprocessing: (datasetUid: string, params: { task?: string; target?: string } = {}) => {
     const query = new URLSearchParams()

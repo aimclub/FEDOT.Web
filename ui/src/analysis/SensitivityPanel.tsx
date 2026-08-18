@@ -1,4 +1,5 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -8,6 +9,7 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import LinearProgress from '@mui/material/LinearProgress'
+import MenuItem from '@mui/material/MenuItem'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import Table from '@mui/material/Table'
@@ -15,15 +17,20 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { alpha, useTheme } from '@mui/material/styles'
 
-import type { SensitivityEntity, SensitivityResult } from '../api/types'
-import { useAnalysis } from './useAnalysis'
+import { api } from '../api/client'
+import type { PipelineGraph, SensitivityEntity, SensitivityResult } from '../api/types'
+import { useAnalysis, useStandaloneAnalysis } from './useAnalysis'
 
 interface Props {
-  runUid: string
+  /** Analyse a pipeline of this run (the run supplies the dataset). */
+  runUid?: string
+  /** Or analyse a free-standing pipeline; the user then picks the dataset. */
+  standalone?: { graph: PipelineGraph; task: string | null }
   open: boolean
   onClose: () => void
 }
@@ -57,9 +64,39 @@ const ratioOf = (entity: SensitivityEntity): number | null => {
   return typeof value === 'number' && Number.isFinite(value) && value !== -1 ? value : null
 }
 
-export default function SensitivityPanel({ runUid, open, onClose }: Props) {
+export default function SensitivityPanel({ runUid, standalone, open, onClose }: Props) {
   const theme = useTheme()
-  const { start, startError, record, isRunning, isCached } = useAnalysis(runUid, 'sensitivity')
+  // Both hooks are called to keep the hook order stable; only one is live.
+  const runAnalysis = useAnalysis(runUid ?? '', 'sensitivity')
+  const standaloneAnalysis = useStandaloneAnalysis('sensitivity')
+  const { startError, record, isRunning, isCached } = standalone ? standaloneAnalysis : runAnalysis
+
+  const [datasetUid, setDatasetUid] = useState('')
+  const { data: datasets } = useQuery({
+    queryKey: ['datasets'],
+    queryFn: api.datasets,
+    enabled: Boolean(standalone) && open,
+  })
+  const matchingDatasets = useMemo(
+    () =>
+      (datasets ?? []).filter(
+        (dataset) => !standalone?.task || !dataset.task || dataset.task === standalone.task,
+      ),
+    [datasets, standalone?.task],
+  )
+
+  const start = (options: { replacements: number }) => {
+    if (standalone) {
+      void standaloneAnalysis.start({
+        graph: standalone.graph,
+        dataset_uid: datasetUid,
+        problem: standalone.task ?? undefined,
+        replacements: options.replacements,
+      })
+    } else {
+      void runAnalysis.start(options)
+    }
+  }
 
   const result = record?.status === 'finished' ? (record.result as SensitivityResult) : null
 
@@ -101,11 +138,42 @@ export default function SensitivityPanel({ runUid, open, onClose }: Props) {
               removed, and each edge deleted and replaced — refitting the pipeline every time. This
               is the slowest thing here; expect it to take several times a single fit.
             </Typography>
+            {standalone && (
+              <TextField
+                select
+                size="small"
+                label="Dataset to fit on"
+                value={datasetUid}
+                onChange={(event) => setDatasetUid(event.target.value)}
+                helperText="The pipeline is fitted on this dataset before the analysis varies it."
+                sx={{ minWidth: 320 }}
+              >
+                {matchingDatasets.length === 0 && (
+                  <MenuItem value="" disabled>
+                    No uploaded dataset fits this task
+                  </MenuItem>
+                )}
+                {matchingDatasets.map((dataset) => (
+                  <MenuItem key={dataset.uid} value={dataset.uid}>
+                    {dataset.name} ({dataset.n_rows} rows)
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
             <Stack direction="row" spacing={1}>
-              <Button variant="contained" onClick={() => start({ replacements: 2 })}>
+              <Button
+                variant="contained"
+                onClick={() => start({ replacements: 2 })}
+                disabled={Boolean(standalone) && !datasetUid}
+              >
                 Analyse
               </Button>
-              <Button onClick={() => start({ replacements: 1 })}>Quick pass</Button>
+              <Button
+                onClick={() => start({ replacements: 1 })}
+                disabled={Boolean(standalone) && !datasetUid}
+              >
+                Quick pass
+              </Button>
             </Stack>
           </Stack>
         )}
@@ -220,7 +288,10 @@ export default function SensitivityPanel({ runUid, open, onClose }: Props) {
 
       <DialogActions>
         {result && (
-          <Button onClick={() => start({ replacements: 2 })} disabled={isRunning}>
+          <Button
+            onClick={() => start({ replacements: 2 })}
+            disabled={isRunning || (Boolean(standalone) && !datasetUid)}
+          >
             Recompute
           </Button>
         )}

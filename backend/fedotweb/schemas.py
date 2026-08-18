@@ -332,6 +332,9 @@ class LineageGraph(BaseModel):
     generation_meta: list[GenerationInfo] = Field(default_factory=list)
     #: True when only the ancestry of the final choice is included.
     only_winning_path: bool = True
+    #: In the winning-path view, how many trailing generations were dropped
+    #: because the best fitness never improved in them.
+    hidden_plateau_generations: int = 0
     #: True when the individual cap was hit and the graph is incomplete.
     truncated: bool = False
     metric_names: list[str] = Field(default_factory=list)
@@ -355,6 +358,28 @@ class StartAnalysisRequest(BaseModel):
     pipeline_uid: str | None = None
     #: Or an individual from the run's genealogy.
     individual_uid: str | None = None
+    #: Sensitivity only: how many replacement operations to try per node.
+    replacements: int = Field(default=2, ge=1, le=10)
+    analyse_edges: bool = True
+
+
+class StandaloneAnalysisRequest(BaseModel):
+    """Ask for an analysis of a pipeline that is not tied to a run.
+
+    The editor uses this: the pipeline is fitted on the chosen dataset first,
+    so the analysis pays for those fits with no run to borrow them from.
+    """
+
+    kind: Literal["objective", "sensitivity"]
+    graph: PipelineGraph
+    dataset_uid: str
+    #: Defaults to the dataset's own target column.
+    target: str | None = None
+    #: Defaults to the dataset's task.
+    problem: str | None = None
+    metric: str | None = None
+    cv_folds: int = Field(default=5, ge=2, le=10)
+    seed: int | None = None
     #: Sensitivity only: how many replacement operations to try per node.
     replacements: int = Field(default=2, ge=1, le=10)
     analyse_edges: bool = True

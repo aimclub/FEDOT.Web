@@ -84,11 +84,28 @@ export default function FitnessChart({ generations, height = 260 }: Props) {
     })
   }, [generations])
 
+  // In best-only mode the trailing plateau is cut: generations where the best
+  // never improved again stretch the axis while showing a flat line.
+  const visible = useMemo<ChartPoint[]>(() => {
+    if (showPopulation) return data
+    let best = Infinity
+    let lastImprovement = -1
+    data.forEach((point, index) => {
+      if (point.best !== null && point.best < best) {
+        best = point.best
+        lastImprovement = index
+      }
+    })
+    if (lastImprovement < 0) return data
+    return data.slice(0, lastImprovement + 1)
+  }, [data, showPopulation])
+  const hiddenTail = data.length - visible.length
+
   // In best-only mode the axis hugs the best curve; population mode needs the
   // full range for the band.
   const domain = useMemo<[number | string, number | string]>(() => {
     if (showPopulation) return ['auto', 'auto']
-    const values = data
+    const values = visible
       .map((point) => point.best)
       .filter((value): value is number => value !== null && Number.isFinite(value))
     if (values.length === 0) return ['auto', 'auto']
@@ -96,7 +113,7 @@ export default function FitnessChart({ generations, height = 260 }: Props) {
     const high = Math.max(...values)
     const pad = (high - low) * 0.15 || Math.abs(high) * 0.002 || 0.001
     return [low - pad, high + pad]
-  }, [data, showPopulation])
+  }, [visible, showPopulation])
 
   if (generations.length === 0) {
     return (
@@ -186,6 +203,7 @@ export default function FitnessChart({ generations, height = 260 }: Props) {
             ●
           </Box>{' '}
           marks a change of the leading pipeline.
+          {hiddenTail > 0 && ` ${hiddenTail} trailing generations without improvement are hidden.`}
         </Typography>
         <Tooltip title="Also draw the population mean and the best-worst band. The band is far wider than the best curve, so the axis zooms out with it.">
           <FormControlLabel
@@ -208,7 +226,7 @@ export default function FitnessChart({ generations, height = 260 }: Props) {
 
       <Box sx={{ height }}>
         <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart data={data} margin={{ top: 8, right: 12, bottom: 4, left: 4 }}>
+          <ComposedChart data={visible} margin={{ top: 8, right: 12, bottom: 4, left: 4 }}>
             <CartesianGrid stroke={theme.palette.divider} strokeDasharray="3 3" vertical={false} />
             <XAxis
               dataKey="generation"

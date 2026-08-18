@@ -186,6 +186,15 @@ export default function EvolutionHistory({
         </Tooltip>
         <Chip size="small" variant="outlined" label={`${individuals} pipelines`} />
         <Chip size="small" variant="outlined" label={`${operators} operators`} />
+        {lineage.hidden_plateau_generations > 0 && (
+          <Tooltip title="Generations after the last improvement of the best fitness are not drawn - they only repeat the same leader. Switch on 'Whole population' to see them.">
+            <Chip
+              size="small"
+              variant="outlined"
+              label={`+${lineage.hidden_plateau_generations} plateau hidden`}
+            />
+          </Tooltip>
+        )}
         {lineage.is_live && (
           <Tooltip title="Assembled from the run's progress events; it grows with each generation.">
             <Chip size="small" color="info" label="updating" />
