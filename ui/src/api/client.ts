@@ -4,6 +4,7 @@ import type {
   Capabilities,
   DatasetRecord,
   DatasetUploadResult,
+  EvaluationState,
   EvolutionControls,
   IndividualPipeline,
   LineageGraph,
@@ -130,6 +131,8 @@ export const api = {
   startRun: (config: RunConfig, name?: string) =>
     request<RunRecord>('/runs', json({ name, config })),
   runProgress: (uid: string) => request<RunProgress>(`/runs/${uid}/progress`),
+  /** What the evaluator is fitting right now: pipelines, folds, node fits. */
+  evaluations: (uid: string) => request<EvaluationState>(`/runs/${uid}/evaluations`),
   runEvents: (uid: string, afterId = 0) =>
     request<RunEvent[]>(`/runs/${uid}/events?after_id=${afterId}`),
   stopRun: (uid: string) => request<RunRecord>(`/runs/${uid}/stop`, { method: 'POST' }),

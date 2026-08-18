@@ -297,6 +297,32 @@ export interface IndividualPipeline extends PipelineGraph {
   generation: number | null
 }
 
+export interface ActiveEvaluation {
+  ops: string[]
+  /** Zero-based fold index currently being fitted, if known. */
+  fold: number | null
+  /** The operation whose fit is in progress, if any. */
+  node: string | null
+  seconds: number
+}
+
+export interface FinishedEvaluation {
+  ops: string[]
+  seconds: number | null
+  fitness: number | null
+  failed: boolean
+  error: string | null
+  finished: number | null
+}
+
+export interface EvaluationState {
+  active: ActiveEvaluation[]
+  /** A node fit outside evolution: the initial assumption or the final refit. */
+  preparing: { node: string | null; seconds: number } | null
+  recent: FinishedEvaluation[]
+  totals: { done: number; failed: number; active: number; mean_seconds: number | null }
+}
+
 export type AnalysisKind = 'objective' | 'sensitivity'
 
 export interface AnalysisRecord {

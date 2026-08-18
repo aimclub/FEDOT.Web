@@ -271,6 +271,7 @@ def _make_progress_optimizer(events: EventWriter, state: dict[str, Any], run_dir
     from golem.core.optimisers.genetic.gp_optimizer import EvoGraphOptimizer
 
     from .control import apply_controls, describe_effective, install_overrides, read_controls
+    from .evaltrace import TracingObjectiveEvaluate
 
     def on_iteration(population, optimizer) -> None:
         try:
@@ -316,6 +317,11 @@ def _make_progress_optimizer(events: EventWriter, state: dict[str, Any], run_dir
                 apply_controls(self, read_controls(run_dir))
             except Exception:
                 pass
+
+        def optimise(self, objective):
+            # Every evaluation reports pipeline, fold and node as it works; the
+            # wrapper rides into the joblib worker processes with the objective.
+            return super().optimise(TracingObjectiveEvaluate.wrap(objective, run_dir))
 
     return ProgressReportingOptimizer
 
@@ -447,6 +453,11 @@ def run(run_dir: Path) -> int:
         )
 
         events.emit("status", status="composing")
+        # The assumption fit and the final refit are minutes of silence without
+        # this; the evaluation monitor shows their node fits too.
+        from .evaltrace import begin_main_process_trace
+
+        begin_main_process_trace(run_dir)
         model.fit(features=train_data)
 
         if state["last_generation"] == 0:

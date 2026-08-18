@@ -22,6 +22,7 @@ from ..runs.control import read_controls, write_controls
 from ..runs.manager import RunError, RunManager
 from ..schemas import (
     EffectiveParams,
+    EvaluationState,
     EvolutionControls,
     GenerationPoint,
     IndividualPipeline,
@@ -128,6 +129,25 @@ def get_run(uid: str, store: Store = Depends(get_store)) -> RunRecord:
     if record is None:
         raise HTTPException(status_code=404, detail=f"Unknown run: {uid}")
     return RunRecord(**record)
+
+
+@router.get("/{uid}/evaluations", response_model=EvaluationState)
+def get_evaluations(
+    uid: str,
+    store: Store = Depends(get_store),
+    manager: RunManager = Depends(get_manager),
+) -> EvaluationState:
+    """What the evaluator is doing right now: pipelines, folds and node fits.
+
+    Assembled from the trace files the evaluation processes write, so it works
+    the same for runs the GUI launched and for runs attached from a script.
+    """
+    if store.get_run(uid) is None:
+        raise HTTPException(status_code=404, detail=f"Unknown run: {uid}")
+
+    from ..runs.evaltrace import read_evaluation_state
+
+    return EvaluationState(**read_evaluation_state(manager.run_dir(uid)))
 
 
 @router.get("/{uid}/progress", response_model=RunProgress)

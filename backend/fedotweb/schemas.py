@@ -363,6 +363,49 @@ class StartAnalysisRequest(BaseModel):
     analyse_edges: bool = True
 
 
+class ActiveEvaluation(BaseModel):
+    """One pipeline being fitted right now."""
+
+    ops: list[str] = Field(default_factory=list)
+    #: Zero-based index of the fold currently being fitted, if known.
+    fold: int | None = None
+    #: The operation whose fit is in progress, if any.
+    node: str | None = None
+    seconds: float = 0
+
+
+class FinishedEvaluation(BaseModel):
+    ops: list[str] = Field(default_factory=list)
+    seconds: float | None = None
+    fitness: float | None = None
+    failed: bool = False
+    error: str | None = None
+    finished: float | None = None
+
+
+class PreparationFit(BaseModel):
+    """A node fit outside evolution: the initial assumption or the final refit."""
+
+    node: str | None = None
+    seconds: float = 0
+
+
+class EvaluationTotals(BaseModel):
+    done: int = 0
+    failed: int = 0
+    active: int = 0
+    mean_seconds: float | None = None
+
+
+class EvaluationState(BaseModel):
+    """What the evaluator is doing right now, assembled from the run's trace."""
+
+    active: list[ActiveEvaluation] = Field(default_factory=list)
+    preparing: PreparationFit | None = None
+    recent: list[FinishedEvaluation] = Field(default_factory=list)
+    totals: EvaluationTotals = Field(default_factory=EvaluationTotals)
+
+
 class StandaloneAnalysisRequest(BaseModel):
     """Ask for an analysis of a pipeline that is not tied to a run.
 

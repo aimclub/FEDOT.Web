@@ -117,6 +117,7 @@ class WatchSession:
         from golem.core.optimisers.genetic.gp_optimizer import EvoGraphOptimizer
 
         from .runs.control import apply_controls, describe_effective, install_overrides, read_controls
+        from .runs.evaltrace import TracingObjectiveEvaluate
         from .runs.worker import describe_lineage, serialise_individual, summarise_population
 
         session = self
@@ -162,6 +163,12 @@ class WatchSession:
                     apply_controls(self, read_controls(session._run_dir))
                 except Exception:
                     pass
+
+            def optimise(self, objective):
+                # Same per-pipeline, per-fold trace as GUI-launched runs.
+                return super().optimise(
+                    TracingObjectiveEvaluate.wrap(objective, session._run_dir)
+                )
 
         return AttachedOptimizer
 
@@ -261,6 +268,12 @@ def watch(
 
     session = WatchSession(uid, f"{url}/runs/{uid}", store, run_dir)
     session.emit("status", status="attached", url=session.url)
+
+    # Trace node fits happening in this process from the very start, so the
+    # minutes FEDOT spends fitting the initial assumptions are not silence.
+    from .runs.evaltrace import begin_main_process_trace
+
+    begin_main_process_trace(run_dir)
 
     print(f"FEDOT.Web is watching this run: {session.url}")
     if open_browser:

@@ -31,6 +31,7 @@ import NodeInspector from '../pipeline/NodeInspector'
 import PipelineCanvas from '../pipeline/PipelineCanvas'
 import { useEditorStore } from '../pipeline/editorStore'
 import EvolutionControlPanel from '../runs/EvolutionControlPanel'
+import EvaluationMonitor from '../runs/EvaluationMonitor'
 import FitnessChart from '../runs/FitnessChart'
 import { useRunStream } from '../runs/useRunStream'
 
@@ -175,6 +176,15 @@ export default function RunDetailPage() {
         {isLive && (
           <Grid size={12}>
             <EvolutionControlPanel runUid={run.uid} revision={generations.length} />
+          </Grid>
+        )}
+
+        {isLive && (
+          <Grid size={12}>
+            <EvaluationMonitor
+              runUid={run.uid}
+              cvFolds={typeof run.config?.cv_folds === 'number' ? run.config.cv_folds : null}
+            />
           </Grid>
         )}
 
