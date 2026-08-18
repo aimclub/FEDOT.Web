@@ -358,6 +358,13 @@ def run(run_dir: Path) -> int:
             "with_tuning": bool(config.get("with_tuning", True)),
             "cv_folds": int(config.get("cv_folds") or 5),
             "early_stopping_iterations": config.get("early_stopping_iterations"),
+            # FEDOT's default stops a run after 10 minutes without improvement,
+            # which silently truncates any long budget. The user's time budget is
+            # the contract here; explicit stagnation control stays available via
+            # early_stopping_iterations.
+            "early_stopping_timeout": float(
+                config.get("early_stopping_timeout") or config.get("timeout") or 5.0
+            ),
         }
         if config.get("metric"):
             composer_params["metric"] = config["metric"]
