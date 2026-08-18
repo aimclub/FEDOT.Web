@@ -8,7 +8,7 @@ import shutil
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query, WebSocket, WebSocketDisconnect
-from fastapi.responses import Response
+from fastapi.responses import JSONResponse, Response
 
 from ..analysis import AnalysisManager
 from ..history import (
@@ -52,6 +52,7 @@ def _generation_points(events: list[dict[str, Any]]) -> list[GenerationPoint]:
         if event["kind"] != "generation":
             continue
         payload = event["payload"]
+        best = payload.get("best_pipeline") or {}
         points.append(
             GenerationPoint(
                 generation=payload.get("generation", len(points)),
@@ -59,6 +60,10 @@ def _generation_points(events: list[dict[str, Any]]) -> list[GenerationPoint]:
                 best_fitness=payload.get("best_fitness"),
                 mean_fitness=payload.get("mean_fitness"),
                 worst_fitness=payload.get("worst_fitness"),
+                best_uid=str(best.get("uid") or "") or None,
+                best_operations=[
+                    str(node.get("operation") or "") for node in (best.get("nodes") or [])
+                ],
             )
         )
     return points
@@ -174,9 +179,15 @@ def get_history(uid: str, manager: RunManager = Depends(get_manager)) -> dict:
     if not path.exists():
         raise HTTPException(status_code=404, detail="No history was saved for this run")
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
         raise HTTPException(status_code=422, detail=f"The stored history is unreadable: {exc}") from exc
+    # The attachment header lets a plain link in the UI save the file under a
+    # sensible name; programmatic clients are unaffected.
+    return JSONResponse(
+        content=payload,
+        headers={"Content-Disposition": f'attachment; filename="opt_history_{uid}.json"'},
+    )
 
 
 @router.get("/{uid}/lineage", response_model=LineageGraph)

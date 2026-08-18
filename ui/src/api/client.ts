@@ -133,6 +133,8 @@ export const api = {
   runEvents: (uid: string, afterId = 0) =>
     request<RunEvent[]>(`/runs/${uid}/events?after_id=${afterId}`),
   stopRun: (uid: string) => request<RunRecord>(`/runs/${uid}/stop`, { method: 'POST' }),
+  /** Direct link to the saved OptHistory JSON, served as an attachment. */
+  historyUrl: (uid: string) => `${BASE}/runs/${uid}/history`,
   deleteRun: (uid: string) => request<void>(`/runs/${uid}`, { method: 'DELETE' }),
 
   // ----------------------------------------------------------------- controls

@@ -257,6 +257,10 @@ class GenerationPoint(BaseModel):
     mean_fitness: float | None = None
     worst_fitness: float | None = None
     elapsed: float | None = None
+    #: Identity of the generation's best individual, so the chart can mark the
+    #: generations where the leader actually changed.
+    best_uid: str | None = None
+    best_operations: list[str] = Field(default_factory=list)
 
 
 class RunProgress(BaseModel):

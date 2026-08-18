@@ -67,6 +67,11 @@ export function useRunStream(uid: string | undefined, enabled: boolean): RunStre
               mean_fitness: (payload.mean_fitness as number | undefined) ?? null,
               worst_fitness: (payload.worst_fitness as number | undefined) ?? null,
               elapsed: event.elapsed ?? null,
+              best_uid:
+                ((payload.best_pipeline as { uid?: string } | null)?.uid ?? null) || null,
+              best_operations: (
+                (payload.best_pipeline as { nodes?: { operation?: string }[] } | null)?.nodes ?? []
+              ).map((node) => String(node.operation ?? '')),
             }
             // Replays can repeat a generation; keep one entry per index.
             const generations = current.generations.filter(

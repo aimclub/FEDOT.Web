@@ -8,10 +8,12 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Divider from '@mui/material/Divider'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Stack from '@mui/material/Stack'
+import IconButton from '@mui/material/IconButton'
 import Switch from '@mui/material/Switch'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { alpha, useTheme } from '@mui/material/styles'
+import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 
 import { ApiError, api } from '../api/client'
@@ -211,6 +213,26 @@ export default function EvolutionHistory({
             </Tooltip>
           }
         />
+
+        <Tooltip
+          title={
+            lineage.is_live
+              ? 'The OptHistory file is written when the run finishes'
+              : 'Download the raw optimisation history (OptHistory JSON)'
+          }
+        >
+          <span>
+            <IconButton
+              size="small"
+              component="a"
+              href={api.historyUrl(runUid)}
+              download={`opt_history_${runUid}.json`}
+              disabled={lineage.is_live}
+            >
+              <DownloadRoundedIcon fontSize="small" />
+            </IconButton>
+          </span>
+        </Tooltip>
       </Stack>
 
       {lineage.truncated && (

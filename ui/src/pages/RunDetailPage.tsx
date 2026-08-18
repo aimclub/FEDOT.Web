@@ -183,10 +183,6 @@ export default function RunDetailPage() {
             <Typography variant="h3" sx={{ mb: 0.5 }}>
               Evolution
             </Typography>
-            <Typography variant="caption" color="text.secondary">
-              Best and mean fitness per generation; the band shows the spread across the population.
-              Lower is better, so the axis is inverted.
-            </Typography>
             <FitnessChart generations={generations} />
           </Paper>
         </Grid>

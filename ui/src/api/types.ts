@@ -208,6 +208,9 @@ export interface GenerationPoint {
   mean_fitness: number | null
   worst_fitness: number | null
   elapsed?: number | null
+  /** Identity of the generation's best individual — marks leader changes. */
+  best_uid?: string | null
+  best_operations?: string[]
 }
 
 export interface RunProgress {
