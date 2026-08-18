@@ -193,7 +193,7 @@ export default function EvaluationMonitor({ runUid, cvFolds }: Props) {
           <Typography variant="caption" color="text.disabled">
             {empty
               ? 'Nothing reported yet — the run is starting up. Fits appear here the moment they begin.'
-              : 'Nothing is being fitted right now — the optimiser is between populations.'}
+              : 'Nothing is being fitted right now — the optimiser is breeding the next population: selection, mutation, crossover and verification of the offspring.'}
           </Typography>
         )}
       </Stack>
