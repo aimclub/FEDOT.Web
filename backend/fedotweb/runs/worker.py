@@ -129,6 +129,62 @@ def _patch_logger_kwargs() -> bool:
     return True
 
 
+def _honor_available_operations(operations: list[str]) -> None:
+    """Make FEDOT's mutations respect an explicit ``available_operations`` list.
+
+    Three places rebuild their own operation lists from repository tags
+    instead of taking the user's list, and each silently drops operations the
+    default tag filter excludes (``qda``, ``mlp`` and ``dt`` are tagged
+    deprecated or non-default): ``PipelineOperationRepository.
+    from_available_operations`` intersects the list with the preset's
+    operation set, ``PipelineChangeAdvisor`` rebuilds its model /
+    data-operation lists with the default filter before vetoing node
+    replacements and new parents, and ``has_no_conflicts_during_multitask``
+    treats any operation outside the filtered classification list as solving
+    a foreign task and rejects the whole offspring at verification. The
+    initial assumptions and the "Set of candidate models" log line both
+    honour the full list, so the loss is invisible: evolution simply never
+    keeps those operations. Until that is fixed upstream, make all three
+    honour the requested list — the repository and advisor take the list
+    verbatim, and the default tag exclusion is lifted so the verifier
+    recognises the listed operations as native to the task. Runs without an
+    explicit list are unaffected because this is only called when the user
+    supplied one.
+    """
+    from fedot.core.pipelines.pipeline_advisor import PipelineChangeAdvisor
+    from fedot.core.repository.operation_types_repository import (
+        OperationTypesRepository,
+    )
+    from fedot.core.repository.pipeline_operation_repository import (
+        PipelineOperationRepository,
+    )
+
+    def from_available_operations(self, task, preset, available_operations):
+        primary, secondary = self.divide_operations(sorted(set(available_operations)), task)
+        self.operations_by_keys = {"primary": primary, "secondary": secondary}
+
+    PipelineOperationRepository.from_available_operations = from_available_operations
+
+    wanted = set(operations)
+    original_init = PipelineChangeAdvisor.__init__
+
+    def advisor_init(self, task=None):
+        original_init(self, task)
+        all_models = {op.id for op in OperationTypesRepository("model").operations}
+        self.models = sorted(set(self.models) | (wanted & all_models))
+        self.data_operations = sorted(set(self.data_operations) | (wanted - all_models))
+
+    PipelineChangeAdvisor.__init__ = advisor_init
+
+    original_repo_init = OperationTypesRepository.__init__
+
+    def repo_init(self, operation_type="model"):
+        original_repo_init(self, operation_type)
+        self._tags_excluded_by_default = []
+
+    OperationTypesRepository.__init__ = repo_init
+
+
 def _build_task(problem: str, config: dict[str, Any]):
     from fedot.core.repository.tasks import TsForecastingParams
 
@@ -370,6 +426,7 @@ def run(run_dir: Path) -> int:
             composer_params["metric"] = config["metric"]
         if config.get("available_operations"):
             composer_params["available_operations"] = list(config["available_operations"])
+            _honor_available_operations(composer_params["available_operations"])
         if config.get("initial_pipeline"):
             from ..pipelines.convert import graph_to_pipeline
 
