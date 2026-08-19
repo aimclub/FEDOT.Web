@@ -19,6 +19,13 @@ python -m epdeweb             # standalone, on http://127.0.0.1:8010
 Or mounted inside FEDOT.Web — `pip install -e epde-backend` is enough; the mode
 appears in the navigation on the next start.
 
+**Install FEDOT first, then this.** EPDE pulls torch and wants a newer numpy and
+scikit-learn than FEDOT pins; adding FEDOT to an environment that already has
+EPDE's stack sends pip into a backtracking search that does not finish in any
+reasonable time. In the other order it resolves immediately, and EPDE runs
+perfectly well on FEDOT's older pins — the module's whole test suite, real
+searches included, passes on numpy 1.26 and scikit-learn 1.6.
+
 ## Why there is an adapter layer at all
 
 FEDOT.Web draws its evolution history straight out of GOLEM. Every graph GOLEM

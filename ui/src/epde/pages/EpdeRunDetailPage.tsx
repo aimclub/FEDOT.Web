@@ -66,8 +66,18 @@ export default function EpdeRunDetailPage() {
       LIVE.includes(query.state.data?.run.status as RunStatus) ? 5000 : false,
   })
 
-  const isLive = LIVE.includes(progress?.run.status as RunStatus)
-  const stream = useEpdeRunStream(uid, isLive)
+  // Two different questions. `isStreaming` decides whether to hold a socket
+  // open, and must not depend on anything the socket reports or the two would
+  // chase each other: tearing the socket down resets its state, which would
+  // reopen it, which would report the end again.
+  const isStreaming = LIVE.includes(progress?.run.status as RunStatus)
+  const stream = useEpdeRunStream(uid, isStreaming)
+
+  // `isLive` decides what the page shows. The socket learns the run ended
+  // before the snapshot query does — and in a background tab the query's
+  // interval is paused altogether, so the page would otherwise keep offering
+  // Stop and a steering panel for a run that is already over.
+  const isLive = isStreaming && !stream.terminal
 
   // The socket knows the run ended before the five-second poll does — and the
   // poll can be throttled altogether in a background tab. Refetching on the
@@ -139,6 +149,10 @@ export default function EpdeRunDetailPage() {
   }
 
   const { run } = progress
+  // Same reason as `isLive`: once the socket has reported the end, it is the
+  // fresher source, and a background tab may never refetch the snapshot that
+  // still calls the run running.
+  const status = (stream.terminal && stream.status) || run.status
   const plannedGenerations = Number(run.config?.epochs ?? 0)
   const latest = generations[generations.length - 1]
   const percent =
@@ -156,7 +170,7 @@ export default function EpdeRunDetailPage() {
         <Typography variant="h1" sx={{ fontSize: '1.25rem' }}>
           {run.name}
         </Typography>
-        <Chip size="small" color={STATUS_COLOR[run.status] ?? 'default'} label={run.status} />
+        <Chip size="small" color={STATUS_COLOR[status] ?? 'default'} label={status} />
         {isLive && (
           <Tooltip title={stream.connected ? 'Streaming live progress' : 'Reconnecting…'}>
             <Chip

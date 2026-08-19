@@ -30,6 +30,20 @@ FEDOT comes from master rather than PyPI — see [below](#why-fedot-is-installed
 
 Then open <http://127.0.0.1:8000>. The API reference is at `/docs`.
 
+To add the equation-discovery mode, install the optional module and the framework it
+drives; the server picks it up on the next start and an **Equations** entry appears in the
+navigation:
+
+```bash
+pip install -e epde-backend
+pip install epde
+```
+
+In that order, after FEDOT — EPDE wants a newer numpy and scikit-learn than FEDOT pins,
+and installing FEDOT into an environment that already has EPDE's stack sends pip into a
+backtracking search that does not finish. The other way round resolves at once, and EPDE
+works on FEDOT's pins.
+
 For frontend development, run the API and the Vite dev server side by side —
 requests to `/api` are proxied, so the WebSocket works without extra configuration:
 
